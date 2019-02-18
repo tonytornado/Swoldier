@@ -1,0 +1,69 @@
+﻿@page
+@model OCFX.Pages.MadminAccess.Classes.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+<p>
+    <a asp-page="Create">Create New Class</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FitClass[0].FitType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FitClass[0].StrengthMod)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FitClass[0].SpeedMod)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FitClass[0].ConstitutionMod)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FitClass[0].DexterityMod)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FitClass[0].ConcentrationMod)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FitClass[0].MotivationMod)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.FitClass) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FitType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StrengthMod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SpeedMod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ConstitutionMod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DexterityMod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ConcentrationMod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MotivationMod)
+            </td>
+            <td class="btn btn-group btn-group-sm">
+                <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a> 
+                <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-secondary">Details</a> 
+                <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

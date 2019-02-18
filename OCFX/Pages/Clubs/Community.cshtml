@@ -1,0 +1,72 @@
+﻿@page "{id}"
+@model OCFX.Pages.Clubs.CommunityModel
+@{
+    ViewData["Title"] = "Community";
+}
+
+<div class="text-center">
+    <h2>@Model.CommunityDetail.Title</h2>
+    <h4>Members: @Model.MemberCount</h4>
+    <hr />
+</div>
+
+<section class="row">
+    <div class="col-md-8">
+        <p>@Model.CommunityDetail.Description</p>
+        <h5>Members of @Model.CommunityDetail.Title</h5>
+        <ul class="list-group">
+            @foreach (var athlete in Model.CommunityDetail.Patrons)
+            {
+                <li class="list-group-item">
+                    <div class="d-inline-flex w-100 justify-content-between align-content-center">
+                        <div>
+                            <h4>@athlete.FirstName @athlete.LastName</h4>
+                            <h6>@athlete.FitStyle.SkillMod @athlete.FitStyle.FitType</h6>
+                        </div>
+                        <img src="~/images/uploads/@athlete.Photos.FirstOrDefault(m => m.ProfileId == athlete.Id).URL" alt="Alternate Text" class="friend_avatar">
+                    </div>
+                </li>
+            }
+        </ul>
+        <hr />
+        <div>
+            @if (Model.Subscription == false)
+            {
+                <form method="post">
+                    <p>Sign up?</p>
+                    <div class="btn-group btn-group-sm">
+                        <input asp-page-handler="ClubSignUp" asp-route-id="@Model.CommunityDetail.Id" value="Join Club" type="submit" class="btn btn-primary" />
+                        <a asp-page="./Index" class="btn btn-secondary">Back to clubs</a>
+                    </div>
+                </form>
+            }
+            else
+            {
+                <form method="post">
+                    <p>Wanna leave, punk?</p>
+                    <div class="btn-group btn-group-sm">
+                        <input asp-page-handler="ClubRemove" asp-route-id="@Model.CommunityDetail.Id" value="Leave Club" type="submit" class="btn btn-danger" />
+                        <a asp-page="./Index" class="btn btn-secondary">Back to clubs</a>
+                    </div>
+                </form>
+            }
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <h3>Amenities</h3>
+        <hr />
+        @if (Model.CommunityDetail.Amenities.Count > 0)
+        {
+            <ul class="border list-group">
+                @foreach (var item in Model.CommunityDetail.Amenities)
+                {
+                    <li>@item.EquipName - @item.EquipSkill</li>
+                }
+            </ul>
+        }
+        else
+        {
+            <h3>N/A</h3>
+        }
+    </div>
+</section>

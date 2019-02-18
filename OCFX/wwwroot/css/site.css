@@ -1,0 +1,85 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Montserrat:500|Staatliches');
+
+/* Standard headers */
+h1,h2,h3,h4,h5,h6,.title-font {
+	font-family: 'Staatliches', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+body {
+	background-color: black;
+}
+
+nav {
+	font-family: 'Staatliches', cursive;
+	font-size: 1.2em;
+}
+
+#content {
+	font-family: 'Montserrat','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	background-color: white;
+	color: black;
+}
+
+.friend_grid {
+	display: grid;
+	grid-auto-columns: auto auto auto auto; 
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+	padding-top: 10px;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+/* Profile Bits */
+/* Friendly bits */
+.friend_avatar {
+	height: 150px;
+	width: 150px;
+	border-radius: 60%;
+}
+
+/* Front page only*/ 
+.front-photo {
+    border: 3px solid darkgray;
+    border-radius: 2%;
+    width: 100%;
+}
+
+
+/* About Page only */
+.about-photo {
+    max-width: 480px;
+    border: 3px solid darkgray;
+    border-radius: 2%;
+    width: 100%;
+}
+
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
+
+

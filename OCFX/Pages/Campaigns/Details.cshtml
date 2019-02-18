@@ -1,0 +1,28 @@
+﻿@page
+@model OCFX.Pages.Campaigns.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+<div class="jumbotron text-body">
+	<h2>Campaign: @Model.Campaign.CampaignName</h2>
+	<p class="lead title-font">@Model.Campaign.CampaignDetails</p>
+
+	<h4>Campaign Details</h4>
+	@if (Model.Campaign.CampaignQuest != null)
+	{
+		<p>@Model.Campaign.CampaignLore</p>
+		<ul>
+			@foreach (var quest in Model.Campaign.CampaignQuest)
+			{
+				// Set quest conditions, statuses if logged in.
+				// Strike out completed quests [Needs completed quest table]
+				<li>@quest.QuestName [@quest.QuestStyle] <br /> @quest.QuestStory</li>
+			}
+		</ul>
+	}
+	<p>This one's good for @Model.Campaign.CampaignRisk-level folks. Good luck, don't die.</p>
+</div>
+<div class="text-center">
+    <a class="btn btn-block btn-outline-dark" asp-page="./Index">Back to Campaign Selection</a>
+</div>

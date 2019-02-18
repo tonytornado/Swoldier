@@ -1,0 +1,40 @@
+﻿@page
+@model OCFX.Pages.MadminAccess.FAQs.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Facts</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Facts.Question)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Facts.Question)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Facts.Answer)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Facts.Answer)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Facts.Section)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Facts.Section)
+        </dd>
+    </dl>
+    
+    <form method="post" class="btn-group">
+        <input type="hidden" asp-for="Facts.Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <a asp-page="./Index" class="btn btn-default">Back to List</a>
+    </form>
+</div>

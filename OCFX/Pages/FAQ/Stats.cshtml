@@ -1,0 +1,16 @@
+﻿@page
+@model OCFX.Pages.FAQ.StatsModel
+@{
+    ViewData["Title"] = "Stats";
+}
+
+<h2>Stats</h2>
+
+@if (Model.Stats.Count > 0)
+{
+
+} else
+{
+	<h1 class="text-center">I guess nothing's here then.</h1>
+}
+

@@ -1,0 +1,42 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<OCFX.DataModels.OCFXUser> SignInManager
+@inject UserManager<OCFX.DataModels.OCFXUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+	<form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
+		<ul class="nav navbar-nav">
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuAccess" role="button" data-toggle="dropdown">
+					@UserManager.GetUserAsync(User).Result.FirstName @UserManager.GetUserAsync(User).Result.LastName
+				</a>
+				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuAccess">
+					@if (User.IsInRole("Administrator"))
+					{
+						<h5 class="dropdown-header">Admin Ops</h5>
+						<a class="dropdown-item" asp-page="/MadminAccess/Index">Full Access</a>
+						<a class="dropdown-item" asp-page="/Campaigns/Index">Campaigns</a>
+						<hr />
+					}
+					<h5 class="dropdown-header">Profile Ops</h5>
+					<a class="dropdown-item" asp-page="/Dashboard/Index">Dashboard</a>
+					<a class="dropdown-item" asp-page="/Profiles/Index" asp-route-id="@UserManager.GetUserAsync(User).Result.ProfileId">View Profile</a>
+					<a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Account Settings</a>
+					<button class="dropdown-item" type="submit">Log Out</button>
+				</div>
+			</li>
+
+		</ul>
+	</form>
+}
+else
+{
+	<ul class="nav navbar-nav navbar-right">
+		<li class="nav-item">
+			<a asp-area="Identity" asp-page="/Account/Register" class="nav-link">Register</a>
+		</li>
+		<li class="nav-item">
+			<a asp-area="Identity" asp-page="/Account/Login" class="nav-link">Login</a>
+		</li>
+	</ul>
+}

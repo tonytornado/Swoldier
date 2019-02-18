@@ -1,0 +1,60 @@
+﻿@page
+@model OCFX.Pages.MadminAccess.Workouts.IndexModel
+
+@{
+    ViewData["Title"] = "Workout Program Index";
+}
+
+<h2>Workout Program Index</h2>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Workout[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Workout[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Workout[0].Duration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Workout[0].TargetedMuscles)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Workout[0].DateAdded)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Workout) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Duration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TargetedMuscles)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateAdded)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

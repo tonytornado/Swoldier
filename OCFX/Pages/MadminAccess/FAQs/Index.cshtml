@@ -1,0 +1,48 @@
+﻿@page
+@model OCFX.Pages.MadminAccess.FAQs.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Facts[0].Question)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Facts[0].Answer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Facts[0].Section)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Facts) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Question)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Answer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Section)
+            </td>
+            <td class="btn-group">
+                <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+                <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-secondary">Details</a>
+                <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

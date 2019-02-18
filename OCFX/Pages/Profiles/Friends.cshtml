@@ -1,0 +1,54 @@
+﻿@page
+@model OCFX.Pages.Profiles.FriendsModel
+@{
+	ViewData["Title"] = "Friends";
+}
+<h1>Your Friends</h1>
+@if (Model.Friends.Count > 0)
+{
+	<h3>Friend Count: @Model.Friends.Count</h3>
+	<div class="friend_grid">
+		@foreach (var friend in Model.Friends)
+		{
+			<div class="row">
+				<img src="~/images/uploads/@friend.Following.Photos.FirstOrDefault(f => f.Type == DataModels.Photo.PhotoType.Profile).URL" alt="@friend.Following.Id" height="150" width="150" />
+				<a asp-page="/Profiles/Index" asp-route-id="@friend.Following.Id">@friend.Following.FirstName @friend.Following.LastName </a>
+				<br />
+
+				@switch (friend.FriendshipConfirmer)
+				{
+					case Data.DataModels.SocialModels.Friend.Confirmer.Pending:
+						<div class="btn-group">
+							<a class="btn btn-primary" asp-page-handler="AddFriend" asp-route-friend="@friend.Following.Id" asp-route-user="@Model.Profiler.Id">[Approve?]</a> |
+							<a class="btn btn-second" asp-page-handler="RemoveFriend" asp-route-friend="@friend.Following.Id" asp-route-user="@Model.Profiler.Id">[Deny?]</a> |
+							<a class="btn btn-danger" asp-page-handler="BlockFriend" asp-route-friend="@friend.Following.Id" asp-route-user="@Model.Profiler.Id">[Block?]</a>
+						</div>
+						break;
+					case Data.DataModels.SocialModels.Friend.Confirmer.Confirmed:
+						<div class="btn-group">
+							<a class="btn btn-secondary" asp-page-handler="RemoveFriend" asp-route-friend="@friend.Following.Id" asp-route-user="@Model.Profiler.Id">[Remove?]</a> |
+							<a class="btn btn-danger" asp-page-handler="BlockFriend" asp-route-friend="@friend.Following.Id" asp-route-user="@Model.Profiler.Id">[Block?]</a>
+						</div>
+						break;
+					case Data.DataModels.SocialModels.Friend.Confirmer.Declined:
+						<div class="btn-group">
+							<a class="btn btn-danger" asp-page-handler="BlockFriend" asp-route-friend="@friend.Following.Id" asp-route-user="@Model.Profiler.Id">[Block?]</a>
+						</div>
+						break;
+					case Data.DataModels.SocialModels.Friend.Confirmer.Blocked:
+						<div class="btn-group">
+							<a class="btn btn-outline-danger" asp-page-handler="UnblockFriend" asp-route-friend="@friend.Following.Id" asp-route-user="@Model.Profiler.Id">[Un-Block?]</a>
+						</div>
+						break;
+					default:
+						break;
+				}
+			</div>
+		}
+	</div>
+}
+else
+{
+	<h3>You have no friends. =(</h3>
+	<p>Go make some friends, dammit!</p>
+}

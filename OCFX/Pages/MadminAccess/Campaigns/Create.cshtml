@@ -1,0 +1,56 @@
+﻿@page
+@model OCFX.Pages.MadminAccess.Campaigns.CreateModel
+
+@{
+	ViewData["Title"] = "Create Campaign";
+}
+
+<h2>Create</h2>
+
+<h4>Campaign</h4>
+<hr />
+<div class="row">
+	<div class="col-md-4">
+		<form method="post">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<label asp-for="Campaign.CampaignName" class="control-label"></label>
+				<input asp-for="Campaign.CampaignName" class="form-control" />
+				<span asp-validation-for="Campaign.CampaignName" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Campaign.CampaignDetails" class="control-label"></label>
+				<textarea asp-for="Campaign.CampaignDetails" class="form-control" rows="6" cols="40"></textarea>
+				<span asp-validation-for="Campaign.CampaignDetails" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Campaign.CampaignLore" class="control-label"></label>
+				<textarea asp-for="Campaign.CampaignLore" class="form-control" rows="6" cols="40"></textarea>
+				<span asp-validation-for="Campaign.CampaignLore" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Campaign.CampaignRisk" class="control-label"></label>
+				<select asp-for="Campaign.CampaignRisk" asp-items="@Html.GetEnumSelectList<OCFX.DataModels.RiskLevel>()" class="form-control"></select>
+				<span asp-validation-for="Campaign.CampaignRisk" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Campaign.DietId" class="control-label"></label>
+				<select asp-for="Campaign.DietId" asp-items="@Model.DietListing" class="form-control">
+					<option>Choose a diet...</option>
+				</select>
+				<span asp-validation-for="Campaign.DietId" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Create" class="btn btn-default" />
+			</div>
+		</form>
+	</div>
+</div>
+
+<div>
+	<a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

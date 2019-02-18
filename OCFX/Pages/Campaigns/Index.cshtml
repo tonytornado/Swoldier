@@ -1,0 +1,45 @@
+﻿@page
+@model OCFX.Pages.Campaigns.IndexModel
+@{
+	ViewData["Title"] = "Campaign Selection";
+}
+
+<div class="text-center">
+	<h1 class="display-4">@ViewData["Title"]</h1>
+	<h4>@Model.Message</h4>
+	<p>These structured campaigns will take you to the top of the mountain, challenging you outside of your comfort zone to take down your inner demons and slay the dragon!</p>
+</div>
+
+<section class="list-group">
+	@foreach (var story in Model.Campaigns)
+	{
+	<article class="list-group-item">
+        <div class="d-inline-flex w-100 justify-content-between align-content-center">
+            <h2>@story.CampaignName</h2>
+            <h3><a asp-page="./Details" asp-route-id="@story.Id" class="btn btn-outline-dark btn-lg small">Info</a></h3>
+        </div>
+		<p class="title-font lead">@story.CampaignDetails</p>
+		<ul>
+			<li>Great for the @story.CampaignDiet.DietName dieters!</li>
+			<li>@story.CampaignRisk Intensity</li>
+		</ul>
+		<hr />
+		@if (story.CampaignQuest.Count > 0)
+		{
+			<h4>Quests</h4>
+			<ul>
+				@foreach (var item in story.CampaignQuest)
+				{
+					<li>
+                        <i>@item.QuestName</i>
+					</li>
+				}
+			</ul>
+		}
+		else
+		{
+			<p class="lead">There are no quests in this campaign.</p>
+		}
+	</article>
+	}
+</section>

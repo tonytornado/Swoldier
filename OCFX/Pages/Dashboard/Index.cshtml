@@ -1,0 +1,156 @@
+﻿@page
+@model OCFX.Pages.Dashboard.DashboardModel
+@{
+    ViewData["Title"] = "Your Dashboard";
+}
+
+<div class="text-center">
+    <h1 class="text-center">Dashboard</h1>
+    <h6>Your dashboard, obviously.</h6>
+</div>
+<hr />
+
+<div class="row text-center">
+    <partial name="_StatusMessage" model="Model.StatusMessage" />
+    @*It's possible to add some additional messages up here.'
+        <div class="alert alert-dismissable fade show"></div>*@
+    <div class="col-md-4 jumbotron border">
+        <h4>@Model.UserTitle</h4>
+        <img src="~/images/uploads/@Model.ProfilePhoto.URL" alt="@Model.ProfilePhoto.DateAdded" class="rounded border-secondary mw-100" />
+        <hr />
+        <div class="btn-group-vertical btn-block">
+            <a asp-page="./EditAvatar" class="btn btn-dark">Change Photo</a>
+            <a asp-page="./EditProfile" class="btn btn-dark">Edit Profile</a>
+            <a asp-page="/Profiles/Friends" class="btn btn-dark">Edit Friends</a>
+        </div>
+    </div>
+    <div class="col-md-4 jumbotron bg-light">
+        @if (Model.Profiler.Campaign != null)
+        {
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Campaign</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>
+                        <a asp-page="/Campaigns/Details" asp-route-id="@Model.Profiler.Campaign.Id">@Model.Profiler.Campaign.CampaignName</a>
+                    </td>
+                </tr>
+                @if (Model.Profiler.Quest != null)
+                {
+                    <tr>
+                        <td>
+                            <a asp-page="/Campaigns/Quests/Detail" asp-route-id="@Model.Profiler.Quest.Id">@Model.Profiler.Quest.QuestName</a>
+                        </td>
+                    </tr>
+                }
+            </table>
+            <div>
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Tasks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var task in Model.Profiler.Campaign.CampaignQuest)
+                        {
+                            if (Model.Profiler.Quest.Id == task.Id)
+                            {
+                                @*<tr>
+                                    <td>@task.QuestName</td>
+                                </tr>*@
+                            }
+                            else if (!Model.CompletedQuests.Contains(task.Id))
+                            {
+                                <tr>
+                                    <td>
+                                        <a asp-page="/Campaigns/Quests/Detail" asp-route-id="@task.Id">@task.QuestName</a>
+                                    </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr style="text-decoration: line-through">
+                                    <td>@task.QuestName</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            @* Campaign Progress can go here. *@
+        }
+    </div>
+    <div class="col-md-4 jumbotron border">
+        @if (Model.Profiler.Posts != null)
+        {
+            <h5>Post count: @Model.Profiler.Posts.Count</h5>
+            <h6>Your most recent 5 posts</h6>
+
+            foreach (var post in Model.Profiler.Posts.OrderByDescending(x => x.DatePosted).Take(5))
+            {
+                <div class="border rounded shadow py-3 col-12">
+                    <h6>@post.Profile.FirstName @post.Profile.LastName</h6>
+                    <p>@post.Text</p>
+                    <small>@post.DatePosted</small>
+                </div>
+                if (post.Comments.Count > 0)
+                {
+                    foreach (var comment in post.Comments.OrderByDescending(x => x.DatePosted))
+                    {
+                        <div class="border rounded shadow py-3 col-8">
+                            <h6>@comment.Profile.FirstName @comment.Profile.LastName</h6>
+                            <p>@comment.Text</p>
+                            <small>@comment.DatePosted</small>
+                        </div>
+                    }
+                }
+            }
+        }
+        @* Feed messages can go here. *@
+    </div>
+</div>
+<div class="row">
+    @if (Model.StatusMessage != null)
+    {
+        <div class="col-md-6 jumbotron border">
+            <partial name="_StatusMessage" model="Model.StatusMessage" />
+        </div>
+    }
+    @if (Model.Profiler.Gym != null)
+    {
+        <div class="col-md-6 jumbotron border">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Gym</th>
+                        <th>Leader</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a asp-page="/Clubs/Community" asp-route-id="@Model.Profiler.Gym.Id">@Model.Profiler.Gym.Title</a></td>
+                        <td>@Model.Profiler.Gym.Leader</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="col-md-6 jumbotron border">
+            <p>You are not a part of any gyms.</p>
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-md-6">
+        @* Special metrics and tips can go here *@
+    </div>
+    <div class="col-md-6">
+        @* Other options can go here. *@
+    </div>
+</div>

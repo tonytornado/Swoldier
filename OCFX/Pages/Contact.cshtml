@@ -1,0 +1,23 @@
+﻿@page
+@model ContactModel
+@{
+	ViewData["Title"] = "Contact";
+}
+
+<div class="text-center">
+	<h1 class="display-4">@ViewData["Title"]</h1>
+	<h4>@Model.Message</h4>
+</div>
+<div class="text-center">
+	<address>
+		We are located in Louisville, Kentucky. Where, exactly? We can't really say because it's all online.
+	</address>
+	<address>
+		<strong>Direct Contact:</strong> <a href="mailto:Admin@PhantomHex.com">Click here</a>
+	</address>
+</div>
+<div id="googleMap" style="width:100%;height:500px;" class="rounded border-dark"></div>
+
+@section Scripts {
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzqB6cnnw2nH2aVSUP_CHNBgYQsasySmY&callback=myMap"></script>
+}

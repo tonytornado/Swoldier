@@ -1,0 +1,46 @@
+﻿@page
+@model OCFX.Pages.FAQ.IndexModel
+@{
+	ViewData["Title"] = "F.A.Q.";
+}
+
+<div class="text-center">
+	<h2>FAQ - Frequently Asked Questions</h2>
+	<h4>@Model.Message</h4>
+</div>
+<hr />
+
+
+@if (Model.Faq.Count > 0)
+{
+	foreach (var category in Model.FaqCategory)
+	{
+		<h4 class="text-black-50 text-center">@category.Key</h4>
+		<div class="accordion" id="@("accordion" + category.Key)">
+			@foreach (var item in Model.Faq)
+			{@if (item.Section == category.Key)
+		{
+					<div class="card border">
+						<div class="card-header" id="@("heading" + item.Id)">
+							<p class="mb-0">
+								<button class="btn btn-block collapsed" type="button" data-toggle="collapse" data-target="@("#collapse" + item.Id)" aria-expanded="false" aria-controls="@("collapse" + item.Id)">
+									@item.Question
+								</button>
+							</p>
+						</div>
+						<div id="@("collapse" + item.Id)" class="collapse" aria-labelledby="@("heading" + item.Id)" data-parent="@("#accordion" + category.Key)">
+							<div class="card-body">
+								@item.Answer
+							</div>
+						</div>
+					</div>
+		}
+			}
+		</div>
+		<br />
+	}
+}
+else
+{
+	<h4 class="text-center">Huh, seems that there's no content here. This will be fixed.</h4>
+}

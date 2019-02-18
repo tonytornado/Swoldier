@@ -1,0 +1,64 @@
+﻿@page
+@model OCFX.Pages.MadminAccess.Classes.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>FitClass</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FitClass.FitType" class="control-label"></label>
+                <select asp-for="FitClass.FitType" asp-items="Html.GetEnumSelectList<OCFX.DataModels.ClassType>()" class="form-control"></select>
+                <span asp-validation-for="FitClass.FitType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FitClass.StrengthMod" class="control-label"></label>
+                <input asp-for="FitClass.StrengthMod" class="form-control" />
+                <span asp-validation-for="FitClass.StrengthMod" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FitClass.SpeedMod" class="control-label"></label>
+                <input asp-for="FitClass.SpeedMod" class="form-control" />
+                <span asp-validation-for="FitClass.SpeedMod" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FitClass.ConstitutionMod" class="control-label"></label>
+                <input asp-for="FitClass.ConstitutionMod" class="form-control" />
+                <span asp-validation-for="FitClass.ConstitutionMod" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FitClass.DexterityMod" class="control-label"></label>
+                <input asp-for="FitClass.DexterityMod" class="form-control" />
+                <span asp-validation-for="FitClass.DexterityMod" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FitClass.ConcentrationMod" class="control-label"></label>
+                <input asp-for="FitClass.ConcentrationMod" class="form-control" />
+                <span asp-validation-for="FitClass.ConcentrationMod" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FitClass.MotivationMod" class="control-label"></label>
+                <input asp-for="FitClass.MotivationMod" class="form-control" />
+                <span asp-validation-for="FitClass.MotivationMod" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

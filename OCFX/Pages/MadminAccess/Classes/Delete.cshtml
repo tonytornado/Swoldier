@@ -1,0 +1,64 @@
+﻿@page
+@model OCFX.Pages.MadminAccess.Classes.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FitClass.FitType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FitClass.FitType)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FitClass.StrengthMod)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FitClass.StrengthMod)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FitClass.SpeedMod)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FitClass.SpeedMod)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FitClass.ConstitutionMod)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FitClass.ConstitutionMod)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FitClass.DexterityMod)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FitClass.DexterityMod)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FitClass.ConcentrationMod)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FitClass.ConcentrationMod)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FitClass.MotivationMod)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FitClass.MotivationMod)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="FitClass.Id" />
+		<div class="btn-group btn-group-sm">
+			<input type="submit" value="Delete" class="btn btn-danger" />
+			<a asp-page="./Index" class="btn btn-primary">Back</a>
+		</div>
+    </form>
+</div>

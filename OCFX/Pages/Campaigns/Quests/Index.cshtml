@@ -1,0 +1,17 @@
+﻿@page
+@model OCFX.Pages.Campaigns.Quests.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Quests</h1>
+<h6>They're all for show, anyways.</h6>
+<hr />
+
+<div>
+    @foreach (var quest in Model.QuestList)
+    {
+        <h3>@quest.QuestName <small>[@quest.QuestStyle]</small></h3>
+    }
+</div>
+

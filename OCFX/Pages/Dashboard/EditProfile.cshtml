@@ -1,0 +1,139 @@
+﻿@page
+@model OCFX.Pages.Profiles.EditProfileModel
+
+@{
+	ViewData["Title"] = "Profile Edit";
+}
+
+<div class="text-center">
+	<h2>Edit</h2>
+	<h4>Profile</h4>
+	<p>Okay fine. We'll let you change a few things, even your gender! Just remember, it does change how we view you... fitness-wise.</p>
+	<hr />
+</div>
+
+<form method="post" asp-action="POST">
+	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+	<input type="hidden" asp-for="Profile.Id" />
+	<h2 class="text-center">Edit Profile and Stats</h2>
+	<div class="col-sm-10 mx-auto">
+		<div class="form-row ">
+			<div class="col-sm-10">
+				<div class="form-group">
+					<label asp-for="Profile.FirstName" class="control-label"></label>
+					<input asp-for="Profile.FirstName" class="form-control form-control-plaintext" readonly />
+					<span asp-validation-for="Profile.FirstName" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Profile.LastName" class="control-label"></label>
+					<input asp-for="Profile.LastName" class="form-control form-control-plaintext" readonly />
+					<span asp-validation-for="Profile.LastName" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Profile.Age" class="control-label"></label>
+					<input asp-for="Profile.Age" class="form-control form-control-plaintext" readonly />
+					<span asp-validation-for="Profile.Age" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Profile.Gender" class="control-label"></label>
+					<select asp-for="Profile.Gender" asp-items="@Html.GetEnumSelectList<OCFX.DataModels.Profile.GenderSpectrum>()" class="form-control"></select>
+					<span asp-validation-for="Profile.Gender" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Profile.ClassId" class="control-label">Class Name</label>
+					<select asp-for="Profile.ClassId" class="form-control" asp-items="Html.GetEnumSelectList<OCFX.DataModels.ClassType>()"></select>
+					<span asp-validation-for="Profile.ClassId" class="text-danger"></span>
+				</div>
+			</div>
+			<div class="col-sm-2">
+				<div class="form-group">
+					<label asp-for="Profile.Height" class="control-label"></label>
+					<input asp-for="Profile.Height" class="form-control" />
+					<span asp-validation-for="Profile.Height" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Profile.Weight" class="control-label"></label>
+					<input asp-for="Profile.Weight" class="form-control" />
+					<span asp-validation-for="Profile.Weight" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Profile.NeckMeasurement" class="control-label"></label>
+					<input asp-for="Profile.NeckMeasurement" class="form-control" />
+					<span asp-validation-for="Profile.NeckMeasurement" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Profile.WaistMeasurement" class="control-label"></label>
+					<input asp-for="Profile.WaistMeasurement" class="form-control" />
+					<span asp-validation-for="Profile.WaistMeasurement" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Profile.HipMeasurement" class="control-label"></label>
+					<input asp-for="Profile.HipMeasurement" class="form-control" />
+					<span asp-validation-for="Profile.HipMeasurement" class="text-danger"></span>
+				</div>
+			</div>
+		</div>
+		<br />
+		<div class="">
+			<h2 class="text-center">Edit Story</h2>
+			<div class="form-group">
+				<label asp-for="Profile.BackStory" class="control-label"></label>
+				<textarea asp-for="Profile.BackStory" class="form-control" rows="5"></textarea>
+				<span asp-validation-for="Profile.BackStory" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Profile.DriveStory" class="control-label"></label>
+				<textarea asp-for="Profile.DriveStory" class="form-control" rows="5"></textarea>
+				<span asp-validation-for="Profile.DriveStory" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Profile.Goals" class="control-label"></label>
+				<textarea asp-for="Profile.Goals" class="form-control" rows="5"></textarea>
+				<span asp-validation-for="Profile.Goals" class="text-danger"></span>
+			</div>
+		</div>
+		<div hidden>
+			<h2 class="text-center">Edit Build</h2>
+			<div class="form-row">
+				<div class="form-group col-2">
+					<label asp-for="Profile.StrengthStat" class="control-label"></label>
+					<input asp-for="Profile.StrengthStat" class="form-control" readonly />
+					<span asp-validation-for="Profile.StrengthStat" class="text-danger"></span>
+				</div>
+				<div class="form-group col-2">
+					<label asp-for="Profile.SpeedStat" class="control-label"></label>
+					<input asp-for="Profile.SpeedStat" class="form-control" readonly />
+					<span asp-validation-for="Profile.SpeedStat" class="text-danger"></span>
+				</div>
+				<div class="form-group col-2">
+					<label asp-for="Profile.ConstitutionStat" class="control-label"></label>
+					<input asp-for="Profile.ConstitutionStat" class="form-control" readonly />
+					<span asp-validation-for="Profile.ConstitutionStat" class="text-danger"></span>
+				</div>
+				<div class="form-group col-2">
+					<label asp-for="Profile.DexterityStat" class="control-label"></label>
+					<input asp-for="Profile.DexterityStat" class="form-control" readonly />
+					<span asp-validation-for="Profile.DexterityStat" class="text-danger"></span>
+				</div>
+				<div class="form-group col-2">
+					<label asp-for="Profile.ConcentrationStat" class="control-label"></label>
+					<input asp-for="Profile.ConcentrationStat" class="form-control" readonly />
+					<span asp-validation-for="Profile.ConcentrationStat" class="text-danger"></span>
+				</div>
+				<div class="form-group col-2">
+					<label asp-for="Profile.MotivationStat" class="control-label"></label>
+					<input asp-for="Profile.MotivationStat" class="form-control" readonly />
+					<span asp-validation-for="Profile.MotivationStat" class="text-danger"></span>
+				</div>
+			</div>
+		</div>
+		<div class="btn btn-group d-flex">
+			<input type="submit" value="Save" class="btn btn-outline-dark" />
+			<a asp-page="./Index" class="btn btn-primary">Back</a>
+		</div>
+	</div>
+</form>
+
+@section Scripts {
+	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

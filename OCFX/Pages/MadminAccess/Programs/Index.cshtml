@@ -1,0 +1,42 @@
+﻿@page
+@model OCFX.Pages.MadminAccess.Programs.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkoutProgram[0].Exercise)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkoutProgram[0].Workout)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.WorkoutProgram) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Exercise.ExName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Workout.Title)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.WorkoutProgramId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.WorkoutProgramId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.WorkoutProgramId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

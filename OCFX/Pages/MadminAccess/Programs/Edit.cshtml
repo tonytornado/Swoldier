@@ -1,0 +1,40 @@
+﻿@page
+@model OCFX.Pages.MadminAccess.Programs.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>WorkoutProgram</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="WorkoutProgram.WorkoutProgramId" />
+            <div class="form-group">
+                <label asp-for="WorkoutProgram.ExerciseId" class="control-label"></label>
+                <select asp-for="WorkoutProgram.ExerciseId" class="form-control" asp-items="ViewBag.ExerciseId"></select>
+                <span asp-validation-for="WorkoutProgram.ExerciseId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WorkoutProgram.Workout" class="control-label"></label>
+				<select asp-for="WorkoutProgram.Workout" class="form-control" asp-items="ViewBag.WorkoutId"></select>
+                <span asp-validation-for="WorkoutProgram.Workout" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
