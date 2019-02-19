@@ -2,254 +2,298 @@
 @model OCFX.Pages.Profiles.IndexModel
 
 @{
-	ViewData["Title"] = "Profile for " + Model.Profiler.FirstName + " " + Model.Profiler.LastName;
+    ViewData["Title"] = "Profile for " + Model.Profiler.FirstName + " " + Model.Profiler.LastName;
 }
 
 <section id="top_section">
-	<br />
-	<header class="row text-center">
-		<div class="col-md align-self-center">
-			<h1 class="display-4">@Model.userTitle</h1>
-            @if(Model.Profiler.Gym != null) {<h5>@Model.Profiler.Gym.Title</h5>}
-			<h5>@Model.Profiler.Age year-old @Html.DisplayFor(m => m.Profiler.Gender) @Model.Profiler.FitStyle.SkillMod @Model.Profiler.FitStyle.FitType</h5>
-			@if (Model.Player != null)
-			{
-				if (Model.Profiler.Id == Model.Player.ProfileId)
-				{
-					<p class="small lead">(That's you!)</p>
-				}
-			}
-		</div>
-		@if (Model.ProfilePhoto != null)
-		{
-			<div class="col-md">
-				<img src="~/images/uploads/@Model.ProfilePhoto.URL" alt="@Model.ProfilePhoto.Caption" title="@Model.ProfilePhoto.Caption" class="rounded shadow" height="300" width="300" />
-				<br />
-				@if (Model.Player != null)
-				{
-					@if (Model.ProfilePhoto.ProfileId == Model.Player.ProfileId)
-					{
-						<a asp-page="/Dashboard/EditAvatar" asp-route-id="@Model.Profiler.Id" class="btn btn-outline-dark mt-3">Edit Photo</a>
-					}
-				}
-			</div>
-		}
-		else
-		{
-			@if (Model.Profiler.Id == Model.Player.ProfileId)
-			{
-				<a asp-page="./EditAvatar" asp-route-id="@Model.Profiler.Id" class="page-link btn btn-block btn-dark">Add Photo</a>
-			}
-		}
-	</header>
-	<hr />
+    <br />
+    <header class="row text-center">
+        <div class="col-md align-self-center">
+            <h1 class="display-4">@Model.userTitle</h1>
+            @if (Model.Profiler.Gym != null)
+            {
+                <h5>@Model.Profiler.Gym.Title</h5>}
+            <h5>@Model.Profiler.Age year-old @Html.DisplayFor(m => m.Profiler.Gender) @Model.Profiler.FitStyle.SkillMod @Model.Profiler.FitStyle.FitType</h5>
+            @if (Model.Player != null)
+            {
+                if (Model.Profiler.Id == Model.Player.ProfileId)
+                {
+                    <p class="small lead">(That's you!)</p>
+                }
+            }
+        </div>
+        @if (Model.ProfilePhoto != null)
+        {
+            <div class="col-md">
+                <img src="~/images/uploads/@Model.ProfilePhoto.URL" alt="@Model.ProfilePhoto.Caption" title="@Model.ProfilePhoto.Caption" class="rounded shadow" height="300" width="300" />
+                <br />
+                @if (Model.Player != null)
+                {
+                    @if (Model.ProfilePhoto.ProfileId == Model.Player.ProfileId)
+                    {
+                        <a asp-page="/Dashboard/EditAvatar" asp-route-id="@Model.Profiler.Id" class="btn btn-outline-dark mt-3">Edit Photo</a>
+                    }
+                }
+            </div>
+        }
+        else
+        {
+            @if (Model.Profiler.Id == Model.Player.ProfileId)
+            {
+                <a asp-page="./EditAvatar" asp-route-id="@Model.Profiler.Id" class="page-link btn btn-block btn-dark">Add Photo</a>
+            }
+        }
+    </header>
+    <hr />
 </section>
 
 <section id="friends_section">
-	@if(Model.Requests.Where(f => f.FriendshipConfirmer == Data.DataModels.SocialModels.Friend.Confirmer.Pending).ToList().Count > 0 && Model.Profiler.Id == Model.Player.ProfileId)
-	{
-	<div class="alert alert-dark alert-dismissable fade show" role="alert">
-		<a asp-page="./Friends">You have new friend requests!</a>
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-	</div>
-	}
-	@if (Model.Friender.Count > 0)
-	{
-		<h6>Friend Count: @Model.Friender.Count</h6>
-		<div class="friend_grid">
-			@foreach (var friend in Model.Friender)
-			{
-				<div>
-					<img width="50" height="50" src="~/images/uploads/@friend.Following.Photos.SingleOrDefault(p => p.ProfileId == friend.Following.Id).URL" alt="@friend.Following.FirstName's photo." />
-					<small>
-						<a asp-page="./Index" asp-route-id="@friend.Following.Id">@friend.Following.FirstName @friend.Following.LastName</a>
-						@if (friend.Following.Id != friend.Follower.Id && User.IsInRole("Member"))
-						{
-							<br />
-							<a asp-page-handler="AddFriend" asp-route-friend="@friend.Following.Id" asp-route-user="@Model.Profiler.Id">[Add?]</a>
-						}
-					</small>
-				</div>
-			}
-		</div>
-		<hr />
-	}
+    @if (Model.Requests.Where(f => f.FriendshipConfirmer == Data.DataModels.SocialModels.Friend.Confirmer.Pending).ToList().Count > 0 && Model.Profiler.Id == Model.Player.ProfileId)
+    {
+        <div class="alert alert-dark alert-dismissable fade show" role="alert">
+            <a asp-page="./Friends">You have new friend requests!</a>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    @if (Model.Friender.Count > 0)
+    {
+        <h6>Friend Count: @Model.Friender.Count</h6>
+        <div class="friend_grid">
+            @foreach (var friend in Model.Friender)
+            {
+                <div>
+                    <img width="50" height="50" src="~/images/uploads/@friend.Following.Photos.SingleOrDefault(p => p.ProfileId == friend.Following.Id).URL" alt="@friend.Following.FirstName's photo." />
+                    <small>
+                        <a asp-page="./Index" asp-route-id="@friend.Following.Id">@friend.Following.FirstName @friend.Following.LastName</a>
+                        @if (friend.Following.Id != friend.Follower.Id && User.IsInRole("Member"))
+                        {
+                            <br />
+                            <a asp-page-handler="AddFriend" asp-route-friend="@friend.Following.Id" asp-route-user="@Model.Profiler.Id">[Add?]</a>
+                        }
+                    </small>
+                </div>
+            }
+        </div>
+        <hr />
+    }
 </section>
 
 @*<section id="main_section">
-		<div class="col-sm"></div>
-		<hr />
-	</section>*@
+        <div class="col-sm"></div>
+        <hr />
+    </section>*@
 
 <section id="stats_section">
-	<h2 class="text-center">Vital Stats</h2>
-	<div class="row d-flex justify-content-between">
-		<div class="col-lg align-self-stretch">
-			@if (Model.Profiler.HipMeasurement != null && Model.Profiler.NeckMeasurement != null && Model.Profiler.WaistMeasurement != null)
-			{
-				<div class="h-50">
-					<table class="table text-center table-sm table-bordered">
-						<thead class="thead-light">
-							<tr class="lead">
-								<th>Height</th>
-								<th>Weight</th>
-								<th>BF%</th>
-								@*<th>EXP</th>*@
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>@Model.Profiler.Height cm</td>
-								<td>@Model.Profiler.Weight kg</td>
-								<td>@Model.bodyFat%</td>
-								@*<td>0</td>*@
-							</tr>
-						</tbody>
-					</table>
-				</div>
+    <h2 class="text-center">Vital Stats</h2>
+    <div class="row d-flex justify-content-between">
+        <div class="col-lg align-self-stretch">
+            @if (Model.Profiler.HipMeasurement != null && Model.Profiler.NeckMeasurement != null && Model.Profiler.WaistMeasurement != null)
+            {
+                <div class="h-50">
+                    <table class="table text-center table-sm table-bordered">
+                        <thead class="thead-light">
+                            <tr class="lead">
+                                <th>Height</th>
+                                <th>Weight</th>
+                                <th>BF%</th>
+                                @*<th>EXP</th>*@
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@Model.Profiler.Height cm</td>
+                                <td>@Model.Profiler.Weight kg</td>
+                                <td>@Model.bodyFat%</td>
+                                @*<td>0</td>*@
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-			}
-			@if (Model.Profiler.Campaign != null)
-			{
-				<div class="h-50">
-					<table class="table text-center table-sm table-bordered">
-						<thead class="thead-light">
-							<tr class="lead">
-								<th>Campaign</th>
-								<th>Diet</th>
-								<th>Quests</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>
-									<a asp-page="/Campaigns/Details" asp-route-id="@Model.Profiler.Campaign.Id">@Model.Profiler.Campaign.CampaignName</a>
-								</td>
-								<td>@Model.Profiler.Campaign.CampaignDiet.DietName</td>
-								<td>@Model.Profiler.Campaign.CampaignQuest.Count</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			}
-		</div>
-		<div class="col-lg">
-			<table class="table table-sm text-center table-bordered h-100">
-				<thead class="thead-light">
-					<tr class="lead">
-						<th>STR</th>
-						<th>VIT</th>
-						<th>CON</th>
-						<th>AGI</th>
-						<th>DEX</th>
-						<th>MOT</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>@Model.Profiler.StrengthStat</td>
-						<td>@Model.Profiler.ConstitutionStat</td>
-						<td>@Model.Profiler.ConcentrationStat</td>
-						<td>@Model.Profiler.SpeedStat</td>
-						<td>@Model.Profiler.DexterityStat</td>
-						<td>@Model.Profiler.MotivationStat</td>
-					</tr>
-					<tr>
-						<td>+@Model.Profiler.FitStyle.StrengthMod</td>
-						<td>+@Model.Profiler.FitStyle.ConstitutionMod</td>
-						<td>+@Model.Profiler.FitStyle.ConcentrationMod</td>
-						<td>+@Model.Profiler.FitStyle.SpeedMod</td>
-						<td>+@Model.Profiler.FitStyle.DexterityMod</td>
-						<td>+@Model.Profiler.FitStyle.MotivationMod</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
-	<hr />
+            }
+            @if (Model.Profiler.Campaign != null)
+            {
+                <div class="h-50">
+                    <table class="table text-center table-sm table-bordered">
+                        <thead class="thead-light">
+                            <tr class="lead">
+                                <th>Campaign</th>
+                                <th>Diet</th>
+                                <th>Quests</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a asp-page="/Campaigns/Details" asp-route-id="@Model.Profiler.Campaign.Id">@Model.Profiler.Campaign.CampaignName</a>
+                                </td>
+                                <td>@Model.Profiler.Campaign.CampaignDiet.DietName</td>
+                                <td>@Model.Profiler.Campaign.CampaignQuest.Count</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+        <div class="col-lg">
+            <table class="table table-sm text-center table-bordered h-100">
+                <thead class="thead-light">
+                    <tr class="lead">
+                        <th>STR</th>
+                        <th>VIT</th>
+                        <th>CON</th>
+                        <th>AGI</th>
+                        <th>DEX</th>
+                        <th>MOT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@Model.Profiler.StrengthStat</td>
+                        <td>@Model.Profiler.ConstitutionStat</td>
+                        <td>@Model.Profiler.ConcentrationStat</td>
+                        <td>@Model.Profiler.SpeedStat</td>
+                        <td>@Model.Profiler.DexterityStat</td>
+                        <td>@Model.Profiler.MotivationStat</td>
+                    </tr>
+                    <tr>
+                        <td>+@Model.Profiler.FitStyle.StrengthMod</td>
+                        <td>+@Model.Profiler.FitStyle.ConstitutionMod</td>
+                        <td>+@Model.Profiler.FitStyle.ConcentrationMod</td>
+                        <td>+@Model.Profiler.FitStyle.SpeedMod</td>
+                        <td>+@Model.Profiler.FitStyle.DexterityMod</td>
+                        <td>+@Model.Profiler.FitStyle.MotivationMod</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <hr />
 </section>
 
 <div class="row">
-	<section id="story_section" class="col-sm text-sm-center mx-auto py-4">
-		<div class="">
-			<h3>Background</h3>
-			<p>@Model.Profiler.BackStory</p>
-		</div>
-		<div class="">
-			<h3>What drives me?</h3>
-			<p>@Model.Profiler.DriveStory</p>
-		</div>
-		<div class="">
-			<h3>Goals</h3>
-			<p>@Model.Profiler.Goals</p>
-		</div>
-	</section>
-	<section id="feed_section" class="col-sm">
-        @if(Model.Player != null) { 
-		<form method="post" class="form-group border mt-4">
-			<textarea asp-for="Entry.Text" class="form-control form-control-lg" placeholder="Post something..."></textarea>
-			<input asp-for="Entry.ProfileId" value="@Model.Profiler.Id" class="form-control" hidden />
-			<input asp-page-handler="EntryFeed" value="Post" type="submit" class="btn btn-sm btn-block btn-primary" />
-		</form>
+    <section id="story_section" class="col-sm text-sm-center mx-auto py-4">
+        <div class="">
+            <h3>Background</h3>
+            <p>@Model.Profiler.BackStory</p>
+        </div>
+        <div class="">
+            <h3>What drives me?</h3>
+            <p>@Model.Profiler.DriveStory</p>
+        </div>
+        <div class="">
+            <h3>Goals</h3>
+            <p>@Model.Profiler.Goals</p>
+        </div>
+    </section>
+    <section id="feed_section" class="col-sm">
+        @if (Model.Player != null)
+        {
+            <form method="post" class="form-group border mt-4">
+                <textarea asp-for="Entry.Text" class="form-control form-control-lg" placeholder="Post something..."></textarea>
+                <input asp-for="Entry.ProfileId" value="@Model.Profiler.Id" class="form-control" hidden />
+                <input asp-page-handler="EntryFeed" value="Post" type="submit" class="btn btn-sm btn-block btn-primary" />
+            </form>
         }
-		@if (Model.Profiler.Posts.Count > 0)
-		{
-			foreach (var post in Model.Profiler.Posts.OrderByDescending(x => x.DatePosted))
-			{
-				<div class="border rounded shadow py-3 col-12">
-					<h6>@post.Profile.FirstName @post.Profile.LastName</h6>
-					<p>@post.Text</p>
-					<small>@post.DatePosted</small>
-				</div>
-				if (post.Comments.Count > 0)
-				{
-					foreach (var comment in post.Comments.OrderByDescending(x => x.DatePosted))
-					{
-						<div class="border rounded shadow py-3 col-8">
-							<h6>@comment.Profile.FirstName @comment.Profile.LastName</h6>
-							<p>@comment.Text</p>
-							<small>@comment.DatePosted</small>
-						</div>
-					}
-				}
-			}
-		}
-	</section>
-</div>
+        @if (Model.Profiler.Posts.Count > 0)
+        {
+            foreach (var post in Model.Profiler.Posts.OrderByDescending(x => x.DatePosted))
+            {
+                <div class="border rounded shadow py-3 col-12" id="Comment-@post.Id">
+                    <h6>@post.Profile.FirstName @post.Profile.LastName</h6>
+                    <p>@post.Text</p>
+                    <small>
+                        @post.DatePosted | @post.Comments.Count @(post.Comments.Count == 1 ? "comment" : "comments") <br />
+                        <a onclick="showCommentBox()" href="#Comment-@post.Id" title="Leave a comment">Comment</a>
+                    </small>
+                </div>
+                if (post.Comments.Count > 0)
+                {
+                    foreach (var comment in post.Comments.OrderByDescending(x => x.DatePosted))
+                    {
+                        <div class="border rounded shadow py-3 col-11" id="Reply-@comment.Id">
+                            <h6>@comment.Profile.FirstName @comment.Profile.LastName</h6>
+                            <p>@comment.Text</p>
+                            <small>
+                                @comment.DatePosted | @comment.Replies.Count @(comment.Replies.Count == 1 ? "reply" : "replies") <br />
+                                <a onclick="showReplyBox()" href="#Reply-@comment.Id" title="Reply to this comment">Reply</a>
+                            </small>
+                        </div>
 
+                        @if (comment.Replies.Count > 0)
+                        {
+                            foreach (var reply in comment.Replies)
+                            {
+                                <div class="border rounded shadow py-3 col-10">
+                                    <h6>@reply.Profile.FirstName @comment.Profile.LastName</h6>
+                                    <p>@reply.Text</p>
+                                    <small>
+                                        @reply.DatePosted<br />
+                                    </small>
+                                </div>
+                            }
+                        }
+
+                        <div id="ReplyBox" class="col-md-10" style="display: none;">
+                            <form method="post" class="form-group border mt-3" asp-page-handler="EntryReply" asp-route-CommentId="@comment.Id">
+                                <textarea asp-for="CommentNote.Text" class="form-control form-control-lg" placeholder="Got something to say?"></textarea>
+                                <input asp-for="CommentNote.ProfileId" value="@Model.Profiler.Id" class="form-control" hidden />
+                                <div class="btn-group btn-group-xs btn-block">
+                                    <button class="btn btn-primary ">Post</button>
+                                    <a class="btn btn-danger " onclick="showReplyBox()" href="#">Cancel</a>
+                                </div>
+                            </form>
+                        </div>
+                    }
+
+                    <div id="CommentBox" class="col-md-10" style="display: none;">
+                        <form method="post" class="form-group border mt-2" asp-page-handler="EntryComment" asp-route-PostId="@post.Id">
+                            <textarea asp-for="PostNote.Text" class="form-control form-control-lg" placeholder="Comment something..."></textarea>
+                            <input asp-for="PostNote.ProfileId" value="@Model.Profiler.Id" class="form-control" hidden />
+                            <div class="btn-group btn-group-xs btn-block">
+                                <button class="btn btn-primary ">Post</button>
+                                <a class="btn btn-danger " onclick="showCommentBox()" href="#">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                }
+            }
+        }
+    </section>
+</div>
 
 @if (Model.RelatedFolkList.Where(m => m.Id != Model.Profiler.Id).ToList().Count > 0)
 {
-	<hr />
-	<section id="other_folks" class="text-center">
+    <hr />
+    <section id="other_folks" class="text-center">
 
-		<h4>Some Other @Html.DisplayFor(model => model.Profiler.FitStyle.FitType) types:</h4>
-		<div>
-			@foreach (var item in Model.RelatedFolkList)
-			{
-				if (item.Id != Model.Profiler.Id)
-				{
-				<h5>
-					<a asp-page="./Index" asp-route-id="@item.Id">@item.FirstName @item.LastName</a>
-					<small> [@item.FitStyle.SkillMod]</small>
-				</h5>
-				}
-			}
-		</div>
-	</section>
+        <h4>Some Other @Html.DisplayFor(model => model.Profiler.FitStyle.FitType) types:</h4>
+        <div>
+            @foreach (var item in Model.RelatedFolkList)
+            {
+                if (item.Id != Model.Profiler.Id)
+                {
+                    <h5>
+                        <a asp-page="./Index" asp-route-id="@item.Id">@item.FirstName @item.LastName</a>
+                        <small> [@item.FitStyle.SkillMod]</small>
+                    </h5>
+                }
+            }
+        </div>
+    </section>
 
 }
 
 @if (Model.Player != null)
 {
-	@if (Model.Profiler.Id == Model.Player.ProfileId)
-	{
-		<hr />
-		<div class="btn-group btn-group-sm btn-group-justified d-flex align-content-center">
-			<a asp-page="/Dashboard/Index" class="btn btn-outline-dark">Go to your dashboard</a>
-			<a asp-page="/Index" class="btn btn-primary">Home</a>
-		</div>
-	}
+    @if (Model.Profiler.Id == Model.Player.ProfileId)
+    {
+        <hr />
+        <div class="btn-group btn-group-sm btn-group-justified d-flex align-content-center">
+            <a asp-page="/Dashboard/Index" class="btn btn-outline-dark">Go to your dashboard</a>
+            <a asp-page="/Index" class="btn btn-primary">Home</a>
+        </div>
+    }
 }

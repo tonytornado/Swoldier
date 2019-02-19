@@ -38,7 +38,12 @@ namespace OCFX.Pages.Profiles
 
         [BindProperty]
         public Post Entry { get; set; }
+
+        [BindProperty]
         public Comment PostNote { get; set; }
+
+        [BindProperty]
+        public Reply CommentNote { get; set; }
 
         /// <summary>
         /// Displays the profile page
@@ -126,13 +131,13 @@ namespace OCFX.Pages.Profiles
                 EntryId = PostNote.ProfileId,
                 ProfileId = Player.ProfileId,
                 PostId = PostId,
-                Text = PostNote.Text
+                Text = PostNote.Text,
             };
 
             _context.Comments.Add(comment);
             _context.SaveChanges();
 
-            return Page();
+            return RedirectToPage("./Index", new { PostNote.ProfileId });
         }
 
         /// <summary>
@@ -153,16 +158,16 @@ namespace OCFX.Pages.Profiles
             var reply = new Reply()
             {
                 DatePosted = DateTime.Now,
-                EntryId = PostNote.ProfileId,
+                EntryId = CommentNote.ProfileId,
                 ProfileId = Player.ProfileId,
                 CommentId = CommentId,
-                Text = PostNote.Text
+                Text = CommentNote.Text,
             };
 
             _context.Replies.Add(reply);
             _context.SaveChanges();
 
-            return Page();
+            return RedirectToPage("./Index", new { CommentNote.ProfileId });
         }
 
 
