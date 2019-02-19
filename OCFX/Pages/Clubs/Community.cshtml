@@ -20,7 +20,7 @@
                 <li class="list-group-item">
                     <div class="d-inline-flex w-100 justify-content-between align-content-center">
                         <div>
-                            <h4>@athlete.FirstName @athlete.LastName</h4>
+                            <h4><a asp-page="/Profiles/Index" asp-route-id="@athlete.Id">@athlete.FirstName @athlete.LastName</a></h4>
                             <h6>@athlete.FitStyle.SkillMod @athlete.FitStyle.FitType</h6>
                         </div>
                         <img src="~/images/uploads/@athlete.Photos.FirstOrDefault(m => m.ProfileId == athlete.Id).URL" alt="Alternate Text" class="friend_avatar">
