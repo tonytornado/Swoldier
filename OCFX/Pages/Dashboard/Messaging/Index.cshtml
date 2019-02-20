@@ -1,0 +1,42 @@
+﻿@page
+@model OCFX.Pages.Dashboard.Messaging.MessengerModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="text-center">
+    <h2>Messages</h2>
+    <h4>You've got mail.</h4>
+    <hr />
+</div>
+@if (Model.MailReceived != null)
+{
+    <table>
+        <thead>
+            <tr>
+                @*<th>Mark</th>*@
+                <th>From</th>
+                <th>Subject</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var mail in Model.MailReceived)
+            {
+                <tr>
+                    @*<td>@Html.CheckBox()</td>*@
+                    <td>@mail.SenderId</td>
+                    <td>@mail.SubjectText</td>
+                    <td>@mail.DateSent</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div>
+        You have no new mail.
+    </div>
+}
+

@@ -1,0 +1,45 @@
+﻿@page
+@model OCFX.Pages.Dashboard.Messaging.InboxModel
+@{
+    ViewData["Title"] = "Inbox";
+}
+
+<div class="text-center">
+    <h2>Messages</h2>
+    <h4>You've got mail.</h4>
+    <hr />
+</div>
+<div>
+    Message chain
+</div>
+<div>
+    @foreach (var message in Model.MailReceived)
+    {
+        @if (message.Id != Model.IMessage.Id)
+        {
+            <div class='' id="message_@message.Id">
+                <p>@message.SubjectText from @message.SenderId</p>
+                <pre>@message.MessageText</pre>
+                <small>@message.DateSent</small>
+                <hr />
+            </div>
+        }
+        else
+        {
+            <div class="text-black-50" id="message_@message.Id">
+                <p>@message.SubjectText</p>
+                <pre>@message.MessageText</pre>
+                <small>@message.DateSent</small>
+                <hr />
+            </div>
+        }
+    }
+</div>
+<div>
+    <form asp-page-handler="Reply"   method="post">
+        <input asp-for="ReplyReceiver" class="form-contol" hidden />
+        <input asp-for="ReplySubject" class="form-contol form-control-sm" hidden />
+        <textarea asp-for="ReplyMessage" class="form-contol form-text"></textarea>
+    </form>
+</div>
+

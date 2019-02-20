@@ -49,8 +49,14 @@ nav {
     margin: 15px;
 }
 
-/* Profile Bits */
-/* Friendly bits */
+/* Avatars */
+.profile_avatar {
+    height: 300px;
+    width: 300px;
+    border-radius: 1%;
+    border: 2px ridge black;
+}
+
 .friend_avatar {
 	height: 100px;
 	width: 100px;

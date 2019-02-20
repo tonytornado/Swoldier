@@ -35,9 +35,10 @@ namespace OCFX.Areas.Identity.Data
 		public DbSet<Post> Posts { get; set; }
 		public DbSet<Comment> Comments { get; set; }
 		public DbSet<Reply> Replies { get; set; }
+        public DbSet<Shout> Messages { get; set; }
 
-		// Profile DB
-		public DbSet<Phone> Phones { get; set; }
+        // Profile DB
+        public DbSet<Phone> Phones { get; set; }
 		public DbSet<Address> Addresses { get; set; }
 		public DbSet<Profile> Profiles { get; set; }
 		public DbSet<Photo> Photos { get; set; }

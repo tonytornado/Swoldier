@@ -82,6 +82,7 @@ namespace OCFX.DataModels
 		public ICollection<Phone> Phones { get; set; }
 		public ICollection<Photo> Photos { get; set; }
 		public ICollection<Post> Posts { get; set; }
+        public ICollection<Shout> Messages { get; set; } 
 
 		[InverseProperty("Following")]
 		public ICollection<Friend> Following { get; set; }

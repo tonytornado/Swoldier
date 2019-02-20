@@ -9,7 +9,10 @@
     <h6>Your dashboard, obviously.</h6>
 </div>
 <hr />
-
+@if (Model.StatusMessage != null)
+{
+    <partial name="_StatusMessage" model="Model.StatusMessage" />
+}
 <div class="row text-center">
     <partial name="_StatusMessage" model="Model.StatusMessage" />
     @*It's possible to add some additional messages up here.'
@@ -59,9 +62,9 @@
                         {
                             if (Model.Profiler.Quest.Id == task.Id)
                             {
-                                @*<tr>
+                                <tr>
                                     <td>@task.QuestName</td>
-                                </tr>*@
+                                </tr>
                             }
                             else if (!Model.CompletedQuests.Contains(task.Id))
                             {
@@ -110,19 +113,12 @@
                 }
             }
         }
-        @* Feed messages can go here. *@
     </div>
 </div>
 <div class="row">
-    @if (Model.StatusMessage != null)
-    {
-        <div class="col-md-6 jumbotron border">
-            <partial name="_StatusMessage" model="Model.StatusMessage" />
-        </div>
-    }
     @if (Model.Profiler.Gym != null)
     {
-        <div class="col-md-6 jumbotron border">
+        <div class="col-md-6 jumbotron border mx-auto">
             <table class="table table-bordered">
                 <thead class="thead-dark">
                     <tr>
@@ -132,7 +128,9 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><a asp-page="/Clubs/Community" asp-route-id="@Model.Profiler.Gym.Id">@Model.Profiler.Gym.Title</a></td>
+                        <td>
+                            <a asp-page="/Clubs/Community" asp-route-id="@Model.Profiler.Gym.Id">@Model.Profiler.Gym.Title</a>
+                        </td>
                         <td>@Model.Profiler.Gym.Leader</td>
                     </tr>
                 </tbody>
@@ -141,8 +139,34 @@
     }
     else
     {
-        <div class="col-md-6 jumbotron border">
+        <div class="col-md-6 jumbotron border mx-auto">
             <p>You are not a part of any gyms.</p>
+        </div>
+    }
+
+    @if (Model.Profiler.Messages != null)
+    {
+        <div class="col-md-6 jumbotron border mx-auto">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Gym</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <a asp-page="/Messaging/Index">Check your inbox!</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="col-md-6 jumbotron border mx-auto">
+            <p>You have no new messages</p>
         </div>
     }
 </div>

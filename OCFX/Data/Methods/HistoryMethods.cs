@@ -1,6 +1,6 @@
 ﻿namespace OCFX.Data.Methods
 {
-    public class History
+    public class HistoryMethods
     {
         // Method for changing profile photo
         // Method for deleting accounts
