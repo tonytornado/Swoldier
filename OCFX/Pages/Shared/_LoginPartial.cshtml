@@ -10,20 +10,21 @@
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuAccess" role="button" data-toggle="dropdown">
 					@UserManager.GetUserAsync(User).Result.FirstName @UserManager.GetUserAsync(User).Result.LastName
 				</a>
-				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuAccess">
-					@if (User.IsInRole("Administrator"))
-					{
-						<h5 class="dropdown-header">Admin Ops</h5>
-						<a class="dropdown-item" asp-page="/MadminAccess/Index">Full Access</a>
-						<a class="dropdown-item" asp-page="/Campaigns/Index">Campaigns</a>
-						<hr />
-					}
-					<h5 class="dropdown-header">Profile Ops</h5>
-					<a class="dropdown-item" asp-page="/Dashboard/Index">Dashboard</a>
-					<a class="dropdown-item" asp-page="/Profiles/Index" asp-route-id="@UserManager.GetUserAsync(User).Result.ProfileId">View Profile</a>
-					<a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Account Settings</a>
-					<button class="dropdown-item" type="submit">Log Out</button>
-				</div>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuAccess">
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <h5 class="dropdown-header">Admin Ops</h5>
+                        <a class="dropdown-item" asp-page="/MadminAccess/Index">Full Access</a>
+                        <a class="dropdown-item" asp-page="/Campaigns/Index">Campaigns</a>
+                        <hr />
+                    }
+                    <h5 class="dropdown-header">Profile Ops</h5>
+                    <a class="dropdown-item" asp-page="/Dashboard/Messaging/Index">Messages</a>
+                    <a class="dropdown-item" asp-page="/Dashboard/Index">Dashboard</a>
+                    <a class="dropdown-item" asp-page="/Profiles/Index" asp-route-id="@UserManager.GetUserAsync(User).Result.ProfileId">View Profile</a>
+                    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Account Settings</a>
+                    <button class="dropdown-item" type="submit">Log Out</button>
+                </div>
 			</li>
 
 		</ul>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OCFX.Areas.Identity.Data;
@@ -9,6 +10,7 @@ using OCFX.DataModels;
 
 namespace OCFX.Pages.Dashboard.Messaging
 {
+    [Authorize]
     public class MessengerModel : PageModel
     {
         private readonly UserManager<OCFXUser> _userManager;
@@ -20,10 +22,11 @@ namespace OCFX.Pages.Dashboard.Messaging
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
+
         private OCFXUser MailboxOwner { get; set; }
-        public List<Shout> MailReceived { get; private set; }
-        public List<Shout> MailSent { get; private set; }
-        public List<Shout> UnreadMail { get; private set; }
+        public IOrderedQueryable<Shout> MailReceived { get; private set; }
+        public IOrderedQueryable<Shout> MailSent { get; private set; }
+        public IQueryable<Shout> UnreadMail { get; private set; }
 
         public async void OnGetAsync()
         {
@@ -31,13 +34,13 @@ namespace OCFX.Pages.Dashboard.Messaging
             MailboxOwner = await _userManager.GetUserAsync(User);
 
             // Get latest received messages
-            MailReceived = _context.Messages.OrderByDescending(d => d.DateSent).Where(u => u.ReceiverId == MailboxOwner.ProfileId).ToList();
+            MailReceived = _context.Messages.Where(u => u.ReceiverId == MailboxOwner.ProfileId).OrderByDescending(d => d.DateSent);
 
             // Get latest sent messages
-            MailSent = _context.Messages.OrderByDescending(d => d.DateSent).Where(u => u.SenderId == MailboxOwner.ProfileId).ToList();
+            MailSent = _context.Messages.Where(u => u.SenderId == MailboxOwner.ProfileId).OrderByDescending(d => d.DateSent);
 
             // Get unread mail
-            UnreadMail = _context.Messages.Where(u => u.Status == Shout.MessageStatus.Unread).ToList();
+            UnreadMail = _context.Messages.Where(u => u.Status == Shout.MessageStatus.Unread);
         }
     }
 }

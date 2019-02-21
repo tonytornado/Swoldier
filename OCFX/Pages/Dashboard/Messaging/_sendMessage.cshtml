@@ -1,5 +1,7 @@
-﻿@page
-@model OCFX.Pages.Dashboard.Messaging._sendMessageModel
-@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model ( string MessageSubject, string MessageText )
+
+<form asp-page-handler="SendMail" method="post">
+    <input asp-for="MessageSubject" class="form-control form-control-sm" />
+    <textarea asp-for="MessageText" class="form-control form-text" placeholder="What do you have to say?"></textarea>
+    <button asp-page-handler="SendMail" type="submit" class="btn btn-primary"></button>
+</form>

@@ -45,6 +45,9 @@ namespace OCFX.Pages.Profiles
         [BindProperty]
         public Reply CommentNote { get; set; }
 
+        public string MessageContext { get; private set; }
+        public string MessageSubject { get; private set; }
+
         /// <summary>
         /// Displays the profile page
         /// </summary>
@@ -181,6 +184,34 @@ namespace OCFX.Pages.Profiles
         {
             FriendlyMethods.AddFriend(_context, user, friend);
             return RedirectToPage("./Index", new { friend });
+        }
+
+        public async Task<IActionResult> OnPostSendMailAsync(int id)
+        {
+            Player = await _userManager.GetUserAsync(User);
+            Profiler = await ProfileMethods.GetProfileAsync(_context, id);
+
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            var mail = new Shout()
+            {
+                Identifier = Guid.NewGuid(),
+                ChainIdentifier = Guid.NewGuid() + "" + Player.Id,
+                DateSent = DateTime.Now,
+                DateOpened = null,
+                SenderId = Player.ProfileId,
+                ReceiverId = Profiler.Id,
+                SubjectText = MessageSubject,
+                MessageText = MessageContext
+            };
+
+            _context.Messages.Add(mail);
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("/Dashboard/Messaging/Inbox");
         }
     }
 }

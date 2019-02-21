@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,6 +12,7 @@ using OCFX.DataModels;
 
 namespace OCFX.Pages.Dashboard.Messaging
 {
+    [Authorize]
     public class InboxModel : PageModel
     {
         private readonly UserManager<OCFXUser> _userManager;
@@ -33,7 +35,7 @@ namespace OCFX.Pages.Dashboard.Messaging
         public string ReplyMessage { get; private set; }
         public int ReplyReceiver { get; private set; }
 
-        public async Task OnGetAsync(int MessageId, int ChainId)
+        public async Task OnGetAsync(int MessageId, string ChainId)
         {
             // User's mailbox
             MailboxOwner = await _userManager.GetUserAsync(User);
@@ -47,9 +49,7 @@ namespace OCFX.Pages.Dashboard.Messaging
             ReplyReceiver = Messenger.SenderId;
         }
 
-
-
-        public IActionResult OnPostReply(int MessageId, int ChainId)
+        public IActionResult OnPostReply(int MessageId, string ChainId)
         {
             Shout Reply = new Shout()
             {

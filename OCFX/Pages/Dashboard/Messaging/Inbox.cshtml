@@ -35,11 +35,16 @@
         }
     }
 </div>
-<div>
-    <form asp-page-handler="Reply"   method="post">
+
+<div id="ReplyBox" style="display: none;" class="mt-5">
+    <form asp-page-handler="Reply" method="post">
         <input asp-for="ReplyReceiver" class="form-contol" hidden />
         <input asp-for="ReplySubject" class="form-contol form-control-sm" hidden />
         <textarea asp-for="ReplyMessage" class="form-contol form-text"></textarea>
+        <div class="btn-group btn-group-sm btn-group-justified d-flex align-content-center">
+            <button class="btn btn-primary">Send</button>
+            <a href="#" onclick="showReplyBox()" class="btn btn-danger">Cancel</a>
+        </div>
     </form>
 </div>
 

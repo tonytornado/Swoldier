@@ -89,3 +89,11 @@ function showReplyBox() {
         $('#ReplyBox').hide();
     }
 }
+
+function showSendBox() {
+    if ($('#SendBox').prop("display", "none")) {
+        $('#SendBox').show();
+    } else {
+        $('#SendBox').hide();
+    }
+}

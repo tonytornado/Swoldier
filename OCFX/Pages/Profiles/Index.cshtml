@@ -296,4 +296,23 @@
             <a asp-page="/Index" class="btn btn-primary">Home</a>
         </div>
     }
+    else
+    {
+        <div class="btn-group btn-group-sm btn-group-justified d-flex align-content-center">
+            <a href="#SendBox" class="btn btn-outline-dark" onclick="showSendBox()">Send a message</a>
+            <a asp-page="/Index" class="btn btn-primary">Home</a>
+        </div> 
+    }
 }
+
+<div id="SendBox" style="display: none;" class="mt-5">
+    <form asp-page-handler="SendMail" method="post" novalidate>
+        <input asp-for="MessageSubject" class="form-control form-control-sm" />
+        <textarea asp-for="MessageContext" class="form-control form-text" placeholder="What do you have to say?"></textarea>
+        <div class="btn-group btn-group-sm btn-group-justified d-flex align-content-center">
+            <button class="btn btn-primary">Send</button>
+            <a href="#" onclick="showSendBox()" class="btn btn-danger">Cancel</a>
+        </div>
+    </form>
+</div>
+@*<partial name="_sendMessage" model="new { Model.MessageSubject, Model.MessageText}" />*@

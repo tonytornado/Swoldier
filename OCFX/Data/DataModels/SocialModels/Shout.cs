@@ -9,12 +9,12 @@ namespace OCFX.Data.DataModels.SocialModels
     {
         public int Id { get; set; }
         public Guid Identifier { get; set; }
-        public int ChainIdentifier { get; set; }
+        public string ChainIdentifier { get; set; }
         public int SenderId { get; set; }
         public int ReceiverId { get; set; }
         public string MessageText { get; set; }
         public DateTime DateSent { get; set; }
-        public DateTime DateOpened { get; set; }
+        public DateTime? DateOpened { get; set; }
         public MessageStatus Status { get; set; }
         public string SubjectText { get; set; }
 
@@ -24,5 +24,7 @@ namespace OCFX.Data.DataModels.SocialModels
             Opened = 2,
             Archived = 3
         }
+
+        private string IdentityMaker() => Guid.NewGuid() + "-" + Id;
     }
 }

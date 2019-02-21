@@ -9,7 +9,7 @@
     <h4>You've got mail.</h4>
     <hr />
 </div>
-@if (Model.MailReceived != null)
+@if (Model.MailReceived != null && Model.MailReceived.Count() > 0)
 {
     <table>
         <thead>
@@ -35,8 +35,8 @@
 }
 else
 {
-    <div>
-        You have no new mail.
+    <div class="text-center">
+        <h1>You have no new mail.</h1>
     </div>
 }
 
