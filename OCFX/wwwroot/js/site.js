@@ -81,7 +81,6 @@ function showCommentBox() {
     }
 }
 
-
 function showReplyBox() {
     if ($('#ReplyBox').prop("display", "none")) {
         $('#ReplyBox').show();

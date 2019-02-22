@@ -208,9 +208,20 @@
                         @post.DatePosted | @post.Comments.Count @(post.Comments.Count == 1 ? "comment" : "comments") <br />
                         @if (Model.Player != null)
                         {
-                            <a onclick="showCommentBox()" href="#Comment-@post.Id" title="Leave a comment">Comment</a>
+                            <a onclick="showCommentBox()" href="#Comment-@post.Id" title="Leave a comment" class="btn-link">Comment</a>
                         }
                     </small>
+                </div>
+
+                <div id="CommentBox" class="col-md-10" style="display: none;">
+                    <form method="post" class="form-group border mt-2" asp-page-handler="EntryComment" asp-route-PostId="@post.Id">
+                        <textarea asp-for="PostNote.Text" class="form-control form-control-sm" placeholder="Comment something..."></textarea>
+                        <input asp-for="PostNote.ProfileId" value="@Model.Profiler.Id" class="form-control form-control-sm" hidden />
+                        <div class="btn-group btn-group-sm btn-block">
+                            <button class="btn btn-primary ">Post</button>
+                            <a class="btn btn-danger " onclick="showCommentBox()" href="#">Cancel</a>
+                        </div>
+                    </form>
                 </div>
                 if (post.Comments.Count > 0)
                 {
@@ -223,9 +234,20 @@
                                 @comment.DatePosted | @comment.Replies.Count @(comment.Replies.Count == 1 ? "reply" : "replies") <br />
                                 @if (Model.Player != null)
                                 {
-                                <a onclick="showReplyBox()" href="#Reply-@comment.Id" title="Reply to this comment">Reply</a>
+                                    <a onclick="showReplyBox()" href="#Reply-@comment.Id" title="Reply to this comment">Reply</a>
                                 }
                             </small>
+                        </div>
+
+                        <div id="ReplyBox" class="col-md-10" style="display: none;">
+                            <form method="post" class="form-group border mt-3" asp-page-handler="EntryReply" asp-route-CommentId="@comment.Id">
+                                <textarea asp-for="CommentNote.Text" class="form-control form-control-sm" placeholder="Got something to say?"></textarea>
+                                <input asp-for="CommentNote.ProfileId" value="@Model.Profiler.Id" class="form-control" hidden />
+                                <div class="btn-group btn-group-sm btn-block">
+                                    <button class="btn btn-primary ">Post</button>
+                                    <a class="btn btn-danger " onclick="showReplyBox()" href="#">Cancel</a>
+                                </div>
+                            </form>
                         </div>
 
                         @if (comment.Replies.Count > 0)
@@ -241,29 +263,7 @@
                                 </div>
                             }
                         }
-
-                        <div id="ReplyBox" class="col-md-10" style="display: none;">
-                            <form method="post" class="form-group border mt-3" asp-page-handler="EntryReply" asp-route-CommentId="@comment.Id">
-                                <textarea asp-for="CommentNote.Text" class="form-control form-control-lg" placeholder="Got something to say?"></textarea>
-                                <input asp-for="CommentNote.ProfileId" value="@Model.Profiler.Id" class="form-control" hidden />
-                                <div class="btn-group btn-group-xs btn-block">
-                                    <button class="btn btn-primary ">Post</button>
-                                    <a class="btn btn-danger " onclick="showReplyBox()" href="#">Cancel</a>
-                                </div>
-                            </form>
-                        </div>
                     }
-
-                    <div id="CommentBox" class="col-md-10" style="display: none;">
-                        <form method="post" class="form-group border mt-2" asp-page-handler="EntryComment" asp-route-PostId="@post.Id">
-                            <textarea asp-for="PostNote.Text" class="form-control form-control-lg" placeholder="Comment something..."></textarea>
-                            <input asp-for="PostNote.ProfileId" value="@Model.Profiler.Id" class="form-control" hidden />
-                            <div class="btn-group btn-group-xs btn-block">
-                                <button class="btn btn-primary ">Post</button>
-                                <a class="btn btn-danger " onclick="showCommentBox()" href="#">Cancel</a>
-                            </div>
-                        </form>
-                    </div>
                 }
             }
         }

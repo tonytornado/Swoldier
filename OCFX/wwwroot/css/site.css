@@ -9,6 +9,10 @@ body {
 	background-color: black;
 }
 
+input, textarea {
+    font-size: 0.8em;
+}
+
 nav {
 	font-family: 'Staatliches', cursive;
 	font-size: 1.2em;
