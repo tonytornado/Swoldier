@@ -97,3 +97,11 @@ function showSendBox() {
         $('#SendBox').hide();
     }
 }
+
+function showDeleteBox() {
+    if ($('#DeleteBox').prop("display", "none")) {
+        $('#DeleteBox').show();
+    } else {
+        $('#DeleteBox').hide();
+    }
+}

@@ -25,6 +25,7 @@ namespace OCFX.Pages.Dashboard.Messaging
         }
 
         public OCFXUser MailboxOwner { get; private set; }
+        public List<Shout> Chain { get; private set; }
         public List<Shout> MailReceived { get; private set; }
         public List<Shout> MailSent { get; private set; }
         public List<Shout> UnreadMail { get; private set; }

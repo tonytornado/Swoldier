@@ -30,6 +30,7 @@ namespace OCFX.Pages.Dashboard.Messaging
 
         [BindProperty]
         public string ReplyMessage { get; set; }
+        public List<Shout> Chain { get; private set; }
 
         public async Task OnGetAsync(int MessageId, string ChainId)
         {
@@ -46,9 +47,14 @@ namespace OCFX.Pages.Dashboard.Messaging
             }
 
             // User's mail chain
-            MailReceived = _context.Messages.Include(p => p.Sender).OrderByDescending(d => d.DateSent).Where(u => u.ReceiverId == MailboxOwner.ProfileId || u.ChainIdentifier == ChainId).ToList();
+            MailReceived = _context.Messages.Include(p => p.Sender).OrderByDescending(d => d.DateSent).Where(u => u.ChainIdentifier == ChainId).ToList();
         }
 
+        /// <summary>
+        /// Send a reply
+        /// </summary>
+        /// <param name="MessageId"></param>
+        /// <returns></returns>
         public async Task<IActionResult> OnPostReplyAsync(int MessageId)
         {
             MailboxOwner = await _userManager.GetUserAsync(User);
@@ -76,6 +82,25 @@ namespace OCFX.Pages.Dashboard.Messaging
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
+        }
+
+        /// <summary>
+        /// Removes the full mail chain for a user
+        /// </summary>
+        /// <param name="ChainId"></param>
+        /// <returns></returns>
+        public async Task OnPostArchiveAsync(string ChainId)
+        {
+            // Get the whole conversation chain
+            Chain = await _context.Messages.Where(u => u.ChainIdentifier == ChainId).ToListAsync();
+
+            foreach (var item in Chain)
+            {
+                item.Status = Shout.MessageStatus.Archived;
+            }
+            _context.SaveChanges();
+
+            RedirectToPage("./Index");
         }
     }
 }

@@ -11,27 +11,31 @@
 </div>
 @if (Model.MailReceived != null && Model.MailReceived.Count() > 0)
 {
-    <table class="table table-bordered">
-        <thead>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
             <tr>
                 @*<th>Mark</th>*@
                 <th>From</th>
                 <th>Subject</th>
                 <th>Date</th>
                 <th>Unread?</th>
+                <th>Archived?</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var mail in Model.MailReceived)
             {
-                <tr>
-                    @*<td>@Html.CheckBox()</td>*@
-                    <td>@mail.Sender.FirstName</td>
-                    <td><a asp-page="./Inbox" 
-                           asp-route-ChainId="@mail.ChainIdentifier" asp-route-messageId="@mail.Id">@mail.SubjectText</a></td>
-                    <td>@mail.DateSent</td>
-                    <td>@(mail.Status == Data.DataModels.SocialModels.Shout.MessageStatus.Unread ? "X" : "")</td>
-                </tr>
+            <tr>
+                @*<td>@Html.CheckBox()</td>*@
+                <td>@mail.Sender.FirstName</td>
+                <td>
+                    <a asp-page="./Inbox"
+                       asp-route-ChainId="@mail.ChainIdentifier" asp-route-messageId="@mail.Id">@mail.SubjectText</a>
+                </td>
+                <td>@mail.DateSent</td>
+                <td>@(mail.Status == Data.DataModels.SocialModels.Shout.MessageStatus.Unread ? "X" : "")</td>
+                <td>@(mail.Status == Data.DataModels.SocialModels.Shout.MessageStatus.Archived ? "X" : "")</td>
+            </tr>
             }
         </tbody>
     </table>
