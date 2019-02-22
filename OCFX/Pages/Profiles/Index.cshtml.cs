@@ -81,7 +81,7 @@ namespace OCFX.Pages.Profiles
 
             // Bodyfat calculation
             bodyFat = Math.Round(ProfileMethods.BodyFat(Profiler, Profiler.Height, Profiler.Weight, Profiler.NeckMeasurement, Profiler.WaistMeasurement, Profiler.HipMeasurement), 1);
-
+            
             return Page();
         }
 

@@ -53,6 +53,13 @@ namespace OCFX.Data.Methods
 			return ProfilePhoto;
 		}
 
+        public static async Task<Profile> GetProfileUser(OCFXContext context, int id)
+        {
+            var Poster = await context.Profiles.SingleOrDefaultAsync(i => i.Id == id);
+
+            return Poster;
+        }
+
 		/// <summary>
 		/// Calculate the body fat percentage of the profile
 		/// </summary>
