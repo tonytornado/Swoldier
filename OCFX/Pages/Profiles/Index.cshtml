@@ -202,7 +202,7 @@
             foreach (var post in Model.Profiler.Posts.OrderByDescending(x => x.DatePosted))
             {
                 <div class="border rounded shadow py-3 col-12" id="Comment-@post.Id">
-                    <h6>@post.Profile.FirstName @post.Profile.LastName</h6>
+                    <h6>@post.Entry.FirstName @post.Entry.LastName</h6>
                     <p>@post.Text</p>
                     <small>
                         @post.DatePosted | @post.Comments.Count @(post.Comments.Count == 1 ? "comment" : "comments") <br />
@@ -214,7 +214,7 @@
                     foreach (var comment in post.Comments.OrderByDescending(x => x.DatePosted))
                     {
                         <div class="border rounded shadow py-3 col-11" id="Reply-@comment.Id">
-                            <h6>@comment.Profile.FirstName @comment.Profile.LastName</h6>
+                            <h6>@comment.Entry.FirstName @comment.Entry.LastName</h6>
                             <p>@comment.Text</p>
                             <small>
                                 @comment.DatePosted | @comment.Replies.Count @(comment.Replies.Count == 1 ? "reply" : "replies") <br />
@@ -227,7 +227,7 @@
                             foreach (var reply in comment.Replies)
                             {
                                 <div class="border rounded shadow py-3 col-10">
-                                    <h6>@reply.Profile.FirstName @comment.Profile.LastName</h6>
+                                    <h6>@reply.Entry.FirstName @comment.Entry.LastName</h6>
                                     <p>@reply.Text</p>
                                     <small>
                                         @reply.DatePosted<br />
@@ -291,14 +291,14 @@
     @if (Model.Profiler.Id == Model.Player.ProfileId)
     {
         <hr />
-        <div class="btn-group btn-group-sm btn-group-justified d-flex align-content-center">
+        <div class="btn-group btn-group-sm btn-group-justified d-flex align-content-center my-3">
             <a asp-page="/Dashboard/Index" class="btn btn-outline-dark">Go to your dashboard</a>
             <a asp-page="/Index" class="btn btn-primary">Home</a>
         </div>
     }
     else
     {
-        <div class="btn-group btn-group-sm btn-group-justified d-flex align-content-center">
+        <div class="btn-group btn-group-sm btn-group-justified d-flex align-content-center my-3">
             <a href="#SendBox" class="btn btn-outline-dark" onclick="showSendBox()">Send a message</a>
             <a asp-page="/Index" class="btn btn-primary">Home</a>
         </div> 

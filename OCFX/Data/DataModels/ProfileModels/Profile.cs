@@ -81,8 +81,8 @@ namespace OCFX.DataModels
 		public ICollection<Address> Addresses { get; set; }
 		public ICollection<Phone> Phones { get; set; }
 		public ICollection<Photo> Photos { get; set; }
-		public ICollection<Post> Posts { get; set; }
-        public ICollection<Shout> Messages { get; set; } 
+
+
 
 		[InverseProperty("Following")]
 		public ICollection<Friend> Following { get; set; }
@@ -96,6 +96,8 @@ namespace OCFX.DataModels
         [InverseProperty("Sender")]
         public ICollection<Shout> SentMessages { get; set; }
 
+        [InverseProperty("Profile")]
+        public ICollection<Post> Posts { get; set; }
 
         // Tie to user login, quest, campaign?
         public OCFXUser FitUser { get; set; }

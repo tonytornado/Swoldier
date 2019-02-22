@@ -18,15 +18,14 @@ namespace OCFX.Data.Methods
 		public static async Task<Profile> GetProfileAsync(OCFXContext context, int? id)
 		{
 			Profile Profiler = await context.Profiles
-				.Include(p => p.Posts)
-					.ThenInclude(p => p.Comments)
-						.ThenInclude(p => p.Replies)
+                .Include(p => p.Posts).ThenInclude(p => p.Comments).ThenInclude(p => p.Replies)
 				.Include(p => p.Followers)
 				.Include(p => p.Following)
                 .Include(p => p.Gym)
 				.Include(p => p.Photos)
 				.Include(p => p.FitStyle)
                 .Include(p => p.ReceivedMessages)
+                .Include(p => p.SentMessages)
 				.Include(p => p.Quest)
 				.Include(p => p.Campaign)
 					.ThenInclude(p => p.CampaignDiet)

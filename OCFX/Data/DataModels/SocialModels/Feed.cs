@@ -20,9 +20,10 @@ namespace OCFX.DataModels.SocialModels
 		public string Text { get; set; }
 		[Display(Name = "Post Date")]
 		public DateTime DatePosted { get; set; }
-
         [Display(Name = "Profile")]
 		public int ProfileId { get; set; }
+
+        [ForeignKey("ProfileId")]
 		public Profile Profile { get; set; }
 	}
 
