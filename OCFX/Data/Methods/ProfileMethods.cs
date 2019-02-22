@@ -26,7 +26,7 @@ namespace OCFX.Data.Methods
                 .Include(p => p.Gym)
 				.Include(p => p.Photos)
 				.Include(p => p.FitStyle)
-                .Include(p => p.Messages)
+                .Include(p => p.ReceivedMessages)
 				.Include(p => p.Quest)
 				.Include(p => p.Campaign)
 					.ThenInclude(p => p.CampaignDiet)

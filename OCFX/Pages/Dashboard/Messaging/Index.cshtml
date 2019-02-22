@@ -11,13 +11,14 @@
 </div>
 @if (Model.MailReceived != null && Model.MailReceived.Count() > 0)
 {
-    <table>
+    <table class="table table-bordered">
         <thead>
             <tr>
                 @*<th>Mark</th>*@
                 <th>From</th>
                 <th>Subject</th>
                 <th>Date</th>
+                <th>Unread?</th>
             </tr>
         </thead>
         <tbody>
@@ -25,9 +26,11 @@
             {
                 <tr>
                     @*<td>@Html.CheckBox()</td>*@
-                    <td>@mail.SenderId</td>
-                    <td>@mail.SubjectText</td>
+                    <td>@mail.Sender.FirstName</td>
+                    <td><a asp-page="./Inbox" 
+                           asp-route-ChainId="@mail.ChainIdentifier" asp-route-messageId="@mail.Id">@mail.SubjectText</a></td>
                     <td>@mail.DateSent</td>
+                    <td>@(mail.Status == Data.DataModels.SocialModels.Shout.MessageStatus.Unread ? "X" : "")</td>
                 </tr>
             }
         </tbody>

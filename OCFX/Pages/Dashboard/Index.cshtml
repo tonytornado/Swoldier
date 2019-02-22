@@ -60,19 +60,22 @@
                     <tbody>
                         @foreach (var task in Model.Profiler.Campaign.CampaignQuest)
                         {
-                            if (Model.Profiler.Quest.Id == task.Id)
+                            if (Model.Profiler.Quest != null)
                             {
+                                if (Model.Profiler.Quest.Id == task.Id)
+                                {
                                 <tr>
                                     <td>@task.QuestName</td>
                                 </tr>
-                            }
-                            else if (!Model.CompletedQuests.Contains(task.Id))
-                            {
+                                }
+                                else if (!Model.CompletedQuests.Contains(task.Id))
+                                {
                                 <tr>
                                     <td>
                                         <a asp-page="/Campaigns/Quests/Detail" asp-route-id="@task.Id">@task.QuestName</a>
                                     </td>
                                 </tr>
+                                }
                             }
                             else
                             {
@@ -144,7 +147,7 @@
         </div>
     }
 
-    @if (Model.Profiler.Messages != null && Model.Profiler.Messages.Count > 0)
+    @if (Model.Profiler.ReceivedMessages != null && Model.Profiler.ReceivedMessages.Count > 0)
     {
         <div class="col-md-6 jumbotron border mx-auto">
             <table class="table table-bordered">

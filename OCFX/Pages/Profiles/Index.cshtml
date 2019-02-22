@@ -305,8 +305,8 @@
     }
 }
 
-<div id="SendBox" style="display: none;" class="mt-5">
-    <form asp-page-handler="SendMail" method="post" novalidate>
+<div id="SendBox" style="display: none;" class="mt-5 form-group">
+    <form asp-page-handler="SendMail" asp-route-id="@Model.Profiler.Id" method="post" novalidate>
         <input asp-for="MessageSubject" class="form-control form-control-sm" />
         <textarea asp-for="MessageContext" class="form-control form-text" placeholder="What do you have to say?"></textarea>
         <div class="btn-group btn-group-sm btn-group-justified d-flex align-content-center">

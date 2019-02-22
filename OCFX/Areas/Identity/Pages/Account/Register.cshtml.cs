@@ -27,7 +27,6 @@ namespace OCFX.Areas.Identity.Pages.Account
 		private readonly Data.OCFXContext _context;
 		private readonly OCFXContext _dbcontext;
 
-
 		public RegisterModel(
 			Data.OCFXContext context,
 			OCFXContext dbcontext,

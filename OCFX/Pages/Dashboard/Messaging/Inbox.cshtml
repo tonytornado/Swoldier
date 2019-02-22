@@ -15,36 +15,35 @@
 <div>
     @foreach (var message in Model.MailReceived)
     {
-        @if (message.Id != Model.IMessage.Id)
+        @if (message.Id == Model.IMessage.Id)
         {
-            <div class='' id="message_@message.Id">
-                <p>@message.SubjectText from @message.SenderId</p>
-                <pre>@message.MessageText</pre>
-                <small>@message.DateSent</small>
-                <hr />
-            </div>
+    <div class="border shadow-lg my-4 p-4" id="message_@message.Id">
+        <p>@message.SubjectText from @message.Sender.FirstName</p>
+        <pre>@message.MessageText</pre>
+        <small>@message.DateSent</small>
+        <hr />
+        <a href="#ReplyBox" onclick="showReplyBox()" class="btn btn-block">Reply?</a>
+        <div id="ReplyBox" style="display: none;" class="m-3 form-group">
+            <form asp-page-handler="Reply" asp-route-MessageId="@message.Id" method="post">
+                <textarea asp-for="ReplyMessage" class="form-control form-text" rows="6"></textarea>
+                <div class="btn-group btn-group-sm btn-group-justified d-flex align-content-center">
+                    <button class="btn btn-primary">Send</button>
+                    <a href="#" onclick="showReplyBox()" class="btn btn-danger">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+            
         }
         else
         {
             <div class="text-black-50" id="message_@message.Id">
-                <p>@message.SubjectText</p>
+                <p>@message.SubjectText from @message.Sender.FirstName</p>
                 <pre>@message.MessageText</pre>
                 <small>@message.DateSent</small>
                 <hr />
             </div>
         }
     }
-</div>
-
-<div id="ReplyBox" style="display: none;" class="mt-5">
-    <form asp-page-handler="Reply" method="post">
-        <input asp-for="ReplyReceiver" class="form-contol" hidden />
-        <input asp-for="ReplySubject" class="form-contol form-control-sm" hidden />
-        <textarea asp-for="ReplyMessage" class="form-contol form-text"></textarea>
-        <div class="btn-group btn-group-sm btn-group-justified d-flex align-content-center">
-            <button class="btn btn-primary">Send</button>
-            <a href="#" onclick="showReplyBox()" class="btn btn-danger">Cancel</a>
-        </div>
-    </form>
 </div>
 

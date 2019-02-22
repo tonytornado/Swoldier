@@ -45,8 +45,8 @@ namespace OCFX.Pages.Profiles
         [BindProperty]
         public Reply CommentNote { get; set; }
 
-        public string MessageContext { get; private set; }
-        public string MessageSubject { get; private set; }
+        public string MessageContext { get; set; }
+        public string MessageSubject { get; set; }
 
         /// <summary>
         /// Displays the profile page
@@ -205,13 +205,14 @@ namespace OCFX.Pages.Profiles
                 SenderId = Player.ProfileId,
                 ReceiverId = Profiler.Id,
                 SubjectText = MessageSubject,
-                MessageText = MessageContext
+                MessageText = MessageContext,
+                Status = Shout.MessageStatus.Unread
             };
 
             _context.Messages.Add(mail);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("/Dashboard/Messaging/Inbox");
+            return RedirectToPage("/Dashboard/Index");
         }
     }
 }

@@ -89,9 +89,16 @@ namespace OCFX.DataModels
 
 		[InverseProperty("Follower")]
 		public ICollection<Friend> Followers { get; set; }
-		
-		// Tie to user login, quest, campaign?
-		public OCFXUser FitUser { get; set; }
+
+        [InverseProperty("Receiver")]
+        public ICollection<Shout> ReceivedMessages { get; set; }
+
+        [InverseProperty("Sender")]
+        public ICollection<Shout> SentMessages { get; set; }
+
+
+        // Tie to user login, quest, campaign?
+        public OCFXUser FitUser { get; set; }
 		public Quest Quest { get; set; }
 		public Campaign Campaign { get; set; }
 		public Gym Gym { get; set; }

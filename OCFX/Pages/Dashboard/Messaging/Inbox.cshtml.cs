@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using OCFX.Areas.Identity.Data;
 using OCFX.Data.DataModels.SocialModels;
 using OCFX.DataModels;
 
 namespace OCFX.Pages.Dashboard.Messaging
 {
-    [Authorize]
     public class InboxModel : PageModel
     {
         private readonly UserManager<OCFXUser> _userManager;
@@ -26,14 +25,11 @@ namespace OCFX.Pages.Dashboard.Messaging
 
         public OCFXUser MailboxOwner { get; private set; }
         public Profile MailboxProfile { get; private set; }
-        public int MessageIdentifier { get; private set; }
         public Shout IMessage { get; private set; }
         public List<Shout> MailReceived { get; private set; }
 
-        // Reply Strings
-        public string ReplySubject { get; private set; }
-        public string ReplyMessage { get; private set; }
-        public int ReplyReceiver { get; private set; }
+        [BindProperty]
+        public string ReplyMessage { get; set; }
 
         public async Task OnGetAsync(int MessageId, string ChainId)
         {
@@ -42,32 +38,44 @@ namespace OCFX.Pages.Dashboard.Messaging
             MailboxProfile = MailboxOwner.Profile;
             IMessage = _context.Messages.SingleOrDefault(m => m.Id == MessageId);
 
-            // User's mail chain
-            MailReceived = _context.Messages.OrderByDescending(d => d.DateSent).Where(u => u.ReceiverId == MailboxOwner.ProfileId || u.ChainIdentifier == ChainId).ToList();
+            if(IMessage.Status == Shout.MessageStatus.Unread)
+            {
+                IMessage.Status = Shout.MessageStatus.Opened;
+                IMessage.DateOpened = DateTime.Now;
+                _context.SaveChanges();
+            }
 
-            Shout Messenger = MailReceived.FirstOrDefault();
-            ReplyReceiver = Messenger.SenderId;
+            // User's mail chain
+            MailReceived = _context.Messages.Include(p => p.Sender).OrderByDescending(d => d.DateSent).Where(u => u.ReceiverId == MailboxOwner.ProfileId || u.ChainIdentifier == ChainId).ToList();
         }
 
-        public IActionResult OnPostReply(int MessageId, string ChainId)
+        public async Task<IActionResult> OnPostReplyAsync(int MessageId)
         {
-            Shout Reply = new Shout()
+            MailboxOwner = await _userManager.GetUserAsync(User);
+            IMessage = _context.Messages.SingleOrDefault(m => m.Id == MessageId);
+
+            if (!ModelState.IsValid)
             {
-                DateOpened = DateTime.Now,
-                DateSent = DateTime.Now,
-                ChainIdentifier = ChainId,
+                return Page();
+            }
+
+            var reply = new Shout()
+            {
                 Identifier = Guid.NewGuid(),
+                ChainIdentifier = IMessage.ChainIdentifier,
                 SenderId = MailboxOwner.ProfileId,
-                ReceiverId = ReplyReceiver,
-                SubjectText = ">>: " + ReplySubject,
+                ReceiverId = IMessage.SenderId,
+                SubjectText = ">>: " + IMessage.SubjectText,
                 MessageText = ReplyMessage,
+                DateOpened = null,
+                DateSent = DateTime.Now,
                 Status = Shout.MessageStatus.Unread
             };
 
-            _context.Messages.Add(Reply);
-            _context.SaveChanges();
+            _context.Messages.Add(reply);
+            await _context.SaveChangesAsync();
 
-            return RedirectToPage("/Messaging/Inbox", "OnGetAsync", new { MessageId, ChainId });
+            return RedirectToPage("./Index");
         }
     }
 }
