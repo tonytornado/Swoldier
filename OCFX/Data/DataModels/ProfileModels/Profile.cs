@@ -99,6 +99,9 @@ namespace OCFX.DataModels
         [InverseProperty("Profile")]
         public ICollection<Post> Posts { get; set; }
 
+        [InverseProperty("Entry")]
+        public ICollection<Post> Entries { get; set; }
+
         // Tie to user login, quest, campaign?
         public OCFXUser FitUser { get; set; }
 		public Quest Quest { get; set; }

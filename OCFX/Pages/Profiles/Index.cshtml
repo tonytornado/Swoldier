@@ -206,7 +206,10 @@
                     <p>@post.Text</p>
                     <small>
                         @post.DatePosted | @post.Comments.Count @(post.Comments.Count == 1 ? "comment" : "comments") <br />
-                        <a onclick="showCommentBox()" href="#Comment-@post.Id" title="Leave a comment">Comment</a>
+                        @if (Model.Player != null)
+                        {
+                            <a onclick="showCommentBox()" href="#Comment-@post.Id" title="Leave a comment">Comment</a>
+                        }
                     </small>
                 </div>
                 if (post.Comments.Count > 0)
@@ -218,7 +221,10 @@
                             <p>@comment.Text</p>
                             <small>
                                 @comment.DatePosted | @comment.Replies.Count @(comment.Replies.Count == 1 ? "reply" : "replies") <br />
+                                @if (Model.Player != null)
+                                {
                                 <a onclick="showReplyBox()" href="#Reply-@comment.Id" title="Reply to this comment">Reply</a>
+                                }
                             </small>
                         </div>
 
