@@ -50,11 +50,11 @@ else
 }
 <hr />
 <div class="text-center">
-    <h3 class="border">
-        <u>Archived Mail</u>
-    </h3>
     @if (Model.ArchivedMailReceived != null && Model.ArchivedMailReceived.Count() > 0)
     {
+        <h3 class="border">
+            <u>Archived Mail</u>
+        </h3>
         <table class="table table-bordered table-striped rounded">
             <thead class="thead-dark">
                 <tr>

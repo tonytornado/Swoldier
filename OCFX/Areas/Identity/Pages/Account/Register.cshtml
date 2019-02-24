@@ -2,192 +2,209 @@
 @model RegisterModel
 
 @{
-	ViewData["Title"] = "Questionaire";
+    ViewData["Title"] = "Questionaire";
 }
 
-<h2>@ViewData["Title"]</h2>
-<p>This will help us get a feel for what you're thinking of doing.</p>
+<div class="text-center">
+    <h2>@ViewData["Title"]</h2>
+    <p>This will help us get a feel for what you're thinking of doing.</p>
+</div>
 
 <div class="mx-auto">
-	<form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-
-		<hr />
-		<h4>User Information</h4>
-		<div>
-			<div class="form-group">
-				<label asp-for="Input.Email"></label>
-				<input asp-for="Input.Email" class="form-control" />
-				<span asp-validation-for="Input.Email" class="text-danger"></span>
-			</div>
-			<div class="form-row">
-				<div class="form-group col-sm">
-					<label asp-for="Input.Password"></label>
-					<input asp-for="Input.Password" class="form-control" autocomplete="new-password" />
-					<span asp-validation-for="Input.Password" class="text-danger"></span>
-				</div>
-				<div class="form-group col-sm">
-					<label asp-for="Input.ConfirmPassword"></label>
-					<input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" />
-					<span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-				</div>
-			</div>
-		</div>
-		<hr />
-		<h4>Basic Information</h4>
-		<div class="form-row">
-			<div class="col-md">
-				<div class="form-group">
-					<label asp-for="Input.FirstName"></label>
-					<input asp-for="Input.FirstName" class="form-control" />
-					<span asp-validation-for="Input.FirstName" class="text-danger"></span>
-				</div>
-				<div class="form-group">
-					<label asp-for="Input.LastName"></label>
-					<input asp-for="Input.LastName" class="form-control" />
-					<span asp-validation-for="Input.LastName" class="text-danger"></span>
-				</div>
-				<div class="form-group">
-					<label asp-for="Input.DOB"></label>
-					<input asp-for="Input.DOB" class="form-control" />
-					<span asp-validation-for="Input.DOB" class="text-danger"></span>
-				</div>
-			</div>
-			<div class="col-md">
-				<div class="form-group">
-					<label asp-for="Profiler.Height"></label>
-					<input asp-for="Profiler.Height" class="form-control form-control" size="2" />
-					<span asp-validation-for="Profiler.Height" class="text-danger"></span>
-				</div>
-				<div class="form-group">
-					<label asp-for="Profiler.Weight"></label>
-					<input asp-for="Profiler.Weight" class="form-control form-control" size="2" />
-					<span asp-validation-for="Profiler.Weight" class="text-danger"></span>
-				</div>
-				<div class="form-group">
-					<label asp-for="Profiler.Gender">Select your class</label>
-					<select asp-for="Profiler.Gender" asp-items="Html.GetEnumSelectList<OCFX.DataModels.Profile.GenderSpectrum>()" class="form-control form-control"></select>
-					<span class="small">Disclaimer: We attempt to accommodate for any and all who exist; and only ask out of respect to our recommendations and training/nutrition methodology.</span>
-				</div>
-			</div>
-		</div>
-		<hr />
-		<h4>Location Information</h4>
-		<div class="form-row">
-			<div class="form-group col-md-2">
-				<label asp-for="Phoney.PhoneTypeName"></label>
-				<select asp-for="Phoney.PhoneTypeName" asp-items="Html.GetEnumSelectList<OCFX.DataModels.PhoneType>()" class="form-control"></select>
-			</div>
-			<div class="form-group col-md-2">
-				<label asp-for="Phoney.AreaCode"></label>
-				<input asp-for="Phoney.AreaCode" class="form-control form-control-static" />
-				<span asp-validation-for="Phoney.AreaCode" class="text-danger"></span>
-			</div>
-			<div class="form-group col-md">
-				<label asp-for="Phoney.PhoneNumber"></label>
-				<input asp-for="Phoney.PhoneNumber" class="form-control form-control-static" />
-				<span asp-validation-for="Phoney.PhoneNumber" class="text-danger"></span>
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="form-group col-sm-4">
-				<label asp-for="Addressing.AddressTypeName"></label>
-				<select asp-for="Addressing.AddressTypeName" asp-items="Html.GetEnumSelectList<OCFX.DataModels.AddressType>()" class="form-control"></select>
-			</div>
-			<div class="form-group col-sm">
-				<label asp-for="Addressing.StreetName"></label>
-				<input asp-for="Addressing.StreetName" class="form-control" />
-				<span asp-validation-for="Addressing.StreetName" class="text-danger"></span>
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="form-group col-md">
-				<label asp-for="Addressing.CityName"></label>
-				<input asp-for="Addressing.CityName" class="form-control" />
-				<span asp-validation-for="Addressing.CityName" class="text-danger"></span>
-			</div>
-			<div class="form-group col-md">
-				<label asp-for="Addressing.StateName"></label>
-				<input asp-for="Addressing.StateName" class="form-control" />
-				<span asp-validation-for="Addressing.StateName" class="text-danger"></span>
-			</div>
-			<div class="form-group col-md">
-				<label asp-for="Addressing.ZipCode"></label>
-				<input asp-for="Addressing.ZipCode" class="form-control" />
-				<span asp-validation-for="Addressing.ZipCode" class="text-danger"></span>
-			</div>
-		</div>
-		<hr />
-		<h4>Build Information</h4>
-		<div class="form-row">
-			<div class="col-md-3"></div>
-			<div class="col-md-4">
-				<div class="form-group form-group-lg">
-					<label asp-for="Profiler.ClassId">Select your class</label>
-					<select asp-for="Profiler.ClassId" asp-items="Html.GetEnumSelectList<OCFX.DataModels.ClassType>()" class="form-control form-control-lg"></select>
-				</div>
-				<div class="form-group form-group-lg">
-					<label asp-for="Input.CampaignId">Select your campaign</label>
-					<select asp-for="Input.CampaignId" asp-items="@Model.QuestList" class="form-control form-control-lg"></select>
-				</div>
-				<div class="form-group form-group-lg">
-					<label asp-for="Profiler.BackStory"></label>
-					<textarea asp-for="Profiler.BackStory" class="form-control" rows="4"></textarea>
-				</div>
-				<div class="form-group form-group-lg">
-					<label asp-for="Profiler.DriveStory"></label>
-					<textarea asp-for="Profiler.DriveStory" class="form-control" rows="4"></textarea>
-				</div>
-				<div class="form-group form-group-lg">
-					<label asp-for="Profiler.Goals"></label>
-					<textarea asp-for="Profiler.Goals" class="form-control" rows="4"></textarea>
-				</div>
-			</div>
-			<div class="col-md-2">
-				<div class="form-group form-group-sm">
-					<label asp-for="Profiler.StrengthStat"></label>
-					<input asp-for="Profiler.StrengthStat" id="strengthRegister" class="form-control form-control-lg pointBox" value="0" />
-					<span asp-validation-for="Profiler.StrengthStat" class="text-danger"></span>
-				</div>
-				<div class="form-group form-group-sm">
-					<label asp-for="Profiler.ConcentrationStat"></label>
-					<input asp-for="Profiler.ConcentrationStat" id="concentrationRegister" class="form-control form-control-lg pointBox" value="0" />
-					<span asp-validation-for="Profiler.ConcentrationStat" class="text-danger"></span>
-				</div>
-				<div class="form-group form-group-sm">
-					<label asp-for="Profiler.ConstitutionStat"></label>
-					<input asp-for="Profiler.ConstitutionStat" id="constitutionRegister" class="form-control form-control-lg pointBox" value="0" />
-					<span asp-validation-for="Profiler.ConstitutionStat" class="text-danger"></span>
-				</div>
-				<div class="form-group form-group-sm">
-					<label asp-for="Profiler.DexterityStat"></label>
-					<input asp-for="Profiler.DexterityStat" id="dexterityRegister" class="form-control form-control-lg pointBox" value="0" />
-					<span asp-validation-for="Profiler.DexterityStat" class="text-danger"></span>
-				</div>
-				<div class="form-group form-group-sm">
-					<label asp-for="Profiler.SpeedStat"></label>
-					<input asp-for="Profiler.SpeedStat" id="speedRegister" class="form-control form-control-lg pointBox" value="0" />
-					<span asp-validation-for="Profiler.SpeedStat" class="text-danger"></span>
-				</div>
-				<div class="form-group form-group-sm">
-					<label asp-for="Profiler.MotivationStat"></label>
-					<input asp-for="Profiler.MotivationStat" id="motivationRegister" class="form-control form-control-lg pointBox" value="0" />
-					<span asp-validation-for="Profiler.MotivationStat" class="text-danger"></span>
-				</div>
-				<div class="border">
-					<p>
-						Points available:
-						<br />
-						<span id="point-stock" class="lead">0</span>/30
-					</p>
-				</div>
-			</div>
-			<div class="col-md-3"></div>
-		</div>
-		<hr />
-		<button type="submit" class="btn btn-block btn-default" id="submitButton" disabled>Register</button>
-	</form>
+    <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+        <hr />
+        <div class="text-center">
+            <h4>User Information</h4>
+            <small>Don't worry. It's just simple stuff.</small>
+            <br />
+        </div>
+        <div>
+            <div class="form-group">
+                <label asp-for="Input.Email"></label>
+                <input asp-for="Input.Email" class="form-control" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-sm">
+                    <label asp-for="Input.Password"></label>
+                    <input asp-for="Input.Password" class="form-control" autocomplete="new-password" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-group col-sm">
+                    <label asp-for="Input.ConfirmPassword"></label>
+                    <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" />
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="text-center">
+            <h4>Basic Information</h4>
+            <small>Still simple stuff, more personal</small>
+            <br />
+        </div>
+        <div class="form-row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label asp-for="Input.FirstName"></label>
+                    <input asp-for="Input.FirstName" class="form-control" />
+                    <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.LastName"></label>
+                    <input asp-for="Input.LastName" class="form-control" />
+                    <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.DOB"></label>
+                    <input asp-for="Input.DOB" class="form-control" />
+                    <span asp-validation-for="Input.DOB" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-group">
+                    <label asp-for="Profiler.Height"></label>
+                    <input asp-for="Profiler.Height" class="form-control form-control" size="2" />
+                    <span asp-validation-for="Profiler.Height" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Profiler.Weight"></label>
+                    <input asp-for="Profiler.Weight" class="form-control form-control" size="2" />
+                    <span asp-validation-for="Profiler.Weight" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Profiler.Gender">Select your class</label>
+                    <select asp-for="Profiler.Gender" asp-items="Html.GetEnumSelectList<OCFX.DataModels.Profile.GenderSpectrum>()" class="form-control form-control"></select>
+                    <span class="small">Disclaimer: We attempt to accommodate for any and all who exist; and only ask out of respect to our recommendations and training/nutrition methodology.</span>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="text-center">
+            <h4>Location Information</h4>
+            <small>It's just demographics.</small>
+            <br />
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-2">
+                <label asp-for="Phoney.PhoneTypeName"></label>
+                <select asp-for="Phoney.PhoneTypeName" asp-items="Html.GetEnumSelectList<OCFX.DataModels.PhoneType>()" class="form-control"></select>
+            </div>
+            <div class="form-group col-md-2">
+                <label asp-for="Phoney.AreaCode"></label>
+                <input asp-for="Phoney.AreaCode" class="form-control form-control-static" />
+                <span asp-validation-for="Phoney.AreaCode" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md">
+                <label asp-for="Phoney.PhoneNumber"></label>
+                <input asp-for="Phoney.PhoneNumber" class="form-control form-control-static" />
+                <span asp-validation-for="Phoney.PhoneNumber" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-sm-4">
+                <label asp-for="Addressing.AddressTypeName"></label>
+                <select asp-for="Addressing.AddressTypeName" asp-items="Html.GetEnumSelectList<OCFX.DataModels.AddressType>()" class="form-control"></select>
+            </div>
+            <div class="form-group col-sm">
+                <label asp-for="Addressing.StreetName"></label>
+                <input asp-for="Addressing.StreetName" class="form-control" />
+                <span asp-validation-for="Addressing.StreetName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md">
+                <label asp-for="Addressing.CityName"></label>
+                <input asp-for="Addressing.CityName" class="form-control" />
+                <span asp-validation-for="Addressing.CityName" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md">
+                <label asp-for="Addressing.StateName"></label>
+                <input asp-for="Addressing.StateName" class="form-control" />
+                <span asp-validation-for="Addressing.StateName" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md">
+                <label asp-for="Addressing.ZipCode"></label>
+                <input asp-for="Addressing.ZipCode" class="form-control" />
+                <span asp-validation-for="Addressing.ZipCode" class="text-danger"></span>
+            </div>
+        </div>
+        <hr />
+        <div class="text-center">
+            <h4>Build Information</h4>
+            <small>Yep, time to get nerdy. Put in some base stats, give yourself a background, grow a beard.</small>
+            <br />
+        </div>
+        <div class="form-row">
+            <div class="col-md-3"></div>
+            <div class="col-md-4">
+                <div class="form-group form-group-lg">
+                    <label asp-for="Profiler.ClassId">Select your class</label>
+                    <select asp-for="Profiler.ClassId" asp-items="Html.GetEnumSelectList<OCFX.DataModels.ClassType>()" class="form-control form-control-lg"></select>
+                </div>
+                <div class="form-group form-group-lg">
+                    <label asp-for="Input.CampaignId">Select your campaign</label>
+                    <select asp-for="Input.CampaignId" asp-items="@Model.QuestList" class="form-control form-control-lg"></select>
+                </div>
+                <div class="form-group form-group-lg">
+                    <label asp-for="Profiler.BackStory"></label>
+                    <textarea asp-for="Profiler.BackStory" class="form-control" rows="4"></textarea>
+                </div>
+                <div class="form-group form-group-lg">
+                    <label asp-for="Profiler.DriveStory"></label>
+                    <textarea asp-for="Profiler.DriveStory" class="form-control" rows="4"></textarea>
+                </div>
+                <div class="form-group form-group-lg">
+                    <label asp-for="Profiler.Goals"></label>
+                    <textarea asp-for="Profiler.Goals" class="form-control" rows="4"></textarea>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group form-group-sm">
+                    <label asp-for="Profiler.StrengthStat"></label>
+                    <input asp-for="Profiler.StrengthStat" id="strengthRegister" class="form-control form-control-lg pointBox" value="0" />
+                    <span asp-validation-for="Profiler.StrengthStat" class="text-danger"></span>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label asp-for="Profiler.ConcentrationStat"></label>
+                    <input asp-for="Profiler.ConcentrationStat" id="concentrationRegister" class="form-control form-control-lg pointBox" value="0" />
+                    <span asp-validation-for="Profiler.ConcentrationStat" class="text-danger"></span>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label asp-for="Profiler.ConstitutionStat"></label>
+                    <input asp-for="Profiler.ConstitutionStat" id="constitutionRegister" class="form-control form-control-lg pointBox" value="0" />
+                    <span asp-validation-for="Profiler.ConstitutionStat" class="text-danger"></span>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label asp-for="Profiler.DexterityStat"></label>
+                    <input asp-for="Profiler.DexterityStat" id="dexterityRegister" class="form-control form-control-lg pointBox" value="0" />
+                    <span asp-validation-for="Profiler.DexterityStat" class="text-danger"></span>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label asp-for="Profiler.SpeedStat"></label>
+                    <input asp-for="Profiler.SpeedStat" id="speedRegister" class="form-control form-control-lg pointBox" value="0" />
+                    <span asp-validation-for="Profiler.SpeedStat" class="text-danger"></span>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label asp-for="Profiler.MotivationStat"></label>
+                    <input asp-for="Profiler.MotivationStat" id="motivationRegister" class="form-control form-control-lg pointBox" value="0" />
+                    <span asp-validation-for="Profiler.MotivationStat" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <div class="text-center p-4 m-4 col-2 mx-auto">
+            <p>
+                Points available:
+                <br />
+                <span id="point-stock" class="lead">0</span>/30
+            </p>
+        </div>
+        <hr />
+        <button type="submit" class="btn btn-block btn-outline-dark" id="submitButton" disabled>Register</button>
+    </form>
 </div>
 
 @section Scripts {
-	<partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
 }

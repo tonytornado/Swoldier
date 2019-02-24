@@ -311,10 +311,16 @@
     }
 }
 
-<div id="SendBox" style="display: none;" class="mt-5 form-group">
+<div id="SendBox" style="display: none;" class="mt-5 p-4 bg-light container rounded">
     <form asp-page-handler="SendMail" asp-route-id="@Model.Profiler.Id" method="post" novalidate>
-        <input asp-for="MessageSubject" class="form-control form-control-sm" />
-        <textarea asp-for="MessageContext" class="form-control form-text" placeholder="What do you have to say?"></textarea>
+        <div class="form-group form-group-sm">
+            <label asp-for="MessageSubject">Subject</label>
+            <input asp-for="MessageSubject" class="form-control form-control-sm" />
+        </div>
+        <div class="form-group form-group-sm">
+            <label asp-for="MessageContext">Message</label>
+            <textarea asp-for="MessageContext" class="form-control form-text" placeholder="What do you have to say?"></textarea>
+        </div>
         <div class="btn-group btn-group-sm btn-group-justified d-flex align-content-center">
             <button class="btn btn-primary">Send</button>
             <a href="#" onclick="showSendBox()" class="btn btn-danger">Cancel</a>
