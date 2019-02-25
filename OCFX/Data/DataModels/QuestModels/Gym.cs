@@ -19,6 +19,27 @@ namespace OCFX.DataModels
 
 		// List of the club's amenities and equipment
         public ICollection<Equipment> Amenities { get; set; }
-		public ICollection<Profile> Patrons { get; set; }
+		public ICollection<Membership> Members { get; set; }
+    }
+
+    public class Membership
+    { 
+        [Key]
+        [Display(Name = "Id")]
+        public int Id { get; set; }
+        [Display(Name = "Member Status")]
+        public MembershipType Status { get; set; }
+        [Display(Name = "Member Profile")]
+        public Profile Member { get; set; }
+        [Display(Name = "Club Membership")]
+        public Gym Club { get; set; }
+
+        public enum MembershipType
+        {
+            Member = 0,
+            Mentor = 1,
+            Pending = 2,
+            Banned = 3
+        }
     }
 }

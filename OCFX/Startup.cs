@@ -31,7 +31,10 @@ namespace OCFX
 				{
 					options.Conventions.AllowAnonymousToPage("/Profiles/Index");
 					options.Conventions.AuthorizeFolder("/MadminAccess");
-					options.Conventions.AuthorizeAreaFolder("Identity", "/Manage");
+                    options.Conventions.AuthorizeFolder("/Campaigns");
+                    options.Conventions.AuthorizeFolder("/Clubs");
+                    options.Conventions.AuthorizeFolder("/Dashboard");
+                    options.Conventions.AuthorizeAreaFolder("Identity", "/Manage");
 				})
 				.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 		}
