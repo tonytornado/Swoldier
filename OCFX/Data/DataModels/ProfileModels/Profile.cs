@@ -104,7 +104,7 @@ namespace OCFX.DataModels
         public OCFXUser FitUser { get; set; }
 		public Quest Quest { get; set; }
 		public Campaign Campaign { get; set; }
-		public Gym Gym { get; set; }
+		public Membership Gym { get; set; }
 
 		// The Gender Attribute Enum
 		public enum GenderSpectrum

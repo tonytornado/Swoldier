@@ -47,7 +47,8 @@ namespace OCFX.Areas.Identity.Data
 		public DbSet<Exercise> Exercises { get; set; }
 		public DbSet<Diet> Diets { get; set; }
 		public DbSet<Gym> Gyms { get; set; }
-		public DbSet<WorkoutProgram> WorkoutPrograms { get; set; }
+        public DbSet<Membership> Memberships { get; set; }
+        public DbSet<WorkoutProgram> WorkoutPrograms { get; set; }
 		public DbSet<Workout> Workouts { get; set; }
 
 		// Quest DB
@@ -55,5 +56,5 @@ namespace OCFX.Areas.Identity.Data
 		public DbSet<Campaign> Campaigns { get; set; }
 		public DbSet<Quest> Quests { get; set; }
 		public DbSet<QuestLog> QuestLogs { get; set; }
-	}
+    }
 }

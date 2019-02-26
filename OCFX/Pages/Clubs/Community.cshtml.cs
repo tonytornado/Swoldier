@@ -25,8 +25,8 @@ namespace OCFX.Pages.Clubs
         public Task<Gym> gymSub { get; private set; }
 
         public Gym CommunityDetail { get; private set; }
+        public Membership Subscription { get; private set; }
         public int MemberCount { get; private set; }
-        public bool Subscription { get; private set; }
 
         public async Task OnGetAsync(int id)
         {
@@ -44,10 +44,15 @@ namespace OCFX.Pages.Clubs
                 .SingleOrDefaultAsync(i => i.Id == id);
 
             // Get the count of members in the club
-            MemberCount = CommunityDetail.Members.Count;
+            MemberCount = CommunityDetail.Members
+                .Where(u => u.Status == Membership.MembershipType.Member)
+                .Count();
 
             // Check for subscription
-            //Subscription = CommunityDetail.Members.Contains();
+            Subscription = await _context.Memberships
+                .Where(i => i.Club == CommunityDetail)
+                .Where(i => i.Status != Membership.MembershipType.Banned)
+                .SingleOrDefaultAsync(i => i.Member == Visitor.Profile);
         }
 
         /// <summary>
@@ -63,7 +68,15 @@ namespace OCFX.Pages.Clubs
             Profile pro = await _context.Profiles.SingleOrDefaultAsync(i => i.Id == Visitor.ProfileId);
 
             // Set the current gym using EF
-            pro.Gym = gymSub;
+            var member = new Membership()
+            {
+                Club = gymSub,
+                Member = pro,
+                JoinDate = DateTime.Now,
+                Status = Membership.MembershipType.Pending
+            };
+
+            _context.Memberships.Add(member);
             _context.SaveChanges();
 
             return RedirectToPage(pageName: "Community", pageHandler: "OnGetAsync", routeValues: new { id });
@@ -82,7 +95,9 @@ namespace OCFX.Pages.Clubs
             Profile pro = await _context.Profiles.SingleOrDefaultAsync(i => i.Id == Visitor.ProfileId);
 
             // Set current gym to NULL
-            gymSub.Patrons.Remove(pro);
+            var member = await _context.Memberships.SingleOrDefaultAsync(u => u.Club == gymSub && u.Member == pro);
+
+            _context.Memberships.Remove(member);
             _context.SaveChanges();
 
             return RedirectToPage(pageName: "Community", pageHandler: "OnGetAsync", routeValues: new { id });

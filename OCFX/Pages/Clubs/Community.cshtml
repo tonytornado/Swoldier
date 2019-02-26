@@ -30,7 +30,7 @@
         </ul>
         <hr />
         <div>
-            @if (Model.Subscription == false)
+            @if (Model.Subscription == null)
             {
                 <form method="post">
                     <p>Sign up?</p>
@@ -40,12 +40,22 @@
                     </div>
                 </form>
             }
-            else if(Model.Subscription == true)
+            else if(Model.Subscription.Status == DataModels.Membership.MembershipType.Member)
             {
                 <form method="post">
                     <p>Wanna leave, punk?</p>
                     <div class="btn-group btn-group-sm">
                         <input asp-page-handler="ClubRemove" asp-route-id="@Model.CommunityDetail.Id" value="Leave Club" type="submit" class="btn btn-danger" />
+                        <a asp-page="./Index" class="btn btn-secondary">Back to clubs</a>
+                    </div>
+                </form>
+            }
+            else if(Model.Subscription.Status == DataModels.Membership.MembershipType.Pending)
+            {
+                <form method="post">
+                    <p>Your application is pending</p>
+                    <div class="btn-group btn-group-sm">
+                        <input asp-page-handler="ClubRemove" asp-route-id="@Model.CommunityDetail.Id" value="Cancel" type="submit" class="btn btn-dark" />
                         <a asp-page="./Index" class="btn btn-secondary">Back to clubs</a>
                     </div>
                 </form>
