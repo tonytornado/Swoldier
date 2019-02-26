@@ -202,24 +202,52 @@
             foreach (var post in Model.Profiler.Posts.OrderByDescending(x => x.DatePosted))
             {
                 <div class="border rounded shadow py-3 col-12" id="Comment-@post.Id">
-                    <h6>@post.EntryId</h6>
+                    <h6>@post.Entry.FirstName @post.Entry.LastName</h6>
                     <p>@post.Text</p>
                     <small>
                         @post.DatePosted | @post.Comments.Count @(post.Comments.Count == 1 ? "comment" : "comments") <br />
-                        <a onclick="showCommentBox()" href="#Comment-@post.Id" title="Leave a comment">Comment</a>
+                        @if (Model.Player != null)
+                        {
+                            <a onclick="showCommentBox()" href="#Comment-@post.Id" title="Leave a comment" class="btn-link">Comment</a>
+                        }
                     </small>
+                </div>
+
+                <div id="CommentBox" class="col-md-10" style="display: none;">
+                    <form method="post" class="form-group border mt-2" asp-page-handler="EntryComment" asp-route-PostId="@post.Id">
+                        <textarea asp-for="PostNote.Text" class="form-control form-control-sm" placeholder="Comment something..."></textarea>
+                        <input asp-for="PostNote.ProfileId" value="@Model.Profiler.Id" class="form-control form-control-sm" hidden />
+                        <div class="btn-group btn-group-sm btn-block">
+                            <button class="btn btn-primary ">Post</button>
+                            <a class="btn btn-danger " onclick="showCommentBox()" href="#">Cancel</a>
+                        </div>
+                    </form>
                 </div>
                 if (post.Comments.Count > 0)
                 {
                     foreach (var comment in post.Comments.OrderByDescending(x => x.DatePosted))
                     {
                         <div class="border rounded shadow py-3 col-11" id="Reply-@comment.Id">
-                            <h6>@comment.EntryId</h6>
+                            <h6>@comment.Entry.FirstName @comment.Entry.LastName</h6>
                             <p>@comment.Text</p>
                             <small>
                                 @comment.DatePosted | @comment.Replies.Count @(comment.Replies.Count == 1 ? "reply" : "replies") <br />
-                                <a onclick="showReplyBox()" href="#Reply-@comment.Id" title="Reply to this comment">Reply</a>
+                                @if (Model.Player != null)
+                                {
+                                    <a onclick="showReplyBox()" href="#Reply-@comment.Id" title="Reply to this comment">Reply</a>
+                                }
                             </small>
+                        </div>
+
+                        <div id="ReplyBox" class="col-md-10" style="display: none;">
+                            <form method="post" class="form-group border mt-3" asp-page-handler="EntryReply" asp-route-CommentId="@comment.Id">
+                                <textarea asp-for="CommentNote.Text" class="form-control form-control-sm" placeholder="Got something to say?"></textarea>
+                                <input asp-for="CommentNote.ProfileId" value="@Model.Profiler.Id" class="form-control" hidden />
+                                <div class="btn-group btn-group-sm btn-block">
+                                    <button class="btn btn-primary ">Post</button>
+                                    <a class="btn btn-danger " onclick="showReplyBox()" href="#">Cancel</a>
+                                </div>
+                            </form>
                         </div>
 
                         @if (comment.Replies.Count > 0)
@@ -227,7 +255,7 @@
                             foreach (var reply in comment.Replies)
                             {
                                 <div class="border rounded shadow py-3 col-10">
-                                    <h6>@reply.EntryId</h6>
+                                    <h6>@reply.Entry.FirstName @comment.Entry.LastName</h6>
                                     <p>@reply.Text</p>
                                     <small>
                                         @reply.DatePosted<br />
@@ -235,29 +263,7 @@
                                 </div>
                             }
                         }
-
-                        <div id="ReplyBox" class="col-md-10" style="display: none;">
-                            <form method="post" class="form-group border mt-3" asp-page-handler="EntryReply" asp-route-CommentId="@comment.Id">
-                                <textarea asp-for="CommentNote.Text" class="form-control form-control-lg" placeholder="Got something to say?"></textarea>
-                                <input asp-for="CommentNote.ProfileId" value="@Model.Profiler.Id" class="form-control" hidden />
-                                <div class="btn-group btn-group-xs btn-block">
-                                    <button class="btn btn-primary ">Post</button>
-                                    <a class="btn btn-danger " onclick="showReplyBox()" href="#">Cancel</a>
-                                </div>
-                            </form>
-                        </div>
                     }
-
-                    <div id="CommentBox" class="col-md-10" style="display: none;">
-                        <form method="post" class="form-group border mt-2" asp-page-handler="EntryComment" asp-route-PostId="@post.Id">
-                            <textarea asp-for="PostNote.Text" class="form-control form-control-lg" placeholder="Comment something..."></textarea>
-                            <input asp-for="PostNote.ProfileId" value="@Model.Profiler.Id" class="form-control" hidden />
-                            <div class="btn-group btn-group-xs btn-block">
-                                <button class="btn btn-primary ">Post</button>
-                                <a class="btn btn-danger " onclick="showCommentBox()" href="#">Cancel</a>
-                            </div>
-                        </form>
-                    </div>
                 }
             }
         }
@@ -291,24 +297,30 @@
     @if (Model.Profiler.Id == Model.Player.ProfileId)
     {
         <hr />
-        <div class="btn-group btn-group-sm btn-group-justified d-flex align-content-center">
+        <div class="btn-group btn-group-sm btn-group-justified d-flex align-content-center my-3">
             <a asp-page="/Dashboard/Index" class="btn btn-outline-dark">Go to your dashboard</a>
             <a asp-page="/Index" class="btn btn-primary">Home</a>
         </div>
     }
     else
     {
-        <div class="btn-group btn-group-sm btn-group-justified d-flex align-content-center">
+        <div class="btn-group btn-group-sm btn-group-justified d-flex align-content-center my-3">
             <a href="#SendBox" class="btn btn-outline-dark" onclick="showSendBox()">Send a message</a>
             <a asp-page="/Index" class="btn btn-primary">Home</a>
         </div> 
     }
 }
 
-<div id="SendBox" style="display: none;" class="mt-5 form-group">
+<div id="SendBox" style="display: none;" class="mt-5 p-4 bg-light container rounded">
     <form asp-page-handler="SendMail" asp-route-id="@Model.Profiler.Id" method="post" novalidate>
-        <input asp-for="MessageSubject" class="form-control form-control-sm" />
-        <textarea asp-for="MessageContext" class="form-control form-text" placeholder="What do you have to say?"></textarea>
+        <div class="form-group form-group-sm">
+            <label asp-for="MessageSubject">Subject</label>
+            <input asp-for="MessageSubject" class="form-control form-control-sm" />
+        </div>
+        <div class="form-group form-group-sm">
+            <label asp-for="MessageContext">Message</label>
+            <textarea asp-for="MessageContext" class="form-control form-text" placeholder="What do you have to say?"></textarea>
+        </div>
         <div class="btn-group btn-group-sm btn-group-justified d-flex align-content-center">
             <button class="btn btn-primary">Send</button>
             <a href="#" onclick="showSendBox()" class="btn btn-danger">Cancel</a>

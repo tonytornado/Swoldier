@@ -46,6 +46,12 @@
                 else
                 {
                     <li class="nav-item">
+                        <a asp-page="/Campaigns/Index" class="nav-link">Campaigns</a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-page="/Clubs/Index" class="nav-link">Clubs</a>
+                    </li>
+                    <li class="nav-item">
                         <a asp-page="/Contact" class="nav-link">Contact</a>
                     </li>
                 }
@@ -55,7 +61,7 @@
         </div>
     </nav>
 
-    <partial name="_CookieConsentPartial" />
+    @*<partial name="_CookieConsentPartial" />*@
 
     <main id="content">
         <div class="container body-content">

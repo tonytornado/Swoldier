@@ -14,8 +14,6 @@ namespace OCFX.DataModels.SocialModels
 		[Key]
 		[Display(Name = "ID")]
 		public int Id { get; set; }
-        [Display(Name = "Post ID")]
-        public int EntryId { get; set; }
         [Display(Name = "Post Content")]
 		public string Text { get; set; }
 		[Display(Name = "Post Date")]
@@ -23,8 +21,14 @@ namespace OCFX.DataModels.SocialModels
 
         [Display(Name = "Profile")]
 		public int ProfileId { get; set; }
+        [ForeignKey("ProfileId")]
 		public Profile Profile { get; set; }
-	}
+
+        [Display(Name = "Entry")]
+        public int EntryId { get; set; }
+        [ForeignKey("EntryId")]
+        public Profile Entry { get; set; }
+    }
 
 	public class Post : FeedElement
 	{

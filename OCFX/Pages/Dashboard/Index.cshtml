@@ -150,18 +150,31 @@
     @if (Model.Profiler.ReceivedMessages != null && Model.Profiler.ReceivedMessages.Count > 0)
     {
         <div class="col-md-6 jumbotron border mx-auto">
-            <table class="table table-bordered">
+            <table class="table table-bordered table-striped">
                 <thead class="thead-dark">
                     <tr>
-                        <th>Messages</th>
+                        <th class="text-center">@Model.Profiler.ReceivedMessages.Count @(@Model.Profiler.ReceivedMessages.Count == 1 ? "message" : "messages")</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>
-                            <a asp-page="./Messaging/Index">Check your inbox!</a>
+                            <a asp-page="./Messaging/Index" class="btn btn-block btn-outline-dark">Inbox</a>
                         </td>
                     </tr>
+                    @foreach (var message in Model.Profiler
+                        .ReceivedMessages
+                        .Where(u => u.ReceiverId == Model.Profiler.Id)
+                        .Where(u => u.Status == Data.DataModels.SocialModels.Shout.MessageStatus.Unread)
+                        .OrderByDescending(u => u.DateSent)
+                        .TakeLast(5))
+                    {
+                        <tr>
+                            <td>
+                                <a asp-page="./Messaging/Inbox" asp-route-MessageId="@message.Id" asp-route-ChainId="@message.ChainIdentifier">@message.SubjectText</a>
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>

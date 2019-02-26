@@ -11,14 +11,18 @@
 </div>
 @if (Model.MailReceived != null && Model.MailReceived.Count() > 0)
 {
-    <table class="table table-bordered">
-        <thead>
+    <div class="text-center">
+    <h3 class="border">
+        <u>Inbox</u>
+    </h3>
+    <table class="table table-bordered table-striped text-center rounded">
+        <thead class="thead-dark">
             <tr>
                 @*<th>Mark</th>*@
                 <th>From</th>
                 <th>Subject</th>
                 <th>Date</th>
-                <th>Unread?</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody>
@@ -27,14 +31,16 @@
                 <tr>
                     @*<td>@Html.CheckBox()</td>*@
                     <td>@mail.Sender.FirstName</td>
-                    <td><a asp-page="./Inbox" 
-                           asp-route-ChainId="@mail.ChainIdentifier" asp-route-messageId="@mail.Id">@mail.SubjectText</a></td>
+                    <td>
+                        <a asp-page="./Inbox"
+                           asp-route-ChainId="@mail.ChainIdentifier" asp-route-messageId="@mail.Id">@mail.SubjectText</a>
+                    </td>
                     <td>@mail.DateSent</td>
-                    <td>@(mail.Status == Data.DataModels.SocialModels.Shout.MessageStatus.Unread ? "X" : "")</td>
+                    <td>@(mail.Status == Data.DataModels.SocialModels.Shout.MessageStatus.Unread ? "New" : "Opened")</td>
                 </tr>
             }
         </tbody>
-    </table>
+    </table></div>
 }
 else
 {
@@ -42,4 +48,42 @@ else
         <h1>You have no new mail.</h1>
     </div>
 }
+<hr />
+<div class="text-center">
+    @if (Model.ArchivedMailReceived != null && Model.ArchivedMailReceived.Count() > 0)
+    {
+        <h3 class="border">
+            <u>Archived Mail</u>
+        </h3>
+        <table class="table table-bordered table-striped rounded">
+            <thead class="thead-dark">
+                <tr>
+                    @*<th>Mark</th>*@
+                    <th>From</th>
+                    <th>Subject</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var mail in Model.ArchivedMailReceived)
+                {
+                    <tr>
+                        @*<td>@Html.CheckBox()</td>*@
+                        <td>@mail.Sender.FirstName</td>
+                        <td>
+                            @mail.SubjectText
+                        </td>
+                        <td>@mail.DateSent</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="text-center">
+            <h1>You have no archvied mail.</h1>
+        </div>
+    }
+</div>
 

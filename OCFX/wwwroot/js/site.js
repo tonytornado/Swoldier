@@ -72,7 +72,7 @@ function pointCount() {
 	}
 }
 
-/* Comment Bidness */
+/* Comment/Messaging Bidness */
 function showCommentBox() {
     if ($('#CommentBox').prop("display", "none")){
         $('#CommentBox').show();
@@ -81,7 +81,9 @@ function showCommentBox() {
     }
 }
 
-
+/**
+ * Shows the reply box for the page
+ * */
 function showReplyBox() {
     if ($('#ReplyBox').prop("display", "none")) {
         $('#ReplyBox').show();
@@ -90,10 +92,24 @@ function showReplyBox() {
     }
 }
 
+/**
+ * Shows the send message box for the page
+ * */
 function showSendBox() {
     if ($('#SendBox').prop("display", "none")) {
         $('#SendBox').show();
     } else {
         $('#SendBox').hide();
+    }
+}
+
+/*
+ * Shows the delete confirmation
+ * */
+function showDeleteBox() {
+    if ($('#DeleteBox').prop("display", "none")) {
+        $('#DeleteBox').show();
+    } else {
+        $('#DeleteBox').hide();
     }
 }

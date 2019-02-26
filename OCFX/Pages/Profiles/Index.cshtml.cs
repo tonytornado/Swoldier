@@ -45,7 +45,9 @@ namespace OCFX.Pages.Profiles
         [BindProperty]
         public Reply CommentNote { get; set; }
 
+        [BindProperty]
         public string MessageContext { get; set; }
+        [BindProperty]
         public string MessageSubject { get; set; }
 
         /// <summary>

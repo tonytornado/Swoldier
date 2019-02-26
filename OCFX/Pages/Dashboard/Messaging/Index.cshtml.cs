@@ -25,7 +25,9 @@ namespace OCFX.Pages.Dashboard.Messaging
         }
 
         public OCFXUser MailboxOwner { get; private set; }
+        public List<Shout> Chain { get; private set; }
         public List<Shout> MailReceived { get; private set; }
+        public List<Shout> ArchivedMailReceived { get; private set; }
         public List<Shout> MailSent { get; private set; }
         public List<Shout> UnreadMail { get; private set; }
 
@@ -35,13 +37,29 @@ namespace OCFX.Pages.Dashboard.Messaging
             MailboxOwner = await _userManager.GetUserAsync(User);
 
             // Get latest received messages
-            MailReceived = await _context.Messages.Include(p => p.Sender).Where(u => u.ReceiverId == MailboxOwner.ProfileId).OrderByDescending(d => d.DateSent).ToListAsync();
+            MailReceived = await _context.Messages.Include(p => p.Sender)
+                .Where(u => u.ReceiverId == MailboxOwner.ProfileId)
+                .Where(u => u.Status != Shout.MessageStatus.Archived)
+                .OrderByDescending(d => d.DateSent)
+                .ToListAsync();
+
+            ArchivedMailReceived = await _context.Messages.Include(p => p.Sender)
+                .Where(u => u.ReceiverId == MailboxOwner.ProfileId)
+                .Where(u => u.Status == Shout.MessageStatus.Archived)
+                .OrderByDescending(d => d.DateSent)
+                .ToListAsync();
 
             // Get latest sent messages
-            MailSent = await _context.Messages.Include(p => p.Receiver).Where(u => u.SenderId == MailboxOwner.ProfileId).OrderByDescending(d => d.DateSent).ToListAsync();
+            MailSent = await _context.Messages
+                .Include(p => p.Receiver)
+                .Where(u => u.SenderId == MailboxOwner.ProfileId)
+                .OrderByDescending(d => d.DateSent)
+                .ToListAsync();
 
             // Get unread mail
-            UnreadMail = await _context.Messages.Where(u => u.Status == Shout.MessageStatus.Unread).ToListAsync();
+            UnreadMail = await _context.Messages
+                .Where(u => u.Status == Shout.MessageStatus.Unread)
+                .ToListAsync();
         }
     }
 }

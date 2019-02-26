@@ -34,18 +34,20 @@ namespace OCFX.Pages.Clubs
 
             // Get the gym
             CommunityDetail = await _context.Gyms
-                .Include(m => m.Patrons)
+                .Include(m => m.Members)
+                    .ThenInclude(m => m.Member)
                     .ThenInclude(m => m.FitStyle)
-                .Include(m => m.Patrons)
+                .Include(m => m.Members)
+                    .ThenInclude(m => m.Member)
                     .ThenInclude(m => m.Photos)
                 .Include(m => m.Amenities)
                 .SingleOrDefaultAsync(i => i.Id == id);
 
             // Get the count of members in the club
-            MemberCount = CommunityDetail.Patrons.Count;
+            MemberCount = CommunityDetail.Members.Count;
 
             // Check for subscription
-            Subscription = CommunityDetail.Patrons.Contains(Visitor.Profile) ? true : false;
+            //Subscription = CommunityDetail.Members.Contains();
         }
 
         /// <summary>
