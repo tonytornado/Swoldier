@@ -22,11 +22,11 @@ namespace OCFX.Pages.Clubs
         }
 
         public OCFXUser Visitor { get; private set; }
-        public Task<Gym> gymSub { get; private set; }
+        public Task<Gym> GymSub { get; private set; }
 
         public Gym CommunityDetail { get; private set; }
-        public Membership Subscription { get; private set; }
         public int MemberCount { get; private set; }
+        public Membership Subscription { get; private set; }
 
         public async Task OnGetAsync(int id)
         {
@@ -43,16 +43,15 @@ namespace OCFX.Pages.Clubs
                 .Include(m => m.Amenities)
                 .SingleOrDefaultAsync(i => i.Id == id);
 
-            // Get the count of members in the club
-            MemberCount = CommunityDetail.Members
-                .Where(u => u.Status == Membership.MembershipType.Member)
-                .Count();
-
             // Check for subscription
             Subscription = await _context.Memberships
-                .Where(i => i.Club == CommunityDetail)
-                .Where(i => i.Status != Membership.MembershipType.Banned)
-                .SingleOrDefaultAsync(i => i.Member == Visitor.Profile);
+                .SingleOrDefaultAsync(i => i.Member.Id == Visitor.ProfileId && 
+                i.Status != Membership.MembershipType.Banned &&
+                i.Club.Id == id);
+
+            // Get the count of members in the club
+            MemberCount = CommunityDetail.Members
+                .Where(u => u.Status == Membership.MembershipType.Member).Count();
         }
 
         /// <summary>

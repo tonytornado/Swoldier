@@ -104,6 +104,8 @@ namespace OCFX.DataModels
         public OCFXUser FitUser { get; set; }
 		public Quest Quest { get; set; }
 		public Campaign Campaign { get; set; }
+
+        [InverseProperty("Member")]
 		public Membership Gym { get; set; }
 
 		// The Gender Attribute Enum

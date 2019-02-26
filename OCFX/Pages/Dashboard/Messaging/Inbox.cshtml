@@ -44,7 +44,7 @@
             </div>
         }
     }
-    <a href="#" onclick="showDeleteBox()" class="btn btn-block btn-outline-warning">Delete Conversation</a>
+    <a onclick="showDeleteBox()" class="btn btn-block btn-outline-warning">Delete Conversation</a>
 </div>
 <div id="DeleteBox" style="display: none;" class="border shadow m-4 p-3 rounded">
     <form asp-page-handler="Archive" asp-route-ChainId="@Model.IMessage.ChainIdentifier" method="post">

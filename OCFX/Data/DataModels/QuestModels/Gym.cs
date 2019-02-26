@@ -11,7 +11,7 @@ namespace OCFX.DataModels
         public int Id { get; set; }
         [Display(Name = "Gym Title")]
         public string Title { get; set; }
-        [Display(Name = "Gym Traits")]
+        [Display(Name = "Gym Leader")]
         public string Leader { get; set; }
         [Display(Name = "Gym Details")]
         public string Description { get; set; }

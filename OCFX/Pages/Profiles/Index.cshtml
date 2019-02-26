@@ -12,7 +12,7 @@
             <h1 class="display-4">@Model.userTitle</h1>
             @if (Model.Profiler.Gym != null)
             {
-                <h5>@Model.Profiler.Gym.Title</h5>}
+                <h5>@Model.Profiler.Gym.Club.Title</h5>}
             <h5>@Model.Profiler.Age year-old @Html.DisplayFor(m => m.Profiler.Gender) @Model.Profiler.FitStyle.SkillMod @Model.Profiler.FitStyle.FitType</h5>
             @if (Model.Player != null)
             {

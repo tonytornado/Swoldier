@@ -15,7 +15,7 @@
         <p>@Model.CommunityDetail.Description</p>
         <h5>Members of @Model.CommunityDetail.Title</h5>
         <ul class="list-group">
-            @foreach (var athlete in Model.CommunityDetail.Members)
+            @foreach (var athlete in Model.CommunityDetail.Members.Where(i => i.Status == DataModels.Membership.MembershipType.Member))
             {
                 <li class="list-group-item">
                     <div class="d-inline-flex w-100 justify-content-between align-content-center">
@@ -23,7 +23,7 @@
                             <h4><a asp-page="/Profiles/Index" asp-route-id="@athlete.Id">@athlete.Member.FirstName @athlete.Member.LastName</a></h4>
                             <h6>@athlete.Member.FitStyle.SkillMod @athlete.Member.FitStyle.FitType</h6>
                         </div>
-                        <img src="~/images/uploads/@athlete.Member.Photos.FirstOrDefault(m => m.ProfileId == athlete.Id).URL" alt="Alternate Text" class="friend_avatar">
+                        <img src="~/images/uploads/@athlete.Member.Photos.FirstOrDefault(m => m.ProfileId == athlete.Member.Id).URL" alt="Alternate Text" class="friend_avatar">
                     </div>
                 </li>
             }

@@ -74,42 +74,26 @@ function pointCount() {
 
 /* Comment/Messaging Bidness */
 function showCommentBox() {
-    if ($('#CommentBox').prop("display", "none")){
-        $('#CommentBox').show();
-    } else {
-        $('#CommentBox').hide();
-    }
+    $('#CommentBox').slideToggle();
 }
 
 /**
  * Shows the reply box for the page
  * */
 function showReplyBox() {
-    if ($('#ReplyBox').prop("display", "none")) {
-        $('#ReplyBox').show();
-    } else {
-        $('#ReplyBox').hide();
-    }
+        $('#ReplyBox').slideToggle();
 }
 
 /**
  * Shows the send message box for the page
  * */
 function showSendBox() {
-    if ($('#SendBox').prop("display", "none")) {
-        $('#SendBox').show();
-    } else {
-        $('#SendBox').hide();
-    }
+        $('#SendBox').slideToggle();
 }
 
 /*
  * Shows the delete confirmation
  * */
 function showDeleteBox() {
-    if ($('#DeleteBox').prop("display", "none")) {
-        $('#DeleteBox').show();
-    } else {
-        $('#DeleteBox').hide();
-    }
+        $('#DeleteBox').slideToggle();
 }

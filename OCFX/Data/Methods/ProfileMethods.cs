@@ -26,6 +26,7 @@ namespace OCFX.Data.Methods
                 .Include(p => p.Followers)
 				.Include(p => p.Following)
                 .Include(p => p.Gym)
+                    .ThenInclude(p => p.Club)
 				.Include(p => p.Photos)
 				.Include(p => p.FitStyle)
                 .Include(p => p.ReceivedMessages)
