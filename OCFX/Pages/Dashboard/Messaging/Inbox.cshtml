@@ -5,8 +5,8 @@
 }
 
 <div class="text-center">
-    <h2>Messages</h2>
-    <h4>You've got mail.</h4>
+    <h2>Message</h2>
+    <h4>Comms open.</h4>
     <hr />
 </div>
 <div class="text-center">
@@ -18,7 +18,7 @@
         @if (message.Id == Model.IMessage.Id)
         {
             <div class="border shadow-lg my-4 p-4 rounded" id="message_@message.Id">
-                <p>@message.SubjectText [from @message.Sender.FirstName]</p>
+                <h6>@message.SubjectText [from @message.Sender.FirstName]</h6>
                 <pre>@message.MessageText</pre>
                 <small>@message.DateSent</small>
                 <hr />
@@ -37,14 +37,14 @@
         else
         {
             <div class="text-black-50" id="message_@message.Id">
-                <p>@message.SubjectText from @message.Sender.FirstName</p>
+                <h6>@message.Sender.FirstName:</h6>
                 <pre>@message.MessageText</pre>
                 <small>@message.DateSent</small>
                 <hr />
             </div>
         }
     }
-    <a onclick="showDeleteBox()" class="btn btn-block btn-outline-warning">Delete Conversation</a>
+    <a onclick="showDeleteBox()" class="btn btn-block btn-outline-light">Delete Conversation</a>
 </div>
 <div id="DeleteBox" style="display: none;" class="border shadow m-4 p-3 rounded">
     <form asp-page-handler="Archive" asp-route-ChainId="@Model.IMessage.ChainIdentifier" method="post">

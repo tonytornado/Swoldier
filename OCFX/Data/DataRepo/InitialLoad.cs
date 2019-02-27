@@ -133,7 +133,7 @@ namespace OCFX.Data.DataRepo
 			}
 			var clubs = new Gym[]
 			{
-				new Gym{ Title = "Bar-Barian Lounge", Description = "The Bar-Barian race has been long seen as the strongest \n and will never meet an equal.", Leader = "Alfred Calcutta"
+				new Gym{ Title = "Bar-Barian Lounge", Description = "The Bar-Barian race has been long seen as the strongest \n and will never meet an equal.", 
 				}
 			};
 			foreach (var character in clubs)

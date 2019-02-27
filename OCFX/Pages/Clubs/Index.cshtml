@@ -11,24 +11,27 @@
 </div>
 @if (Model.Gyms != null)
 {
+<ul class="list-group">
     @foreach (var gym in Model.Gyms)
     {
-        <div>
-            <h3>@gym.Title</h3>
-            <h6>Leader: @gym.Leader</h6>
-            @if (gym.Amenities != null)
-            {
-                <ul>
-                    @foreach (var item in gym.Amenities)
-                    {
-                        <li>@item.EquipName</li>
-                    }
-                </ul>
-            }
-            else { }
-            <h6>
-                <a asp-page="./Community" asp-route-id="@gym.Id" class="btn btn-sm btn-outline-dark">Info</a>
-            </h6>
-        </div>
+        <li class="list-group-item">
+            <div class="d-flex justify-content-between align-middle">
+                <h3>@gym.Title</h3>
+                @if (gym.Amenities != null)
+                {
+                    <ul>
+                        @foreach (var item in gym.Amenities)
+                        {
+                            <li>@item.EquipName</li>
+                        }
+                    </ul>
+                }
+                else { }
+                <h6>
+                    <a asp-page="./Community" asp-route-id="@gym.Id" class="btn btn-outline-dark">Info</a>
+                </h6>
+            </div>
+        </li>
     }
+</ul>
 }

@@ -94,12 +94,84 @@ namespace OCFX.Pages.Clubs
             Profile pro = await _context.Profiles.SingleOrDefaultAsync(i => i.Id == Visitor.ProfileId);
 
             // Set current gym to NULL
-            var member = await _context.Memberships.SingleOrDefaultAsync(u => u.Club == gymSub && u.Member == pro);
+            Membership member = await _context.Memberships.SingleOrDefaultAsync(u => u.Club == gymSub && u.Member == pro);
 
             _context.Memberships.Remove(member);
             _context.SaveChanges();
 
             return RedirectToPage(pageName: "Community", pageHandler: "OnGetAsync", routeValues: new { id });
+        }
+
+        /// <summary>
+        /// Accepts a new member into the club
+        /// </summary>
+        /// <param name="memberId"></param>
+        /// <param name="gymId"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> OnPostAcceptSubmissionAsync(int memberId, int gymId)
+        {
+            Gym gymSub = await _context.Gyms.SingleOrDefaultAsync(i => i.Id == gymId);
+            Profile pro = await _context.Profiles.SingleOrDefaultAsync(i => i.Id == memberId);
+
+            Membership member = await _context.Memberships.SingleOrDefaultAsync(u => u.Club == gymSub && u.Member == pro);
+            member.Status = Membership.MembershipType.Member;
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage(pageName: "Community", pageHandler: "OnGetAsync", routeValues: new { gymId });
+        }
+
+        /// <summary>
+        /// Denies a member entry into the club
+        /// </summary>
+        /// <param name="memberId"></param>
+        /// <param name="gymId"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> OnPostDenySubmissionAsync(int memberId, int gymId)
+        {
+            Gym gymSub = await _context.Gyms.SingleOrDefaultAsync(i => i.Id == gymId);
+            Profile pro = await _context.Profiles.SingleOrDefaultAsync(i => i.Id == memberId);
+
+            Membership member = await _context.Memberships.SingleOrDefaultAsync(u => u.Club == gymSub && u.Member == pro);
+            _context.Memberships.Remove(member);
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage(pageName: "Community", pageHandler: "OnGetAsync", routeValues: new { gymId });
+        }
+
+        /// <summary>
+        /// Banishes a member from the club into the shadow realm
+        /// </summary>
+        /// <param name="memberId"></param>
+        /// <param name="gymId"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> OnPostBanMemberAsync(int memberId, int gymId)
+        {
+            Gym gymSub = await _context.Gyms.SingleOrDefaultAsync(i => i.Id == gymId);
+            Profile pro = await _context.Profiles.SingleOrDefaultAsync(i => i.Id == memberId);
+
+            Membership member = await _context.Memberships.SingleOrDefaultAsync(u => u.Club == gymSub && u.Member == pro);
+            member.Status = Membership.MembershipType.Banned;
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage(pageName: "Community", pageHandler: "OnGetAsync", routeValues: new { gymId });
+        }
+
+        /// <summary>
+        /// Promotes a member to mentor. They cannot be made a leader.
+        /// </summary>
+        /// <param name="memberId"></param>
+        /// <param name="gymId"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> OnPostPromoteMemberAsync(int memberId, int gymId)
+        {
+            Gym gymSub = await _context.Gyms.SingleOrDefaultAsync(i => i.Id == gymId);
+            Profile pro = await _context.Profiles.SingleOrDefaultAsync(i => i.Id == memberId);
+
+            Membership member = await _context.Memberships.SingleOrDefaultAsync(u => u.Club == gymSub && u.Member == pro);
+            member.Status = Membership.MembershipType.Mentor;
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage(pageName: "Community", pageHandler: "OnGetAsync", routeValues: new { gymId });
         }
     }
 }

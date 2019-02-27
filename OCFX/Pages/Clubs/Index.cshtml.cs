@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using OCFX.Areas.Identity.Data;
 using OCFX.DataModels;
 
@@ -18,6 +19,6 @@ namespace OCFX.Pages.Clubs
 
         public List<Gym> Gyms { get; private set; }
 
-        public void OnGet() => Gyms = _context.Gyms.ToList();
+        public void OnGet() => Gyms = _context.Gyms.Include(g => g.Members).ToList();
     }
 }

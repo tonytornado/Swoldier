@@ -24,10 +24,11 @@ namespace OCFX.DataModels
 
         public enum MembershipType
         {
-            Member = 0,
+            Leader = 0,
             Mentor = 1,
-            Pending = 2,
-            Banned = 3
+            Member = 2,
+            Pending = 3,
+            Banned = 4,
         }
     }
 }
