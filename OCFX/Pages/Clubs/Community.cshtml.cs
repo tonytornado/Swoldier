@@ -27,6 +27,7 @@ namespace OCFX.Pages.Clubs
         public Gym CommunityDetail { get; private set; }
         public int MemberCount { get; private set; }
         public Membership Subscription { get; private set; }
+        public string StatusMessage { get; private set; }
 
         public async Task OnGetAsync(int id)
         {
@@ -78,6 +79,8 @@ namespace OCFX.Pages.Clubs
             _context.Memberships.Add(member);
             _context.SaveChanges();
 
+            StatusMessage = "Your membership is being processed. In the meantime, why don't you just browse around?";
+
             return RedirectToPage(pageName: "Community", pageHandler: "OnGetAsync", routeValues: new { id });
         }
 
@@ -99,6 +102,8 @@ namespace OCFX.Pages.Clubs
             _context.Memberships.Remove(member);
             _context.SaveChanges();
 
+            StatusMessage = "Member has been removed!";
+
             return RedirectToPage(pageName: "Community", pageHandler: "OnGetAsync", routeValues: new { id });
         }
 
@@ -116,6 +121,8 @@ namespace OCFX.Pages.Clubs
             Membership member = await _context.Memberships.SingleOrDefaultAsync(u => u.Club == gymSub && u.Member == pro);
             member.Status = Membership.MembershipType.Member;
             await _context.SaveChangesAsync();
+
+            StatusMessage = "Member has been confirmed!";
 
             return RedirectToPage(pageName: "Community", pageHandler: "OnGetAsync", routeValues: new { gymId });
         }
@@ -153,6 +160,8 @@ namespace OCFX.Pages.Clubs
             member.Status = Membership.MembershipType.Banned;
             await _context.SaveChangesAsync();
 
+            StatusMessage = "Member has been banned.";
+
             return RedirectToPage(pageName: "Community", pageHandler: "OnGetAsync", routeValues: new { gymId });
         }
 
@@ -170,6 +179,8 @@ namespace OCFX.Pages.Clubs
             Membership member = await _context.Memberships.SingleOrDefaultAsync(u => u.Club == gymSub && u.Member == pro);
             member.Status = Membership.MembershipType.Mentor;
             await _context.SaveChangesAsync();
+
+            StatusMessage = "Member has been promoted!";
 
             return RedirectToPage(pageName: "Community", pageHandler: "OnGetAsync", routeValues: new { gymId });
         }

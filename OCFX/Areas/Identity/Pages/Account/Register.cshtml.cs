@@ -122,7 +122,8 @@ namespace OCFX.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-				var user = new OCFXUser
+                // Create a user profile
+                OCFXUser user = new OCFXUser
 				{
 					FirstName = Input.FirstName,
 					LastName = Input.LastName,
@@ -151,7 +152,8 @@ namespace OCFX.Areas.Identity.Pages.Account
 						SpeedStat = Profiler.SpeedStat,
 						ConcentrationStat = Profiler.ConcentrationStat,
 						ClassId = Profiler.ClassId,
-						Campaign = await _context.Campaigns.FirstOrDefaultAsync(p => p.Id == Input.CampaignId),
+						Campaign = await _context.Campaigns.FirstOrDefaultAsync(p => p.Id == 1),
+                        Quest = await _context.Quests.FirstOrDefaultAsync(p => p.Id == 1),
 
 						Phones = new Collection<Phone>(),
 						Addresses = new Collection<Address>(),
@@ -159,12 +161,15 @@ namespace OCFX.Areas.Identity.Pages.Account
 					}
                 };
 
+                // Add the phone number
                 user.Profile.Phones.Add(new Phone
 				{
 					AreaCode = Phoney.AreaCode,
 					PhoneTypeName = Phoney.PhoneTypeName,
 					PhoneNumber = Phoney.PhoneNumber
 				});
+
+                // Add the address
                 user.Profile.Addresses.Add(new Address
 				{
 					AddressTypeName = Addressing.AddressTypeName,
@@ -173,6 +178,8 @@ namespace OCFX.Areas.Identity.Pages.Account
 					StateName = Addressing.StateName,
 					ZipCode = Addressing.ZipCode
 				});
+
+                // Add the default profile picture
 				user.Profile.Photos.Add(new Photo
 				{
 					DateAdded = DateTime.Now,
@@ -198,6 +205,16 @@ namespace OCFX.Areas.Identity.Pages.Account
 					} else {
 						await _userManager.AddToRoleAsync(user, "User");
 					}
+
+                    // Add the newest quest to the quest book and start
+                    _context.QuestLogs.Add(new QuestLog
+                    {
+                        Profile = user.Profile,
+                        Campaign = user.Profile.Campaign,
+                        QuestId = user.Profile.Quest.Id,
+                        Completed = false
+                    });
+
 					await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 

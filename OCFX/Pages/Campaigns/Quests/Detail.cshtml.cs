@@ -25,7 +25,6 @@ namespace OCFX.Pages.Campaigns.Quests
 
         public Quest Quest { get; private set; }
         public QuestLog QuestBlocker { get; private set; }
-
         public List<int> Completed { get; private set; }
         public string StatusMessage { get; private set; }
 
@@ -33,8 +32,8 @@ namespace OCFX.Pages.Campaigns.Quests
         {
             var user = await _userManager.GetUserAsync(User);
 
-            Quest = await _context.Quests.SingleOrDefaultAsync(q => q.Id == id);
-            QuestBlocker = await _context.QuestLogs.SingleOrDefaultAsync(q => q.QuestId == id && q.Completed == false) ?? new QuestLog { };
+            Quest =  _context.Quests.SingleOrDefault(q => q.Id == id);
+            QuestBlocker = _context.QuestLogs.SingleOrDefault(q => q.QuestId == id && q.Completed == false && q.ProfileId == user.ProfileId);
             Completed = QuestMethods.CheckCompletedQuests(_context, user.ProfileId);
         }
 
@@ -48,6 +47,20 @@ namespace OCFX.Pages.Campaigns.Quests
             var user = await _userManager.GetUserAsync(User);
 
             QuestMethods.JoinQuest(_context, id, user.ProfileId);
+            StatusMessage = "Quest Accepted!";
+            return RedirectToPage("Detail", "OnGetAsync", new { id });
+        }
+
+        /// <summary>
+        /// Completes a quest.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> OnPostCompleteQuestAsync(int id)
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+            QuestMethods.CompleteQuest(_context, id, user.ProfileId);
             StatusMessage = "Quest Accepted!";
             return RedirectToPage("Detail", "OnGetAsync", new { id });
         }

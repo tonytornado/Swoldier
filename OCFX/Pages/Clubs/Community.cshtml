@@ -10,13 +10,16 @@
     <hr />
 </div>
 
+<partial name="_StatusMessage" model="Model.StatusMessage" />
 <section class="row">
     <div class="col-md-8">
-        <p>@Model.CommunityDetail.Description</p>
+        <div>
+            <p>@Model.CommunityDetail.Description</p>
+        </div>
         <h5>Members of @Model.CommunityDetail.Title</h5>
         <ul class="list-group">
             @foreach (var athlete in Model.CommunityDetail.Members
-               .Where(i => i.Status != DataModels.Membership.MembershipType.Banned && i.Status != DataModels.Membership.MembershipType.Pending))
+              .Where(i => i.Status != DataModels.Membership.MembershipType.Banned && i.Status != DataModels.Membership.MembershipType.Pending))
             {
                 <li class="list-group-item">
                     <div class="d-inline-flex w-100 justify-content-between align-content-center">
@@ -42,7 +45,7 @@
             }
         </ul>
         <hr />
-        <div>
+        <div class="container-fluid">
             @if (Model.Subscription == null)
             {
                 <form method="post">

@@ -143,8 +143,8 @@
                     <select asp-for="Profiler.ClassId" asp-items="Html.GetEnumSelectList<OCFX.DataModels.ClassType>()" class="form-control form-control-lg"></select>
                 </div>
                 <div class="form-group form-group-lg">
-                    <label asp-for="Input.CampaignId">Select your campaign</label>
-                    <select asp-for="Input.CampaignId" asp-items="@Model.QuestList" class="form-control form-control-lg"></select>
+                    <label asp-for="Input.CampaignId">Select your campaign [LOCKED]</label>
+                    <select asp-for="Input.CampaignId" asp-items="@Model.QuestList" class="form-control form-control-lg" disabled></select>
                 </div>
                 <div class="form-group form-group-lg">
                     <label asp-for="Profiler.BackStory"></label>
@@ -193,7 +193,7 @@
             </div>
             <div class="col-md-3"></div>
         </div>
-        <div class="text-center p-4 m-4 col-2 mx-auto">
+        <div class="text-center p-4 m-4 col-2 mx-auto border shadow-lg">
             <p>
                 Points available:
                 <br />
