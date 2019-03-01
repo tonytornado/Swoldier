@@ -2,13 +2,9 @@
 @model OCFX.Pages.Clubs.CommunityModel
 @{
     ViewData["Title"] = "Community";
+    ViewData["BannerTitle"] = Model.CommunityDetail.Title;
+    ViewData["BannerSubtitle"] = "Members: " + @Model.MemberCount;
 }
-
-<div class="text-center">
-    <h2>@Model.CommunityDetail.Title</h2>
-    <h4>Members: @Model.MemberCount</h4>
-    <hr />
-</div>
 
 <partial name="_StatusMessage" model="Model.StatusMessage" />
 <section class="row">
@@ -19,7 +15,7 @@
         <h5>Members of @Model.CommunityDetail.Title</h5>
         <ul class="list-group">
             @foreach (var athlete in Model.CommunityDetail.Members
-              .Where(i => i.Status != DataModels.Membership.MembershipType.Banned && i.Status != DataModels.Membership.MembershipType.Pending))
+             .Where(i => i.Status != DataModels.Membership.MembershipType.Banned && i.Status != DataModels.Membership.MembershipType.Pending))
             {
                 <li class="list-group-item">
                     <div class="d-inline-flex w-100 justify-content-between align-content-center">
@@ -45,7 +41,7 @@
             }
         </ul>
         <hr />
-        <div class="container-fluid">
+        <div class="container-fluid" id="choice_container">
             @if (Model.Subscription == null)
             {
                 <form method="post">
@@ -82,29 +78,35 @@
             }
             else if (Model.Subscription.Status == DataModels.Membership.MembershipType.Leader)
             {
-                <p>You're the leader. Do something.</p>
-                <ul class="list-group-flush">
-                    @foreach (var applicant in Model.CommunityDetail.Members.Where(m => m.Status == DataModels.Membership.MembershipType.Pending))
-                    {
-                        <li class="list-group-item">
-                            <div class="d-inline-flex w-100 justify-content-between align-content-center">
-                                <div>
-                                    <h4>
-                                        <a asp-page="/Profiles/Index" asp-route-id="@applicant.Member.Id">@applicant.Member.FirstName @applicant.Member.LastName</a>
-                                    </h4>
-                                    <h6>@applicant.Member.FitStyle.SkillMod @applicant.Member.FitStyle.FitType - @applicant.Status</h6>
-                                    <form method="post">
-                                        <div class="btn-group btn-group-sm">
-                                            <button class="btn btn-primary" asp-route-memberId="@applicant.Member.Id" asp-route-gymId="@Model.CommunityDetail.Id" asp-page-handler="AcceptSubmission">Accept</button>
-                                            <button class="btn btn-danger" asp-route-memberId="@applicant.Member.Id" asp-route-gymId="@Model.CommunityDetail.Id" asp-page-handler="DenySubmission">Deny</button>
+                <p>You're the leader. Do something, if you've got some time.</p>
+                @if (Model.CommunityDetail.Members.Where(m => m.Status == DataModels.Membership.MembershipType.Pending).Count() > 0)
+                {
+                    <div class="border rounded p-3">
+                        <h6 class="text-right">Seems you've got some people knocking at the door. Better answer them. Make sure you ask them for the password.</h6>
+                        <ul class="list-group-flush">
+                            @foreach (var applicant in Model.CommunityDetail.Members.Where(m => m.Status == DataModels.Membership.MembershipType.Pending))
+                            {
+                                <li class="list-group-item">
+                                    <div class="d-inline-flex w-100 justify-content-between align-content-center">
+                                        <div>
+                                            <h4>
+                                                <a asp-page="/Profiles/Index" asp-route-id="@applicant.Member.Id">@applicant.Member.FirstName @applicant.Member.LastName</a>
+                                            </h4>
+                                            <h6>@applicant.Member.FitStyle.SkillMod @applicant.Member.FitStyle.FitType - @applicant.Status</h6>
+                                            <form method="post">
+                                                <div class="btn-group btn-group-sm">
+                                                    <button class="btn btn-primary" asp-route-memberId="@applicant.Member.Id" asp-route-gymId="@Model.CommunityDetail.Id" asp-page-handler="AcceptSubmission">Accept</button>
+                                                    <button class="btn btn-danger" asp-route-memberId="@applicant.Member.Id" asp-route-gymId="@Model.CommunityDetail.Id" asp-page-handler="DenySubmission">Deny</button>
+                                                </div>
+                                            </form>
                                         </div>
-                                    </form>
-                                </div>
-                                <img src="~/images/uploads/@applicant.Member.Photos.FirstOrDefault(m => m.ProfileId == applicant.Member.Id).URL" alt="Alternate Text" class="friend_avatar border">
-                            </div>
-                        </li>
-                    }
-                </ul>
+                                        <img src="~/images/uploads/@applicant.Member.Photos.FirstOrDefault(m => m.ProfileId == applicant.Member.Id).URL" alt="Alternate Text" class="friend_avatar border">
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
             }
         </div>
     </div>

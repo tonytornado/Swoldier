@@ -67,12 +67,12 @@ namespace OCFX.Data.Methods
 			int QuestGoer = UserId;
 			QuestLog quest = context.QuestLogs.SingleOrDefault(q => q.QuestId == QuestId && q.ProfileId == QuestGoer);
 
-
-            //bool QuestCheck = CheckForCampaign(context, QuestGoer, quest.CampaignId);
-            //if (QuestCheck != true)
-            //{
-            //    throw new Exception("Yeah, they didn't complete the quest, fall back.");
-            //}
+            // Check if the quest is actually part of the campaign
+            bool QuestCheck = CheckForCampaign(context, QuestGoer, quest.CampaignId);
+            if (QuestCheck != true)
+            {
+                throw new Exception("Yeah, they didn't complete the quest, fall back.");
+            }
 
             // Set the quest as complete.
             quest.Completed = true;
@@ -93,9 +93,10 @@ namespace OCFX.Data.Methods
 		private static bool CheckForCampaign(OCFXContext context, int x, int y)
 		{
 			Profile player = context.Profiles.SingleOrDefault(p => p.Id == x);
-            Quest campaignQuest = context.Quests.Include(q => q.Campaign).FirstOrDefault(p => p.Id == y);
+            Quest quest = context.Quests.SingleOrDefault(p => p.Id == y);
+            Campaign campaign = context.Campaigns.FirstOrDefault(p => p.CampaignQuest.Contains(quest));
 
-            if (campaignQuest == null)
+            if (campaign == null)
 			{
 				throw new Exception("This is bogus. They didn't complete anything.");
 			}

@@ -3,11 +3,10 @@
 
 @{
     ViewData["Title"] = "Details";
+    ViewData["BannerTitle"] = Model.Campaign.CampaignName;
+    ViewData["BannerSubtitle"] = Model.Campaign.CampaignDetails;
 }
 <div class="jumbotron text-body">
-	<h2>Campaign: @Model.Campaign.CampaignName</h2>
-	<p class="lead title-font">@Model.Campaign.CampaignDetails</p>
-
 	<h4>Campaign Details</h4>
 	@if (Model.Campaign.CampaignQuest != null)
 	{
@@ -16,6 +15,8 @@
 			@foreach (var quest in Model.Campaign.CampaignQuest)
 			{
 				// Set quest conditions, statuses if logged in.
+
+
 				// Strike out completed quests [Needs completed quest table]
 				<li>@quest.QuestName [@quest.QuestStyle] <br /> @quest.QuestStory</li>
 			}

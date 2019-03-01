@@ -1,15 +1,10 @@
 ﻿@page
 @model OCFX.Pages.FAQ.IndexModel
 @{
-	ViewData["Title"] = "F.A.Q.";
+    ViewData["Title"] = "F.A.Q.";
+    ViewData["BannerTitle"] = "FAQ - Frequently Asked Questions";
+    ViewData["BannerSubtitle"] = @Model.Message;
 }
-
-<div class="text-center">
-	<h2>FAQ - Frequently Asked Questions</h2>
-	<h4>@Model.Message</h4>
-</div>
-<hr />
-
 
 @if (Model.Faq.Count > 0)
 {

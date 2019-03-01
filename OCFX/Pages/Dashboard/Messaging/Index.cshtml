@@ -2,13 +2,10 @@
 @model OCFX.Pages.Dashboard.Messaging.MessengerModel
 @{
     ViewData["Title"] = "Index";
+    ViewData["BannerTitle"] = "Messages";
+    ViewData["BannerSubtitle"] = "You've got mail.";
 }
 
-<div class="text-center">
-    <h2>Messages</h2>
-    <h4>You've got mail.</h4>
-    <hr />
-</div>
 @if (Model.MailReceived != null && Model.MailReceived.Count() > 0)
 {
     <div class="text-center">

@@ -2,13 +2,10 @@
 @model OCFX.Pages.Dashboard.Messaging.InboxModel
 @{
     ViewData["Title"] = "Inbox";
+    ViewData["BannerTitle"] = "Message";
+    ViewData["BannerSubtitle"] = "Comms open.";
 }
 
-<div class="text-center">
-    <h2>Message</h2>
-    <h4>Comms open.</h4>
-    <hr />
-</div>
 <div class="text-center">
     Your conversation with @Model.IMessage.Sender.FirstName
 </div>

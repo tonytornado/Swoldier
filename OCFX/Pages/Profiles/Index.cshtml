@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Profile for " + Model.Profiler.FirstName + " " + Model.Profiler.LastName;
+    ViewData["BannerTitle"] = Model.Profiler.FirstName + " " + Model.Profiler.LastName;
 }
 
 <section id="top_section">
@@ -307,7 +308,7 @@
         <div class="btn-group btn-group-sm btn-group-justified d-flex align-content-center my-3">
             <a href="#SendBox" class="btn btn-outline-dark" onclick="showSendBox()">Send a message</a>
             <a asp-page="/Index" class="btn btn-primary">Home</a>
-        </div> 
+        </div>
     }
 }
 

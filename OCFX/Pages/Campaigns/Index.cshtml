@@ -1,12 +1,12 @@
 ﻿@page
 @model OCFX.Pages.Campaigns.IndexModel
 @{
-	ViewData["Title"] = "Campaign Selection";
+    ViewData["Title"] = "Campaign Selection";
+    ViewData["BannerTitle"] = ViewData["Title"];
+    ViewData["BannerSubtitle"] = @Model.Message;
 }
 
 <div class="text-center">
-	<h1 class="display-4">@ViewData["Title"]</h1>
-	<h4>@Model.Message</h4>
 	<p>These structured campaigns will take you to the top of the mountain, challenging you outside of your comfort zone to take down your inner demons and slay the dragon!</p>
 </div>
 

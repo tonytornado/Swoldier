@@ -1,14 +1,10 @@
 ﻿@page
 @model OCFX.Pages.Dashboard.DashboardModel
 @{
-    ViewData["Title"] = "Your Dashboard";
+    ViewData["Title"] = "Dashboard";
+    ViewData["BannerTitle"] = "Dashboard";
+    ViewData["BannerSubtitle"] = "Your dashboard, obviously.";
 }
-
-<div class="text-center">
-    <h1 class="text-center">Dashboard</h1>
-    <h6>Your dashboard, obviously.</h6>
-</div>
-<hr />
 <div class="row text-center">
     <partial name="_StatusMessage" model="Model.StatusMessage" />
     @*It's possible to add some additional messages up here.'
@@ -60,20 +56,20 @@
                             {
                                 if (Model.Profiler.Quest.Id == task.Id)
                                 {
-                                <tr>
-                                    <td>@task.QuestName</td>
-                                </tr>
+                                    <tr>
+                                        <td>@task.QuestName</td>
+                                    </tr>
                                 }
                                 else if (!Model.CompletedQuests.Contains(task.Id))
                                 {
-                                <tr>
-                                    <td>
-                                        <a asp-page="/Campaigns/Quests/Detail" asp-route-id="@task.Id">@task.QuestName</a>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td>
+                                            <a asp-page="/Campaigns/Quests/Detail" asp-route-id="@task.Id">@task.QuestName</a>
+                                        </td>
+                                    </tr>
                                 }
                             }
-                            else if(Model.CompletedQuests.Contains(task.Id))
+                            else if (Model.CompletedQuests.Contains(task.Id))
                             {
                                 <tr style="text-decoration: line-through">
                                     <td>@task.QuestName</td>
@@ -159,11 +155,11 @@
                         </td>
                     </tr>
                     @foreach (var message in Model.Profiler
-                        .ReceivedMessages
-                        .Where(u => u.ReceiverId == Model.Profiler.Id)
-                        .Where(u => u.Status == Data.DataModels.SocialModels.Shout.MessageStatus.Unread)
-                        .OrderByDescending(u => u.DateSent)
-                        .TakeLast(5))
+                       .ReceivedMessages
+                       .Where(u => u.ReceiverId == Model.Profiler.Id)
+                       .Where(u => u.Status == Data.DataModels.SocialModels.Shout.MessageStatus.Unread)
+                       .OrderByDescending(u => u.DateSent)
+                       .TakeLast(5))
                     {
                         <tr>
                             <td>

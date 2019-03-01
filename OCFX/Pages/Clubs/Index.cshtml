@@ -2,13 +2,11 @@
 @model OCFX.Pages.Clubs.IndexModel
 @{
     ViewData["Title"] = "Index";
+    ViewData["BannerTitle"] = "Clubs";
+    ViewData["BannerSubtitle"] = "Welcome to the club.";
 }
 
-<div class="text-center">
-    <h2>Clubs</h2>
-    <h4>Welcome to the Club.</h4>
-    <hr />
-</div>
+
 @if (Model.Gyms != null)
 {
 <ul class="list-group">

@@ -1,9 +1,11 @@
 ﻿@page
 @model OCFX.Pages.Profiles.FriendsModel
 @{
-	ViewData["Title"] = "Friends";
+    ViewData["Title"] = "Friends";
+    ViewData["BannerTitle"] = "Your Friends";
+    ViewData["BannerSubtitle"] = "You've got friends, right?";
 }
-<h1>Your Friends</h1>
+
 @if (Model.Friends.Count > 0)
 {
 	<h3>Friend Count: @Model.Friends.Count</h3>
