@@ -26,7 +26,9 @@ namespace OCFX.Pages.Campaigns.Quests
         public Quest Quest { get; private set; }
         public QuestLog QuestBlocker { get; private set; }
         public List<int> Completed { get; private set; }
-        public string StatusMessage { get; private set; }
+
+        [TempData]
+        public string StatusMessage { get; set; }
 
         public async Task OnGetAsync(int id)
         {
@@ -48,7 +50,7 @@ namespace OCFX.Pages.Campaigns.Quests
 
             QuestMethods.JoinQuest(_context, id, user.ProfileId);
             StatusMessage = "Quest Accepted!";
-            return RedirectToPage("Detail", "OnGetAsync", new { id });
+            return RedirectToPage(new { id });
         }
 
         /// <summary>
@@ -59,10 +61,18 @@ namespace OCFX.Pages.Campaigns.Quests
         public async Task<IActionResult> OnPostCompleteQuestAsync(int id)
         {
             var user = await _userManager.GetUserAsync(User);
-
-            QuestMethods.CompleteQuest(_context, id, user.ProfileId);
-            StatusMessage = "Quest Accepted!";
-            return RedirectToPage("Detail", "OnGetAsync", new { id });
+            try
+            {
+                QuestMethods.CompleteQuest(_context, id, user.ProfileId);
+            }
+            catch (Exception e)
+            {
+                StatusMessage = e.Message;
+                return RedirectToPage(new { id });
+            }
+            
+            StatusMessage = "Quest Completed!";
+            return RedirectToPage(new { id });
         }
     }
 }

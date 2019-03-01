@@ -9,8 +9,9 @@
     <partial name="_StatusMessage" model="Model.StatusMessage" />
     @*It's possible to add some additional messages up here.'
         <div class="alert alert-dismissable fade show"></div>*@
-    <div class="col-md-4 jumbotron border">
-        <h4>@Model.UserTitle</h4>
+    <div class="col-md-4 dash_section border" id="profile_center">
+        <h3 class="align-text-bottom">@Model.UserTitle</h3>
+        <hr />
         <img src="~/images/uploads/@Model.ProfilePhoto.URL" alt="@Model.ProfilePhoto.DateAdded" class="rounded border-secondary mw-100" />
         <hr />
         <div class="btn-group-vertical btn-block">
@@ -19,7 +20,7 @@
             <a asp-page="/Profiles/Friends" class="btn btn-dark">Edit Friends</a>
         </div>
     </div>
-    <div class="col-md-4 jumbotron bg-light" id="quest_center">
+    <div class="col-md-4 dash_section bg-light" id="quest_center">
         @if (Model.Profiler.Campaign != null)
         {
             <table class="table table-bordered">
@@ -71,9 +72,11 @@
                             }
                             else if (Model.CompletedQuests.Contains(task.Id))
                             {
+                                
                                 <tr style="text-decoration: line-through">
                                     <td>@task.QuestName</td>
                                 </tr>
+                                
                             }
                         }
                     </tbody>
@@ -81,12 +84,34 @@
             </div>
             @* Campaign Progress can go here. *@
         }
+        else
+        {
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Campaign</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div>
+                                <h3>You are not on a campaign. <br /> Go join one!</h3>
+                                <a asp-page="/Campaigns/Index" class="btn btn-outline-dark">Find a campaign now!</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        }
     </div>
-    <div class="col-md-4 jumbotron border">
+    <div class="col-md-4 dash_section border" id="post_center">
         @if (Model.Profiler.Posts != null)
         {
-            <h5>Post count: @Model.Profiler.Posts.Count</h5>
-            <h6>Your most recent 5 posts</h6>
+            <div>
+                <h3>Post Activity</h3>
+                <h6>Your 5 most recent posts</h6>
+            </div>
 
             foreach (var post in Model.Profiler.Posts.OrderByDescending(x => x.DatePosted).Take(5))
             {
@@ -113,7 +138,7 @@
 <div class="row">
     @if (Model.Profiler.Gym != null)
     {
-        <div class="col-md-6 jumbotron border mx-auto">
+        <div class="col-md-6 dash_section border mx-auto">
             <table class="table table-bordered">
                 <thead class="thead-dark">
                     <tr>
@@ -134,14 +159,14 @@
     }
     else
     {
-        <div class="col-md-6 jumbotron border mx-auto">
+        <div class="col-md-6 dash_section border mx-auto">
             <p>You are not a part of any gyms.</p>
         </div>
     }
 
     @if (Model.Profiler.ReceivedMessages != null && Model.Profiler.ReceivedMessages.Count > 0)
     {
-        <div class="col-md-6 jumbotron border mx-auto">
+        <div class="col-md-6 dash_section border mx-auto">
             <table class="table table-bordered table-striped">
                 <thead class="thead-dark">
                     <tr>
@@ -155,11 +180,11 @@
                         </td>
                     </tr>
                     @foreach (var message in Model.Profiler
-                       .ReceivedMessages
-                       .Where(u => u.ReceiverId == Model.Profiler.Id)
-                       .Where(u => u.Status == Data.DataModels.SocialModels.Shout.MessageStatus.Unread)
-                       .OrderByDescending(u => u.DateSent)
-                       .TakeLast(5))
+                      .ReceivedMessages
+                      .Where(u => u.ReceiverId == Model.Profiler.Id)
+                      .Where(u => u.Status == Data.DataModels.SocialModels.Shout.MessageStatus.Unread)
+                      .OrderByDescending(u => u.DateSent)
+                      .TakeLast(5))
                     {
                         <tr>
                             <td>
@@ -173,7 +198,7 @@
     }
     else
     {
-        <div class="col-md-6 jumbotron border mx-auto">
+        <div class="col-md-6 dash_section border mx-auto">
             <p>You have no new messages</p>
         </div>
     }

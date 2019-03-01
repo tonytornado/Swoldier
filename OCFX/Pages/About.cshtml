@@ -1,13 +1,10 @@
 ﻿@page
 @model AboutModel
 @{
-	ViewData["Title"] = "About";
+    ViewData["Title"] = "About";
+    ViewData["BannerTitle"] = ViewData["Title"];
+    ViewData["BannerSubtitle"] = "You want to know more?";
 }
-<div class="text-center">
-	<h1 class="display-4">@ViewData["Title"]</h1>
-	<h4>@Model.Message</h4>
-</div>
-<hr />
 
 <div class="text-center">
 	<div class="py-4">

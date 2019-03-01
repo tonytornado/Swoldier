@@ -1,4 +1,4 @@
-﻿@import url('https://fonts.googleapis.com/css?family=Montserrat:500|Staatliches');
+﻿@import url('https://fonts.googleapis.com/css?family=Montserrat:400|Staatliches');
 
 /* Standard headers */
 h1,h2,h3,h4,h5,h6,.title-font {
@@ -18,10 +18,16 @@ nav {
 	font-size: 1.2em;
 }
 
+.dash_section {
+    padding: 1rem 1rem;
+    margin-bottom: 1rem;
+    background-color: #e9ecef;
+    border-radius: .5rem;
+}
 #content {
-	font-family: 'Montserrat','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-	background-color: white;
-	color: black;
+    font-family: 'Montserrat','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: white;
+    color: black;
 }
 
 .friend_grid {

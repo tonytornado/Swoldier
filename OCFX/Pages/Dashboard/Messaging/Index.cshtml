@@ -9,9 +9,9 @@
 @if (Model.MailReceived != null && Model.MailReceived.Count() > 0)
 {
     <div class="text-center">
-    <h3 class="border">
-        <u>Inbox</u>
-    </h3>
+        <h3 class="border shadow rounded">
+            <u>Inbox</u>
+        </h3>
     <table class="table table-bordered table-striped text-center rounded">
         <thead class="thead-dark">
             <tr>
@@ -42,17 +42,17 @@
 else
 {
     <div class="text-center">
-        <h1>You have no new mail.</h1>
+        <h1 class="rounded border shadow">...ope.</h1>
     </div>
 }
 <hr />
 <div class="text-center">
     @if (Model.ArchivedMailReceived != null && Model.ArchivedMailReceived.Count() > 0)
     {
-        <h3 class="border">
-            <u>Archived Mail</u>
+        <h3 class="border shadow rounded">
+            <u>Archived Messages</u>
         </h3>
-        <table class="table table-bordered table-striped rounded">
+        <table class="table table-bordered table-striped">
             <thead class="thead-dark">
                 <tr>
                     @*<th>Mark</th>*@

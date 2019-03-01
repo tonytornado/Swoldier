@@ -27,7 +27,9 @@ namespace OCFX.Pages.Clubs
         public Gym CommunityDetail { get; private set; }
         public int MemberCount { get; private set; }
         public Membership Subscription { get; private set; }
-        public string StatusMessage { get; private set; }
+
+        [TempData]
+        public string StatusMessage { get; set; }
 
         public async Task OnGetAsync(int id)
         {

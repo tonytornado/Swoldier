@@ -51,7 +51,7 @@ namespace OCFX.Data.Methods
 			context.QuestLogs.Add(challenger);
 			context.SaveChanges();
 
-            Profile profile = context.Profiles.SingleOrDefault(p => p.Id == UserId);
+            Profile profile = context.Profiles.Include(q => q.Quest).SingleOrDefault(p => p.Id == UserId);
             profile.Quest = quest;
             context.SaveChanges();
 		}
@@ -65,20 +65,20 @@ namespace OCFX.Data.Methods
 		public static void CompleteQuest(OCFXContext context, int QuestId, int UserId)
 		{
 			int QuestGoer = UserId;
-			QuestLog quest = context.QuestLogs.SingleOrDefault(q => q.QuestId == QuestId && q.ProfileId == QuestGoer);
+			QuestLog CompletedQuest = context.QuestLogs.SingleOrDefault(q => q.QuestId == QuestId && q.ProfileId == QuestGoer);
 
             // Check if the quest is actually part of the campaign
-            bool QuestCheck = CheckForCampaign(context, QuestGoer, quest.CampaignId);
+            bool QuestCheck = CheckForCampaign(context, QuestGoer, CompletedQuest.CampaignId);
             if (QuestCheck != true)
             {
                 throw new Exception("Yeah, they didn't complete the quest, fall back.");
             }
 
             // Set the quest as complete.
-            quest.Completed = true;
+            CompletedQuest.Completed = true;
             context.SaveChanges();
 
-            Profile completionist = context.Profiles.SingleOrDefault(q => q.Id == UserId);
+            Profile completionist = context.Profiles.Include(q => q.Quest).SingleOrDefault(q => q.Id == UserId);
             completionist.Quest = null;
 			context.SaveChanges();
 		}
@@ -96,9 +96,9 @@ namespace OCFX.Data.Methods
             Quest quest = context.Quests.SingleOrDefault(p => p.Id == y);
             Campaign campaign = context.Campaigns.FirstOrDefault(p => p.CampaignQuest.Contains(quest));
 
-            if (campaign == null)
+            if (campaign != player.Campaign)
 			{
-				throw new Exception("This is bogus. They didn't complete anything.");
+				throw new Exception("This is bogus. You didn't complete anything.");
 			}
 
 			return true;

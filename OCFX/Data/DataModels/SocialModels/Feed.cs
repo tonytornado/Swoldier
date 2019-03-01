@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OCFX.DataModels.SocialModels
 {
-	public class FeedElement
+    public class FeedElement
 	{
 		[Key]
 		[Display(Name = "ID")]
