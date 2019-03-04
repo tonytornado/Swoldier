@@ -37,31 +37,31 @@ namespace OCFX.DataModels
 		[PersonalData]
 		[Display(Name = "Neck")]
 		public int? NeckMeasurement { get; set; }
+		[PersonalData]
 		[Display(Name = "Waist")]
-		[PersonalData]
-		public int? WaistMeasurement { get; set; }
-		[Display(Name = "Hips")]
-		[PersonalData]
+        public int? WaistMeasurement { get; set; }
+        [PersonalData]
+        [Display(Name = "Hips")]
 		public int? HipMeasurement { get; set; }
 
 		// Starting stats from typical character sheet
 		[Display(Name = "Strength")]
-		[Range(1, 10)]
+		[Range(1, 10, ErrorMessage = "You're either too strong and too weak.")]
 		public int StrengthStat { get; set; }
 		[Display(Name = "Speed")]
-		[Range(1, 10)]
+		[Range(1, 10, ErrorMessage = "You're either too slow and too damn fast.")]
 		public int SpeedStat { get; set; }
 		[Display(Name = "Constitution")]
-		[Range(1, 10)]
+		[Range(1, 10, ErrorMessage = "You're either too hardy or too frail.")]
 		public int ConstitutionStat { get; set; }
 		[Display(Name = "Dexterity")]
-		[Range(1, 10)]
+		[Range(1, 10, ErrorMessage = "You're either clumsy or damn adept.")]
 		public int DexterityStat { get; set; }
 		[Display(Name = "Concentration")]
-		[Range(1, 10)]
+		[Range(1, 10, ErrorMessage = "That ADHD or monk state ain't it, chief.")]
 		public int ConcentrationStat { get; set; }
 		[Display(Name = "Motivation")]
-		[Range(1, 10)]
+		[Range(1, 10, ErrorMessage = "Gauge your hype better.")]
 		public int MotivationStat { get; set; }
 
 		// Character Background
@@ -100,17 +100,19 @@ namespace OCFX.DataModels
         [InverseProperty("Entry")]
         public ICollection<Post> Entries { get; set; }
 
+        [InverseProperty("Member")]
+        public Membership Gym { get; set; }
+
         // Tie to user login, quest, campaign?
         public OCFXUser FitUser { get; set; }
 		public Quest Quest { get; set; }
 		public Campaign Campaign { get; set; }
 
-        [InverseProperty("Member")]
-		public Membership Gym { get; set; }
-
 		// The Gender Attribute Enum
 		public enum GenderSpectrum
 		{
+            [Display(Name = "Non-Binary")]
+            Non_binary = 0,
 			[Display(Name = "Cis Male")]
 			CisMale = 1,
 			[Display(Name = "Cis Female")]

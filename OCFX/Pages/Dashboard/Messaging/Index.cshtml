@@ -23,7 +23,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var mail in Model.MailReceived)
+            @foreach (var mail in Model.MailReceived.TakeLast(10))
             {
                 <tr>
                     @*<td>@Html.CheckBox()</td>*@

@@ -15,9 +15,9 @@
         <img src="~/images/uploads/@Model.ProfilePhoto.URL" alt="@Model.ProfilePhoto.DateAdded" class="rounded border-secondary mw-100" />
         <hr />
         <div class="btn-group-vertical btn-block">
-            <a asp-page="./EditAvatar" class="btn btn-dark">Change Photo</a>
-            <a asp-page="./EditProfile" class="btn btn-dark">Edit Profile</a>
-            <a asp-page="/Profiles/Friends" class="btn btn-dark">Edit Friends</a>
+            <a asp-page="./EditAvatar" class="btn btn-sm btn-dark">Change Photo</a>
+            <a asp-page="./EditProfile" class="btn btn-sm btn-dark">Edit Profile</a>
+            <a asp-page="/Profiles/Friends" class="btn btn-sm btn-dark">Edit Friends</a>
         </div>
     </div>
     <div class="col-md-4 dash_section bg-light" id="quest_center">
@@ -170,7 +170,7 @@
             <table class="table table-bordered table-striped">
                 <thead class="thead-dark">
                     <tr>
-                        <th class="text-center">@Model.Profiler.ReceivedMessages.Count @(@Model.Profiler.ReceivedMessages.Count == 1 ? "message" : "messages")</th>
+                        <th class="text-center">@Model.Profiler.ReceivedMessages.Count @(@Model.Profiler.ReceivedMessages.Count == 1 ? "message" : "total messages")</th>
                     </tr>
                 </thead>
                 <tbody>

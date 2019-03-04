@@ -9,14 +9,19 @@ namespace OCFX.DataModels
     public class OCFXUser : IdentityUser<Guid>
     {
         [PersonalData]
+        [Required]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
         [PersonalData]
+        [Required]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
         [PersonalData]
+        [Required]
         [Display(Name = "Date of Birth")]
 		[DataType(DataType.Date)]
+        [Range(typeof(DateTime), "1/1/1920", "4/20/2001", 
+            ErrorMessage = "You must be 18 or older to even use this site... also, not dead or dying.")]
         public DateTime DOB { get; set; }
 
 		// To prevent frequent name changes!

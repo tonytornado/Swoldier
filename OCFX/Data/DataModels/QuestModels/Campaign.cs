@@ -24,7 +24,10 @@ namespace OCFX.DataModels
 		[ForeignKey("DietId")]
         public Diet CampaignDiet { get; set; }
 
-		// Get the list of appropriate quests for each campaign
-		public List<Quest> CampaignQuest { get; set; }
+        // The list of all workouts associated with the campaign
+        public List<WorkoutProgram> CampaignPrograms { get; set; }
+
+        // Get the list of appropriate quests for each campaign
+        public List<Quest> CampaignQuest { get; set; }
 	}
 }

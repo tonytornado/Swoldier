@@ -1,9 +1,7 @@
 ﻿using OCFX.Areas.Identity.Data;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace OCFX.DataModels
 {
@@ -33,6 +31,8 @@ namespace OCFX.DataModels
 
 		// List of the club's amenities and equipment
         public ICollection<Equipment> Amenities { get; set; }
+
+        // List of the club's members
 		public ICollection<Membership> Members { get; set; }
     }
 }
