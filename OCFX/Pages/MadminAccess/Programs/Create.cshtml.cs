@@ -23,8 +23,10 @@ namespace OCFX.Pages.MadminAccess.Programs
 
         public async Task<IActionResult> OnGetAsync()
         {
-        Exerlist = new SelectList(_context.Exercises, "Id", "ExName");
-        Worklist = new SelectList(_context.Workouts, "Id", "Title");
+
+        Exerlist = new SelectList(_context.Exercises.ToList(), "Id", "ExName");
+        Worklist = new SelectList(_context.Workouts.ToList(), "Id", "Title");
+        CampaignList = new SelectList(_context.Campaigns.ToList(), "Id", "CampaignName");
 
 		ExerciseSet = await _context.Exercises.ToListAsync();
 
@@ -33,9 +35,12 @@ namespace OCFX.Pages.MadminAccess.Programs
 
         [BindProperty]
         public WorkoutProgram WorkoutProgram { get; set; }
+
 		public SelectList Exerlist { get; set; }
 		public SelectList Worklist { get; set; }
-		public List<Exercise> ExerciseSet { get; set; }
+        public SelectList CampaignList { get; set; }
+
+        public List<Exercise> ExerciseSet { get; set; }
 
 		public async Task<IActionResult> OnPostAsync(string[] selectedExercises)
         {
@@ -53,7 +58,8 @@ namespace OCFX.Pages.MadminAccess.Programs
 					var clod = new WorkoutProgram
 					{
 						ExerciseId = int.Parse(exercise),
-						WorkoutId = WorkoutProgram.WorkoutId
+						WorkoutId = WorkoutProgram.WorkoutId,
+                        CampaignId = int.Parse(CampaignList.DataValueField)
 					};
 					programs.Add(clod);
 				}
@@ -68,8 +74,9 @@ namespace OCFX.Pages.MadminAccess.Programs
 
 			Exerlist = new SelectList(_context.Exercises, "Id", "ExName");
 			Worklist = new SelectList(_context.Workouts, "Id", "Title");
+            CampaignList = new SelectList(_context.Campaigns.ToList(), "Id", "CampaignName");
 
-			ExerciseSet = await _context.Exercises.ToListAsync();
+            ExerciseSet = await _context.Exercises.ToListAsync();
 
 			return Page();
 		}

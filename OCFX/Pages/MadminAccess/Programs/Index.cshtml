@@ -26,7 +26,7 @@
 @foreach (var item in Model.WorkoutProgram) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Exercise.ExName)
+                @Html.DisplayFor(modelItem => item.Exercise.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Workout.Title)

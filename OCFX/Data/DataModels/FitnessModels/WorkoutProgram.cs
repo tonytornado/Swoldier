@@ -20,6 +20,7 @@ namespace OCFX.DataModels
         [ForeignKey("WorkoutId")]
         public Workout Workout { get; set; }
 
+        [InverseProperty("CampaignProgram")]
         [Display(Name = "Campaign Name")]
         public int CampaignId { get; set; }
         [ForeignKey("CampaignId")]
