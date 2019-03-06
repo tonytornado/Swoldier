@@ -10,8 +10,8 @@ using OCFX.Areas.Identity.Data;
 namespace OCFX.Migrations
 {
     [DbContext(typeof(OCFXContext))]
-    [Migration("20190227010844_9")]
-    partial class _9
+    [Migration("20190306163724_0")]
+    partial class _0
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -322,17 +322,17 @@ namespace OCFX.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ExGroup");
+                    b.Property<string>("Description");
 
-                    b.Property<string>("ExName");
+                    b.Property<int>("ExerType");
 
-                    b.Property<int>("ExType");
+                    b.Property<string>("Name");
 
-                    b.Property<int?>("WorkoutId");
+                    b.Property<int>("TargetedMuscles");
+
+                    b.Property<string>("Url");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("WorkoutId");
 
                     b.ToTable("Exercises");
                 });
@@ -344,8 +344,6 @@ namespace OCFX.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description");
-
-                    b.Property<int>("Leader");
 
                     b.Property<string>("Title");
 
@@ -396,9 +394,11 @@ namespace OCFX.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<string>("FirstName");
+                    b.Property<string>("FirstName")
+                        .IsRequired();
 
-                    b.Property<string>("LastName");
+                    b.Property<string>("LastName")
+                        .IsRequired();
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -499,7 +499,7 @@ namespace OCFX.Migrations
 
                     b.Property<int?>("CampaignId");
 
-                    b.Property<int>("ClassId");
+                    b.Property<int?>("ClassId");
 
                     b.Property<int>("ConcentrationStat");
 
@@ -586,6 +586,8 @@ namespace OCFX.Migrations
                     b.HasIndex("CampaignId");
 
                     b.HasIndex("ProfileId");
+
+                    b.HasIndex("QuestId");
 
                     b.ToTable("QuestLogs");
                 });
@@ -694,11 +696,19 @@ namespace OCFX.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("CampaignId");
+
                     b.Property<int>("ExerciseId");
+
+                    b.Property<int>("Repetitions");
+
+                    b.Property<int>("Sets");
 
                     b.Property<int>("WorkoutId");
 
                     b.HasKey("WorkoutProgramId");
+
+                    b.HasIndex("CampaignId");
 
                     b.HasIndex("ExerciseId");
 
@@ -802,14 +812,6 @@ namespace OCFX.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("OCFX.DataModels.Exercise", b =>
-                {
-                    b.HasOne("OCFX.DataModels.Workout")
-                        .WithMany("Exercises")
-                        .HasForeignKey("WorkoutId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
             modelBuilder.Entity("OCFX.DataModels.Membership", b =>
                 {
                     b.HasOne("OCFX.DataModels.Gym", "Club")
@@ -884,6 +886,11 @@ namespace OCFX.Migrations
                         .WithMany()
                         .HasForeignKey("ProfileId")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("OCFX.DataModels.Quest", "Quest")
+                        .WithMany()
+                        .HasForeignKey("QuestId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("OCFX.DataModels.SocialModels.Comment", b =>
@@ -937,6 +944,11 @@ namespace OCFX.Migrations
 
             modelBuilder.Entity("OCFX.DataModels.WorkoutProgram", b =>
                 {
+                    b.HasOne("OCFX.DataModels.Campaign", "Campaign")
+                        .WithMany("CampaignPrograms")
+                        .HasForeignKey("CampaignId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("OCFX.DataModels.Exercise", "Exercise")
                         .WithMany()
                         .HasForeignKey("ExerciseId")

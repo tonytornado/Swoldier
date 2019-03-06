@@ -73,7 +73,6 @@ namespace OCFX.DataModels
 		public string Goals { get; set; }
 
 		// Imports (Create forms for each)
-		public int ClassId { get; set; }
 		[ForeignKey("ClassId")]
 		public Archetype FitStyle { get; set; }
 

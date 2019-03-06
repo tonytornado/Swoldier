@@ -20,5 +20,7 @@ namespace OCFX.DataModels
 		public Campaign Campaign { get; set; }
 		[ForeignKey("ProfileId")]
 		public Profile Profile { get; set; }
-	}
+        [ForeignKey("QuestId")]
+        public Quest Quest { get; set; }
+    }
 }

@@ -61,6 +61,23 @@ namespace OCFX.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Exercises",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    ExerType = table.Column<int>(nullable: false),
+                    TargetedMuscles = table.Column<int>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    Url = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Exercises", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "FAQs",
                 columns: table => new
                 {
@@ -82,7 +99,6 @@ namespace OCFX.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Title = table.Column<string>(nullable: true),
-                    Leader = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -174,28 +190,6 @@ namespace OCFX.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Exercises",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ExName = table.Column<string>(nullable: true),
-                    ExType = table.Column<int>(nullable: false),
-                    ExGroup = table.Column<int>(nullable: false),
-                    WorkoutId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Exercises", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Exercises_Workouts_WorkoutId",
-                        column: x => x.WorkoutId,
-                        principalTable: "Workouts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Quests",
                 columns: table => new
                 {
@@ -224,11 +218,20 @@ namespace OCFX.Migrations
                     WorkoutProgramId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ExerciseId = table.Column<int>(nullable: false),
-                    WorkoutId = table.Column<int>(nullable: false)
+                    WorkoutId = table.Column<int>(nullable: false),
+                    CampaignId = table.Column<int>(nullable: false),
+                    Sets = table.Column<int>(nullable: false),
+                    Repetitions = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_WorkoutPrograms", x => x.WorkoutProgramId);
+                    table.ForeignKey(
+                        name: "FK_WorkoutPrograms_Campaigns_CampaignId",
+                        column: x => x.CampaignId,
+                        principalTable: "Campaigns",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_WorkoutPrograms_Exercises_ExerciseId",
                         column: x => x.ExerciseId,
@@ -267,10 +270,9 @@ namespace OCFX.Migrations
                     BackStory = table.Column<string>(nullable: true),
                     DriveStory = table.Column<string>(nullable: true),
                     Goals = table.Column<string>(nullable: true),
-                    ClassId = table.Column<int>(nullable: false),
+                    ClassId = table.Column<int>(nullable: true),
                     QuestId = table.Column<int>(nullable: true),
-                    CampaignId = table.Column<int>(nullable: true),
-                    GymId = table.Column<int>(nullable: true)
+                    CampaignId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -285,12 +287,6 @@ namespace OCFX.Migrations
                         name: "FK_Profiles_Archetypes_ClassId",
                         column: x => x.ClassId,
                         principalTable: "Archetypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Profiles_Gyms_GymId",
-                        column: x => x.GymId,
-                        principalTable: "Gyms",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -344,9 +340,10 @@ namespace OCFX.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: false),
+                    LastName = table.Column<string>(nullable: false),
                     DOB = table.Column<DateTime>(nullable: false),
+                    NameChangedDate = table.Column<DateTime>(nullable: false),
                     ProfileId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -383,6 +380,67 @@ namespace OCFX.Migrations
                     table.ForeignKey(
                         name: "FK_Friends_Profiles_ProfileId",
                         column: x => x.ProfileId,
+                        principalTable: "Profiles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Memberships",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Status = table.Column<int>(nullable: false),
+                    JoinDate = table.Column<DateTime>(nullable: false),
+                    MemberId = table.Column<int>(nullable: true),
+                    ClubId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Memberships", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Memberships_Gyms_ClubId",
+                        column: x => x.ClubId,
+                        principalTable: "Gyms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Memberships_Profiles_MemberId",
+                        column: x => x.MemberId,
+                        principalTable: "Profiles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Messages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Identifier = table.Column<Guid>(nullable: false),
+                    ChainIdentifier = table.Column<string>(nullable: true),
+                    SenderId = table.Column<int>(nullable: false),
+                    ReceiverId = table.Column<int>(nullable: false),
+                    SubjectText = table.Column<string>(nullable: true),
+                    MessageText = table.Column<string>(nullable: true),
+                    DateSent = table.Column<DateTime>(nullable: false),
+                    DateOpened = table.Column<DateTime>(nullable: true),
+                    Status = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Messages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Messages_Profiles_ReceiverId",
+                        column: x => x.ReceiverId,
+                        principalTable: "Profiles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Messages_Profiles_SenderId",
+                        column: x => x.SenderId,
                         principalTable: "Profiles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -441,13 +499,18 @@ namespace OCFX.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Text = table.Column<string>(nullable: true),
                     DatePosted = table.Column<DateTime>(nullable: false),
-                    PosterId = table.Column<int>(nullable: false),
-                    IP = table.Column<string>(nullable: true),
-                    ProfileId = table.Column<int>(nullable: false)
+                    ProfileId = table.Column<int>(nullable: false),
+                    EntryId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Posts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Posts_Profiles_EntryId",
+                        column: x => x.EntryId,
+                        principalTable: "Profiles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Posts_Profiles_ProfileId",
                         column: x => x.ProfileId,
@@ -464,11 +527,18 @@ namespace OCFX.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     QuestId = table.Column<int>(nullable: false),
                     ProfileId = table.Column<int>(nullable: false),
+                    CampaignId = table.Column<int>(nullable: false),
                     Completed = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_QuestLogs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_QuestLogs_Campaigns_CampaignId",
+                        column: x => x.CampaignId,
+                        principalTable: "Campaigns",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_QuestLogs_Profiles_ProfileId",
                         column: x => x.ProfileId,
@@ -576,14 +646,19 @@ namespace OCFX.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Text = table.Column<string>(nullable: true),
                     DatePosted = table.Column<DateTime>(nullable: false),
-                    PosterId = table.Column<int>(nullable: false),
-                    IP = table.Column<string>(nullable: true),
                     ProfileId = table.Column<int>(nullable: false),
-                    PostId = table.Column<int>(nullable: true)
+                    EntryId = table.Column<int>(nullable: false),
+                    PostId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Comments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Comments_Profiles_EntryId",
+                        column: x => x.EntryId,
+                        principalTable: "Profiles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Comments_Posts_PostId",
                         column: x => x.PostId,
@@ -606,10 +681,9 @@ namespace OCFX.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Text = table.Column<string>(nullable: true),
                     DatePosted = table.Column<DateTime>(nullable: false),
-                    PosterId = table.Column<int>(nullable: false),
-                    IP = table.Column<string>(nullable: true),
                     ProfileId = table.Column<int>(nullable: false),
-                    CommentId = table.Column<int>(nullable: true)
+                    EntryId = table.Column<int>(nullable: false),
+                    CommentId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -618,6 +692,12 @@ namespace OCFX.Migrations
                         name: "FK_Replies_Comments_CommentId",
                         column: x => x.CommentId,
                         principalTable: "Comments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Replies_Profiles_EntryId",
+                        column: x => x.EntryId,
+                        principalTable: "Profiles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -684,6 +764,11 @@ namespace OCFX.Migrations
                 column: "DietId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Comments_EntryId",
+                table: "Comments",
+                column: "EntryId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Comments_PostId",
                 table: "Comments",
                 column: "PostId");
@@ -699,9 +784,26 @@ namespace OCFX.Migrations
                 column: "GymId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Exercises_WorkoutId",
-                table: "Exercises",
-                column: "WorkoutId");
+                name: "IX_Memberships_ClubId",
+                table: "Memberships",
+                column: "ClubId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Memberships_MemberId",
+                table: "Memberships",
+                column: "MemberId",
+                unique: true,
+                filter: "[MemberId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Messages_ReceiverId",
+                table: "Messages",
+                column: "ReceiverId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Messages_SenderId",
+                table: "Messages",
+                column: "SenderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Phones_ProfileId",
@@ -712,6 +814,11 @@ namespace OCFX.Migrations
                 name: "IX_Photos_ProfileId",
                 table: "Photos",
                 column: "ProfileId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Posts_EntryId",
+                table: "Posts",
+                column: "EntryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Posts_ProfileId",
@@ -729,14 +836,14 @@ namespace OCFX.Migrations
                 column: "ClassId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Profiles_GymId",
-                table: "Profiles",
-                column: "GymId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Profiles_QuestId",
                 table: "Profiles",
                 column: "QuestId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_QuestLogs_CampaignId",
+                table: "QuestLogs",
+                column: "CampaignId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_QuestLogs_ProfileId",
@@ -759,9 +866,19 @@ namespace OCFX.Migrations
                 column: "CommentId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Replies_EntryId",
+                table: "Replies",
+                column: "EntryId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Replies_ProfileId",
                 table: "Replies",
                 column: "ProfileId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkoutPrograms_CampaignId",
+                table: "WorkoutPrograms",
+                column: "CampaignId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_WorkoutPrograms_ExerciseId",
@@ -804,6 +921,12 @@ namespace OCFX.Migrations
                 name: "Friends");
 
             migrationBuilder.DropTable(
+                name: "Memberships");
+
+            migrationBuilder.DropTable(
+                name: "Messages");
+
+            migrationBuilder.DropTable(
                 name: "Phones");
 
             migrationBuilder.DropTable(
@@ -825,25 +948,25 @@ namespace OCFX.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
+                name: "Gyms");
+
+            migrationBuilder.DropTable(
                 name: "Comments");
 
             migrationBuilder.DropTable(
                 name: "Exercises");
 
             migrationBuilder.DropTable(
-                name: "Posts");
+                name: "Workouts");
 
             migrationBuilder.DropTable(
-                name: "Workouts");
+                name: "Posts");
 
             migrationBuilder.DropTable(
                 name: "Profiles");
 
             migrationBuilder.DropTable(
                 name: "Archetypes");
-
-            migrationBuilder.DropTable(
-                name: "Gyms");
 
             migrationBuilder.DropTable(
                 name: "Quests");

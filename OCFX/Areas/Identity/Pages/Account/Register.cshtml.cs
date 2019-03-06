@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -13,30 +12,26 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using OCFX.DataModels;
 using Microsoft.EntityFrameworkCore;
-using OCFX.Data.DataRepo;
 using OCFX.Areas.Identity.Data;
 
 namespace OCFX.Areas.Identity.Pages.Account
 {
-	public class RegisterModel : PageModel
+    public class RegisterModel : PageModel
     {
 		private readonly SignInManager<OCFXUser> _signInManager;
 		private readonly UserManager<OCFXUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-		private readonly Data.OCFXContext _context;
-		private readonly OCFXContext _dbcontext;
+		private readonly OCFXContext _context;
 
 		public RegisterModel(
-			Data.OCFXContext context,
-			OCFXContext dbcontext,
+            OCFXContext context,
             UserManager<OCFXUser> userManager,
             SignInManager<OCFXUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
 			_context = context ?? throw new ArgumentNullException(nameof(context));
-			_dbcontext = dbcontext;
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
             _signInManager = signInManager ?? throw new ArgumentNullException(nameof(signInManager));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -104,7 +99,10 @@ namespace OCFX.Areas.Identity.Pages.Account
 
 			[Display(Name = "Campaign Choice")]
 			public int CampaignId { get; set; }
-		}
+
+            [Display(Name = "Class Choice")]
+            public int ClassId { get; set; }
+        }
 
         public void OnGet(string returnUrl = null)
         {
@@ -151,7 +149,7 @@ namespace OCFX.Areas.Identity.Pages.Account
 						ConstitutionStat = Profiler.ConstitutionStat,
 						SpeedStat = Profiler.SpeedStat,
 						ConcentrationStat = Profiler.ConcentrationStat,
-						ClassId = Profiler.ClassId,
+						FitStyle = await _context.Archetypes.FirstOrDefaultAsync(p => p.Id == Input.ClassId),
 						Campaign = await _context.Campaigns.FirstOrDefaultAsync(p => p.Id == 1),
                         Quest = await _context.Quests.FirstOrDefaultAsync(p => p.Id == 1),
 
@@ -212,7 +210,7 @@ namespace OCFX.Areas.Identity.Pages.Account
                         Profile = user.Profile,
                         Campaign = user.Profile.Campaign,
                         QuestId = user.Profile.Quest.Id,
-                        Completed = false
+                        Completed = false,
                     });
 
 					await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",

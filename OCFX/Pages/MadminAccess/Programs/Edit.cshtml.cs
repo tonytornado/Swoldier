@@ -34,14 +34,17 @@ namespace OCFX.Pages.MadminAccess.Programs
             WorkoutProgram = await _context.WorkoutPrograms
                 .Include(w => w.Exercise)
                 .Include(w => w.Workout)
+                .Include(w => w.Campaign)
 				.FirstOrDefaultAsync(m => m.WorkoutProgramId == id);
 
             if (WorkoutProgram == null)
             {
                 return NotFound();
             }
-           ViewData["ExerciseId"] = new SelectList(_context.Exercises, "Id", "ExName");
-           ViewData["WorkoutId"] = new SelectList(_context.Workouts, "Id", "Title");
+
+            ViewData["ExerciseId"] = new SelectList(_context.Exercises.ToList(), "Id", "Name");
+            ViewData["WorkoutId"] = new SelectList(_context.Workouts.ToList(), "Id", "Title");
+            ViewData["CampaignId"] = new SelectList(_context.Campaigns.ToList(), "Id", "CampaignName");
             return Page();
         }
 
@@ -49,6 +52,9 @@ namespace OCFX.Pages.MadminAccess.Programs
         {
             if (!ModelState.IsValid)
             {
+                ViewData["ExerciseId"] = new SelectList(_context.Exercises.ToList(), "Id", "Name");
+                ViewData["WorkoutId"] = new SelectList(_context.Workouts.ToList(), "Id", "Title");
+                ViewData["CampaignId"] = new SelectList(_context.Campaigns.ToList(), "Id", "CampaignName");
                 return Page();
             }
 

@@ -497,7 +497,7 @@ namespace OCFX.Migrations
 
                     b.Property<int?>("CampaignId");
 
-                    b.Property<int>("ClassId");
+                    b.Property<int?>("ClassId");
 
                     b.Property<int>("ConcentrationStat");
 
@@ -584,6 +584,8 @@ namespace OCFX.Migrations
                     b.HasIndex("CampaignId");
 
                     b.HasIndex("ProfileId");
+
+                    b.HasIndex("QuestId");
 
                     b.ToTable("QuestLogs");
                 });
@@ -881,6 +883,11 @@ namespace OCFX.Migrations
                     b.HasOne("OCFX.DataModels.Profile", "Profile")
                         .WithMany()
                         .HasForeignKey("ProfileId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("OCFX.DataModels.Quest", "Quest")
+                        .WithMany()
+                        .HasForeignKey("QuestId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

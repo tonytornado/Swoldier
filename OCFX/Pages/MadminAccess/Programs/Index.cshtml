@@ -19,6 +19,15 @@
             <th>
                 @Html.DisplayNameFor(model => model.WorkoutProgram[0].Workout)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkoutProgram[0].Campaign)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkoutProgram[0].Sets)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkoutProgram[0].Repetitions)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -30,6 +39,15 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Workout.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Campaign.CampaignName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sets)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Repetitions)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.WorkoutProgramId">Edit</a> |
