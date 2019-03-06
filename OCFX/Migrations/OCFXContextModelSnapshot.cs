@@ -311,7 +311,7 @@ namespace OCFX.Migrations
 
                     b.HasIndex("GymId");
 
-                    b.ToTable("Equipment");
+                    b.ToTable("GymAmenities");
                 });
 
             modelBuilder.Entity("OCFX.DataModels.Exercise", b =>
@@ -343,9 +343,15 @@ namespace OCFX.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<int?>("LeaderId");
+
+                    b.Property<int>("Status");
+
                     b.Property<string>("Title");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LeaderId");
 
                     b.ToTable("Gyms");
                 });
@@ -807,6 +813,14 @@ namespace OCFX.Migrations
                     b.HasOne("OCFX.DataModels.Gym")
                         .WithMany("Amenities")
                         .HasForeignKey("GymId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("OCFX.DataModels.Gym", b =>
+                {
+                    b.HasOne("OCFX.DataModels.Profile", "Leader")
+                        .WithMany()
+                        .HasForeignKey("LeaderId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

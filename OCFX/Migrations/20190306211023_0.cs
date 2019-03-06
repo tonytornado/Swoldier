@@ -93,20 +93,6 @@ namespace OCFX.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Gyms",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Title = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Gyms", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Workouts",
                 columns: table => new
                 {
@@ -163,28 +149,6 @@ namespace OCFX.Migrations
                         name: "FK_Campaigns_Diets_DietId",
                         column: x => x.DietId,
                         principalTable: "Diets",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Equipment",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    EquipName = table.Column<string>(nullable: true),
-                    EquipDescription = table.Column<string>(nullable: true),
-                    EquipSkill = table.Column<string>(nullable: true),
-                    GymId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Equipment", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Equipment_Gyms_GymId",
-                        column: x => x.GymId,
-                        principalTable: "Gyms",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -386,28 +350,22 @@ namespace OCFX.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Memberships",
+                name: "Gyms",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Status = table.Column<int>(nullable: false),
-                    JoinDate = table.Column<DateTime>(nullable: false),
-                    MemberId = table.Column<int>(nullable: true),
-                    ClubId = table.Column<int>(nullable: true)
+                    Title = table.Column<string>(nullable: true),
+                    LeaderId = table.Column<int>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Status = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Memberships", x => x.Id);
+                    table.PrimaryKey("PK_Gyms", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Memberships_Gyms_ClubId",
-                        column: x => x.ClubId,
-                        principalTable: "Gyms",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Memberships_Profiles_MemberId",
-                        column: x => x.MemberId,
+                        name: "FK_Gyms_Profiles_LeaderId",
+                        column: x => x.LeaderId,
                         principalTable: "Profiles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -639,6 +597,56 @@ namespace OCFX.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "GymAmenities",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    EquipName = table.Column<string>(nullable: true),
+                    EquipDescription = table.Column<string>(nullable: true),
+                    EquipSkill = table.Column<string>(nullable: true),
+                    GymId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GymAmenities", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_GymAmenities_Gyms_GymId",
+                        column: x => x.GymId,
+                        principalTable: "Gyms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Memberships",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Status = table.Column<int>(nullable: false),
+                    JoinDate = table.Column<DateTime>(nullable: false),
+                    MemberId = table.Column<int>(nullable: true),
+                    ClubId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Memberships", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Memberships_Gyms_ClubId",
+                        column: x => x.ClubId,
+                        principalTable: "Gyms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Memberships_Profiles_MemberId",
+                        column: x => x.MemberId,
+                        principalTable: "Profiles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Comments",
                 columns: table => new
                 {
@@ -779,9 +787,14 @@ namespace OCFX.Migrations
                 column: "ProfileId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Equipment_GymId",
-                table: "Equipment",
+                name: "IX_GymAmenities_GymId",
+                table: "GymAmenities",
                 column: "GymId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Gyms_LeaderId",
+                table: "Gyms",
+                column: "LeaderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Memberships_ClubId",
@@ -912,13 +925,13 @@ namespace OCFX.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Equipment");
-
-            migrationBuilder.DropTable(
                 name: "FAQs");
 
             migrationBuilder.DropTable(
                 name: "Friends");
+
+            migrationBuilder.DropTable(
+                name: "GymAmenities");
 
             migrationBuilder.DropTable(
                 name: "Memberships");

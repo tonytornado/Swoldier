@@ -50,6 +50,7 @@ namespace OCFX.Areas.Identity.Data
         public DbSet<Membership> Memberships { get; set; }
         public DbSet<WorkoutProgram> WorkoutPrograms { get; set; }
 		public DbSet<Workout> Workouts { get; set; }
+        public DbSet<Equipment> GymAmenities { get; set; }
 
 		// Quest DB
 		public DbSet<Archetype> Archetypes { get; set; }

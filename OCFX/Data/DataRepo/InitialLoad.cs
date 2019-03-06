@@ -226,11 +226,13 @@ namespace OCFX.Data.DataRepo
                 {
                     Title = "Bar-Barian Lounge",
                     Description = "The Bar-Barian race has been long seen as the strongest \n and will never meet an equal.",
+                    Status = ApprovalStatus.Approved
                 },
                 new Gym
                 {
                     Title = "Pilate House",
-                    Description = "It's a house where people do Pilates. What were you expecting?"
+                    Description = "It's a house where people do Pilates. What were you expecting?",
+                    Status = ApprovalStatus.Approved
                 }
             };
             foreach (var character in clubs)

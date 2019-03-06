@@ -7,32 +7,22 @@ namespace OCFX.DataModels
 {
     public class Gym
     {
-        private OCFXContext _context { get; set; }
-
-        public Gym()
-        {
-
-        }
-
-        private Gym(OCFXContext context)
-        {
-            _context = context;
-        }
-
         [Key]
         [Display(Name = "Gym")]
         public int Id { get; set; }
         [Display(Name = "Gym Title")]
         public string Title { get; set; }
         [Display(Name = "Gym Leader")]
-        public Profile Leader  => _context.Memberships.FirstOrDefault(i => i.Status == Membership.MembershipType.Leader).Member;
+        public Profile Leader { get; set; }
         [Display(Name = "Gym Details")]
         public string Description { get; set; }
+        public ApprovalStatus Status { get; set; }
 
-		// List of the club's amenities and equipment
+        // List of the club's amenities and equipment
         public ICollection<Equipment> Amenities { get; set; }
 
         // List of the club's members
 		public ICollection<Membership> Members { get; set; }
+        
     }
 }
