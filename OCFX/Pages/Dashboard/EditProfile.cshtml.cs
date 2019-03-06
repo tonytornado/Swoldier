@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OCFX.Areas.Identity.Data;
-using OCFX.Data.DataRepo;
 using OCFX.DataModels;
 
 namespace OCFX.Pages.Profiles
@@ -22,23 +21,20 @@ namespace OCFX.Pages.Profiles
 			_userManager = userManager;
 		}
 
-		public Task<OCFXUser> Player { get; private set; }
-		[BindProperty]
-		public Profile Profile { get; set; }
+        public OCFXUser Player { get; private set; }
 
-		[BindProperty]
-		public InputModel Input { get; set; }
+        [TempData]
+        public string StatusMessage { get; set; }
 
-		public class InputModel
+        [BindProperty]
+        public Profile Profile { get; set; }
+
+        public async Task<IActionResult> OnGetAsync()
 		{
-		}
-
-		public async Task<IActionResult> OnGetAsync()
-		{
-			Player = _userManager.GetUserAsync(User);
+			Player = await _userManager.GetUserAsync(User);
 
 			Profile = await _context.Profiles
-				.Include(p => p.FitStyle).FirstOrDefaultAsync(m => m.Id == Player.Result.ProfileId);
+				.Include(p => p.FitStyle).FirstOrDefaultAsync(m => m.Id == Player.ProfileId);
 
 			if (Profile == null)
 			{
@@ -50,12 +46,9 @@ namespace OCFX.Pages.Profiles
 
 		public async Task<IActionResult> OnPostAsync()
 		{
-			//var user = await _userManager.GetUserAsync(User);
-			//var profiler = await _context.Profiles
-			//	.Include(p => p.FitUser).FirstOrDefaultAsync(m => m.FitUser.Id == user.Id);
-
 			if (!ModelState.IsValid)
 			{
+                StatusMessage = "Error: Well, something must have happened. Let's check that information again.";
 				return Page();
 			}
 
@@ -77,7 +70,9 @@ namespace OCFX.Pages.Profiles
 				}
 			}
 
-			return RedirectToPage("./Index", new { id = Profile.Id});
+            StatusMessage = "Profile changed!";
+
+			return RedirectToPage("Index");
 		}
 
 		private bool ProfileExists(int id)

@@ -184,7 +184,7 @@ namespace OCFX.Pages.Clubs
 
             StatusMessage = "Member has been promoted!";
 
-            return RedirectToPage(pageName: "Community", pageHandler: "OnGetAsync", routeValues: new { gymId });
+            return RedirectToPage("Community", "OnGetAsync", new { gymId });
         }
     }
 }

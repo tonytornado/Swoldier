@@ -6,7 +6,8 @@
     ViewData["BannerTitle"] = "Edit";
     ViewData["BannerSubtitle"] = "Okay fine. We'll let you change a few things, even your gender! Just remember, it does change how we view you... fitness-wise.";
 }
-<form method="post" asp-action="POST">
+<partial name="_StatusMessage" model="Model.StatusMessage" />
+<form method="post">
 	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 	<input type="hidden" asp-for="Profile.Id" />
 	<h2 class="text-center">Edit Profile and Stats</h2>

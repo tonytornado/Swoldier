@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OCFX.Areas.Identity.Data;
 using OCFX.Data.Methods;
@@ -27,6 +28,8 @@ namespace OCFX.Pages.Dashboard
         public List<int> CompletedQuests { get; private set; }
 
         public string UserTitle { get; private set; }
+
+        [TempData]
         public string StatusMessage { get; set; }
 
         public async Task OnGetAsync()
@@ -43,6 +46,11 @@ namespace OCFX.Pages.Dashboard
 
             // Get the completed quests
             CompletedQuests = QuestMethods.CheckCompletedQuests(_context, Profiler.Id);
+
+            // Check for a status message?
+#pragma warning disable CS0168 // Variable is declared but never used
+            string StatusMessage;
+#pragma warning restore CS0168 // Variable is declared but never used
         }
     }
 }

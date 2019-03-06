@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using OCFX.Areas.Identity.Data;
-using OCFX.Data.DataRepo;
 using OCFX.DataModels;
 
 namespace OCFX.Pages.Profiles
@@ -28,27 +27,28 @@ namespace OCFX.Pages.Profiles
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
         }
 
-        public Task<OCFXUser> Player { get; set; }
+        public OCFXUser Player { get; private set; }
 
         [BindProperty]
         public Photo Photo { get; set; }
-        [BindProperty]
         public IFormFile Image { get; set; }
-        public string StatusMessage { get; private set; }
+
+        [TempData]
+        public string StatusMessage { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
-            Player = _userManager.GetUserAsync(User);
+            Player = await _userManager.GetUserAsync(User);
 
             Photo = await _context.Photos
                 .Where(p => p.Type == Photo.PhotoType.Profile)
                 .OrderByDescending(d => d.DateAdded)
-                .FirstOrDefaultAsync(p => p.ProfileId == Player.Result.ProfileId);
+                .FirstOrDefaultAsync(p => p.ProfileId == Player.ProfileId);
 
             if (Photo == null)
             {
                 StatusMessage = "Let's try on a new face! Enter a litle bit of information so we can get rid of that Beerus photo. It looks weird, okay?";
-                Photo.ProfileId = Player.Result.ProfileId;
+                Photo.ProfileId = Player.ProfileId;
                 return Page();
             }
 
