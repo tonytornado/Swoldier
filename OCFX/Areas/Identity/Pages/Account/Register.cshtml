@@ -193,16 +193,17 @@
                         <input asp-for="Profiler.MotivationStat" id="motivationRegister" class="form-control form-control-lg pointBox" value="0" />
                         <span asp-validation-for="Profiler.MotivationStat" class="text-danger"></span>
                     </div>
+                    <div class="text-center p-4 m-4 col-2 mx-auto border shadow-lg">
+                        <p>
+                            Points available:
+                            <br />
+                            <span id="point-stock" class="lead">0</span>/30
+                        </p>
+                    </div>
                 </div>
                 <div class="col-md-3"></div>
             </div>
-            <div class="text-center p-4 m-4 col-2 mx-auto border shadow-lg">
-                <p>
-                    Points available:
-                    <br />
-                    <span id="point-stock" class="lead">0</span>/30
-                </p>
-            </div>
+            
             <hr />
         </div>
         <button type="submit" class="btn btn-block btn-outline-dark" id="submitButton" disabled>Register</button>

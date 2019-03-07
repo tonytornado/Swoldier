@@ -113,12 +113,12 @@
     <div class="col-sm-4">
         <h3>Amenities</h3>
         <hr />
-        @if (Model.CommunityDetail.Amenities.Count > 0)
+        @if (Model.EquipmentDetail.Count > 0)
         {
             <ul class="border list-group">
-                @foreach (var item in Model.CommunityDetail.Amenities)
+                @foreach (var item in Model.EquipmentDetail)
                 {
-                    <li>@item.EquipName - @item.EquipSkill</li>
+                    <li><b>@item.Equipment.EquipName</b> <br /> @item.Equipment.EquipDescription</li>
                 }
             </ul>
         }

@@ -5,8 +5,8 @@
     ViewData["BannerTitle"] = "Dashboard";
     ViewData["BannerSubtitle"] = "Your dashboard, obviously.";
 }
+<partial name="_StatusMessage" model="Model.StatusMessage" />
 <div class="row text-center">
-    <partial name="_StatusMessage" model="Model.StatusMessage" />
     <div class="col-md-4 dash_section border" id="profile_center">
         <h3 class="align-text-bottom">@Model.UserTitle</h3>
         <hr />
@@ -161,7 +161,7 @@
                         }
                         else
                         {
-                            <td>"Anarchic Setup" </td>
+                            <td>"Anarchic Setup"</td>
                         }
                     </tr>
                 </tbody>

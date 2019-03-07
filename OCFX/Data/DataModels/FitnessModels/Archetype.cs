@@ -2,6 +2,9 @@
 
 namespace OCFX.DataModels
 {
+    /// <summary>
+    /// Character archetypes. This provides boosts and such.
+    /// </summary>
     public class Archetype
     {
         [Key]
@@ -12,7 +15,7 @@ namespace OCFX.DataModels
 		[Display(Name = "Fit Type")]
         public ClassType FitType { get; set; }
 
-		// Modifications to the base stats of the character, builds over each level up.
+		// Modifications to the base stats of the character.
 		[Display(Name = "STR")]
 		[Range(0, 5)]
 		public int StrengthMod { get; set; }
@@ -33,6 +36,9 @@ namespace OCFX.DataModels
 		public int MotivationMod { get; set; }
     }
 
+    /// <summary>
+    /// Levels of skill for a certain set. Adds small boosts after some time.
+    /// </summary>
 	public enum SkillType
 	{
 		[Display(Name = "Basic")]
@@ -47,6 +53,9 @@ namespace OCFX.DataModels
 		Legendary = 5
 	}
 
+    /// <summary>
+    /// The different class types, each with their own set of stat boosts.
+    /// </summary>
 	public enum ClassType
 	{
 		[Display(Name = "Hobbyist")]

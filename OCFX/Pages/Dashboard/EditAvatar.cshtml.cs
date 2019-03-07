@@ -61,6 +61,12 @@ namespace OCFX.Pages.Profiles
             if (!ModelState.IsValid)
             {
                 StatusMessage = "Error: Something's wrong! We can't change your picture!";
+                Player = await _userManager.GetUserAsync(User);
+
+                Photo = await _context.Photos
+                    .Where(p => p.Type == Photo.PhotoType.Profile)
+                    .OrderByDescending(d => d.DateAdded)
+                    .FirstOrDefaultAsync(p => p.ProfileId == Player.ProfileId);
                 return Page();
             }
 
@@ -90,6 +96,11 @@ namespace OCFX.Pages.Profiles
                 else
                 {
                     StatusMessage = "Error: That doesn't look like a photo file to us!";
+                    Player = await _userManager.GetUserAsync(User);
+                    Photo = await _context.Photos
+                        .Where(p => p.Type == Photo.PhotoType.Profile)
+                        .OrderByDescending(d => d.DateAdded)
+                        .FirstOrDefaultAsync(p => p.ProfileId == Player.ProfileId);
                     return Page();
                 }
             }
@@ -99,6 +110,11 @@ namespace OCFX.Pages.Profiles
 
         }
 
+        /// <summary>
+        /// Create a unique file name for the file being uploaded.
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
         private string GetUniqueName(string fileName)
         {
             fileName = Path.GetFileName(fileName);

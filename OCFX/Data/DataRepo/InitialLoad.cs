@@ -11,11 +11,6 @@ namespace OCFX.Data.DataRepo
     {
         public static void Initialize(OCFXContext context)
         {
-            //var context = serviceProvider.GetRequiredService<OCFXContext>();
-            //context.Database.EnsureCreated();
-
-            
-
             // Archetype/Classes
             if (context.Archetypes.Any())
             {
@@ -84,22 +79,6 @@ namespace OCFX.Data.DataRepo
             }
             context.SaveChanges();
 
-            // Quests
-            if (context.Quests.Any())
-            {
-                return;
-            }
-            var quests = new Quest[]
-            {
-                new Quest{ QuestName = "Run the Grid", QuestStyle = QuestType.Speed, QuestStory = "There's someone in this area creating a ruckus. Run them down.", CampaignId = 1},
-                new Quest{ QuestName = "Stomp the Grid", QuestStyle = QuestType.Power, QuestStory = "Oh great, you caught them! Now let's show them what you've got.", CampaignId = 1}
-            };
-            foreach (var quest in quests)
-            {
-                context.Quests.Add(quest);
-            }
-            context.SaveChanges();
-
             // Exercises
             if (context.Exercises.Any())
             {
@@ -164,7 +143,7 @@ namespace OCFX.Data.DataRepo
                 context.Exercises.Add(exercise);
             }
 
-            //Workouts
+            // Workouts
             if (context.Workouts.Any())
             {
                 return;
@@ -192,7 +171,7 @@ namespace OCFX.Data.DataRepo
             }
             context.SaveChanges();
 
-            // Workout Programs
+            // Workout Programs (Diets, Campaigns, Quests, Exercises, Workouts first)
             if (context.WorkoutPrograms.Any())
             {
                 return;
@@ -212,6 +191,22 @@ namespace OCFX.Data.DataRepo
             foreach (var program in programs)
             {
                 context.WorkoutPrograms.Add(program);
+            }
+            context.SaveChanges();
+
+            // Quests (Campaigns first)
+            if (context.Quests.Any())
+            {
+                return;
+            }
+            var quests = new Quest[]
+            {
+                new Quest{ QuestName = "Run the Grid", QuestStyle = QuestType.Speed, QuestStory = "There's someone in this area creating a ruckus. Run them down.", CampaignId = 1},
+                new Quest{ QuestName = "Stomp the Grid", QuestStyle = QuestType.Power, QuestStory = "Oh great, you caught them! Now let's show them what you've got.", CampaignId = 1}
+            };
+            foreach (var quest in quests)
+            {
+                context.Quests.Add(quest);
             }
             context.SaveChanges();
 
@@ -238,6 +233,43 @@ namespace OCFX.Data.DataRepo
             foreach (var character in clubs)
             {
                 context.Gyms.Add(character);
+            }
+            context.SaveChanges();
+
+            // Amenities
+            if (context.GymAmenities.Any())
+            {
+                return;
+            }
+            var equipment = new Equipment[]
+            {
+                new Equipment { EquipName = "Pool", EquipDescription = "One of those things you swim in." },
+                new Equipment { EquipName = "Sauna", EquipDescription = "To heat up and cool off at the same damn time." },
+                new Equipment { EquipName = "Crossfit", EquipDescription = "I mean, someone's gotta talk about it." },
+            };
+            foreach (var item in equipment)
+            {
+                context.GymAmenities.Add(item);
+            }
+            context.SaveChanges();
+
+            // Equipment Setup (Gym + Amenities first)
+            if (context.RelativeGyms.Any())
+            {
+                return;
+            }
+            var EquipmentRelation = new GymRelation[]
+            {
+                new GymRelation { EquipmentId = 1, GymId = 1 },
+                new GymRelation { EquipmentId = 2, GymId = 1 },
+                new GymRelation { EquipmentId = 3, GymId = 1 },
+                new GymRelation { EquipmentId = 1, GymId = 2 },
+                new GymRelation { EquipmentId = 2, GymId = 2 },
+                new GymRelation { EquipmentId = 3, GymId = 2 },
+            };
+            foreach (var item in EquipmentRelation)
+            {
+                context.RelativeGyms.Add(item);
             }
             context.SaveChanges();
 

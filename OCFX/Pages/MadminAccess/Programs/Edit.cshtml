@@ -42,6 +42,11 @@
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
+            <div class="form-group">
+                <label asp-for="WorkoutProgram.Order" class="control-label"></label>
+                <input asp-for="WorkoutProgram.Order" class="form-control" />
+                <span asp-validation-for="WorkoutProgram.Order" class="text-danger"></span>
+            </div>
         </form>
     </div>
 </div>

@@ -32,5 +32,8 @@ namespace OCFX.DataModels
         [Display(Name = "Reps")]
         [Range(1, 20, ErrorMessage = "Uhhh....")]
         public int Repetitions { get; set; }
+
+        [Display(Name = "Order")]
+        public int Order { get; set; }
     }
 }

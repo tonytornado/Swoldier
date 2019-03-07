@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using OCFX.Areas.Identity.Data;
 using OCFX.DataModels;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,11 +23,10 @@ namespace OCFX.Pages.Clubs
         }
 
         public OCFXUser Visitor { get; private set; }
-        public Task<Gym> GymSub { get; private set; }
-
+        public List<GymRelation> EquipmentDetail { get; private set; }
         public Gym CommunityDetail { get; private set; }
-        public int MemberCount { get; private set; }
         public Membership Subscription { get; private set; }
+        public int MemberCount { get; private set; }
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -36,6 +36,12 @@ namespace OCFX.Pages.Clubs
             Visitor = await _userManager.GetUserAsync(User);
 
             // Get the gym
+            EquipmentDetail = await _context.RelativeGyms
+                .Include(g => g.Equipment)
+                .Include(g => g.Gym)
+                .Where(g => g.GymId == id)
+                .ToListAsync();
+
             CommunityDetail = await _context.Gyms
                 .Include(m => m.Members)
                     .ThenInclude(m => m.Member)

@@ -45,7 +45,6 @@ namespace OCFX.Pages.Clubs
                 Club = new Gym {
                     Description = Gym.Description,
                     Title = Gym.Title,
-                    Amenities = new Collection<Equipment>(),
                     Leader = user.Profile,
                     Status = ApprovalStatus.Pending
                 },
