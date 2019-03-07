@@ -50,13 +50,16 @@ namespace OCFX.Areas.Identity.Pages.Account
         public string ReturnUrl { get; set; }
 
 		public SelectList QuestList { get; set; }
+        
+        [TempData]
+        public string StatusMessage { get; set; }
 
-		/// <summary>
-		/// Fills out the Program list.
-		/// </summary>
-		/// <param name="_context">DBcontext</param>
-		/// <param name="selectedListItem">The selected item</param>
-		public void PopulateProgramList(Data.OCFXContext _context, object selectedListItem = null)
+        /// <summary>
+        /// Fills out the Program list.
+        /// </summary>
+        /// <param name="_context">DBcontext</param>
+        /// <param name="selectedListItem">The selected item</param>
+        public void PopulateProgramList(Data.OCFXContext _context, object selectedListItem = null)
 		{
 			var Query = from d in _context.Campaigns
 							 orderby d.Id ascending
@@ -122,60 +125,66 @@ namespace OCFX.Areas.Identity.Pages.Account
             {
                 // Create a user profile
                 OCFXUser user = new OCFXUser
-				{
-					FirstName = Input.FirstName,
-					LastName = Input.LastName,
-					UserName = Input.Email,
-					Email = Input.Email,
-					DOB = Input.DOB,
-					NameChangedDate = DateTime.Now,
-					Profile = new Profile
-					{
-						FirstName = Input.FirstName,
-						LastName = Input.LastName,
-						Age = Convert.ToInt32((DateTime.Today - Input.DOB).TotalDays / 365),
-						Gender = Profiler.Gender,
-						Weight = Profiler.Weight,
-						Height = Profiler.Height,
-						NeckMeasurement = Profiler.NeckMeasurement = 0,
-						WaistMeasurement = Profiler.WaistMeasurement = 0,
-						HipMeasurement = Profiler.HipMeasurement = 0,
-						BackStory = Profiler.BackStory,
-						DriveStory = Profiler.DriveStory,
-						Goals = Profiler.Goals,
-						StrengthStat = Profiler.StrengthStat,
-						DexterityStat = Profiler.DexterityStat,
-						MotivationStat = Profiler.MotivationStat,
-						ConstitutionStat = Profiler.ConstitutionStat,
-						SpeedStat = Profiler.SpeedStat,
-						ConcentrationStat = Profiler.ConcentrationStat,
-						FitStyle = await _context.Archetypes.FirstOrDefaultAsync(p => p.Id == Input.ClassId),
-						Campaign = await _context.Campaigns.FirstOrDefaultAsync(p => p.Id == 1),
+                {
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    UserName = Input.Email,
+                    Email = Input.Email,
+                    DOB = Input.DOB,
+                    NameChangedDate = DateTime.Now,
+                    Profile = new Profile
+                    {
+                        FirstName = Input.FirstName,
+                        LastName = Input.LastName,
+                        Age = Convert.ToInt32((DateTime.Today - Input.DOB).TotalDays / 365),
+                        Gender = Profiler.Gender,
+                        Weight = Profiler.Weight,
+                        Height = Profiler.Height,
+                        NeckMeasurement = Profiler.NeckMeasurement = 0,
+                        WaistMeasurement = Profiler.WaistMeasurement = 0,
+                        HipMeasurement = Profiler.HipMeasurement = 0,
+                        BackStory = Profiler.BackStory,
+                        DriveStory = Profiler.DriveStory,
+                        Goals = Profiler.Goals,
+                        StrengthStat = Profiler.StrengthStat,
+                        DexterityStat = Profiler.DexterityStat,
+                        MotivationStat = Profiler.MotivationStat,
+                        ConstitutionStat = Profiler.ConstitutionStat,
+                        SpeedStat = Profiler.SpeedStat,
+                        ConcentrationStat = Profiler.ConcentrationStat,
+                        FitStyle = await _context.Archetypes.FirstOrDefaultAsync(p => p.Id == Input.ClassId),
+                        Campaign = await _context.Campaigns.FirstOrDefaultAsync(p => p.Id == 1),
                         Quest = await _context.Quests.FirstOrDefaultAsync(p => p.Id == 1),
 
-						Phones = new Collection<Phone>(),
-						Addresses = new Collection<Address>(),
-						Photos = new Collection<Photo>(),
-					}
+                        Phones = new Collection<Phone>(),
+                        Addresses = new Collection<Address>(),
+                        Photos = new Collection<Photo>(),
+                    }
                 };
 
                 // Add the phone number
+                if (Phoney != null)
+                { 
                 user.Profile.Phones.Add(new Phone
-				{
-					AreaCode = Phoney.AreaCode,
-					PhoneTypeName = Phoney.PhoneTypeName,
-					PhoneNumber = Phoney.PhoneNumber
-				});
+                {
+                    AreaCode = Phoney.AreaCode,
+                    PhoneTypeName = Phoney.PhoneTypeName,
+                    PhoneNumber = Phoney.PhoneNumber
+                });
+            }
 
                 // Add the address
-                user.Profile.Addresses.Add(new Address
-				{
-					AddressTypeName = Addressing.AddressTypeName,
-					StreetName = Addressing.StreetName,
-					CityName = Addressing.CityName,
-					StateName = Addressing.StateName,
-					ZipCode = Addressing.ZipCode
-				});
+                if (Addressing != null)
+                {
+                    user.Profile.Addresses.Add(new Address
+                    {
+                        AddressTypeName = Addressing.AddressTypeName,
+                        StreetName = Addressing.StreetName,
+                        CityName = Addressing.CityName,
+                        StateName = Addressing.StateName,
+                        ZipCode = Addressing.ZipCode
+                    });
+                }
 
                 // Add the default profile picture
 				user.Profile.Photos.Add(new Photo
@@ -221,12 +230,14 @@ namespace OCFX.Areas.Identity.Pages.Account
                 }
                 foreach (var error in result.Errors)
                 {
+                    
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
 
-			// If we got this far, something failed, redisplay form
-			PopulateProgramList(_context);
+            // If we got this far, something failed, redisplay form
+            StatusMessage = "Something's wrong.";
+            PopulateProgramList(_context);
 			return Page();
         }
     }

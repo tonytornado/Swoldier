@@ -14,22 +14,22 @@ namespace OCFX.DataModels
 
 		// Modifications to the base stats of the character, builds over each level up.
 		[Display(Name = "STR")]
-		[Range(1, 5)]
+		[Range(0, 5)]
 		public int StrengthMod { get; set; }
 		[Display(Name = "SPD")]
-		[Range(1, 5)]
+		[Range(0, 5)]
 		public int SpeedMod { get; set; }
 		[Display(Name = "VIT")]
-		[Range(1, 5)]
+		[Range(0, 5)]
 		public int ConstitutionMod { get; set; }
 		[Display(Name = "DEX")]
-		[Range(1, 5)]
+		[Range(0, 5)]
 		public int DexterityMod { get; set; }
 		[Display(Name = "CON")]
-		[Range(1, 5)]
+		[Range(0, 5)]
 		public int ConcentrationMod { get; set; }
 		[Display(Name = "MVN")]
-		[Range(1, 5)]
+		[Range(0, 5)]
 		public int MotivationMod { get; set; }
     }
 

@@ -46,22 +46,22 @@ namespace OCFX.DataModels
 
 		// Starting stats from typical character sheet
 		[Display(Name = "Strength")]
-		[Range(1, 10, ErrorMessage = "You're either too strong and too weak.")]
+		[Range(1, 10)]
 		public int StrengthStat { get; set; }
 		[Display(Name = "Speed")]
-		[Range(1, 10, ErrorMessage = "You're either too slow and too damn fast.")]
+		[Range(1, 10)]
 		public int SpeedStat { get; set; }
 		[Display(Name = "Constitution")]
-		[Range(1, 10, ErrorMessage = "You're either too hardy or too frail.")]
+		[Range(1, 10)]
 		public int ConstitutionStat { get; set; }
 		[Display(Name = "Dexterity")]
-		[Range(1, 10, ErrorMessage = "You're either clumsy or damn adept.")]
+		[Range(1, 10)]
 		public int DexterityStat { get; set; }
 		[Display(Name = "Concentration")]
-		[Range(1, 10, ErrorMessage = "That ADHD or monk state ain't it, chief.")]
+		[Range(1, 10)]
 		public int ConcentrationStat { get; set; }
 		[Display(Name = "Motivation")]
-		[Range(1, 10, ErrorMessage = "Gauge your hype better.")]
+		[Range(1, 10)]
 		public int MotivationStat { get; set; }
 
 		// Character Background

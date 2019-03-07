@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,19 +16,19 @@ namespace OCFX.Pages.Profiles
 		private readonly OCFXContext _context;
 		private readonly UserManager<OCFXUser> _userManager;
 
-		public EditProfileModel(OCFXContext context, UserManager<OCFXUser> userManager)
-		{
-			_context = context;
-			_userManager = userManager;
-		}
+        public EditProfileModel(OCFXContext context, UserManager<OCFXUser> userManager)
+        {
+            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
+        }
 
         public OCFXUser Player { get; private set; }
 
-        [TempData]
-        public string StatusMessage { get; set; }
-
         [BindProperty]
         public Profile Profile { get; set; }
+        
+        [TempData]
+        public string StatusMessage { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
 		{
@@ -46,7 +47,9 @@ namespace OCFX.Pages.Profiles
 
 		public async Task<IActionResult> OnPostAsync()
 		{
-			if (!ModelState.IsValid)
+
+            var errors = ModelState.Values.SelectMany(v => v.Errors);
+            if (!ModelState.IsValid)
 			{
                 StatusMessage = "Error: Well, something must have happened. Let's check that information again.";
 				return Page();
@@ -79,5 +82,7 @@ namespace OCFX.Pages.Profiles
 		{
 			return _context.Profiles.Any(e => e.Id == id);
 		}
-	}
+
+        
+    }
 }

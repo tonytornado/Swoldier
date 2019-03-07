@@ -57,6 +57,7 @@ namespace OCFX.Pages.Profiles
 
         public async Task<IActionResult> OnPostAsync()
         {
+            var errors = ModelState.Values.SelectMany(v => v.Errors);
             if (!ModelState.IsValid)
             {
                 StatusMessage = "Error: Something's wrong! We can't change your picture!";
@@ -74,7 +75,7 @@ namespace OCFX.Pages.Profiles
 
             if (Image != null)
             {
-                if (Image.ContentType == "image/jpg" || Image.ContentType == "image/png")
+                if (Image.ContentType == "image/jpeg" || Image.ContentType == "image/png")
                 {
                     fileName = GetUniqueName(Image.FileName);
                     var uploads = Path.Combine(_environment.WebRootPath, "images/uploads");
