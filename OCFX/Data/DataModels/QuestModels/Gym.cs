@@ -50,16 +50,14 @@ namespace OCFX.DataModels
     public class GymRelation
     {
         [Key]
-        public int GymRelationId { get; set; }
+        public int Id { get; set; }
 
         [Display(Name = "Equipment ID")]
         public int EquipmentId { get; set; }
-        [ForeignKey("EquipmentId")]
         public Equipment Equipment { get; set; }
 
         [Display(Name = "Gym ID")]
         public int GymId { get; set; }
-        [ForeignKey("GymId")]
         public Gym Gym { get; set; }
     }
 }

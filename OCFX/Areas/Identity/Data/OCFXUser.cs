@@ -6,6 +6,10 @@ using Microsoft.AspNetCore.Identity;
 namespace OCFX.DataModels
 {
     // Add profile data for application users by adding properties to the OCFXUser class
+
+    /// <summary>
+    /// Additional properties for the standard user class
+    /// </summary>
     public class OCFXUser : IdentityUser<Guid>
     {
         [PersonalData]

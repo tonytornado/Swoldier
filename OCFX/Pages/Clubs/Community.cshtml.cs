@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Extensions.Internal;
 using OCFX.Areas.Identity.Data;
 using OCFX.DataModels;
 using System;
@@ -24,7 +25,7 @@ namespace OCFX.Pages.Clubs
 
         public OCFXUser Visitor { get; private set; }
         public List<GymRelation> EquipmentDetail { get; private set; }
-        public Gym CommunityDetail { get; private set; }
+        public Gym GymDetail { get; private set; }
         public Membership Subscription { get; private set; }
         public int MemberCount { get; private set; }
 
@@ -36,21 +37,8 @@ namespace OCFX.Pages.Clubs
             Visitor = await _userManager.GetUserAsync(User);
 
             // Get the gym
-            EquipmentDetail = await _context.RelativeGyms
-                .Include(g => g.Equipment)
-                .Include(g => g.Gym)
-                .Where(g => g.GymId == id)
-                .ToListAsync();
-
-            CommunityDetail = await _context.Gyms
-                .Include(m => m.Members)
-                    .ThenInclude(m => m.Member)
-                    .ThenInclude(m => m.FitStyle)
-                .Include(m => m.Members)
-                    .ThenInclude(m => m.Member)
-                    .ThenInclude(m => m.Photos)
-                .Include(m => m.Amenities)
-                .SingleOrDefaultAsync(i => i.Id == id);
+            EquipmentDetail = _context.RelativeGyms.Include(g => g.Equipment).Where(g => g.GymId == id).ToList();
+            GymDetail = _context.RelativeGyms.Include(g => g.Gym).ThenInclude(m => m.Members).SingleOrDefault(g => g.GymId == id).Gym;
 
             // Check for subscription
             Subscription = await _context.Memberships
@@ -59,7 +47,7 @@ namespace OCFX.Pages.Clubs
                 i.Club.Id == id);
 
             // Get the count of members in the club
-            MemberCount = CommunityDetail.Members
+            MemberCount = GymDetail.Members
                 .Where(u => u.Status == Membership.MembershipType.Member).Count();
         }
 
