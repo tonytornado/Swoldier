@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Extensions.Internal;
 using OCFX.Areas.Identity.Data;
 using OCFX.DataModels;
 using System;
@@ -25,9 +24,10 @@ namespace OCFX.Pages.Clubs
 
         public OCFXUser Visitor { get; private set; }
         public List<GymRelation> EquipmentDetail { get; private set; }
-        public Gym GymDetail { get; private set; }
+        public GymRelation GymDetail { get; private set; }
         public Membership Subscription { get; private set; }
         public int MemberCount { get; private set; }
+        public bool ClubAllegiance { get; private set; }
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -37,8 +37,8 @@ namespace OCFX.Pages.Clubs
             Visitor = await _userManager.GetUserAsync(User);
 
             // Get the gym
-            EquipmentDetail = _context.RelativeGyms.Include(g => g.Equipment).Where(g => g.GymId == id).ToList();
-            GymDetail = _context.RelativeGyms.Include(g => g.Gym).ThenInclude(m => m.Members).SingleOrDefault(g => g.GymId == id).Gym;
+            EquipmentDetail = await _context.RelativeGyms.Include(g => g.Equipment).Where(g => g.GymId == id).ToListAsync();
+            GymDetail = await _context.RelativeGyms.Include(g => g.Gym).ThenInclude(m => m.Members).FirstOrDefaultAsync(g => g.GymId == id);
 
             // Check for subscription
             Subscription = await _context.Memberships
@@ -47,8 +47,10 @@ namespace OCFX.Pages.Clubs
                 i.Club.Id == id);
 
             // Get the count of members in the club
-            MemberCount = GymDetail.Members
+            MemberCount = GymDetail.Gym.Members
                 .Where(u => u.Status == Membership.MembershipType.Member).Count();
+
+            ClubAllegiance = _context.Memberships.Where(m => m.Member.Id == Visitor.ProfileId).Count() is 0;
         }
 
         /// <summary>
@@ -77,7 +79,7 @@ namespace OCFX.Pages.Clubs
 
             StatusMessage = "Your membership is being processed. In the meantime, why don't you just browse around?";
 
-            return RedirectToPage(pageName: "Community", pageHandler: "OnGetAsync", routeValues: new { id });
+            return RedirectToPage(pageName: "Community", new { id });
         }
 
         /// <summary>
@@ -100,7 +102,7 @@ namespace OCFX.Pages.Clubs
 
             StatusMessage = "Member has been removed!";
 
-            return RedirectToPage(pageName: "Community", pageHandler: "OnGetAsync", routeValues: new { id });
+            return RedirectToPage(pageName: "Community", new { id });
         }
 
         /// <summary>
@@ -118,9 +120,9 @@ namespace OCFX.Pages.Clubs
             member.Status = Membership.MembershipType.Member;
             await _context.SaveChangesAsync();
 
-            StatusMessage = "Member has been confirmed!";
+            StatusMessage = "Member has been confirmed! Better hope they aren't trouble.";
 
-            return RedirectToPage(pageName: "Community", pageHandler: "OnGetAsync", routeValues: new { gymId });
+            return RedirectToPage(pageName: "Community", new { gymId });
         }
 
         /// <summary>
@@ -138,7 +140,9 @@ namespace OCFX.Pages.Clubs
             _context.Memberships.Remove(member);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage(pageName: "Community", pageHandler: "OnGetAsync", routeValues: new { gymId });
+            StatusMessage = "Membership denied! That'll show them.";
+
+            return RedirectToPage(pageName: "Community", new { gymId });
         }
 
         /// <summary>
@@ -158,7 +162,7 @@ namespace OCFX.Pages.Clubs
 
             StatusMessage = "Member has been banned.";
 
-            return RedirectToPage(pageName: "Community", pageHandler: "OnGetAsync", routeValues: new { gymId });
+            return RedirectToPage(pageName: "Community", new { gymId });
         }
 
         /// <summary>
@@ -178,7 +182,7 @@ namespace OCFX.Pages.Clubs
 
             StatusMessage = "Member has been promoted!";
 
-            return RedirectToPage("Community", "OnGetAsync", new { gymId });
+            return RedirectToPage("Community", new { gymId });
         }
     }
 }

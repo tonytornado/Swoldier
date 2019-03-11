@@ -116,5 +116,33 @@ namespace OCFX.Data.Methods
 
 			return percentage;
 		}
+
+        public static object Consultation(double bodyFat, double weight, double height)
+        {
+            string Advice = "";
+            string WeightClass = "";
+            double BMI = weight / Math.Pow(height, 2);
+
+            if (BMI > 30)
+            {
+                WeightClass = "Obese";
+                Advice = "This is generally considered obese. Variations of this depends on whether or not your body fat percentage is above or below 20% which is the general average for most males and females. Best course of action if body fat percentage is above 20% is to decrease calorie intake and increase exercise/movement.";
+            }
+            if (29.9 > BMI && BMI > 25.0)
+            {
+                WeightClass = "Overweight";
+                Advice = "This is generally considered overweight. Generally the advice here is decreased ";
+            }
+            if (24.9 > BMI && BMI > 18.5)
+            {
+                WeightClass = "Normal";
+            }
+            if (BMI < 18.4)
+            {
+                WeightClass = "Underweight";
+            }
+
+            return [WeightClass, BMI, Advice];
+        }
 	}
 }

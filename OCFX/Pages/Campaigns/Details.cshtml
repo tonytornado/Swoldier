@@ -6,22 +6,23 @@
     ViewData["BannerTitle"] = Model.Campaign.CampaignName;
     ViewData["BannerSubtitle"] = Model.Campaign.CampaignDetails;
 }
-<div class="jumbotron text-body">
+<div class="text-body">
 	<h4>Campaign Details</h4>
 	@if (Model.Campaign.CampaignQuest != null)
 	{
 		<p>@Model.Campaign.CampaignLore</p>
-		<ul>
+		<ul class="list-group list-group-flush">
 			@foreach (var quest in Model.Campaign.CampaignQuest)
 			{
 				// Set quest conditions, statuses if logged in.
 
 
 				// Strike out completed quests [Needs completed quest table]
-				<li>@quest.QuestName [@quest.QuestStyle] <br /> @quest.QuestStory</li>
+				<li class="list-group-item"><b>@quest.QuestName [@quest.QuestStyle]</b> <br /> @quest.QuestStory</li>
 			}
 		</ul>
 	}
+    <br />
 	<p>This one's good for @Model.Campaign.CampaignRisk-level folks. Good luck, don't die.</p>
 </div>
 <div class="text-center">

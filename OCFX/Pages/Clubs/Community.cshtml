@@ -2,7 +2,7 @@
 @model OCFX.Pages.Clubs.CommunityModel
 @{
     ViewData["Title"] = "Community";
-    ViewData["BannerTitle"] = Model.GymDetail.Title;
+    ViewData["BannerTitle"] = Model.GymDetail.Gym.Title;
     ViewData["BannerSubtitle"] = "Members: " + @Model.MemberCount;
 }
 
@@ -10,54 +10,73 @@
 <section class="row">
     <div class="col-md-8">
         <div>
-            <p>@Model.GymDetail.Description</p>
+            <p>@Model.GymDetail.Gym.Description</p>
         </div>
-        <h5>Members of @Model.GymDetail.Title</h5>
-        <ul class="list-group">
-            @foreach (var athlete in Model.GymDetail.Members
-           .Where(i => i.Status != DataModels.Membership.MembershipType.Banned && i.Status != DataModels.Membership.MembershipType.Pending))
-            {
-                <li class="list-group-item">
-                    <div class="d-inline-flex w-100 justify-content-between align-content-center">
-                        <div>
-                            <h4>
-                                <a asp-page="/Profiles/Index" asp-route-id="@athlete.Member.Id">@athlete.Member.FirstName @athlete.Member.LastName</a>
-                            </h4>
-                            <h6>@athlete.Member.FitStyle.SkillMod @athlete.Member.FitStyle.FitType - @athlete.Status</h6>
-                            @if (Model.GymDetail.Leader == Model.Visitor.Profile && athlete.Status != DataModels.Membership.MembershipType.Leader)
-                            {
-                                <form method="post">
-                                    <div class="btn-group btn-group-sm">
-                                        <button class="btn btn-primary" asp-route-memberId="@athlete.Member.Id" asp-route-gymId="@Model.GymDetail.Id" asp-page-handler="PromoteMember">Promote</button>
-                                        <button class="btn btn-secondary" asp-route-memberId="@athlete.Member.Id" asp-route-gymId="@Model.GymDetail.Id" asp-page-handler="DenySubmission">Remove</button>
-                                        <button class="btn btn-danger" asp-route-memberId="@athlete.Member.Id" asp-route-gymId="@Model.GymDetail.Id" asp-page-handler="BanMember">Ban</button>
-                                    </div>
-                                </form>
-                            }
-                        </div>
-                        <img src="~/images/uploads/@athlete.Member.Photos.FirstOrDefault(m => m.ProfileId == athlete.Member.Id).URL" alt="Alternate Text" class="friend_avatar border">
-                    </div>
-                </li>
-            }
-        </ul>
+        @if (Model.MemberCount != 0)
+        {
+            <div>
+                <h5>Members of @Model.GymDetail.Gym.Title</h5>
+                <ul class="list-group">
+                    @foreach (var athlete in Model.GymDetail.Gym.Members
+          .Where(i => i.Status != DataModels.Membership.MembershipType.Banned && i.Status != DataModels.Membership.MembershipType.Pending))
+                    {
+                        <li class="list-group-item">
+                            <div class="d-inline-flex w-100 justify-content-between align-content-center">
+                                <div>
+                                    <h4>
+                                        <a asp-page="/Profiles/Index" asp-route-id="@athlete.Member.Id">@athlete.Member.FirstName @athlete.Member.LastName</a>
+                                    </h4>
+                                    <h6>@athlete.Member.FitStyle.SkillMod @athlete.Member.FitStyle.FitType - @athlete.Status</h6>
+                                    @if (Model.GymDetail.Gym.Leader == Model.Visitor.Profile && athlete.Status != DataModels.Membership.MembershipType.Leader)
+                                    {
+                                        <form method="post">
+                                            <div class="btn-group btn-group-sm">
+                                                <button class="btn btn-primary" asp-route-memberId="@athlete.Member.Id" asp-route-gymId="@Model.GymDetail.Id" asp-page-handler="PromoteMember">Promote</button>
+                                                <button class="btn btn-secondary" asp-route-memberId="@athlete.Member.Id" asp-route-gymId="@Model.GymDetail.Id" asp-page-handler="DenySubmission">Remove</button>
+                                                <button class="btn btn-danger" asp-route-memberId="@athlete.Member.Id" asp-route-gymId="@Model.GymDetail.Id" asp-page-handler="BanMember">Ban</button>
+                                            </div>
+                                        </form>
+                                    }
+                                </div>
+                                <img src="~/images/uploads/@athlete.Member.Photos.FirstOrDefault(m => m.ProfileId == athlete.Member.Id).URL" alt="Alternate Text" class="friend_avatar border">
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+        else
+        {
+            <div>The party isn't here, yet...</div>
+        }
         <hr />
         <div class="container-fluid" id="choice_container">
             @if (Model.Subscription == null)
             {
-                <form method="post">
-                    <p>Sign up?</p>
-                    <div class="btn-group btn-group-sm">
-                        <input asp-page-handler="ClubSignUp" asp-route-id="@Model.GymDetail.Id" value="Join Club" type="submit" class="btn btn-primary" />
-                        <a asp-page="./Index" class="btn btn-secondary">Back to clubs</a>
+                if (Model.ClubAllegiance)
+                {
+                    <form method="post">
+                        <p>Sign up?</p>
+                        <div class="btn-group btn-group-sm">
+                            <input asp-page-handler="ClubSignUp" asp-route-id="@Model.GymDetail.Gym.Id" value="Join Club" type="submit" class="btn btn-primary" />
+                            <a asp-page="./Index" class="btn btn-secondary">Back to clubs</a>
+                        </div>
+                    </form>
+                }
+                else
+                {
+                    <div class="alert alert-danger">
+                        <p class="text-danger">You are with a club already. <hr />
+                        Slow the hell down, mate! Leave that one before you can join another.</p>
                     </div>
-                </form>
+                }
             }
             else if (Model.Subscription.Status == DataModels.Membership.MembershipType.Member)
             {
                 <form method="post">
                     <p>Wanna leave, punk?</p>
                     <div class="btn-group btn-group-sm">
-                        <input asp-page-handler="ClubRemove" asp-route-id="@Model.GymDetail.Id" value="Leave Club" type="submit" class="btn btn-danger" />
+                        <input asp-page-handler="ClubRemove" asp-route-id="@Model.GymDetail.Gym.Id" value="Leave Club" type="submit" class="btn btn-danger" />
                         <a asp-page="./Index" class="btn btn-secondary">Back to clubs</a>
                     </div>
                 </form>
@@ -67,7 +86,7 @@
                 <form method="post">
                     <p>Your application is pending</p>
                     <div class="btn-group btn-group-sm">
-                        <input asp-page-handler="ClubRemove" asp-route-id="@Model.GymDetail.Id" value="Cancel" type="submit" class="btn btn-dark" />
+                        <input asp-page-handler="ClubRemove" asp-route-id="@Model.GymDetail.Gym.Id" value="Cancel" type="submit" class="btn btn-dark" />
                         <a asp-page="./Index" class="btn btn-secondary">Back to clubs</a>
                     </div>
                 </form>
@@ -79,12 +98,12 @@
             else if (Model.Subscription.Status == DataModels.Membership.MembershipType.Leader)
             {
                 <p>You're the leader. Do something, if you've got some time.</p>
-                @if (Model.GymDetail.Members.Where(m => m.Status == DataModels.Membership.MembershipType.Pending).Count() > 0)
+                @if (Model.GymDetail.Gym.Members.Where(m => m.Status == DataModels.Membership.MembershipType.Pending).Count() > 0)
                 {
                     <div class="border rounded p-3">
                         <h6 class="text-right">Seems you've got some people knocking at the door. Better answer them. Make sure you ask them for the password.</h6>
                         <ul class="list-group-flush">
-                            @foreach (var applicant in Model.GymDetail.Members.Where(m => m.Status == DataModels.Membership.MembershipType.Pending))
+                            @foreach (var applicant in Model.GymDetail.Gym.Members.Where(m => m.Status == DataModels.Membership.MembershipType.Pending))
                             {
                                 <li class="list-group-item">
                                     <div class="d-inline-flex w-100 justify-content-between align-content-center">
@@ -95,8 +114,8 @@
                                             <h6>@applicant.Member.FitStyle.SkillMod @applicant.Member.FitStyle.FitType - @applicant.Status</h6>
                                             <form method="post">
                                                 <div class="btn-group btn-group-sm">
-                                                    <button class="btn btn-primary" asp-route-memberId="@applicant.Member.Id" asp-route-gymId="@Model.GymDetail.Id" asp-page-handler="AcceptSubmission">Accept</button>
-                                                    <button class="btn btn-danger" asp-route-memberId="@applicant.Member.Id" asp-route-gymId="@Model.GymDetail.Id" asp-page-handler="DenySubmission">Deny</button>
+                                                    <button class="btn btn-primary" asp-route-memberId="@applicant.Member.Id" asp-route-gymId="@Model.GymDetail.Gym.Id" asp-page-handler="AcceptSubmission">Accept</button>
+                                                    <button class="btn btn-danger" asp-route-memberId="@applicant.Member.Id" asp-route-gymId="@Model.GymDetail.Gym.Id" asp-page-handler="DenySubmission">Deny</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -110,15 +129,18 @@
             }
         </div>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-4" id="amenities_container">
         <h3>Amenities</h3>
         <hr />
         @if (Model.EquipmentDetail != null)
         {
-            <ul class="border list-group">
+            <ul class="list-group">
                 @foreach (var item in Model.EquipmentDetail)
                 {
-                    <li><b>@item.Equipment.EquipName</b> <br /> @item.Equipment.EquipDescription</li>
+                    <li class="list-group-item">
+                        <b>@item.Equipment.EquipName</b>
+                        <br /> @item.Equipment.EquipDescription
+                    </li>
                 }
             </ul>
         }
