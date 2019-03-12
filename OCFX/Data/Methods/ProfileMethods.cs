@@ -131,18 +131,20 @@ namespace OCFX.Data.Methods
             if (29.9 > BMI && BMI > 25.0)
             {
                 WeightClass = "Overweight";
-                Advice = "This is generally considered overweight. Generally the advice here is decreased ";
+                Advice = "This is generally considered overweight. Generally the advice here is decreased calorie intake and increased physical activity.";
             }
             if (24.9 > BMI && BMI > 18.5)
             {
                 WeightClass = "Normal";
+                Advice = "This is generally considered good. Generally the advice here is decreased calorie intake and increased physical activity.";
             }
             if (BMI < 18.4)
             {
                 WeightClass = "Underweight";
+                Advice = "This is generally considered underweight. Generally the advice here is increased calorie intake. With increased physical activity, a caloric surplus is necessary for muscle growth.";
             }
 
-            return [WeightClass, BMI, Advice];
+            return (Advice, WeightClass, BMI);
         }
 	}
 }

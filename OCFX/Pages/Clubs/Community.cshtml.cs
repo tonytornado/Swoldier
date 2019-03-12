@@ -28,6 +28,7 @@ namespace OCFX.Pages.Clubs
         public Membership Subscription { get; private set; }
         public int MemberCount { get; private set; }
         public bool ClubAllegiance { get; private set; }
+        public int MessageBoardPosts { get; private set; }
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -51,6 +52,10 @@ namespace OCFX.Pages.Clubs
                 .Where(u => u.Status == Membership.MembershipType.Member).Count();
 
             ClubAllegiance = _context.Memberships.Where(m => m.Member.Id == Visitor.ProfileId).Count() is 0;
+
+            // Get the message board posts
+            MessageBoardPosts = _context.MessageBoardPosts.Where(c => c.Board == GymDetail.Gym).Count();
+
         }
 
         /// <summary>

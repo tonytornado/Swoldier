@@ -40,7 +40,7 @@ namespace OCFX.Pages.Profiles
         public Post Entry { get; set; }
 
         [BindProperty]
-        public Comment PostNote { get; set; }
+        public MessageBoardComment PostNote { get; set; }
 
         [BindProperty]
         public Reply CommentNote { get; set; }

@@ -1,15 +1,14 @@
-﻿using OCFX.DataModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
 
 namespace OCFX.DataModels.SocialModels
 {
-    public class FeedElement
+    /// <summary>
+    /// A general feed element that can be used for posts and such
+    /// </summary>
+    public class PostElement
 	{
 		[Key]
 		[Display(Name = "ID")]
@@ -23,20 +22,30 @@ namespace OCFX.DataModels.SocialModels
 		public int ProfileId { get; set; }
         [ForeignKey("ProfileId")]
 		public Profile Profile { get; set; }
-
+    }
+    /// <summary>
+    /// A profile post 
+    /// </summary>
+	public class Post : PostElement
+	{
         [Display(Name = "Entry")]
         public int EntryId { get; set; }
         [ForeignKey("EntryId")]
         public Profile Entry { get; set; }
-    }
 
-	public class Post : FeedElement
-	{
-		public List<Comment> Comments { get; set; }
+        public List<Comment> Comments { get; set; }
 	}
 
-	public class Comment : FeedElement
+    /// <summary>
+    /// A comment on a profile's post.
+    /// </summary>
+	public class Comment : PostElement
 	{
+        [Display(Name = "Entry")]
+        public int EntryId { get; set; }
+        [ForeignKey("EntryId")]
+        public Profile Entry { get; set; }
+
         [Display(Name = "Post ID")]
         public int PostId { get; set; }
         [ForeignKey("PostId")]
@@ -45,8 +54,16 @@ namespace OCFX.DataModels.SocialModels
         public List<Reply> Replies { get; set; }
     }
 
-	public class Reply : FeedElement
+    /// <summary>
+    /// A reply to a profile post's comment
+    /// </summary>
+	public class Reply : PostElement
 	{
+        [Display(Name = "Entry")]
+        public int EntryId { get; set; }
+        [ForeignKey("EntryId")]
+        public Profile Entry { get; set; }
+
         [Display(Name = "Comment ID")]
         public int CommentId { get; set; }
         [ForeignKey("CommentId")]

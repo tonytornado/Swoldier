@@ -1,0 +1,27 @@
+﻿@page "{id}"
+@model OCFX.Pages.Clubs.MessageBoardModel
+@{
+    ViewData["Title"] = "Message Board";
+    ViewData["BannerTitle"] = "Message Board";
+    ViewData["BannerSubtitle"] = "I wonder what people are saying?";
+}
+
+@if (Model.BoardPosts != null)
+{
+<ul class="list-group">
+    @foreach (var item in Model.BoardPosts)
+    {
+    <li class="list-group-item">
+        <div class="p-3">
+            <h3>@item.Text</h3>
+            <p>@item.Text</p>
+            <small>@item.DatePosted</small>
+        </div>
+    </li>
+    }
+</ul>
+}
+else
+{
+    <div><p>Hmm, seems there aren't any posts here. Want to bring up an issue?</p></div>
+}

@@ -18,7 +18,7 @@
                 <h5>Members of @Model.GymDetail.Gym.Title</h5>
                 <ul class="list-group">
                     @foreach (var athlete in Model.GymDetail.Gym.Members
-          .Where(i => i.Status != DataModels.Membership.MembershipType.Banned && i.Status != DataModels.Membership.MembershipType.Pending))
+         .Where(i => i.Status != DataModels.Membership.MembershipType.Banned && i.Status != DataModels.Membership.MembershipType.Pending))
                     {
                         <li class="list-group-item">
                             <div class="d-inline-flex w-100 justify-content-between align-content-center">
@@ -66,8 +66,11 @@
                 else
                 {
                     <div class="alert alert-danger">
-                        <p class="text-danger">You are with a club already. <hr />
-                        Slow the hell down, mate! Leave that one before you can join another.</p>
+                        <p class="text-danger">
+                            You are with a club already.
+                            <hr />
+                            Slow the hell down, mate! Leave that one before you can join another.
+                        </p>
                     </div>
                 }
             }
@@ -129,24 +132,39 @@
             }
         </div>
     </div>
-    <div class="col-sm-4" id="amenities_container">
-        <h3>Amenities</h3>
-        <hr />
-        @if (Model.EquipmentDetail != null)
+    <div class="col-sm-4" id="amenities_boardpost_container">
+        @if (Model.Subscription.Status != DataModels.Membership.MembershipType.Banned)
         {
-            <ul class="list-group">
-                @foreach (var item in Model.EquipmentDetail)
+            <div id="messageBoard_container">
+                @if (Model.MessageBoardPosts > 0)
                 {
-                    <li class="list-group-item">
-                        <b>@item.Equipment.EquipName</b>
-                        <br /> @item.Equipment.EquipDescription
-                    </li>
+                    <h2><a asp-page="./MessageBoard" asp-route-id="@Model.GymDetail.Gym.Id" class="btn btn-block btn-primary">[New Posts!] <br /> Message Board</a></h2>
                 }
-            </ul>
+                else
+                {
+                    <h2><a asp-page="./MessageBoard" asp-route-id="@Model.GymDetail.Gym.Id" class="btn btn-block btn-dark">Message Board</a></h2>
+                }
+            </div>
         }
-        else
-        {
-            <h3>N/A</h3>
-        }
+        <div class="pt-5" id="amenities_container">
+            <h3>Amenities</h3>
+            <hr />
+            @if (Model.EquipmentDetail != null)
+            {
+                <ul class="list-group">
+                    @foreach (var item in Model.EquipmentDetail)
+                    {
+                        <li class="list-group-item">
+                            <b>@item.Equipment.EquipName</b>
+                            <br /> @item.Equipment.EquipDescription
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <h3>N/A</h3>
+            }
+        </div>
     </div>
 </section>
