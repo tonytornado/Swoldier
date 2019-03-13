@@ -27,7 +27,11 @@ namespace OCFX.Pages.Clubs
         public OCFXUser BoardViewingMember { get; private set; }
         public List<MessageBoardPost> BoardPosts { get; private set; }
 
-        public InputModel Input { get; private set; }
+        [BindProperty]
+        public InputModel Input { get; set; }
+
+        [TempData]
+        public string StatusMessage { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
@@ -43,23 +47,31 @@ namespace OCFX.Pages.Clubs
         /// </summary>
         /// <param name="id">Gym Id</param>
         /// <returns></returns>
-        public async Task<IActionResult> OnPostTopicAsync(int id)
+        public async Task<IActionResult> OnPostTopicAsync(int BoardId)
         {
-            BoardViewingMember = await _userManager.GetUserAsync(User);
-
-            MessageBoardPost BoardPost = new MessageBoardPost
+            if (ModelState.IsValid)
             {
-                BoardId = id,
-                ProfileId = BoardViewingMember.ProfileId,
-                Title = Input.Title,
-                Text = Input.Text,
-                DatePosted = DateTime.Now
-                
-            };
+                BoardViewingMember = await _userManager.GetUserAsync(User);
 
-            _context.MessageBoardPosts.Add(BoardPost);
+                MessageBoardPost BoardPost = new MessageBoardPost
+                {
+                    BoardId = BoardId,
+                    ProfileId = BoardViewingMember.ProfileId,
+                    Title = Input.Title,
+                    Text = Input.Text,
+                    DatePosted = DateTime.Now
+                };
 
-            return RedirectToPage("MessageBoard", new { id });
+                _context.MessageBoardPosts.Add(BoardPost);
+                await _context.SaveChangesAsync();
+
+                StatusMessage = "Topic posted.";
+            } else
+            {
+                StatusMessage = "ERROR: Topic not posted. Something has goofed up.";
+            }
+
+            return RedirectToPage(new { BoardId });
         }
 
         /// <summary>

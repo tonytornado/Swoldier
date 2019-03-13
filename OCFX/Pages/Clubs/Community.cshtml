@@ -133,7 +133,7 @@
         </div>
     </div>
     <div class="col-sm-4" id="amenities_boardpost_container">
-        @if (Model.Subscription.Status != DataModels.Membership.MembershipType.Banned)
+        @if (Model.ClubAllegiance == false && Model.Subscription != null)
         {
             <div id="messageBoard_container">
                 @if (Model.MessageBoardPosts > 0)
@@ -142,11 +142,11 @@
                 }
                 else
                 {
-                    <h2><a asp-page="MessageBoard/Index" asp-route-id="@Model.GymDetail.Gym.Id" class="btn btn-block btn-dark">Message Board</a></h2>
+                    <h2><a href="#" class="btn btn-block btn-dark">Message Board</a></h2>
                 }
             </div>
         }
-        <div class="pt-5" id="amenities_container">
+        <div class="pt-3" id="amenities_container">
             <h3>Amenities</h3>
             <hr />
             @if (Model.EquipmentDetail != null)

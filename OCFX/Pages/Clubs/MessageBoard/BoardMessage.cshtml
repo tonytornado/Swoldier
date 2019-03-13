@@ -6,12 +6,15 @@
     ViewData["BannerSubtitle"] = Model.InitialBoardPost.Board.Title;
 }
 
-<h1>BoardMessage</h1>
+<partial name="_StatusMessage" model="Model.StatusMessage" />
 
 @if (Model.InitialBoardPost != null)
 {
-    <div class="shadow-lg p-3">
-        <h3>@Model.InitialBoardPost.Title <small>from @Model.InitialBoardPost.Profile.FirstName</small></h3>
+    <div class="rounded shadow-lg p-3 my-3">
+        <h3>
+            @Model.InitialBoardPost.Title
+            <small>from @Model.InitialBoardPost.Profile.FirstName</small>
+        </h3>
         <p>@Model.InitialBoardPost.Text</p>
         <small>@Model.InitialBoardPost.DatePosted</small>
     </div>
@@ -30,4 +33,23 @@
         </ul>
     </div>
 }
-
+<div>
+    <a href="#TopicBox" onclick="$('#TopicBox').show()" class="btn btn-block btn-outline-primary">Reply</a>
+</div>
+<div id="TopicBox" class="rounded shadow col-md-10 mx-auto p-3 m-3" style="display: none;">
+    <form method="post">
+        <div class="form-group">
+            <textarea class="form-control form-control-lg"
+                      asp-for="Input"></textarea>
+        </div>
+        <div class="btn-group btn-block">
+            <button class="btn btn-primary"
+                    asp-route-BoardId="@Model.InitialBoardPost.BoardId"
+                    asp-route-MessageId="@Model.InitialBoardPost.Id"
+                    asp-page-handler="Comment">
+                Comment
+            </button>
+            <a onclick="$('#TopicBox').hide()" class="btn btn-danger">Cancel</a>
+        </div>
+    </form>
+</div>

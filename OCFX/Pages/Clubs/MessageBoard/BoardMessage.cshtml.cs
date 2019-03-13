@@ -26,7 +26,12 @@ namespace OCFX.Pages.Clubs.MessageBoard
         public OCFXUser BoardViewingMember { get; private set; }
         public MessageBoardPost InitialBoardPost { get; private set; }
         public List<MessageBoardComment> InitialBoardComments { get; private set; }
+
+        [BindProperty]
         public string Input { get; set; }
+
+        [TempData]
+        public string StatusMessage { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int BoardId, int MessageId)
         {
@@ -34,6 +39,7 @@ namespace OCFX.Pages.Clubs.MessageBoard
 
             InitialBoardPost = await _context.MessageBoardPosts
                 .Include(b => b.Board)
+                .Include(p => p.Profile)
                 .Include(c => c.MessageBoardComments)
                     .ThenInclude(c => c.Profile)
                 .SingleOrDefaultAsync(c => 
@@ -47,6 +53,8 @@ namespace OCFX.Pages.Clubs.MessageBoard
 
         public async Task<IActionResult> OnPostCommentAsync(int BoardId, int MessageId)
         {
+            if (ModelState.IsValid) { 
+
             BoardViewingMember = await _userManager.GetUserAsync(User);
 
             MessageBoardComment BoardPost = new MessageBoardComment
@@ -61,8 +69,13 @@ namespace OCFX.Pages.Clubs.MessageBoard
 
             _context.MessageBoardComments.Add(BoardPost);
             _context.SaveChanges();
+                StatusMessage = "Reply posted.";
+            } else
+            {
+                StatusMessage = "ERROR: Reply not posted. Something has goofed up.";
+            }
 
-            return RedirectToPage("BoardMessage", new { BoardId, MessageId });
+            return RedirectToPage(new { BoardId, MessageId });
         }
     }
 }
