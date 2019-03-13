@@ -17,7 +17,7 @@
             <div>
                 <h5>Members of @Model.GymDetail.Gym.Title</h5>
                 <ul class="list-group">
-                    @foreach (var athlete in Model.GymDetail.Gym.Members
+                    @foreach (var athlete in Model.GymMembers
          .Where(i => i.Status != DataModels.Membership.MembershipType.Banned && i.Status != DataModels.Membership.MembershipType.Pending))
                     {
                         <li class="list-group-item">
@@ -106,7 +106,7 @@
                     <div class="border rounded p-3">
                         <h6 class="text-right">Seems you've got some people knocking at the door. Better answer them. Make sure you ask them for the password.</h6>
                         <ul class="list-group-flush">
-                            @foreach (var applicant in Model.GymDetail.Gym.Members.Where(m => m.Status == DataModels.Membership.MembershipType.Pending))
+                            @foreach (var applicant in Model.GymMembers.Where(m => m.Status == DataModels.Membership.MembershipType.Pending))
                             {
                                 <li class="list-group-item">
                                     <div class="d-inline-flex w-100 justify-content-between align-content-center">

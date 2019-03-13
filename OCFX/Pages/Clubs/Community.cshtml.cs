@@ -25,6 +25,7 @@ namespace OCFX.Pages.Clubs
         public OCFXUser Visitor { get; private set; }
         public List<GymRelation> EquipmentDetail { get; private set; }
         public GymRelation GymDetail { get; private set; }
+        public List<Membership> GymMembers { get; private set; }
         public Membership Subscription { get; private set; }
         public int MemberCount { get; private set; }
         public bool ClubAllegiance { get; private set; }
@@ -39,7 +40,13 @@ namespace OCFX.Pages.Clubs
 
             // Get the gym
             EquipmentDetail = await _context.RelativeGyms.Include(g => g.Equipment).Where(g => g.GymId == id).ToListAsync();
-            GymDetail = await _context.RelativeGyms.Include(g => g.Gym).ThenInclude(m => m.Members).FirstOrDefaultAsync(g => g.GymId == id);
+            GymDetail = await _context.RelativeGyms
+                .Include(g => g.Gym)
+                .FirstOrDefaultAsync(g => g.GymId == id);
+            GymMembers = _context.Memberships
+                .Include(m => m.Member)
+                .ThenInclude(m => m.FitStyle)
+                .Where(g => g.Club == GymDetail.Gym).ToList();
 
             // Check for subscription
             Subscription = await _context.Memberships
