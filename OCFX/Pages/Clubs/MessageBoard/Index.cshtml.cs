@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -26,6 +27,8 @@ namespace OCFX.Pages.Clubs
         public OCFXUser BoardViewingMember { get; private set; }
         public List<MessageBoardPost> BoardPosts { get; private set; }
 
+        public InputModel Input { get; private set; }
+
         public async Task<IActionResult> OnGetAsync(int id)
         {
             BoardViewingMember = await _userManager.GetUserAsync(User);
@@ -35,11 +38,40 @@ namespace OCFX.Pages.Clubs
             return Page();
         }
 
-        public async Task<IActionResult> OnPostCommentAsync(int id)
+        /// <summary>
+        /// Adds a post onto the message board
+        /// </summary>
+        /// <param name="id">Gym Id</param>
+        /// <returns></returns>
+        public async Task<IActionResult> OnPostTopicAsync(int id)
         {
             BoardViewingMember = await _userManager.GetUserAsync(User);
 
+            MessageBoardPost BoardPost = new MessageBoardPost
+            {
+                BoardId = id,
+                ProfileId = BoardViewingMember.ProfileId,
+                Title = Input.Title,
+                Text = Input.Text,
+                DatePosted = DateTime.Now
+                
+            };
+
+            _context.MessageBoardPosts.Add(BoardPost);
+
             return RedirectToPage("MessageBoard", new { id });
+        }
+
+        /// <summary>
+        /// The Input Model associated with posting topics and such.
+        /// </summary>
+        public class InputModel
+        {
+            [Display(Name = "Title")]
+            public string Title { get; set; }
+
+            [Display(Name = "Text")]
+            public string Text { get; set; }
         }
     }
 }

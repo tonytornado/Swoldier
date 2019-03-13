@@ -138,11 +138,11 @@
             <div id="messageBoard_container">
                 @if (Model.MessageBoardPosts > 0)
                 {
-                    <h2><a asp-page="./MessageBoard" asp-route-id="@Model.GymDetail.Gym.Id" class="btn btn-block btn-primary">[New Posts!] <br /> Message Board</a></h2>
+                    <h2><a asp-page="MessageBoard/Index" asp-route-id="@Model.GymDetail.Gym.Id" class="btn btn-block btn-primary">Message Board</a></h2>
                 }
                 else
                 {
-                    <h2><a asp-page="./MessageBoard" asp-route-id="@Model.GymDetail.Gym.Id" class="btn btn-block btn-dark">Message Board</a></h2>
+                    <h2><a asp-page="MessageBoard/Index" asp-route-id="@Model.GymDetail.Gym.Id" class="btn btn-block btn-dark">Message Board</a></h2>
                 }
             </div>
         }

@@ -1,0 +1,33 @@
+﻿@page
+@model OCFX.Pages.Clubs.MessageBoard.BoardMessageModel
+@{
+    ViewData["Title"] = "BoardMessage";
+    ViewData["BannerTitle"] = Model.InitialBoardPost.Title;
+    ViewData["BannerSubtitle"] = Model.InitialBoardPost.Board.Title;
+}
+
+<h1>BoardMessage</h1>
+
+@if (Model.InitialBoardPost != null)
+{
+    <div class="shadow-lg p-3">
+        <h3>@Model.InitialBoardPost.Title <small>from @Model.InitialBoardPost.Profile.FirstName</small></h3>
+        <p>@Model.InitialBoardPost.Text</p>
+        <small>@Model.InitialBoardPost.DatePosted</small>
+    </div>
+    <div>
+        <ul class="list-group list-group-flush">
+            @foreach (var item in Model.InitialBoardComments)
+            {
+                <li class="list-group-item">
+                    <div class="p-3">
+                        <h6>@item.Profile.FirstName</h6>
+                        <p>@item.Text</p>
+                        <small>@item.DatePosted</small>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+}
+

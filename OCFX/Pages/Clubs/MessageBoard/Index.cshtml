@@ -13,10 +13,9 @@
     {
     <li class="list-group-item">
         <div class="p-3">
-            <h3>@item.Text</h3>
-            <p>@item.Text</p>
-            <small>@item.DatePosted</small>
-        </div>
+                <h3><a asp-page="BoardMessage" asp-route-BoardId="@item.BoardId" asp-route-MessageId="@item.Id">@item.Title</a></h3>
+                <small>@item.DatePosted - Comments: @item.MessageBoardComments.Count()</small>
+            </div>
     </li>
     }
 </ul>
