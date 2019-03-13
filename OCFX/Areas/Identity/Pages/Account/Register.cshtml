@@ -10,7 +10,6 @@
 <partial name="_StatusMessage" model="Model.StatusMessage" />
 <div class="mx-auto">
     <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-        <hr />
         <div id="standard_section">
             <div class="text-center">
                 <h4>User Information</h4>
@@ -19,7 +18,7 @@
             </div>
             <div>
                 <div class="form-group">
-                    <label asp-for="Input.Email"></label>
+                    <label asp-for="Input.Email" class="col-form-label-sm"></label>
                     <input asp-for="Input.Email" class="form-control" />
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
@@ -40,7 +39,7 @@
             <div class="text-center">
                 <h4>Basic Information</h4>
                 <small>Still simple stuff, more personal</small>
-                <br />
+                <br /><wbr />
             </div>
             <div class="form-row">
                 <div class="col-md">
@@ -136,7 +135,7 @@
             <div class="text-center">
                 <h4>Build Information</h4>
                 <small>Yep, time to get nerdy. Put in some base stats, give yourself a background, grow a beard.</small>
-                <br />
+                <br /><wbr />
             </div>
             <div class="form-row">
                 <div class="col-md-3"></div>
@@ -145,21 +144,21 @@
                         <label asp-for="Input.ClassId">Select your class</label>
                         <select asp-for="Input.ClassId" asp-items="Html.GetEnumSelectList<OCFX.DataModels.ClassType>()" class="form-control form-control-lg"></select>
                     </div>
-                    <div class="form-group form-group-lg">
+                    @*<div class="form-group form-group-lg">
                         <label asp-for="Input.CampaignId">Select your campaign [LOCKED]</label>
                         <select asp-for="Input.CampaignId" asp-items="@Model.QuestList" class="form-control form-control-lg" readonly></select>
-                    </div>
+                    </div>*@
                     <div class="form-group form-group-lg">
                         <label asp-for="Profiler.BackStory"></label>
-                        <textarea asp-for="Profiler.BackStory" class="form-control" rows="4"></textarea>
+                        <textarea asp-for="Profiler.BackStory" class="form-control form-control-sm" rows="4"></textarea>
                     </div>
                     <div class="form-group form-group-lg">
                         <label asp-for="Profiler.DriveStory"></label>
-                        <textarea asp-for="Profiler.DriveStory" class="form-control" rows="4"></textarea>
+                        <textarea asp-for="Profiler.DriveStory" class="form-control form-control-sm" rows="4"></textarea>
                     </div>
                     <div class="form-group form-group-lg">
                         <label asp-for="Profiler.Goals"></label>
-                        <textarea asp-for="Profiler.Goals" class="form-control" rows="4"></textarea>
+                        <textarea asp-for="Profiler.Goals" class="form-control form-control-sm" rows="4"></textarea>
                     </div>
                 </div>
                 <div class="col-md-2">
@@ -193,7 +192,9 @@
                         <input asp-for="Profiler.MotivationStat" id="motivationRegister" class="form-control form-control-lg pointBox" value="0" />
                         <span asp-validation-for="Profiler.MotivationStat" class="text-danger"></span>
                     </div>
-                    <div class="text-center p-4 m-4 col-2 mx-auto border shadow-lg">
+                </div>
+                <div class="col-md-3">
+                    <div class="text-center p-3 mx-auto border rounded">
                         <p>
                             Points available:
                             <br />
@@ -201,7 +202,6 @@
                         </p>
                     </div>
                 </div>
-                <div class="col-md-3"></div>
             </div>
             
             <hr />

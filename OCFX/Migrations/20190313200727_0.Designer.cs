@@ -10,7 +10,7 @@ using OCFX.Areas.Identity.Data;
 namespace OCFX.Migrations
 {
     [DbContext(typeof(OCFXContext))]
-    [Migration("20190306211023_0")]
+    [Migration("20190313200727_0")]
     partial class _0
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -166,6 +166,58 @@ namespace OCFX.Migrations
                     b.ToTable("Friends");
                 });
 
+            modelBuilder.Entity("OCFX.Data.DataModels.SocialModels.MessageBoardComment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BoardId");
+
+                    b.Property<int>("BoardPostId");
+
+                    b.Property<DateTime>("DatePosted");
+
+                    b.Property<int>("ProfileId");
+
+                    b.Property<string>("Text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BoardId");
+
+                    b.HasIndex("BoardPostId");
+
+                    b.HasIndex("ProfileId");
+
+                    b.ToTable("MessageBoardComments");
+                });
+
+            modelBuilder.Entity("OCFX.Data.DataModels.SocialModels.MessageBoardPost", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BoardId");
+
+                    b.Property<DateTime>("DatePosted");
+
+                    b.Property<int>("ProfileId");
+
+                    b.Property<string>("Text");
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BoardId");
+
+                    b.HasIndex("ProfileId");
+
+                    b.ToTable("MessageBoardPosts");
+                });
+
             modelBuilder.Entity("OCFX.Data.DataModels.SocialModels.Shout", b =>
                 {
                     b.Property<int>("Id")
@@ -305,13 +357,7 @@ namespace OCFX.Migrations
 
                     b.Property<string>("EquipName");
 
-                    b.Property<string>("EquipSkill");
-
-                    b.Property<int?>("GymId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("GymId");
 
                     b.ToTable("GymAmenities");
                 });
@@ -356,6 +402,25 @@ namespace OCFX.Migrations
                     b.HasIndex("LeaderId");
 
                     b.ToTable("Gyms");
+                });
+
+            modelBuilder.Entity("OCFX.DataModels.GymRelation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("EquipmentId");
+
+                    b.Property<int>("GymId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EquipmentId");
+
+                    b.HasIndex("GymId");
+
+                    b.ToTable("RelativeGyms");
                 });
 
             modelBuilder.Entity("OCFX.DataModels.Membership", b =>
@@ -706,6 +771,8 @@ namespace OCFX.Migrations
 
                     b.Property<int>("ExerciseId");
 
+                    b.Property<int>("Order");
+
                     b.Property<int>("Repetitions");
 
                     b.Property<int>("Sets");
@@ -781,6 +848,37 @@ namespace OCFX.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
+            modelBuilder.Entity("OCFX.Data.DataModels.SocialModels.MessageBoardComment", b =>
+                {
+                    b.HasOne("OCFX.DataModels.Gym", "Board")
+                        .WithMany()
+                        .HasForeignKey("BoardId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("OCFX.Data.DataModels.SocialModels.MessageBoardPost", "BoardPost")
+                        .WithMany("MessageBoardComments")
+                        .HasForeignKey("BoardPostId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("OCFX.DataModels.Profile", "Profile")
+                        .WithMany()
+                        .HasForeignKey("ProfileId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("OCFX.Data.DataModels.SocialModels.MessageBoardPost", b =>
+                {
+                    b.HasOne("OCFX.DataModels.Gym", "Board")
+                        .WithMany()
+                        .HasForeignKey("BoardId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("OCFX.DataModels.Profile", "Profile")
+                        .WithMany()
+                        .HasForeignKey("ProfileId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
             modelBuilder.Entity("OCFX.Data.DataModels.SocialModels.Shout", b =>
                 {
                     b.HasOne("OCFX.DataModels.Profile", "Receiver")
@@ -810,19 +908,24 @@ namespace OCFX.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("OCFX.DataModels.Equipment", b =>
-                {
-                    b.HasOne("OCFX.DataModels.Gym")
-                        .WithMany("Amenities")
-                        .HasForeignKey("GymId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
             modelBuilder.Entity("OCFX.DataModels.Gym", b =>
                 {
                     b.HasOne("OCFX.DataModels.Profile", "Leader")
                         .WithMany()
                         .HasForeignKey("LeaderId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("OCFX.DataModels.GymRelation", b =>
+                {
+                    b.HasOne("OCFX.DataModels.Equipment", "Equipment")
+                        .WithMany("Gyms")
+                        .HasForeignKey("EquipmentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("OCFX.DataModels.Gym", "Gym")
+                        .WithMany("Amenities")
+                        .HasForeignKey("GymId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

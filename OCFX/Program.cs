@@ -23,7 +23,16 @@ namespace OCFX
 					var serviceProvider = services.GetRequiredService<IServiceProvider>();
 					var configuration = services.GetRequiredService<IConfiguration>();
 					var context = services.GetRequiredService<OCFXContext>();
-					InitialLoad.Initialize(context);
+
+                    try
+                    {
+                        InitialLoad.Initialize(context);
+                    }
+                    catch (Exception exc)
+                    {
+                        var logger = services.GetRequiredService<ILogger<Program>>();
+                        logger.LogError(exc, "Initial loader has failed to seed. Damn you, loader. Maybe you were already okay?? I HOPE YOU WERE, DAMMIT.");
+                    }
 
 					try
 					{

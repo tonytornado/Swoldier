@@ -63,10 +63,11 @@
     <main id="content">
         @if (!IsSectionDefined("Header"))
         {
-        <section>
-            <partial name="_Banner" />
-        </section>
-        } else
+            <section>
+                <partial name="_Banner" />
+            </section>
+        }
+        else
         {
             @RenderSection("Header", false)
         }
@@ -74,6 +75,7 @@
             @RenderBody()
             <hr />
         </div>
+        @RenderSection("Footer", false)
     </main>
     <partial name="_Disclaimer" />
     <footer class="bg-dark">
@@ -91,7 +93,6 @@
                 <h6>&copy; 2019 [-] Phantom Hex</h6>
             </div>
         </div>
-        @RenderSection("Footer", false)
     </footer>
 
     <environment include="Development">

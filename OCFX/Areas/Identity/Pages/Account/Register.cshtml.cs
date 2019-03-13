@@ -48,7 +48,6 @@ namespace OCFX.Areas.Identity.Pages.Account
         public Profile Profiler { get; set; }
 
         public string ReturnUrl { get; set; }
-
 		public SelectList QuestList { get; set; }
         
         [TempData]
@@ -69,6 +68,9 @@ namespace OCFX.Areas.Identity.Pages.Account
 			QuestList = new SelectList(Query.AsNoTracking(), "Id", "CampaignName", selectedListItem);
 		}
 
+        /// <summary>
+        /// The input model for the Register Model
+        /// </summary>
 		public class InputModel
         {
             [Required]
