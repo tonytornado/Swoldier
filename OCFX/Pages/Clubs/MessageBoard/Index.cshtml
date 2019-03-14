@@ -38,17 +38,17 @@
 <div>
     <a href="#TopicBox" onclick="$('#TopicBox').show()" class="btn btn-block btn-outline-primary">New Topic</a>
 </div>
-<div id="TopicBox" class="rounded shadow col-md-10 mx-auto p-3 m-3" style="display: none;">
+<div id="TopicBox" class="rounded shadow col-md-11 mx-auto p-3 m-3" style="display: none;">
     <form method="post">
         <div class="form-group">
             <label asp-for="Input.Title" class="label"></label>
             <input asp-for="Input.Title" class="form-control form-control-sm" />
         </div>
         <div class="form-group">
-            <textarea asp-for="Input.Text" class="form-control form-control-sm"></textarea>
+            <textarea asp-for="Input.Text" class="form-control form-control-sm" rows="8"></textarea>
         </div>
         <div class="btn-group btn-block">
-            <button class="btn btn-primary" asp-route-BoardId="@Model.BoardPosts[0].BoardId" asp-page-handler="Topic">Post Topic</button>
+            <button class="btn btn-primary" asp-route-BoardId="@Model.BoardId" asp-page-handler="Topic">Post Topic</button>
             <a onclick="$('#TopicBox').hide()" class="btn btn-danger">Cancel</a>
         </div>
     </form>

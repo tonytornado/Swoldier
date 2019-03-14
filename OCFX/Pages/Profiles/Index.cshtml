@@ -6,7 +6,7 @@
     ViewData["BannerTitle"] = Model.Profiler.FirstName + " " + Model.Profiler.LastName;
 }
 
-@section Header { 
+@section Header {
 }
 <section id="top_section">
     <br />
@@ -194,8 +194,10 @@
     <section id="feed_section" class="col-sm">
         @if (Model.Player != null)
         {
-            <form method="post" class="form-group border mt-4">
-                <textarea asp-for="Entry.Text" class="form-control form-control-lg" placeholder="Post something..."></textarea>
+            <form method="post" class="form-group border rounded mt-4 p-1">
+                <div class="form-group form-group-sm">
+                    <textarea asp-for="Entry.Text" class="form-control form-control-sm" placeholder="Post something..."></textarea>
+                </div>
                 <input asp-for="Entry.ProfileId" value="@Model.Profiler.Id" class="form-control" hidden />
                 <input asp-page-handler="EntryFeed" value="Post" type="submit" class="btn btn-sm btn-block btn-primary" />
             </form>
@@ -215,13 +217,14 @@
                         }
                     </small>
                 </div>
-
-                <div id="CommentBox" class="col-md-10" style="display: none;">
-                    <form method="post" class="form-group border mt-2" asp-page-handler="EntryComment" asp-route-PostId="@post.Id">
-                        <textarea asp-for="PostNote.Text" class="form-control form-control-sm" placeholder="Comment something..."></textarea>
+                <div id="CommentBox" class="col-md-11" style="display: none;">
+                    <form method="post" class="form-group border rounded mt-4 p-1">
+                        <div>
+                            <textarea asp-for="PostNote.Text" class="form-control form-control-sm" placeholder="Comment something..." rows="4"></textarea>
+                        </div>
                         <input asp-for="PostNote.ProfileId" value="@Model.Profiler.Id" class="form-control form-control-sm" hidden />
                         <div class="btn-group btn-group-sm btn-block">
-                            <button class="btn btn-primary ">Post</button>
+                            <button class="btn btn-primary" asp-page-handler="EntryComment" asp-route-PostId="@post.Id">Post</button>
                             <a class="btn btn-danger " onclick="showCommentBox()" href="#">Cancel</a>
                         </div>
                     </form>
@@ -242,9 +245,11 @@
                             </small>
                         </div>
 
-                        <div id="ReplyBox" class="col-md-10" style="display: none;">
-                            <form method="post" class="form-group border mt-3" asp-page-handler="EntryReply" asp-route-CommentId="@comment.Id">
-                                <textarea asp-for="CommentNote.Text" class="form-control form-control-sm" placeholder="Got something to say?"></textarea>
+                        <div id="ReplyBox" class="col-md-11" style="display: none;">
+                            <form method="post" class="form-group border rounded mt-4 p-1" asp-page-handler="EntryReply" asp-route-CommentId="@comment.Id">
+                                <div>
+<textarea asp-for="CommentNote.Text" class="form-control form-control-sm" placeholder="Got something to say?" rows="4"></textarea>
+                                </div>
                                 <input asp-for="CommentNote.ProfileId" value="@Model.Profiler.Id" class="form-control" hidden />
                                 <div class="btn-group btn-group-sm btn-block">
                                     <button class="btn btn-primary ">Post</button>

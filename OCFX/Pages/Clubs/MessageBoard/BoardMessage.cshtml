@@ -36,11 +36,11 @@
 <div>
     <a href="#TopicBox" onclick="$('#TopicBox').show()" class="btn btn-block btn-outline-primary">Reply</a>
 </div>
-<div id="TopicBox" class="rounded shadow col-md-10 mx-auto p-3 m-3" style="display: none;">
+<div id="TopicBox" class="rounded shadow col-md-11 mx-auto p-1 m-3" style="display: none;">
     <form method="post">
         <div class="form-group">
-            <textarea class="form-control form-control-lg"
-                      asp-for="Input"></textarea>
+            <textarea class="form-control form-control-sm"
+                      asp-for="Input" rows="5"></textarea>
         </div>
         <div class="btn-group btn-block">
             <button class="btn btn-primary"

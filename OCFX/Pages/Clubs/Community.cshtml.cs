@@ -45,7 +45,9 @@ namespace OCFX.Pages.Clubs
                 .FirstOrDefaultAsync(g => g.GymId == id);
             GymMembers = _context.Memberships
                 .Include(m => m.Member)
-                .ThenInclude(m => m.FitStyle)
+                    .ThenInclude(m => m.FitStyle)
+                .Include(m => m.Member)
+                    .ThenInclude(m => m.Photos)
                 .Where(g => g.Club == GymDetail.Gym).ToList();
 
             // Check for subscription
@@ -55,8 +57,8 @@ namespace OCFX.Pages.Clubs
                 i.Club.Id == id);
 
             // Get the count of members in the club
-            MemberCount = GymDetail.Gym.Members
-                .Where(u => u.Status == Membership.MembershipType.Member).Count();
+            MemberCount = GymDetail.Gym.Members != null ? GymDetail.Gym.Members
+                .Where(u => u.Status == Membership.MembershipType.Member).Count() : 0; 
 
             ClubAllegiance = _context.Memberships.Where(m => m.Member.Id == Visitor.ProfileId).Count() is 0;
 

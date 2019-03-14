@@ -26,6 +26,7 @@ namespace OCFX.Pages.Clubs
 
         public OCFXUser BoardViewingMember { get; private set; }
         public List<MessageBoardPost> BoardPosts { get; private set; }
+        public int? BoardId { get; private set; }
 
         [BindProperty]
         public InputModel Input { get; set; }
@@ -33,11 +34,19 @@ namespace OCFX.Pages.Clubs
         [TempData]
         public string StatusMessage { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int id)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
+            if(id == null)
+            {
+                StatusMessage = "ERROR: You did a no-no. Go back now.";
+                return Page();
+            }
+
             BoardViewingMember = await _userManager.GetUserAsync(User);
 
             BoardPosts = await _context.MessageBoardPosts.Include(c => c.MessageBoardComments).Where(c => c.Board.Id == id).ToListAsync();
+
+            BoardId = id;
 
             return Page();
         }

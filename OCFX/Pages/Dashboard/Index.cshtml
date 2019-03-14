@@ -125,7 +125,7 @@
                 {
                     foreach (var comment in post.Comments.OrderByDescending(x => x.DatePosted))
                     {
-                        <div class="border rounded shadow py-3 col-8">
+                        <div class="border rounded shadow py-3 col-11">
                             <h6>@comment.Profile.FirstName @comment.Profile.LastName</h6>
                             <p>@comment.Text</p>
                             <small>@comment.DatePosted</small>

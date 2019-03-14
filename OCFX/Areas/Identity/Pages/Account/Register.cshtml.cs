@@ -165,18 +165,18 @@ namespace OCFX.Areas.Identity.Pages.Account
                 };
 
                 // Add the phone number
-                if (Phoney != null)
-                { 
-                user.Profile.Phones.Add(new Phone
+                if (Phoney == null)
                 {
-                    AreaCode = Phoney.AreaCode,
-                    PhoneTypeName = Phoney.PhoneTypeName,
-                    PhoneNumber = Phoney.PhoneNumber
-                });
-            }
+                    user.Profile.Phones.Add(new Phone
+                    {
+                        AreaCode = Phoney.AreaCode,
+                        PhoneTypeName = Phoney.PhoneTypeName,
+                        PhoneNumber = Phoney.PhoneNumber
+                    });
+                }
 
                 // Add the address
-                if (Addressing != null)
+                if (Addressing == null)
                 {
                     user.Profile.Addresses.Add(new Address
                     {

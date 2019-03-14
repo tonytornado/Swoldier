@@ -144,10 +144,10 @@
                         <label asp-for="Input.ClassId">Select your class</label>
                         <select asp-for="Input.ClassId" asp-items="Html.GetEnumSelectList<OCFX.DataModels.ClassType>()" class="form-control form-control-lg"></select>
                     </div>
-                    @*<div class="form-group form-group-lg">
+                    <div class="form-group form-group-lg">
                         <label asp-for="Input.CampaignId">Select your campaign [LOCKED]</label>
-                        <select asp-for="Input.CampaignId" asp-items="@Model.QuestList" class="form-control form-control-lg" readonly></select>
-                    </div>*@
+                        <select asp-for="Input.CampaignId" asp-items="@Model.QuestList" class="form-control form-control-lg" readonly disabled></select>
+                    </div>
                     <div class="form-group form-group-lg">
                         <label asp-for="Profiler.BackStory"></label>
                         <textarea asp-for="Profiler.BackStory" class="form-control form-control-sm" rows="4"></textarea>
