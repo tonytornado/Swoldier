@@ -28,9 +28,12 @@ namespace OCFX.Pages.Dashboard
         public List<int> CompletedQuests { get; private set; }
 
         public string UserTitle { get; private set; }
+        public Dictionary<int, string> Ad { get; private set; }
+        public double CalorieBurn { get; private set; }
 
         [TempData]
         public string StatusMessage { get; set; }
+        
 
         public async Task OnGetAsync()
         {
@@ -47,10 +50,19 @@ namespace OCFX.Pages.Dashboard
             // Get the completed quests
             CompletedQuests = QuestMethods.CheckCompletedQuests(_context, Profiler.Id);
 
-            // Check for a status message?
-#pragma warning disable CS0168 // Variable is declared but never used
-            string StatusMessage;
-#pragma warning restore CS0168 // Variable is declared but never used
+            // Get advice!
+            double bodyFat = Math.Round(ProfileMethods.BodyFat(Profiler, Profiler.Height, Profiler.Weight, Profiler.NeckMeasurement, Profiler.WaistMeasurement, Profiler.HipMeasurement), 1);
+            Ad = ProfileMethods.Consultation(bodyFat, Profiler.Weight, Profiler.Height);
+            CalorieBurn = CalorieTasker(Profiler.Weight, Profiler.Height, Profiler.Age);
+        }
+
+        private double CalorieTasker(int weight, int height, int age)
+        {
+            double weightc = weight / 2.2;
+            double heightc = height * 2.54;
+            double value = (10 * weightc) + (6.25 * heightc) - (5 * age) + 5;
+
+            return Math.Round(value,0);
         }
     }
 }

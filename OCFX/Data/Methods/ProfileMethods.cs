@@ -2,6 +2,7 @@
 using OCFX.Areas.Identity.Data;
 using OCFX.DataModels;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -117,11 +118,11 @@ namespace OCFX.Data.Methods
 			return percentage;
 		}
 
-        public static object Consultation(double bodyFat, double weight, double height)
+        public static Dictionary<int, string> Consultation(double bodyFat, double weight, double height)
         {
             string Advice = "";
             string WeightClass = "";
-            double BMI = weight / Math.Pow(height, 2);
+            double BMI = Math.Round((weight * 703) / Math.Pow(height, 2),2);
 
             if (BMI > 30)
             {
@@ -144,7 +145,13 @@ namespace OCFX.Data.Methods
                 Advice = "This is generally considered underweight. Generally the advice here is increased calorie intake. With increased physical activity, a caloric surplus is necessary for muscle growth.";
             }
 
-            return (Advice, WeightClass, BMI);
+            Dictionary<int, string> thing = new Dictionary<int, string>
+            {
+                { 1, WeightClass },
+                { 2, Advice },
+                { 3, BMI.ToString() }
+            };
+            return thing;
         }
 	}
 }

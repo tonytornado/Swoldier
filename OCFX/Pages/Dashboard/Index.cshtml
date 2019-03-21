@@ -80,7 +80,6 @@
                     </tbody>
                 </table>
             </div>
-            @* Campaign Progress can go here. *@
         }
         else
         {
@@ -139,8 +138,8 @@
 <div class="row">
     @if (Model.Profiler.Gym != null)
     {
-        <div class="col-md-6 dash_section border mx-auto">
-            <table class="table table-bordered">
+        <div class="col-md dash_section_left border">
+            <table class="table table-bordered text-center">
                 <thead class="thead-dark">
                     <tr>
                         <th>Gym</th>
@@ -170,15 +169,15 @@
     }
     else
     {
-        <div class="col-md-6 dash_section border mx-auto">
+        <div class="col-md dash_section_left border">
             <p class="text-center">You are not a part of any gyms.</p>
         </div>
     }
 
     @if (Model.Profiler.ReceivedMessages != null && Model.Profiler.ReceivedMessages.Count > 0)
     {
-        <div class="col-md-6 dash_section border mx-auto">
-            <table class="table table-bordered table-striped">
+        <div class="col-md dash_section_right border">
+            <table class="table table-bordered table-striped text-center">
                 <thead class="thead-dark">
                     <tr>
                         <th class="text-center">@Model.Profiler.ReceivedMessages.Count @(@Model.Profiler.ReceivedMessages.Count == 1 ? "message" : "total messages")</th>
@@ -191,11 +190,11 @@
                         </td>
                     </tr>
                     @foreach (var message in Model.Profiler
-                    .ReceivedMessages
-                    .Where(u => u.ReceiverId == Model.Profiler.Id)
-                    .Where(u => u.Status == Data.DataModels.SocialModels.Shout.MessageStatus.Unread)
-                    .OrderByDescending(u => u.DateSent)
-                    .TakeLast(5))
+                   .ReceivedMessages
+                   .Where(u => u.ReceiverId == Model.Profiler.Id)
+                   .Where(u => u.Status == Data.DataModels.SocialModels.Shout.MessageStatus.Unread)
+                   .OrderByDescending(u => u.DateSent)
+                   .TakeLast(5))
                     {
                         <tr>
                             <td>
@@ -209,16 +208,32 @@
     }
     else
     {
-        <div class="col-md-6 dash_section border mx-auto">
-            <p class="text-center">You have no new messages</p>
+        <div class="col-md dash_section_right border">
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th class="text-center">You have no messages</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
         </div>
     }
 </div>
 <div class="row">
-    <div class="col-md-6">
-        @* Special metrics and tips can go here *@
+    @if (Model.Ad != null)
+    {
+    <div class="col-md dash_section_left text-center">
+        <h3>Your BMI is @Model.Ad[3]</h3>
+        <h6>@Model.Ad[1]</h6>
+        <p>@Model.Ad[2]</p>
     </div>
-    <div class="col-md-6">
-        @* Other options can go here. *@
+    }
+    <div class="col-md dash_section_right text-center">
+        <h3>@Model.CalorieBurn Calories</h3>
+        <p>You should have an overall calorie intake of around @Model.CalorieBurn calories. <br />
+        If you move a bit, you can add another ~250 or so on that number depending on how much activity you normally do.</p>
     </div>
 </div>

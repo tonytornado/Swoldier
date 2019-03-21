@@ -24,6 +24,23 @@ nav {
     background-color: #e9ecef;
     border-radius: .5rem;
 }
+
+.dash_section_left {
+    padding: 1rem 1rem;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+    background-color: #e9ecef;
+    border-radius: .5rem;
+}
+
+.dash_section_right {
+    padding: 1rem 1rem;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+    background-color: #e9ecef;
+    border-radius: .5rem;
+}
+
 #content {
     font-family: 'Montserrat','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: white;
