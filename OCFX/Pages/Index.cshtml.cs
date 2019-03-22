@@ -23,13 +23,13 @@ namespace OCFX.Pages
 
             if (userCheck != false)
             {
-                if (User != null)
-                {
-                   return RedirectToPage("/Dashboard/Index");
-                }
                 if (User.IsInRole("Administrator"))
                 {
                     return RedirectToPage("/MadminAccess/Index");
+                }
+                if (User != null)
+                {
+                   return RedirectToPage("/Dashboard/Index");
                 }
             }
 

@@ -1,9 +1,8 @@
 ﻿@page
-@model ContactModel
 @{
     ViewData["Title"] = "Contact";
     ViewData["BannerTitle"] = ViewData["Title"];
-    ViewData["BannerSubtitle"] = Model.Message;
+    ViewData["BannerSubtitle"] = "You can find us! OMG!";
 }
 
 <div class="text-center">
@@ -19,6 +18,6 @@
 @section Footer{
     <div id="googleMap" style="width:100%;height:500px;" class="rounded border-dark"></div>
 }
-@section Scripts {
+@section Scripts{
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzqB6cnnw2nH2aVSUP_CHNBgYQsasySmY&callback=myMap"></script>
 }

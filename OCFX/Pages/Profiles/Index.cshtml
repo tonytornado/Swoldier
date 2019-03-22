@@ -11,7 +11,7 @@
 <section id="top_section">
     <br />
     <header class="row text-center">
-        <div class="col-md align-self-center">
+        <div class="col-md align-self-center jumbotron" id="title_section">
             <h1 class="display-4">@Model.userTitle</h1>
             @if (Model.Profiler.Gym != null)
             {
@@ -27,14 +27,14 @@
         </div>
         @if (Model.ProfilePhoto != null)
         {
-            <div class="col-md">
+            <div class="col-md" id="photo_section">
                 <img src="~/images/uploads/@Model.ProfilePhoto.URL" alt="@Model.ProfilePhoto.Caption" title="@Model.ProfilePhoto.Caption" class="profile_avatar" />
                 <br />
                 @if (Model.Player != null)
                 {
                     @if (Model.ProfilePhoto.ProfileId == Model.Player.ProfileId)
                     {
-                        <a asp-page="/Dashboard/EditAvatar" asp-route-id="@Model.Profiler.Id" class="btn btn-outline-dark mt-3">Edit Photo</a>
+                        <a asp-page="./Dashboard/EditAvatar" asp-route-id="@Model.Profiler.Id" class="btn btn-outline-dark mt-3">Edit Photo</a>
                     }
                 }
             </div>
@@ -43,7 +43,7 @@
         {
             @if (Model.Profiler.Id == Model.Player.ProfileId)
             {
-                <a asp-page="./EditAvatar" asp-route-id="@Model.Profiler.Id" class="page-link btn btn-block btn-dark">Add Photo</a>
+                <a asp-page="./Dashboard/EditAvatar" asp-route-id="@Model.Profiler.Id" class="page-link btn btn-block btn-dark">Add Photo</a>
             }
         }
     </header>
@@ -82,12 +82,6 @@
         <hr />
     }
 </section>
-
-@*<section id="main_section">
-        <div class="col-sm"></div>
-        <hr />
-    </section>*@
-
 <section id="stats_section">
     <h2 class="text-center">Vital Stats</h2>
     <div class="row d-flex justify-content-between">

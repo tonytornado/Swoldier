@@ -93,7 +93,7 @@ namespace OCFX.Pages.Clubs
 
             StatusMessage = "Your membership is being processed. In the meantime, why don't you just browse around?";
 
-            return RedirectToPage(pageName: "Community", new { id });
+            return RedirectToPage("Community", new { id });
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace OCFX.Pages.Clubs
 
             StatusMessage = "Member has been removed!";
 
-            return RedirectToPage(pageName: "Community", new { id });
+            return RedirectToPage("Community", new { id });
         }
 
         /// <summary>
@@ -136,7 +136,7 @@ namespace OCFX.Pages.Clubs
 
             StatusMessage = "Member has been confirmed! Better hope they aren't trouble.";
 
-            return RedirectToPage(pageName: "Community", new { gymId });
+            return RedirectToPage("Community", new { gymId });
         }
 
         /// <summary>
@@ -156,7 +156,7 @@ namespace OCFX.Pages.Clubs
 
             StatusMessage = "Membership denied! That'll show them.";
 
-            return RedirectToPage(pageName: "Community", new { gymId });
+            return RedirectToPage("Community", new { gymId });
         }
 
         /// <summary>
@@ -176,7 +176,7 @@ namespace OCFX.Pages.Clubs
 
             StatusMessage = "Member has been banned.";
 
-            return RedirectToPage(pageName: "Community", new { gymId });
+            return RedirectToPage("Community", new { gymId });
         }
 
         /// <summary>
