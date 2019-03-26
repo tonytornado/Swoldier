@@ -1,7 +1,7 @@
-﻿@model ( string MessageSubject, string MessageText )
+﻿@model ( string methodtext, OCFX.Data.DataModels.SocialModels.Shout message)
 
-<form asp-page-handler="SendMail" method="post">
-    <input asp-for="MessageSubject" class="form-control form-control-sm" />
-    <textarea asp-for="MessageText" class="form-control form-text" placeholder="What do you have to say?"></textarea>
-    <button asp-page-handler="SendMail" type="submit" class="btn btn-primary"></button>
+<form asp-page-handler="@Model.methodtext" method="post">
+    <input asp-for="@Model.message.SubjectText" class="form-control form-control-sm" />
+    <textarea asp-for="@Model.message.MessageText" class="form-control form-text" placeholder="What do you have to say?"></textarea>
+    <button asp-page-handler="@Model.methodtext" type="submit" class="btn btn-primary"></button>
 </form>

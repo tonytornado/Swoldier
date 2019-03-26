@@ -4,11 +4,6 @@
 @{
     ViewData["Title"] = "Edit";
 }
-
-<h2>Edit</h2>
-
-<h4>Facts</h4>
-<hr />
 <div class="row">
     <div class="col-md">
         <form method="post">
@@ -26,7 +21,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Facts.Section" class="control-label"></label>
-                <select asp-for="Facts.Section" class="form-control" asp-items="@Html.GetEnumSelectList<OCFX.Data.DataModels.SiteModels.SectionName>()"></select>
+                <select asp-for="Facts.Section" class="form-control" asp-items="@Html.GetEnumSelectList<OCFX.DataModels.SectionName>()"></select>
                 <span asp-validation-for="Facts.Section" class="text-danger"></span>
             </div>
 			<div class="form-group btn-group">

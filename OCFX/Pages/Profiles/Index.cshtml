@@ -51,7 +51,7 @@
 </section>
 
 <section id="friends_section">
-    @if (Model.Requests.Where(f => f.FriendshipConfirmer == Data.DataModels.SocialModels.Friend.Confirmer.Pending).ToList().Count > 0 && Model.Profiler.Id == Model.Player.ProfileId)
+    @if (Model.Requests.Where(f => f.FriendshipConfirmer == DataModels.Friend.Confirmer.Pending).ToList().Count > 0 && Model.Profiler.Id == Model.Player.ProfileId)
     {
         <div class="alert alert-dark alert-dismissable fade show" role="alert">
             <a asp-page="./Friends">You have new friend requests!</a>

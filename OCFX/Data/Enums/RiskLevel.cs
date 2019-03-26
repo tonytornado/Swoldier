@@ -10,7 +10,7 @@ namespace OCFX.DataModels
 		Mid = 2,
 		[Display(Name = "High")]
 		High = 3,
-		[Display(Name = "JOJO'S BIZARRE ULTIMATE ELIMINATION CHAMBER")]
+		[Display(Name = "JOJO'S BIZARRE SMASH ULTIMATE ELIMINATION CHAMBER")]
 		EX = 4
 	}
 }

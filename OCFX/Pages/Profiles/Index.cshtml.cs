@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +6,6 @@ using OCFX.Areas.Identity.Data;
 using OCFX.Data.DataModels.SocialModels;
 using OCFX.Data.Methods;
 using OCFX.DataModels;
-using OCFX.DataModels.SocialModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

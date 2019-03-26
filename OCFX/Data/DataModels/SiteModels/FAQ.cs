@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace OCFX.Data.DataModels.SiteModels
+namespace OCFX.DataModels
 {
 	public class Facts
 	{

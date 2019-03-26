@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -7,13 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using OCFX.Areas.Identity.Data;
-using OCFX.Data.DataModels.SocialModels;
 using OCFX.Data.Methods;
 using OCFX.DataModels;
 
 namespace OCFX.Pages.Profiles
 {
-	[Authorize]
+    [Authorize]
 	public class FriendsModel : PageModel
     {
 		private readonly OCFXContext _context;

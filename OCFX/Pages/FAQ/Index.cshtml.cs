@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using OCFX.Data.DataRepo;
-using OCFX.Data.DataModels.SiteModels;
 using OCFX.Areas.Identity.Data;
+using OCFX.DataModels;
 
 namespace OCFX.Pages.FAQ
 {
-	public class IndexModel : PageModel
+    public class IndexModel : PageModel
     {
 		private readonly OCFXContext context;
 

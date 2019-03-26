@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using OCFX.Data.DataModels.SocialModels;
-using OCFX.DataModels.SocialModels;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OCFX.DataModels
 {
-	public class Profile
+    public class Profile
 	{
 		[Key]
 		[Display(Name = "User Profile")]

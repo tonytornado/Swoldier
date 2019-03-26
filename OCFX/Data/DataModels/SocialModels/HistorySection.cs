@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace OCFX.DataModels.SocialModels
+namespace OCFX.DataModels
 {
     public class HistorySection
     {

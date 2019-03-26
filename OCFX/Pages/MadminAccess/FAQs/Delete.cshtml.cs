@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using OCFX.Areas.Identity.Data;
-using OCFX.Data.DataModels.SiteModels;
+using OCFX.DataModels;
 
 namespace OCFX.Pages.MadminAccess.FAQs
 {
-	public class DeleteModel : PageModel
+    public class DeleteModel : PageModel
     {
         private readonly OCFXContext _context;
 

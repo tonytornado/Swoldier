@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OCFX.Migrations
 {
-    public partial class _0 : Migration
+    public partial class zero : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -373,7 +373,10 @@ namespace OCFX.Migrations
                     Title = table.Column<string>(nullable: true),
                     LeaderId = table.Column<int>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    Status = table.Column<int>(nullable: false)
+                    Status = table.Column<int>(nullable: false),
+                    MeetingFrequency = table.Column<int>(nullable: false),
+                    MeetingDate = table.Column<int>(nullable: false),
+                    MeetingTime = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -607,6 +610,31 @@ namespace OCFX.Migrations
                         name: "FK_AspNetUserTokens_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Events",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Type = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    StartTime = table.Column<DateTime>(nullable: false),
+                    EndTime = table.Column<DateTime>(nullable: false),
+                    Interval = table.Column<int>(nullable: false),
+                    GymId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Events", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Events_Gyms_GymId",
+                        column: x => x.GymId,
+                        principalTable: "Gyms",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -870,6 +898,11 @@ namespace OCFX.Migrations
                 column: "ProfileId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Events_GymId",
+                table: "Events",
+                column: "GymId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Gyms_LeaderId",
                 table: "Gyms",
                 column: "LeaderId");
@@ -1036,6 +1069,9 @@ namespace OCFX.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Events");
 
             migrationBuilder.DropTable(
                 name: "FAQs");

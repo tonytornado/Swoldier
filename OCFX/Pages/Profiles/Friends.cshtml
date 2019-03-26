@@ -19,25 +19,25 @@
 
 				@switch (friend.FriendshipConfirmer)
 				{
-					case Data.DataModels.SocialModels.Friend.Confirmer.Pending:
+					case DataModels.Friend.Confirmer.Pending:
 						<div class="btn-group">
 							<a class="btn btn-primary" asp-page-handler="AddFriend" asp-route-friend="@friend.Following.Id" asp-route-user="@Model.Profiler.Id">[Approve?]</a> |
 							<a class="btn btn-second" asp-page-handler="RemoveFriend" asp-route-friend="@friend.Following.Id" asp-route-user="@Model.Profiler.Id">[Deny?]</a> |
 							<a class="btn btn-danger" asp-page-handler="BlockFriend" asp-route-friend="@friend.Following.Id" asp-route-user="@Model.Profiler.Id">[Block?]</a>
 						</div>
 						break;
-					case Data.DataModels.SocialModels.Friend.Confirmer.Confirmed:
+					case DataModels.Friend.Confirmer.Confirmed:
 						<div class="btn-group">
 							<a class="btn btn-secondary" asp-page-handler="RemoveFriend" asp-route-friend="@friend.Following.Id" asp-route-user="@Model.Profiler.Id">[Remove?]</a> |
 							<a class="btn btn-danger" asp-page-handler="BlockFriend" asp-route-friend="@friend.Following.Id" asp-route-user="@Model.Profiler.Id">[Block?]</a>
 						</div>
 						break;
-					case Data.DataModels.SocialModels.Friend.Confirmer.Declined:
+					case DataModels.Friend.Confirmer.Declined:
 						<div class="btn-group">
 							<a class="btn btn-danger" asp-page-handler="BlockFriend" asp-route-friend="@friend.Following.Id" asp-route-user="@Model.Profiler.Id">[Block?]</a>
 						</div>
 						break;
-					case Data.DataModels.SocialModels.Friend.Confirmer.Blocked:
+					case DataModels.Friend.Confirmer.Blocked:
 						<div class="btn-group">
 							<a class="btn btn-outline-danger" asp-page-handler="UnblockFriend" asp-route-friend="@friend.Following.Id" asp-route-user="@Model.Profiler.Id">[Un-Block?]</a>
 						</div>

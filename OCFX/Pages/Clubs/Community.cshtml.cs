@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using OCFX.Areas.Identity.Data;
+using OCFX.Data.DataModels.SocialModels;
 using OCFX.DataModels;
 using System;
 using System.Collections.Generic;
@@ -25,12 +26,13 @@ namespace OCFX.Pages.Clubs
         public OCFXUser Visitor { get; private set; }
         public List<GymRelation> EquipmentDetail { get; private set; }
         public GymRelation GymDetail { get; private set; }
+        public List<Session> Events { get; private set; }
         public List<Membership> GymMembers { get; private set; }
         public Membership Subscription { get; private set; }
         public int MemberCount { get; private set; }
         public bool ClubAllegiance { get; private set; }
         public int MessageBoardPosts { get; private set; }
-
+        
         [TempData]
         public string StatusMessage { get; set; }
 
@@ -42,6 +44,7 @@ namespace OCFX.Pages.Clubs
             EquipmentDetail = await _context.RelativeGyms.Include(g => g.Equipment).Where(g => g.GymId == id).ToListAsync();
             GymDetail = await _context.RelativeGyms
                 .Include(g => g.Gym)
+                    .ThenInclude(g => g.Meetings)
                 .FirstOrDefaultAsync(g => g.GymId == id);
             GymMembers = _context.Memberships
                 .Include(m => m.Member)
@@ -64,6 +67,9 @@ namespace OCFX.Pages.Clubs
 
             // Get the message board posts
             MessageBoardPosts = _context.MessageBoardPosts.Where(c => c.Board == GymDetail.Gym).Count();
+
+            // Grab any events/meetings
+            Events = GymDetail.Gym.Meetings.ToList();
 
         }
 

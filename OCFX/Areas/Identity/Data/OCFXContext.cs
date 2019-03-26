@@ -1,15 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using OCFX.Data.DataModels.SiteModels;
 using OCFX.Data.DataModels.SocialModels;
 using OCFX.DataModels;
-using OCFX.DataModels.SocialModels;
 using System;
 using System.Linq;
 
 namespace OCFX.Areas.Identity.Data
 {
-	public class OCFXContext : IdentityDbContext<OCFXUser, OCFXRole, Guid>
+    public class OCFXContext : IdentityDbContext<OCFXUser, OCFXRole, Guid>
     {
         public OCFXContext(DbContextOptions<OCFXContext> options)
             : base(options)
@@ -36,6 +34,7 @@ namespace OCFX.Areas.Identity.Data
 		public DbSet<Comment> Comments { get; set; }
 		public DbSet<Reply> Replies { get; set; }
         public DbSet<Shout> Messages { get; set; }
+        public DbSet<Session> Events { get; set; }
 
         // Profile DB
         public DbSet<Phone> Phones { get; set; }

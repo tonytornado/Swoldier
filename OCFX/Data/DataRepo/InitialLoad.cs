@@ -2,8 +2,6 @@
 using OCFX.DataModels;
 using System.Linq;
 using OCFX.Areas.Identity.Data;
-using OCFX.Data.DataModels.SiteModels;
-using System.Collections.Generic;
 
 namespace OCFX.Data.DataRepo
 {
@@ -221,13 +219,19 @@ namespace OCFX.Data.DataRepo
                 {
                     Title = "Bar-Barian Lounge",
                     Description = "The Bar-Barian race has been long seen as the strongest \n and will never meet an equal.",
-                    Status = ApprovalStatus.Approved
+                    Status = ApprovalStatus.Approved,
+                    MeetingDate = DayOfWeek.Saturday,
+                    MeetingTime = DateTime.Now,
+                    MeetingFrequency = Session.MeetingInterval.Weekly
                 },
                 new Gym
                 {
                     Title = "Pilate House",
                     Description = "It's a house where people do Pilates. What were you expecting?",
-                    Status = ApprovalStatus.Approved
+                    Status = ApprovalStatus.Approved,
+                    MeetingDate = DayOfWeek.Saturday,
+                    MeetingTime = DateTime.Now,
+                    MeetingFrequency = Session.MeetingInterval.Weekly
                 }
             };
             foreach (var character in clubs)

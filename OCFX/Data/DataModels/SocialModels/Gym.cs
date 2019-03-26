@@ -1,12 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using static OCFX.DataModels.Session;
 
 namespace OCFX.DataModels
 {
     /// <summary>
     /// A gym or club that members can join. 
     /// Needs to have some sort of approval beforehand.
+    /// Oh, and I guess you can arrange meet ups and such
     /// </summary>
     public class Gym
     {
@@ -19,13 +21,31 @@ namespace OCFX.DataModels
         public Profile Leader { get; set; }
         [Display(Name = "Gym Details")]
         public string Description { get; set; }
+        [Display(Name = "Gym Status")]
         public ApprovalStatus Status { get; set; }
+        [Display(Name = "Frequency")]
+        public MeetingInterval MeetingFrequency { get; set; }
+        [Display(Name = "Meeting Day")]
+        public DayOfWeek MeetingDate { get; set; }
+        [Display(Name = "Meeting Time")]
+        [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = "{0:t}")]
+        public DateTime MeetingTime { get; set; }
 
-        // List of the club's amenities and equipment
+        /// <summary>
+        /// List of the club's amenities and equipment
+        /// </summary>
         public ICollection<GymRelation> Amenities { get; set; }
 
-        // List of the club's members
+        /// <summary>
+        /// List of the club's members
+        /// </summary>
 		public ICollection<Membership> Members { get; set; }
+
+        /// <summary>
+        /// Events
+        /// </summary>
+        public ICollection<Session> Meetings { get; set; }
     }
 
     /// <summary>
@@ -41,6 +61,9 @@ namespace OCFX.DataModels
         [Display(Name = "Equipment Description")]
         public string EquipDescription { get; set; }
 
+        /// <summary>
+        /// Where the equipment is located
+        /// </summary>
         public ICollection<GymRelation> Gyms { get; set; }
     }
 

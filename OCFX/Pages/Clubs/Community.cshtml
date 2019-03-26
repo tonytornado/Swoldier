@@ -18,7 +18,7 @@
                 <h5>Members of @Model.GymDetail.Gym.Title</h5>
                 <ul class="list-group">
                     @foreach (var athlete in Model.GymMembers
-         .Where(i => i.Status != DataModels.Membership.MembershipType.Banned && i.Status != DataModels.Membership.MembershipType.Pending))
+.Where(i => i.Status != DataModels.Membership.MembershipType.Banned && i.Status != DataModels.Membership.MembershipType.Pending))
                     {
                         <li class="list-group-item">
                             <div class="d-inline-flex w-100 justify-content-between align-content-center">
@@ -146,6 +146,18 @@
                 }
             </div>
         }
+        <div class="py-3" id="meetings_container">
+            <h6>Regular Meeting:</h6>
+            <p>@Model.GymDetail.Gym.MeetingFrequency, @{@Model.GymDetail.Gym.MeetingDate}s, @Model.GymDetail.Gym.MeetingTime.ToShortTimeString()</p>
+            @if (Model.Events.Count > 0)
+            {
+                <h6>Events:</h6>
+                @foreach (var meeting in Model.Events)
+                {
+                <p>@meeting.Interval - @meeting.StartTime to @meeting.EndTime</p>
+                }
+            }
+        </div>
         <div class="pt-3" id="amenities_container">
             <h3>Amenities</h3>
             <hr />

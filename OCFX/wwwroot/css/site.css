@@ -113,6 +113,24 @@ nav {
     width: 100%;
 }
 
+/* Shadow Aesthetic */
+
+.shadowbox-xy {
+    padding: 1rem !important;
+    margin: 1rem auto 1rem auto !important;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+    border: 1px solid #dee2e6 !important;
+    border-radius: .3rem !important;
+}
+
+.insetbox-xy {
+    padding: 1rem !important;
+    margin: 1rem auto 1rem auto !important;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) inset !important;
+    border: 1px solid #dee2e6 !important;
+    border-radius: .3rem !important;
+}
+
 
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {

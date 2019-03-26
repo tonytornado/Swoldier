@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using OCFX.Areas.Identity.Data;
+using OCFX.Data.DataModels.SocialModels;
 using OCFX.DataModels;
 
 namespace OCFX.Pages.Clubs
@@ -27,6 +28,7 @@ namespace OCFX.Pages.Clubs
 
         [BindProperty]
         public Gym Gym { get; set; }
+        public Session Event { get; set; }
         public List<Equipment> GymEquipment { get; private set; }
 
         public void OnGet()
@@ -42,11 +44,15 @@ namespace OCFX.Pages.Clubs
             // Add the membership to the membership table with the user as the leader.
             Membership lead = new Membership
             {
-                Club = new Gym {
+                Club = new Gym
+                {
                     Description = Gym.Description,
                     Title = Gym.Title,
                     Leader = user.Profile,
-                    Status = ApprovalStatus.Pending
+                    Status = ApprovalStatus.Pending,
+                    MeetingFrequency = Gym.MeetingFrequency,
+                    MeetingDate = Gym.MeetingDate,
+                    MeetingTime = Gym.MeetingTime
                 },
                 JoinDate = DateTime.Now,
                 Member = user.Profile,

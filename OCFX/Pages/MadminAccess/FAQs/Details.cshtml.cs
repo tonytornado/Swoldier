@@ -3,12 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using OCFX.Areas.Identity.Data;
-using OCFX.Data.DataModels.SiteModels;
-using OCFX.Data.DataRepo;
+using OCFX.DataModels;
 
 namespace OCFX.Pages.MadminAccess.FAQs
 {
-	public class DetailsModel : PageModel
+    public class DetailsModel : PageModel
     {
         private readonly OCFXContext _context;
 

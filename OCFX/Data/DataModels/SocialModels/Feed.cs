@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace OCFX.DataModels.SocialModels
+namespace OCFX.DataModels
 {
     /// <summary>
     /// A general feed element that can be used for posts and such
