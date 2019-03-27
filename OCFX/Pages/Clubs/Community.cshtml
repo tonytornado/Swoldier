@@ -2,7 +2,7 @@
 @model OCFX.Pages.Clubs.CommunityModel
 @{
     ViewData["Title"] = "Community";
-    ViewData["BannerTitle"] = Model.GymDetail.Gym.Title;
+    ViewData["BannerTitle"] = Model.GymDetail.Title;
     ViewData["BannerSubtitle"] = "Members: " + @Model.MemberCount;
 }
 
@@ -10,15 +10,14 @@
 <section class="row">
     <div class="col-md-8">
         <div>
-            <p>@Model.GymDetail.Gym.Description</p>
+            <p>@Model.GymDetail.Description</p>
         </div>
         @if (Model.MemberCount != 0)
         {
             <div>
-                <h5>Members of @Model.GymDetail.Gym.Title</h5>
+                <h5>Members of @Model.GymDetail.Title</h5>
                 <ul class="list-group">
-                    @foreach (var athlete in Model.GymMembers
-.Where(i => i.Status != DataModels.Membership.MembershipType.Banned && i.Status != DataModels.Membership.MembershipType.Pending))
+                    @foreach (var athlete in Model.GymMembers.Where(i => i.Status != DataModels.Membership.MembershipType.Banned && i.Status != DataModels.Membership.MembershipType.Pending))
                     {
                         <li class="list-group-item">
                             <div class="d-inline-flex w-100 justify-content-between align-content-center">
@@ -27,7 +26,7 @@
                                         <a asp-page="/Profiles/Index" asp-route-id="@athlete.Member.Id">@athlete.Member.FirstName @athlete.Member.LastName</a>
                                     </h4>
                                     <h6>@athlete.Member.FitStyle.SkillMod @athlete.Member.FitStyle.FitType - @athlete.Status</h6>
-                                    @if (Model.GymDetail.Gym.Leader == Model.Visitor.Profile && athlete.Status != DataModels.Membership.MembershipType.Leader)
+                                    @if (Model.GymDetail.Leader == Model.Visitor.Profile && athlete.Status != DataModels.Membership.MembershipType.Leader)
                                     {
                                         <form method="post" class="insetbox-xy">
                                             <div class="btn-group btn-group-sm">
@@ -50,7 +49,7 @@
             <div>The party isn't here, yet...</div>
         }
         <hr />
-        <div class="container-fluid text-center" id="choice_container">
+        <div class="d-flex text-center" id="choice_container">
             @if (Model.Subscription == null)
             {
                 if (Model.ClubAllegiance)
@@ -58,7 +57,7 @@
                     <form method="post" class="shadowbox-xy">
                         <p>Sign up?</p>
                         <div class="btn-group btn-group-sm">
-                            <input asp-page-handler="ClubSignUp" asp-route-id="@Model.GymDetail.Gym.Id" value="Join Club" type="submit" class="btn btn-primary" />
+                            <input asp-page-handler="ClubSignUp" asp-route-id="@Model.GymDetail.Id" value="Join Club" type="submit" class="btn btn-primary" />
                             <a asp-page="./Index" class="btn btn-secondary">Back to clubs</a>
                         </div>
                     </form>
@@ -79,7 +78,7 @@
                 <form method="post" class="shadowbox-xy">
                     <p>Wanna leave, punk?</p>
                     <div class="btn-group btn-group-sm">
-                        <input asp-page-handler="ClubRemove" asp-route-id="@Model.GymDetail.Gym.Id" value="Leave Club" type="submit" class="btn btn-danger" />
+                        <input asp-page-handler="ClubRemove" asp-route-id="@Model.GymDetail.Id" value="Leave Club" type="submit" class="btn btn-danger" />
                         <a asp-page="./Index" class="btn btn-secondary">Back to clubs</a>
                     </div>
                 </form>
@@ -89,7 +88,7 @@
                 <form method="post" class="shadowbox-xy">
                     <p>Your application is pending</p>
                     <div class="btn-group btn-group-sm">
-                        <input asp-page-handler="ClubRemove" asp-route-id="@Model.GymDetail.Gym.Id" value="Cancel" type="submit" class="btn btn-dark" />
+                        <input asp-page-handler="ClubRemove" asp-route-id="@Model.GymDetail.Id" value="Cancel" type="submit" class="btn btn-dark" />
                         <a asp-page="./Index" class="btn btn-secondary">Back to clubs</a>
                     </div>
                 </form>
@@ -101,7 +100,7 @@
             else if (Model.Subscription.Status == DataModels.Membership.MembershipType.Leader)
             {
                 <p>You're the leader. Do something, if you've got some time.</p>
-                @if (Model.GymDetail.Gym.Members.Where(m => m.Status == DataModels.Membership.MembershipType.Pending).Count() > 0)
+                @if (Model.GymDetail.Members.Where(m => m.Status == DataModels.Membership.MembershipType.Pending).Count() > 0)
                 {
                     <div class="border rounded p-3">
                         <h6 class="text-right">Seems you've got some people knocking at the door. Better answer them. Make sure you ask them for the password.</h6>
@@ -117,8 +116,8 @@
                                             <h6>@applicant.Member.FitStyle.SkillMod @applicant.Member.FitStyle.FitType - @applicant.Status</h6>
                                             <form method="post">
                                                 <div class="btn-group btn-group-sm">
-                                                    <button class="btn btn-primary" asp-route-memberId="@applicant.Member.Id" asp-route-gymId="@Model.GymDetail.Gym.Id" asp-page-handler="AcceptSubmission">Accept</button>
-                                                    <button class="btn btn-danger" asp-route-memberId="@applicant.Member.Id" asp-route-gymId="@Model.GymDetail.Gym.Id" asp-page-handler="DenySubmission">Deny</button>
+                                                    <button class="btn btn-primary" asp-route-memberId="@applicant.Member.Id" asp-route-gymId="@Model.GymDetail.Id" asp-page-handler="AcceptSubmission">Accept</button>
+                                                    <button class="btn btn-danger" asp-route-memberId="@applicant.Member.Id" asp-route-gymId="@Model.GymDetail.Id" asp-page-handler="DenySubmission">Deny</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -138,31 +137,32 @@
             <div id="messageBoard_container">
                 @if (Model.MessageBoardPosts > 0)
                 {
-                    <h2><a asp-page="MessageBoard/Index" asp-route-id="@Model.GymDetail.Gym.Id" class="btn btn-block btn-primary">Message Board</a></h2>
+                    <h2><a asp-page="MessageBoard/Index" asp-route-id="@Model.GymDetail.Id" class="btn btn-block btn-primary">Message Board</a></h2>
                 }
                 else
                 {
-                    <h2><a asp-page="MessageBoard/Index" asp-route-id="@Model.GymDetail.Gym.Id" class="btn btn-block btn-primary">Message Board</a></h2>
+                    <h2><a asp-page="MessageBoard/Index" asp-route-id="@Model.GymDetail.Id" class="btn btn-block btn-primary">Message Board</a></h2>
                 }
             </div>
         }
         <div class="shadowbox-xy" id="meetings_container">
             <h3>Regular Meeting:</h3>
             <hr />
-            <b>@Model.GymDetail.Gym.MeetingFrequency</b>
-            <p>@{@Model.GymDetail.Gym.MeetingDate}s - @Model.GymDetail.Gym.MeetingTime.ToShortTimeString()</p>
+            <b>@Model.GymDetail.MeetingFrequency</b>
+            <p>@{@Model.GymDetail.MeetingDate}s - @Model.GymDetail.MeetingTime.ToShortTimeString()</p>
             @if (Model.Events.Count > 0)
             {
                 <h6>Events:</h6>
                 @foreach (var meeting in Model.Events)
                 {
-                <p>@meeting.Interval - @meeting.StartTime to @meeting.EndTime</p>
+                    <p>@meeting.Interval - @meeting.StartTime to @meeting.EndTime</p>
                 }
             }
         </div>
         <div class="shadowbox-xy" id="amenities_container">
             <h3>Amenities</h3>
-            @if (Model.EquipmentDetail != null)
+            <hr />
+            @if (Model.EquipmentDetail != null && Model.EquipmentDetail.Count() > 0)
             {
                 <ul class="list-group list-group-flush">
                     @foreach (var item in Model.EquipmentDetail)

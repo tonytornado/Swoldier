@@ -5,7 +5,8 @@
     ViewData["BannerTitle"] = "Create a Club";
     ViewData["BannerSubtitle"] = "Let's create a club!";
 }
-<form method="post">
+<partial name="_StatusMessage" model="Model.StatusMessage" />
+<form method="post" enctype="multipart/form-data">
     <section class="shadowbox-xy">
         <div class="form-group form-group-lg">
             <label asp-for="Gym.Title"></label>
@@ -23,7 +24,7 @@
     </section>
     <hr />
     <p>All clubs are required to have regular meetings to keep standing.</p>
-    <div class="form-row insetbox-xy">
+    <div class="form-row roundbox-xy">
         <div class="form-group col-sm-4">
             <label asp-for="Gym.MeetingFrequency"></label>
             <select asp-for="Gym.MeetingFrequency" asp-items="@Html.GetEnumSelectList<OCFX.DataModels.Session.MeetingInterval>()" class="form-control"></select>
@@ -38,22 +39,9 @@
             <span asp-validation-for="Gym.MeetingTime" class="text-danger" />
         </div>
     </div>
-    @*<partial name="_EventUI" model="Model.Event" />*@
-    @*@if (Model.GymEquipment.Count > 0 && Model.GymEquipment != null)
-    {
-        <div>
-            Amenities:
-            <ul>
-                @for (int i = 0; i < Model.GymEquipment.Count; i++)
-                {
-                    <li>
-                        <input asp-for="GymEquipment[i].Id"
-                               type="checkbox" />
-                        <label asp-for="GymEquipment[i].Id">@Model.GymEquipment[i].EquipName</label>
-                    </li>
-                }
-            </ul>
-        </div>
-    }*@
     <button type="submit" class="btn btn-block btn-outline-dark">Create a new club!</button>
 </form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

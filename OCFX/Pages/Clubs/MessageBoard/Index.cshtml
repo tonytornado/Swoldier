@@ -9,7 +9,7 @@
 <partial name="_StatusMessage" model="Model.StatusMessage" />
 
 <div class="mb-3">
-    @if (Model.BoardPosts != null)
+    @if (Model.BoardPosts != null && Model.BoardPosts.Count > 0)
     {
         <ul class="list-group">
             @foreach (var item in Model.BoardPosts)
@@ -22,23 +22,24 @@
                         <small>@item.DatePosted - Comments: @item.MessageBoardComments.Count()</small>
                     </div>
                 </li>
+
             }
         </ul>
+        <div>
+            <a href="#TopicBox" onclick="$('#TopicBox').slideDown()" class="btn btn-block btn-outline-primary">New Topic</a>
+        </div>
     }
     else
     {
         <div class="text-center">
             <p>
                 Hmm, seems there aren't any posts here.
-                <a href="#TopicBox" onclick="$('#TopicBox').show()">Want to bring up an issue?</a>
+                <a href="#TopicBox" onclick="$('#TopicBox').slideDown()">Want to bring up an issue?</a>
             </p>
         </div>
     }
 </div>
-<div>
-    <a href="#TopicBox" onclick="$('#TopicBox').show()" class="btn btn-block btn-outline-primary">New Topic</a>
-</div>
-<div id="TopicBox" class="rounded shadow col-md-11 mx-auto p-3 my-4" style="display: none;">
+<div id="TopicBox" class="insetbox-xy" style="display: none;">
     <form method="post">
         <div class="form-group">
             <label asp-for="Input.Title" class="label"></label>
@@ -50,7 +51,7 @@
         </div>
         <div class="btn-group btn-block">
             <button class="btn btn-primary" asp-route-BoardId="@Model.BoardId" asp-page-handler="Topic">Post Topic</button>
-            <a onclick="$('#TopicBox').hide()" class="btn btn-danger">Cancel</a>
+            <a onclick="$('#TopicBox').slideUp()" class="btn btn-danger">Cancel</a>
         </div>
     </form>
 </div>

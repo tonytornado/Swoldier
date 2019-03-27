@@ -23,23 +23,6 @@
 			<li>Great for the @story.CampaignDiet.DietName dieters!</li>
 			<li>@story.CampaignRisk Intensity</li>
 		</ul>
-		<hr />
-		@if (story.CampaignQuest.Count > 0)
-		{
-			<h4>Quests</h4>
-			<ul>
-				@foreach (var item in story.CampaignQuest)
-				{
-					<li>
-                        <i>@item.QuestName</i>
-					</li>
-				}
-			</ul>
-		}
-		else
-		{
-			<p class="lead">There are no quests in this campaign.</p>
-		}
 	</article>
 	}
 </section>

@@ -15,18 +15,23 @@ namespace OCFX.DataModels
         [Key]
         [Display(Name = "Gym")]
         public int Id { get; set; }
+        [Required]
         [Display(Name = "Gym Title")]
         public string Title { get; set; }
         [Display(Name = "Gym Leader")]
         public Profile Leader { get; set; }
+        [Required]
         [Display(Name = "Gym Details")]
         public string Description { get; set; }
         [Display(Name = "Gym Status")]
         public ApprovalStatus Status { get; set; }
+        [Required]
         [Display(Name = "Frequency")]
         public MeetingInterval MeetingFrequency { get; set; }
+        [Required]
         [Display(Name = "Meeting Day")]
         public DayOfWeek MeetingDate { get; set; }
+        [Required]
         [Display(Name = "Meeting Time")]
         [DataType(DataType.Time)]
         [DisplayFormat(DataFormatString = "{0:t}")]

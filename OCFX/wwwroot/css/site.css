@@ -67,9 +67,9 @@ nav {
 }
 
 /* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
+/*.carousel-inner .item img[src$=".svg"] {
     width: 100%;
-}
+}*/
 
 /* QR code generator */
 #qrCode {
@@ -113,22 +113,29 @@ nav {
     width: 100%;
 }
 
-/* Shadow Aesthetic */
+/* Roundbox Aesthetic Types */
 
 .shadowbox-xy {
-    padding: 1rem !important;
-    margin: 1rem auto 1rem auto !important;
-    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
-    border: 1px solid #dee2e6 !important;
-    border-radius: .3rem !important;
+    padding: 1rem;
+    margin: 1rem auto 1rem auto;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+    border: 1px solid #dee2e6;
+    border-radius: .3rem ;
 }
 
 .insetbox-xy {
-    padding: 1rem !important;
-    margin: 1rem auto 1rem auto !important;
-    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) inset !important;
-    border: 1px solid #dee2e6 !important;
-    border-radius: .3rem !important;
+    padding: 1rem;
+    margin: 1rem auto 1rem auto;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) inset;
+    border: 1px solid #dee2e6;
+    border-radius: .3rem;
+}
+
+.roundbox-xy {
+    padding: 1rem;
+    margin: 1rem auto 1rem auto;
+    border: 1px solid #dee2e6;
+    border-radius: .3rem;
 }
 
 

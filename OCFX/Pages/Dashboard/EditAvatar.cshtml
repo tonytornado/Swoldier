@@ -13,25 +13,26 @@
 
 <form method="post" enctype="multipart/form-data">
 	<input type="hidden" asp-for="Photo.ProfileId" />
-	<figure class="col-sm-4 mx-auto">
-		<img src="~/images/uploads/@Model.Photo.URL" alt="Alternate Text" class="figure-img img-fluid rounded" />
-		<figcaption class="figure-caption text-center">Current look</figcaption>
-	</figure>
-	<div class="col-sm-8 mx-auto">
-		<div class="form-group">
-			<label asp-for="Image" class="control-label">Show us your shiny teeth!</label>
-			<input asp-for="Image" class="form-control form-control-file" style="height:auto" required/>
-			<span asp-validation-for="Image.FileName" class="text-danger"></span>
-		</div>
-		<div class="form-group">
-			<label asp-for="Photo.Caption" class="control-label">Caption</label>
-			<textarea asp-for="Photo.Caption" class="form-control"></textarea>
-		</div>
-		<div class="btn-block btn-group-vertical">
-			<input type="submit" value="Save" class="btn btn-primary" />
-			<a class="btn btn-dark" asp-page="./Index" asp-route-id="@Model.Photo.ProfileId">Cancel</a>
-		</div>
-	</div>
+    <section class="row">
+        <figure class="col-sm-4 mx-auto roundbox-xy">
+            <img src="~/images/uploads/@Model.Photo.URL" alt="Alternate Text" class="figure-img img-fluid rounded" />
+        </figure>
+        <div class="col-sm-8 mx-auto shadowbox-xy">
+            <div class="form-group">
+                <label asp-for="Image" class="control-label">Show us your shiny teeth!</label>
+                <input asp-for="Image" class="form-control form-control-file" style="height:auto" required />
+                <span asp-validation-for="Image.FileName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Photo.Caption" class="control-label">Caption</label>
+                <textarea asp-for="Photo.Caption" class="form-control" rows="6"></textarea>
+            </div>
+            <div class="btn-block btn-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a class="btn btn-dark" asp-page="./Index" asp-route-id="@Model.Photo.ProfileId">Cancel</a>
+            </div>
+        </div>
+    </section>
 </form>
 
 @section Scripts {

@@ -25,10 +25,12 @@ namespace OCFX.Pages.Clubs
 
         public OCFXUser Visitor { get; private set; }
         public List<GymRelation> EquipmentDetail { get; private set; }
-        public GymRelation GymDetail { get; private set; }
         public List<Session> Events { get; private set; }
         public List<Membership> GymMembers { get; private set; }
+
+        public Gym GymDetail { get; private set; }
         public Membership Subscription { get; private set; }
+
         public int MemberCount { get; private set; }
         public bool ClubAllegiance { get; private set; }
         public int MessageBoardPosts { get; private set; }
@@ -42,16 +44,16 @@ namespace OCFX.Pages.Clubs
 
             // Get the gym
             EquipmentDetail = await _context.RelativeGyms.Include(g => g.Equipment).Where(g => g.GymId == id).ToListAsync();
-            GymDetail = await _context.RelativeGyms
-                .Include(g => g.Gym)
-                    .ThenInclude(g => g.Meetings)
-                .FirstOrDefaultAsync(g => g.GymId == id);
+            GymDetail = await _context.Gyms
+                    .Include(g => g.Meetings)
+                    .Include(g => g.Members)
+                .FirstOrDefaultAsync(g => g.Id == id);
             GymMembers = _context.Memberships
                 .Include(m => m.Member)
                     .ThenInclude(m => m.FitStyle)
                 .Include(m => m.Member)
                     .ThenInclude(m => m.Photos)
-                .Where(g => g.Club == GymDetail.Gym).ToList();
+                .Where(g => g.Club.Id == id).ToList();
 
             // Check for subscription
             Subscription = await _context.Memberships
@@ -60,16 +62,17 @@ namespace OCFX.Pages.Clubs
                 i.Club.Id == id);
 
             // Get the count of members in the club
-            MemberCount = GymDetail.Gym.Members != null ? GymDetail.Gym.Members
+            MemberCount = GymMembers != null ? GymMembers
                 .Where(u => u.Status == Membership.MembershipType.Member).Count() : 0; 
 
+            // Check the user's club count.
             ClubAllegiance = _context.Memberships.Where(m => m.Member.Id == Visitor.ProfileId).Count() is 0;
 
             // Get the message board posts
-            MessageBoardPosts = _context.MessageBoardPosts.Where(c => c.Board == GymDetail.Gym).Count();
+            MessageBoardPosts = _context.MessageBoardPosts.Where(c => c.Board == GymDetail).Count();
 
             // Grab any events/meetings
-            Events = GymDetail.Gym.Meetings.ToList();
+            Events = GymDetail.Meetings.ToList();
 
         }
 

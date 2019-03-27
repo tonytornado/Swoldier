@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using OCFX.Areas.Identity.Data;
-using OCFX.Data.DataModels.SocialModels;
 using OCFX.DataModels;
 
 namespace OCFX.Pages.Clubs
@@ -31,6 +29,9 @@ namespace OCFX.Pages.Clubs
         public Session Event { get; set; }
         public List<Equipment> GymEquipment { get; private set; }
 
+        [TempData]
+        public string StatusMessage { get; set; }
+
         public void OnGet()
         {
             GymEquipment = _context.GymAmenities.ToList();
@@ -39,7 +40,14 @@ namespace OCFX.Pages.Clubs
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _manager.GetUserAsync(User);
-            Profile pro = user.Profile;
+            Profile pro = _context.Profiles.Include(G => G.Gym).SingleOrDefault(p => p.Id == user.ProfileId);
+            
+            // Check if the user is already with a gym/club
+            if(pro.Gym != null)
+            {
+                StatusMessage = "Error: You're already in a club, man. You gotta leave one to make one.";
+                return Page();
+            }
 
             // Add the membership to the membership table with the user as the leader.
             Membership lead = new Membership

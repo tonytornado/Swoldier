@@ -10,8 +10,8 @@
 }
 <section id="top_section">
     <br />
-    <header class="row text-center">
-        <div class="col-md align-self-center jumbotron" id="title_section">
+    <header class="row shadowbox-xy text-center col-md-8 mx-auto">
+        <div class="col-md align-self-center" id="title_section">
             <h1 class="display-4">@Model.userTitle</h1>
             @if (Model.Profiler.Gym != null)
             {
@@ -34,7 +34,7 @@
                 {
                     @if (Model.ProfilePhoto.ProfileId == Model.Player.ProfileId)
                     {
-                        <a asp-page="/Dashboard/EditAvatar" asp-route-id="@Model.Profiler.Id" class="btn btn-outline-dark mt-3">Edit Photo</a>
+                        <a asp-page="/Dashboard/EditAvatar" asp-route-id="@Model.Profiler.Id" class="btn btn-sm btn-block btn-outline-dark mt-3">Edit Photo</a>
                     }
                 }
             </div>
