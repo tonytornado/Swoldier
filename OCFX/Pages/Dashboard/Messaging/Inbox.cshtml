@@ -2,27 +2,25 @@
 @model OCFX.Pages.Dashboard.Messaging.InboxModel
 @{
     ViewData["Title"] = "Inbox";
-    ViewData["BannerTitle"] = "Message";
-    ViewData["BannerSubtitle"] = "Comms open.";
+    ViewData["BannerTitle"] = string.Format("{0} {1}", @Model.IMessage.Sender.FirstName, @Model.IMessage.Sender.LastName);
+    ViewData["BannerSubtitle"] = Model.IMessage.SubjectText;
 }
 
-<div class="text-center">
-    Your conversation with @Model.IMessage.Sender.FirstName
-</div>
 <div>
     @foreach (var message in Model.MailReceived)
     {
         @if (message.Id == Model.IMessage.Id)
         {
-            <div class="border shadow-lg my-4 p-4 rounded" id="message_@message.Id">
-                <h6>@message.SubjectText [from @message.Sender.FirstName]</h6>
+            <div class="shadowbox-xy" id="message_@message.Id">
+                <h6>@message.Sender.FirstName:</h6>
                 <pre>@message.MessageText</pre>
                 <small>@message.DateSent</small>
                 <hr />
-                    <a href="#ReplyBox" onclick="showReplyBox()" class="btn btn-block btn-outline-primary">Reply?</a>
-                <div id="ReplyBox" style="display: none;" class="m-3 form-group">
+                    <a href="#ReplyBox" onclick="showReplyBox()" class="btn btn-sm btn-block btn-outline-primary">Reply?</a>
+                <div id="ReplyBox" style="display: none;" class="insetbox-xy">
                     <form asp-page-handler="Reply" asp-route-MessageId="@message.Id" method="post">
-                        <textarea asp-for="ReplyMessage" class="form-control form-text" rows="6"></textarea>
+                        <textarea asp-for="ReplyMessage" class="form-control form-control-sm" rows="6"></textarea>
+                        <br />
                         <div class="btn-group btn-group-sm btn-group-justified d-flex align-content-center">
                             <button class="btn btn-outline-primary">Send</button>
                             <a href="#message_@message.Id" onclick="showReplyBox()" class="btn btn-danger">Cancel</a>
@@ -41,11 +39,11 @@
             </div>
         }
     }
-    <a onclick="showDeleteBox()" class="btn btn-block btn-outline-light">Delete Conversation</a>
+    <a onclick="showDeleteBox()" class="btn btn-block btn-outline-secondary">Delete Conversation</a>
 </div>
-<div id="DeleteBox" style="display: none;" class="border shadow m-4 p-3 rounded">
+<div id="DeleteBox" style="display: none;" class="insetbox-xy">
     <form asp-page-handler="Archive" asp-route-ChainId="@Model.IMessage.ChainIdentifier" method="post">
-        <p class="text-center">This will archive all messages in this conversation. Are you sure you want to do this?</p>
+        <p class="text-center">This will archive all messages in this conversation. <br /> Are you sure you want to do this?</p>
         <div class="btn-group btn-group-sm btn-group-justified d-flex align-content-center">
             <button class="btn btn-primary">Archive it all?</button>
             <a href="#DeleteBox" onclick="showDeleteBox()" class="btn btn-danger">Cancel</a>
