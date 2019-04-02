@@ -4,11 +4,10 @@ using OCFX.DataModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace OCFX.Data.Methods
 {
-	public class QuestMethods
+    public class QuestMethods
 	{
         /// <summary>
         /// Checks the completed quest log for all the quests a user has completed.

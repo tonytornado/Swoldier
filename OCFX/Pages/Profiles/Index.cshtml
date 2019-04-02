@@ -83,7 +83,7 @@
     }
 </section>
 <section id="stats_story_section" class="row">
-    <section class="col-lg align-self-stretch">
+    <section id="stats_section" class="col-lg-6 text-sm-center shadowbox-xy">
         <h2 class="text-center"><u>Vital Stats</u></h2>
         @if (Model.Profiler.HipMeasurement != null && Model.Profiler.NeckMeasurement != null && Model.Profiler.WaistMeasurement != null)
         {
@@ -165,26 +165,26 @@
             </table>
         </div>
     </section>
-        <section id="story_section" class="col-sm text-sm-center">
-            <h2 class="text-center"><u>Character</u></h2>
-            <div class="">
-                <h3>Background</h3>
-                <p>@Model.Profiler.BackStory</p>
-            </div>
-            <div class="">
-                <h3>What drives me?</h3>
-                <p>@Model.Profiler.DriveStory</p>
-            </div>
-            <div class="">
-                <h3>Goals</h3>
-                <p>@Model.Profiler.Goals</p>
-            </div>
-        </section>
+    <section id="story_section" class="col-lg-6 text-sm-center shadowbox-xy">
+        <h2 class="text-center"><u>Character</u></h2>
+        <div class="roundbox-xy">
+            <h3>Background</h3>
+            <p>@Model.Profiler.BackStory</p>
+        </div>
+        <div class="roundbox-xy">
+            <h3>What drives me?</h3>
+            <p>@Model.Profiler.DriveStory</p>
+        </div>
+        <div class="roundbox-xy">
+            <h3>Goals</h3>
+            <p>@Model.Profiler.Goals</p>
+        </div>
+    </section>
 </section>
 <hr />
 
-<div class="row">
-    <section id="feed_section" class="col-sm-8 mx-auto">
+
+    <section id="feed_section" class="">
         @if (Model.Player != null)
         {
             <form method="post" class="form-group shadowbox-xy">
@@ -269,7 +269,7 @@
             }
         }
     </section>
-</div>
+
 
 @if (Model.RelatedFolkList.Where(m => m.Id != Model.Profiler.Id).ToList().Count > 0)
 {
@@ -290,7 +290,6 @@
             }
         </div>
     </section>
-
 }
 
 @if (Model.Player != null)
@@ -312,7 +311,7 @@
     }
 }
 
-<div id="SendBox" style="display: none;" class="mt-5 p-4 bg-light container rounded">
+<div id="SendBox" style="display: none;" class="mt-5 roundbox-xy">
     <form asp-page-handler="SendMail" asp-route-id="@Model.Profiler.Id" method="post" novalidate>
         <div class="form-group form-group-sm">
             <label asp-for="MessageSubject">Subject</label>

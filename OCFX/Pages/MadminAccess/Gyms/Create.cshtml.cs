@@ -2,12 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OCFX.Areas.Identity.Data;
-using OCFX.Data.DataRepo;
 using OCFX.DataModels;
 
 namespace OCFX.Pages.MadminAccess.Clubs
 {
-	public class CreateModel : PageModel
+    public class CreateModel : PageModel
     {
         private readonly OCFXContext _context;
 

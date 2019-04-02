@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OCFX.Areas.Identity.Data;
-using OCFX.Data.DataModels.SocialModels;
-using OCFX.Data.DataRepo;
 using OCFX.DataModels;
 using System;
 using System.Collections.Generic;
@@ -10,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OCFX.Data.Methods
 {
-	public class FriendlyMethods
+    public class FriendlyMethods
 	{
 		private readonly OCFXContext _context;
 		public FriendlyMethods(OCFXContext context)

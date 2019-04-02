@@ -146,7 +146,7 @@
             </div>
         }
         <div class="shadowbox-xy" id="meetings_container">
-            <h3>Regular Meeting:</h3>
+            <h3><u>Regular Meeting</u></h3>
             <hr />
             <b>@Model.GymDetail.MeetingFrequency</b>
             <p>@{@Model.GymDetail.MeetingDate}s - @Model.GymDetail.MeetingTime.ToShortTimeString()</p>
@@ -160,8 +160,7 @@
             }
         </div>
         <div class="shadowbox-xy" id="amenities_container">
-            <h3>Amenities</h3>
-            <hr />
+            <h3><u>Amenities</u></h3>
             @if (Model.EquipmentDetail != null && Model.EquipmentDetail.Count() > 0)
             {
                 <ul class="list-group list-group-flush">
@@ -176,6 +175,7 @@
             }
             else
             {
+                <hr />
                 <h3>N/A</h3>
             }
         </div>

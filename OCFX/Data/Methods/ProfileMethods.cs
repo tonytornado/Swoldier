@@ -33,7 +33,7 @@ namespace OCFX.Data.Methods
                 .Include(p => p.ReceivedMessages)
                 .Include(p => p.SentMessages)
 				.Include(p => p.Quest)
-				.Include(p => p.Campaign)
+                .Include(p => p.Campaign)
 					.ThenInclude(p => p.CampaignDiet)
 				.Include(p => p.Campaign)
 					.ThenInclude(p => p.CampaignQuest)
