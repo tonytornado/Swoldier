@@ -22,7 +22,7 @@
             <div class="form-group">
                 <p>Ready to accept this quest?</p>
                 <button asp-page-handler="AcceptQuest" asp-route-id="@Model.Quest.Id" class="btn btn-primary">Accept</button>
-                <button asp-page="/Dashboard/Index" class="btn btn-secondary">Decline</button>
+                <a asp-page="/Dashboard/Index" class="btn btn-secondary">Decline</a>
             </div>
         </form>
     }
@@ -32,7 +32,7 @@
             <div class="form-group">
                 <p>Finished?</p>
                 <button asp-page-handler="CompleteQuest" asp-route-id="@Model.Quest.Id" class="btn btn-success">Finish</button>
-                <button asp-page="/Dashboard/Index" class="btn btn-secondary">Go Back</button>
+                <a asp-page="/Dashboard/Index" class="btn btn-secondary">Go Back</a>
             </div>
         </form>
     }
