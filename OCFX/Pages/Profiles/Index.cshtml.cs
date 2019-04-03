@@ -36,17 +36,17 @@ namespace OCFX.Pages.Profiles
 
         [BindProperty]
         public Post Entry { get; set; }
-
         [BindProperty]
         public MessageBoardComment PostNote { get; set; }
-
         [BindProperty]
         public Reply CommentNote { get; set; }
-
         [BindProperty]
         public string MessageContext { get; set; }
         [BindProperty]
         public string MessageSubject { get; set; }
+
+        [TempData]
+        public string StatusMessage { get; set; }
 
         /// <summary>
         /// Displays the profile page
@@ -58,7 +58,7 @@ namespace OCFX.Pages.Profiles
             // Gets the current user
             Player = await _userManager.GetUserAsync(User);
 
-            // Loads the current user's associated profile
+            // Loads the current id's associated profile
             Profiler = await ProfileMethods.GetProfileAsync(_context, id);
 
             if (Profiler == null)
@@ -66,7 +66,7 @@ namespace OCFX.Pages.Profiles
                 return RedirectToPage("./Index");
             }
 
-            // Loads the current user's friends and followers
+            // Loads the current id's friends and followers
             Friender = await FriendlyMethods.GetFriendListAsync(_context, Profiler.Id);
             Requests = await FriendlyMethods.GetFriendRequestsAsync(_context, Profiler.Id);
 
@@ -183,7 +183,8 @@ namespace OCFX.Pages.Profiles
         public IActionResult OnGetFriending(int user, int friend)
         {
             FriendlyMethods.AddFriend(_context, user, friend);
-            return RedirectToPage("./Index", new { friend });
+            StatusMessage = "Friend request sent.";
+            return RedirectToPage("/Dashboard/Index", new { friend });
         }
 
         public async Task<IActionResult> OnPostSendMailAsync(int id)
@@ -211,6 +212,8 @@ namespace OCFX.Pages.Profiles
 
             _context.Messages.Add(mail);
             await _context.SaveChangesAsync();
+
+            StatusMessage = "Message Sent";
 
             return RedirectToPage("/Dashboard/Index");
         }

@@ -8,6 +8,7 @@
 
 @section Header {
 }
+<partial name="_StatusMessage" model="Model.StatusMessage" />
 <section id="top_section">
     <br />
     <header class="row shadowbox-xy text-center col-md-8 mx-auto">
@@ -304,10 +305,13 @@
     }
     else
     {
-        <div class="btn-group btn-group-sm btn-group-justified d-flex align-content-center my-3">
-            <a href="#SendBox" class="btn btn-outline-dark" onclick="showSendBox()">Send a message</a>
-            <a asp-page="/Index" class="btn btn-primary">Home</a>
-        </div>
+<div class="btn-group btn-group-sm btn-group-justified d-flex align-content-center my-3">
+    <a href="#SendBox" class="btn btn-outline-dark" onclick="showSendBox()">Send a message</a>
+    <a asp-page-handler="Friending"
+       asp-route-user="@Model.Player.ProfileId"
+       asp-route-friend="@Model.Profiler.Id" class="btn btn-outline-secondary">Add Friend</a>
+    <a asp-page="/Index" class="btn btn-primary">Home</a>
+</div>
     }
 }
 
