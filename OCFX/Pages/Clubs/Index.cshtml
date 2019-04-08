@@ -6,6 +6,23 @@
     ViewData["BannerSubtitle"] = "Welcome to the club.";
 }
 
+<form asp-page="./Index" method="get">
+    <div class="form-group roundbox-xy">
+        <p>
+            <h6>Find a club by name:</h6>
+            <input type="text" name="SearchString" value="@Model.CurrentSearch" class="form-control" />
+
+            <div class="btn-group btn-group-sm">
+                <input type="submit" value="Search" class="btn btn-default" />
+                @if (Model.CurrentSearch != null)
+                {
+                    <a asp-page="./Index" class="btn btn-default">Back to full List</a>
+                }
+            </div>
+        </p>
+    </div>
+</form>
+
 
 @if (Model.Gyms != null)
 {
@@ -36,3 +53,28 @@
            class="btn btn-block btn-outline-dark">Create a club</a>
     </div>
 }
+@{
+    var prevDisabled = !Model.Gyms.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Gyms.HasNextPage ? "disabled" : "";
+}
+
+
+<div class="btn-group btn-block">
+    @if (prevDisabled != "disabled")
+    {<a asp-page="./Index"
+        asp-route-pageIndex="@(Model.Gyms.PageIndex - 1)"
+        asp-route-currentFilter="@Model.CurrentSearch"
+        class="btn btn-secondary @prevDisabled">
+            Previous
+        </a>
+    }
+    @if (nextDisabled != "disabled")
+    {
+        <a asp-page="./Index"
+           asp-route-pageIndex="@(Model.Gyms.PageIndex + 1)"
+           asp-route-currentFilter="@Model.CurrentSearch"
+           class="btn btn-secondary @nextDisabled">
+            Next
+        </a>
+    }
+</div>

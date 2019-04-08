@@ -24,6 +24,7 @@ namespace OCFX
 					var configuration = services.GetRequiredService<IConfiguration>();
 					var context = services.GetRequiredService<OCFXContext>();
 
+                    // Create the base classes and such for data.
                     try
                     {
                         InitialLoad.Initialize(context);
@@ -34,6 +35,7 @@ namespace OCFX
                         logger.LogError(exc, "Initial loader has failed to seed. Damn you, loader. Maybe you were already okay?? I HOPE YOU WERE, DAMMIT.");
                     }
 
+                    // Create the roles on initialization
 					try
 					{
 						InitialRoles.CreateRoles(serviceProvider, configuration).Wait();
