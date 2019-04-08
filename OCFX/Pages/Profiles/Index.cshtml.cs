@@ -66,7 +66,7 @@ namespace OCFX.Pages.Profiles
             }
 
             // Loads the current id's friends and followers
-            Friender = await FriendlyMethods.GetFriendListAsync(_context, Profiler.Id);
+            Friender = FriendlyMethods.GetFriendList(_context, Profiler.Id);
             Requests = await FriendlyMethods.GetFriendRequestsAsync(_context, Profiler.Id);
 
             // Loads the current users's profile photo

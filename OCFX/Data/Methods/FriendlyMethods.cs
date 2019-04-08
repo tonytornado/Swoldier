@@ -22,15 +22,21 @@ namespace OCFX.Data.Methods
 		/// <param name="_context">DBContext used</param>
 		/// <param name="UserId">User's Profile Id</param>
 		/// <returns>List</returns>
-		public static async Task<List<Friend>> GetFriendListAsync(OCFXContext _context, int UserId)
+		public static List<Friend> GetFriendList(OCFXContext _context,
+                                         int UserId)
 		{
-			// Get ALL the friends!
-			var friendos = await _context.Friends
+            // Get ALL the friends!
+            List<Friend> friend = _context.Friends
 							.Where(b => b.Follower.FitUser.ProfileId == UserId && b.FriendshipConfirmer == Friend.Confirmer.Confirmed)
 							.Include(f => f.Following)
 								.ThenInclude(p => p.Photos)
-							.ToListAsync();
-			return friendos;
+							.ToList();
+
+            Random random = new Random();
+
+            List<Friend> friendos = friend.OrderBy(item => random.Next()).ToList();
+
+            return friendos;
 		}
 
 		/// <summary>

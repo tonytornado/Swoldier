@@ -67,10 +67,10 @@
         <div class="friend_grid">
             @foreach (var friend in Model.Friender)
             {
-                <div>
+                <div class="shadowbox-xy">
                     <img width="50" height="50" src="~/images/uploads/@friend.Following.Photos.SingleOrDefault(p => p.ProfileId == friend.Following.Id).URL" alt="@friend.Following.FirstName's photo." />
                     <small>
-                        <a asp-page="./Index" asp-route-id="@friend.Following.Id">@friend.Following.FirstName @friend.Following.LastName</a>
+                        <a asp-page="./Index" asp-route-id="@friend.Following.Id">@friend.Following.FullName</a>
                         @if (friend.Following.Id != friend.Follower.Id && User.IsInRole("Member"))
                         {
                             <br />

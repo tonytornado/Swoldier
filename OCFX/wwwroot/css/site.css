@@ -48,8 +48,10 @@ nav {
 }
 
 .friend_grid {
-	display: grid;
-	grid-auto-columns: auto auto auto auto; 
+    display: grid;
+    justify-content: flex-start;
+    grid-column-gap: 10px;
+    grid-template-columns: auto auto auto auto auto auto;
 }
 
 /* Wrapping element */
