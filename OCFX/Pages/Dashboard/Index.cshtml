@@ -116,7 +116,7 @@
             foreach (var post in Model.Profiler.Posts.OrderByDescending(x => x.DatePosted).Take(5))
             {
                 <div class="border rounded shadow py-3 col-12">
-                    <h6>@post.Profile.FirstName @post.Profile.LastName</h6>
+                    <h6>@post.Profile.FullName</h6>
                     <p>@post.Text</p>
                     <small>@post.DatePosted</small>
                 </div>
@@ -125,7 +125,7 @@
                     foreach (var comment in post.Comments.OrderByDescending(x => x.DatePosted))
                     {
                         <div class="border rounded shadow py-3 col-11">
-                            <h6>@comment.Profile.FirstName @comment.Profile.LastName</h6>
+                            <h6>@comment.Profile.FullName</h6>
                             <p>@comment.Text</p>
                             <small>@comment.DatePosted</small>
                         </div>
@@ -192,7 +192,7 @@
                     @foreach (var message in Model.Profiler
                    .ReceivedMessages
                    .Where(u => u.ReceiverId == Model.Profiler.Id)
-                   .Where(u => u.Status == Data.DataModels.SocialModels.Shout.MessageStatus.Unread)
+                   .Where(u => u.Status == DataModels.Shout.MessageStatus.Unread)
                    .OrderByDescending(u => u.DateSent)
                    .TakeLast(5))
                     {

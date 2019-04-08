@@ -23,7 +23,7 @@
                             <div class="d-inline-flex w-100 justify-content-between align-content-center">
                                 <div>
                                     <h4>
-                                        <a asp-page="/Profiles/Index" asp-route-id="@athlete.Member.Id">@athlete.Member.FirstName @athlete.Member.LastName</a>
+                                        <a asp-page="/Profiles/Index" asp-route-id="@athlete.Member.Id">@athlete.Member.FullName</a>
                                     </h4>
                                     <h6>@athlete.Member.FitStyle.SkillMod @athlete.Member.FitStyle.FitType - @athlete.Status</h6>
                                     @if (Model.GymDetail.Leader == Model.Visitor.Profile && athlete.Status != DataModels.Membership.MembershipType.Leader)
@@ -111,7 +111,7 @@
                                     <div class="d-inline-flex w-100 justify-content-between align-content-center">
                                         <div>
                                             <h4>
-                                                <a asp-page="/Profiles/Index" asp-route-id="@applicant.Member.Id">@applicant.Member.FirstName @applicant.Member.LastName</a>
+                                                <a asp-page="/Profiles/Index" asp-route-id="@applicant.Member.Id">@applicant.Member.FullName</a>
                                             </h4>
                                             <h6>@applicant.Member.FitStyle.SkillMod @applicant.Member.FitStyle.FitType - @applicant.Status</h6>
                                             <form method="post">

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using OCFX.Data.DataModels.SocialModels;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -123,6 +122,14 @@ namespace OCFX.DataModels
 			NotDisclosed = 5
 		}
 
-		// Anything else?
-	}
+        // Anything else?
+        [NotMapped]
+        public string FullName
+        {
+            get
+            {
+                return string.Format("{0} {1}", FirstName, LastName);
+            }
+        }
+    }
 }

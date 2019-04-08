@@ -1,9 +1,8 @@
-﻿using OCFX.DataModels;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace OCFX.Data.DataModels.SocialModels
+namespace OCFX.DataModels
 {
     public class Shout
     {

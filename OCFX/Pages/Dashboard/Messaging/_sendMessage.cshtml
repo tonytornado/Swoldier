@@ -1,4 +1,4 @@
-﻿@model ( string methodtext, OCFX.Data.DataModels.SocialModels.Shout message)
+﻿@model ( string methodtext, OCFX.DataModels.Shout message)
 
 <form asp-page-handler="@Model.methodtext" method="post">
     <input asp-for="@Model.message.SubjectText" class="form-control form-control-sm" />

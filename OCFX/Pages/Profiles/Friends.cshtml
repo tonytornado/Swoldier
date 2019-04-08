@@ -15,7 +15,7 @@
         <div class="d-flex justify-content-around shadowbox-xy">
             <img src="~/images/uploads/@friend.Following.Photos.FirstOrDefault(f => f.Type == DataModels.Photo.PhotoType.Profile).URL" alt="@friend.Following.Id" class="friend_avatar border">
             <div class="px-3">
-                <h4><a asp-page="/Profiles/Index" asp-route-id="@friend.Following.Id">@friend.Following.FirstName @friend.Following.LastName </a></h4>
+                <h4><a asp-page="/Profiles/Index" asp-route-id="@friend.Following.Id">@friend.Following.FullName </a></h4>
                 <h6>@friend.Following.Age @friend.Following.Gender</h6>
                 <hr />
                 @switch (friend.FriendshipConfirmer)

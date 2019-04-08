@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using OCFX.Data.DataModels.SocialModels;
 using OCFX.DataModels;
 using System;
 using System.Linq;

@@ -2,7 +2,7 @@
 @model OCFX.Pages.Dashboard.Messaging.InboxModel
 @{
     ViewData["Title"] = "Inbox";
-    ViewData["BannerTitle"] = string.Format("{0} {1}", @Model.IMessage.Sender.FirstName, @Model.IMessage.Sender.LastName);
+    ViewData["BannerTitle"] = string.Format("{0} {1}", @Model.IMessage.Sender.FullName);
     ViewData["BannerSubtitle"] = Model.IMessage.SubjectText;
 }
 

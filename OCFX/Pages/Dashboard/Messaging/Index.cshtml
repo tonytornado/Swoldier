@@ -33,7 +33,7 @@
                            asp-route-ChainId="@mail.ChainIdentifier" asp-route-messageId="@mail.Id">@mail.SubjectText</a>
                     </td>
                     <td>@mail.DateSent</td>
-                    <td>@(mail.Status == Data.DataModels.SocialModels.Shout.MessageStatus.Unread ? "New" : "Opened")</td>
+                    <td>@(mail.Status == DataModels.Shout.MessageStatus.Unread ? "New" : "Opened")</td>
                 </tr>
             }
         </tbody>
