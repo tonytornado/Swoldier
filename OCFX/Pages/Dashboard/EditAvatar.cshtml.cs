@@ -84,10 +84,12 @@ namespace OCFX.Pages.Profiles
                 if (Image.ContentType == "image/jpeg" || Image.ContentType == "image/png")
                 {
                     fileName = GetUniqueName(Image.FileName);
-                    var uploads = Path.Combine(_environment.WebRootPath, "images/uploads");
-                    var filePath = Path.Combine(uploads, fileName);
+                    var folderPath = string.Format("images/{0}/profilePhoto", Photo.ProfileId);
+                    var upload = Path.Combine(_environment.WebRootPath, folderPath);
+                    var filePath = Path.Combine(upload, fileName);
+                    CheckFolderPath(upload);
                     await Image.CopyToAsync(new FileStream(filePath, FileMode.Create));
-                    photograph.URL = fileName;
+                    photograph.URL = "~/" + filePath;
                     photograph.Caption = Photo.Caption;
 
                     _context.Photos.Add(photograph);
@@ -110,6 +112,17 @@ namespace OCFX.Pages.Profiles
 
         }
 
+        private void CheckFolderPath(string v)
+        {
+            string folder = v;
+            if (!Directory.Exists(folder))
+            {
+                Directory.CreateDirectory(folder);
+            }
+
+
+        }
+
         /// <summary>
         /// Create a unique file name for the file being uploaded.
         /// </summary>
@@ -119,7 +132,7 @@ namespace OCFX.Pages.Profiles
         {
             fileName = Path.GetFileName(fileName);
             return Path.GetFileNameWithoutExtension(fileName)
-                   + "_" + Guid.NewGuid().ToString().Substring(0, 4)
+                   + "_" + Guid.NewGuid().ToString().Substring(0, 6)
                    + Path.GetExtension(fileName);
         }
     }

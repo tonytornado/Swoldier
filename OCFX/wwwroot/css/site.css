@@ -110,10 +110,10 @@ nav {
 
 /* About Page only */
 .about-photo {
-    max-width: 480px;
+    /*max-width: 575px;*/
     border: 3px solid darkgray;
     border-radius: 2%;
-    width: 100%;
+    /*width: 100%;*/
 }
 
 /* Roundbox Aesthetic Types */
