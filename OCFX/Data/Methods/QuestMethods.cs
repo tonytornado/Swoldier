@@ -8,7 +8,7 @@ using System.Linq;
 namespace OCFX.Data.Methods
 {
     public class QuestMethods
-	{
+    {
         /// <summary>
         /// Checks the completed quest log for all the quests a user has completed.
         /// </summary>
@@ -35,36 +35,36 @@ namespace OCFX.Data.Methods
         /// <param name="QuestId">Quest's Id</param>
         /// <param name="UserId">User's Id</param>
         public static void JoinQuest(OCFXContext context, int QuestId, int UserId)
-		{
-			int QuestGoer = UserId;
-			Quest quest = context.Quests.SingleOrDefault(q => q.Id == QuestId);
+        {
+            int QuestGoer = UserId;
+            Quest quest = context.Quests.SingleOrDefault(q => q.Id == QuestId);
 
-			// Create the new quest log
-			QuestLog challenger = new QuestLog()
-			{
-				ProfileId = UserId,
-				QuestId = QuestId,
-				Completed = false,
+            // Create the new quest log
+            QuestLog challenger = new QuestLog()
+            {
+                ProfileId = UserId,
+                QuestId = QuestId,
+                Completed = false,
                 CampaignId = quest.CampaignId
-			};
-			context.QuestLogs.Add(challenger);
-			context.SaveChanges();
+            };
+            context.QuestLogs.Add(challenger);
+            context.SaveChanges();
 
             Profile profile = context.Profiles.Include(q => q.Quest).SingleOrDefault(p => p.Id == UserId);
             profile.Quest = quest;
             context.SaveChanges();
-		}
+        }
 
-		/// <summary>
-		/// Completes a quest provided they meet certain conditions.
-		/// </summary>
-		/// <param name="context"></param>
-		/// <param name="QuestId">Quest's Id</param>
-		/// <param name="UserId">User's Id</param>
-		public static void CompleteQuest(OCFXContext context, int QuestId, int UserId)
-		{
-			int QuestGoer = UserId;
-			QuestLog CompletedQuest = context.QuestLogs.SingleOrDefault(q => q.QuestId == QuestId && q.ProfileId == QuestGoer);
+        /// <summary>
+        /// Completes a quest provided they meet certain conditions.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="QuestId">Quest's Id</param>
+        /// <param name="UserId">User's Id</param>
+        public static void CompleteQuest(OCFXContext context, int QuestId, int UserId)
+        {
+            int QuestGoer = UserId;
+            QuestLog CompletedQuest = context.QuestLogs.SingleOrDefault(q => q.QuestId == QuestId && q.ProfileId == QuestGoer);
 
             // Check if the quest is actually part of the campaign
             bool QuestCheck = CheckForCampaign(context, QuestGoer, CompletedQuest.CampaignId);
@@ -79,28 +79,28 @@ namespace OCFX.Data.Methods
 
             Profile completionist = context.Profiles.Include(q => q.Quest).SingleOrDefault(q => q.Id == UserId);
             completionist.Quest = null;
-			context.SaveChanges();
-		}
+            context.SaveChanges();
+        }
 
-		/// <summary>
-		/// Makes a quick check for the right campaign to prevent cheating. This is an ANTI-CHEAT measure.
-		/// </summary>
-		/// <param name="context"></param>
-		/// <param name="x"></param>
-		/// <param name="y"></param>
-		/// <returns>Boolean</returns>
-		private static bool CheckForCampaign(OCFXContext context, int x, int y)
-		{
-			Profile player = context.Profiles.SingleOrDefault(p => p.Id == x);
+        /// <summary>
+        /// Makes a quick check for the right campaign to prevent cheating. This is an ANTI-CHEAT measure.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns>Boolean</returns>
+        private static bool CheckForCampaign(OCFXContext context, int x, int y)
+        {
+            Profile player = context.Profiles.SingleOrDefault(p => p.Id == x);
             Quest quest = context.Quests.SingleOrDefault(p => p.Id == y);
             Campaign campaign = context.Campaigns.FirstOrDefault(p => p.CampaignQuest.Contains(quest));
 
             if (campaign != player.Campaign)
-			{
-				throw new Exception("This is bogus. You didn't complete anything.");
-			}
+            {
+                throw new Exception("This is bogus. You didn't complete anything.");
+            }
 
-			return true;
-		}
-	}
+            return true;
+        }
+    }
 }

@@ -83,106 +83,110 @@
         <hr />
     }
 </section>
-<section id="stats_story_section" class="row">
-    <section id="stats_section" class="col-lg-6 text-sm-center shadowbox-xy">
+<section id="stats_story_section" class="row shadowbox-xy">
+    <section id="stats_section" class="col-lg-6 text-sm-center">
         <h2 class="text-center">
             <u>Vital Stats</u>
         </h2>
-        @if (Model.Profiler.HipMeasurement != null && Model.Profiler.NeckMeasurement != null && Model.Profiler.WaistMeasurement != null)
-        {
-            <div>
-                <table class="table text-center table-sm table-bordered">
-                    <thead class="thead-light">
-                        <tr class="lead">
-                            <th>Height</th>
-                            <th>Weight</th>
-                            <th>BF%</th>
-                            @*<th>EXP</th>*@
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>@Model.Profiler.Height cm</td>
-                            <td>@Model.Profiler.Weight kg</td>
-                            <td>@Model.bodyFat%</td>
-                            @*<td>0</td>*@
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <div class="roundbox-xy">
+            @if (Model.Profiler.HipMeasurement != null && Model.Profiler.NeckMeasurement != null && Model.Profiler.WaistMeasurement != null)
+            {
+                <div>
+                    <table class="table text-center table-sm table-bordered">
+                        <thead class="thead-light">
+                            <tr class="lead">
+                                <th>Height</th>
+                                <th>Weight</th>
+                                <th>BF%</th>
+                                @*<th>EXP</th>*@
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@Model.Profiler.Height cm</td>
+                                <td>@Model.Profiler.Weight kg</td>
+                                <td>@Model.bodyFat%</td>
+                                @*<td>0</td>*@
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-        }
-        @if (Model.Profiler.Campaign != null)
-        {
+            }
+            @if (Model.Profiler.Campaign != null)
+            {
+                <div>
+                    <table class="table text-center table-sm table-bordered">
+                        <thead class="thead-light">
+                            <tr class="lead">
+                                <th>Campaign</th>
+                                <th>Diet</th>
+                                <th>Quests</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a asp-page="/Campaigns/Details" asp-route-id="@Model.Profiler.Campaign.Id">@Model.Profiler.Campaign.CampaignName</a>
+                                </td>
+                                <td>@Model.Profiler.Campaign.CampaignDiet.DietName</td>
+                                <td>@Model.Profiler.Campaign.CampaignQuest.Count</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            }
             <div>
-                <table class="table text-center table-sm table-bordered">
+                <table class="table table-sm text-center table-bordered">
                     <thead class="thead-light">
                         <tr class="lead">
-                            <th>Campaign</th>
-                            <th>Diet</th>
-                            <th>Quests</th>
+                            <th>STR</th>
+                            <th>VIT</th>
+                            <th>CON</th>
+                            <th>AGI</th>
+                            <th>DEX</th>
+                            <th>MOT</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>
-                                <a asp-page="/Campaigns/Details" asp-route-id="@Model.Profiler.Campaign.Id">@Model.Profiler.Campaign.CampaignName</a>
-                            </td>
-                            <td>@Model.Profiler.Campaign.CampaignDiet.DietName</td>
-                            <td>@Model.Profiler.Campaign.CampaignQuest.Count</td>
+                            <td>@Model.Profiler.StrengthStat</td>
+                            <td>@Model.Profiler.ConstitutionStat</td>
+                            <td>@Model.Profiler.ConcentrationStat</td>
+                            <td>@Model.Profiler.SpeedStat</td>
+                            <td>@Model.Profiler.DexterityStat</td>
+                            <td>@Model.Profiler.MotivationStat</td>
+                        </tr>
+                        <tr>
+                            <td>+@Model.Profiler.FitStyle.StrengthMod</td>
+                            <td>+@Model.Profiler.FitStyle.ConstitutionMod</td>
+                            <td>+@Model.Profiler.FitStyle.ConcentrationMod</td>
+                            <td>+@Model.Profiler.FitStyle.SpeedMod</td>
+                            <td>+@Model.Profiler.FitStyle.DexterityMod</td>
+                            <td>+@Model.Profiler.FitStyle.MotivationMod</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-        }
-        <div>
-            <table class="table table-sm text-center table-bordered">
-                <thead class="thead-light">
-                    <tr class="lead">
-                        <th>STR</th>
-                        <th>VIT</th>
-                        <th>CON</th>
-                        <th>AGI</th>
-                        <th>DEX</th>
-                        <th>MOT</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>@Model.Profiler.StrengthStat</td>
-                        <td>@Model.Profiler.ConstitutionStat</td>
-                        <td>@Model.Profiler.ConcentrationStat</td>
-                        <td>@Model.Profiler.SpeedStat</td>
-                        <td>@Model.Profiler.DexterityStat</td>
-                        <td>@Model.Profiler.MotivationStat</td>
-                    </tr>
-                    <tr>
-                        <td>+@Model.Profiler.FitStyle.StrengthMod</td>
-                        <td>+@Model.Profiler.FitStyle.ConstitutionMod</td>
-                        <td>+@Model.Profiler.FitStyle.ConcentrationMod</td>
-                        <td>+@Model.Profiler.FitStyle.SpeedMod</td>
-                        <td>+@Model.Profiler.FitStyle.DexterityMod</td>
-                        <td>+@Model.Profiler.FitStyle.MotivationMod</td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
     </section>
-    <section id="story_section" class="col-lg-6 text-sm-center shadowbox-xy">
+    <section id="story_section" class="col-lg-6 text-sm-center">
         <h2 class="text-center">
             <u>Character</u>
         </h2>
         <div class="roundbox-xy">
-            <h3>Background</h3>
-            <p>@Model.Profiler.BackStory</p>
-        </div>
-        <div class="roundbox-xy">
-            <h3>What drives me?</h3>
-            <p>@Model.Profiler.DriveStory</p>
-        </div>
-        <div class="roundbox-xy">
-            <h3>Goals</h3>
-            <p>@Model.Profiler.Goals</p>
+            <div class="">
+                <h3>Background</h3>
+                <p>@Model.Profiler.BackStory</p>
+            </div>
+            <div class="">
+                <h3>What drives me?</h3>
+                <p>@Model.Profiler.DriveStory</p>
+            </div>
+            <div class="">
+                <h3>Goals</h3>
+                <p>@Model.Profiler.Goals</p>
+            </div>
         </div>
     </section>
 </section>

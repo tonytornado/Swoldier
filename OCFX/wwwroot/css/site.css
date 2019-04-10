@@ -80,16 +80,17 @@ nav {
 
 /* Avatars */
 .profile_avatar {
-    height: 300px;
-    width: 300px;
-    border-radius: 1%;
-    border: 2px ridge black;
+    height: 275px;
+    width: 275px;
+    border-radius: 50%;
+    border: 2px solid gray;
+    image-rendering: optimizespeed;
 }
 
 .friend_avatar {
 	height: 100px;
 	width: 100px;
-	border-radius: 10%;
+	border-radius: 15%;
 }
 
 .club_avatar {

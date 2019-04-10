@@ -1,7 +1,7 @@
-﻿using System;
+﻿using OCFX.Areas.Identity.Data;
 using OCFX.DataModels;
+using System;
 using System.Linq;
-using OCFX.Areas.Identity.Data;
 
 namespace OCFX.Data.DataRepo
 {
@@ -14,7 +14,7 @@ namespace OCFX.Data.DataRepo
             {
                 return;
             }
-            var classes = new Archetype[]
+            Archetype[] classes = new Archetype[]
             {
                 new Archetype {SkillMod = SkillType.Basic, FitType = ClassType.Hobbyist, StrengthMod = 0, DexterityMod = 0, ConcentrationMod = 0, MotivationMod = 0, ConstitutionMod = 0, SpeedMod = 0 },
                 new Archetype {SkillMod = SkillType.Basic, FitType = ClassType.Runner, StrengthMod = 1, DexterityMod = 1, ConcentrationMod = 1, MotivationMod = 1, ConstitutionMod = 1, SpeedMod = 3 },
@@ -26,7 +26,7 @@ namespace OCFX.Data.DataRepo
                 new Archetype {SkillMod = SkillType.Basic, FitType = ClassType.Dancer, StrengthMod = 1, DexterityMod = 3, MotivationMod = 1, ConcentrationMod = 1, ConstitutionMod = 1, SpeedMod = 2 },
                 new Archetype {SkillMod = SkillType.Basic, FitType = ClassType.Yoga, StrengthMod = 1, DexterityMod = 3, MotivationMod = 1, ConcentrationMod = 2, ConstitutionMod = 1, SpeedMod = 1 }
             };
-            foreach (var classy in classes)
+            foreach (Archetype classy in classes)
             {
                 context.Archetypes.Add(classy);
             }
@@ -37,13 +37,13 @@ namespace OCFX.Data.DataRepo
             {
                 return;
             }
-            var diets = new Diet[]
+            Diet[] diets = new Diet[]
             {
                 new Diet { DietName = "Mediterrean", Carbohydrates = 40, Protein = 40,  Fats = 20, DietTypeName = Diet.DietType.Maintenance},
                 new Diet { DietName = "Ketogenic", Carbohydrates = 5, Protein = 15,  Fats = 80, DietTypeName = Diet.DietType.FatLoss },
                 new Diet { DietName = "High Protein", Carbohydrates = 35, Protein = 45,  Fats = 20, DietTypeName = Diet.DietType.MassGain},
             };
-            foreach (var diet in diets)
+            foreach (Diet diet in diets)
             {
                 context.Diets.Add(diet);
             }
@@ -54,7 +54,7 @@ namespace OCFX.Data.DataRepo
             {
                 return;
             }
-            var campaigns = new Campaign[]
+            Campaign[] campaigns = new Campaign[]
             {
                 new Campaign
                 {
@@ -71,7 +71,7 @@ namespace OCFX.Data.DataRepo
                     DietId = 3
                 }
             };
-            foreach (var quest in campaigns)
+            foreach (Campaign quest in campaigns)
             {
                 context.Campaigns.Add(quest);
             }
@@ -82,7 +82,7 @@ namespace OCFX.Data.DataRepo
             {
                 return;
             }
-            var exercises = new Exercise[]
+            Exercise[] exercises = new Exercise[]
             {
                 new Exercise
                 {
@@ -136,7 +136,7 @@ namespace OCFX.Data.DataRepo
 
 
             };
-            foreach (var exercise in exercises)
+            foreach (Exercise exercise in exercises)
             {
                 context.Exercises.Add(exercise);
             }
@@ -146,7 +146,7 @@ namespace OCFX.Data.DataRepo
             {
                 return;
             }
-            var lessons = new Workout[]
+            Workout[] lessons = new Workout[]
             {
                 new Workout {
                     Title = "The Basics",
@@ -163,7 +163,7 @@ namespace OCFX.Data.DataRepo
                     DateAdded = DateTime.Now
                 }
             };
-            foreach (var lesson in lessons)
+            foreach (Workout lesson in lessons)
             {
                 context.Workouts.Add(lesson);
             }
@@ -174,7 +174,7 @@ namespace OCFX.Data.DataRepo
             {
                 return;
             }
-            var programs = new WorkoutProgram[]
+            WorkoutProgram[] programs = new WorkoutProgram[]
             {
                 new WorkoutProgram{ WorkoutId = 1, ExerciseId = 1, CampaignId = 1, Sets = 3, Repetitions=10 },
                 new WorkoutProgram{ WorkoutId = 1, ExerciseId = 2, CampaignId = 1,  Sets = 3, Repetitions=10 },
@@ -186,7 +186,7 @@ namespace OCFX.Data.DataRepo
                 new WorkoutProgram{ WorkoutId = 2, ExerciseId = 3, CampaignId = 1,  Sets = 3, Repetitions=10 },
                 new WorkoutProgram{ WorkoutId = 2, ExerciseId = 4, CampaignId = 1,  Sets = 3, Repetitions=10 },
             };
-            foreach (var program in programs)
+            foreach (WorkoutProgram program in programs)
             {
                 context.WorkoutPrograms.Add(program);
             }
@@ -197,12 +197,12 @@ namespace OCFX.Data.DataRepo
             {
                 return;
             }
-            var quests = new Quest[]
+            Quest[] quests = new Quest[]
             {
                 new Quest{ QuestName = "Run the Grid", QuestStyle = QuestType.Speed, QuestStory = "There's someone in this area creating a ruckus. Run them down.", CampaignId = 1},
                 new Quest{ QuestName = "Stomp the Grid", QuestStyle = QuestType.Power, QuestStory = "Oh great, you caught them! Now let's show them what you've got.", CampaignId = 1}
             };
-            foreach (var quest in quests)
+            foreach (Quest quest in quests)
             {
                 context.Quests.Add(quest);
             }
@@ -213,7 +213,7 @@ namespace OCFX.Data.DataRepo
             {
                 return;
             }
-            var clubs = new Gym[]
+            Gym[] clubs = new Gym[]
             {
                 new Gym
                 {
@@ -234,7 +234,7 @@ namespace OCFX.Data.DataRepo
                     MeetingFrequency = Session.MeetingInterval.Weekly
                 }
             };
-            foreach (var character in clubs)
+            foreach (Gym character in clubs)
             {
                 context.Gyms.Add(character);
             }
@@ -245,13 +245,13 @@ namespace OCFX.Data.DataRepo
             {
                 return;
             }
-            var equipment = new Equipment[]
+            Equipment[] equipment = new Equipment[]
             {
                 new Equipment { EquipName = "Pool", EquipDescription = "One of those things you swim in." },
                 new Equipment { EquipName = "Sauna", EquipDescription = "To heat up and cool off at the same damn time." },
                 new Equipment { EquipName = "Crossfit", EquipDescription = "I mean, someone's gotta talk about it." },
             };
-            foreach (var item in equipment)
+            foreach (Equipment item in equipment)
             {
                 context.GymAmenities.Add(item);
             }
@@ -262,7 +262,7 @@ namespace OCFX.Data.DataRepo
             {
                 return;
             }
-            var EquipmentRelation = new GymRelation[]
+            GymRelation[] EquipmentRelation = new GymRelation[]
             {
                 new GymRelation { EquipmentId = 1, GymId = 1 },
                 new GymRelation { EquipmentId = 2, GymId = 1 },
@@ -271,7 +271,7 @@ namespace OCFX.Data.DataRepo
                 new GymRelation { EquipmentId = 2, GymId = 2 },
                 new GymRelation { EquipmentId = 3, GymId = 2 },
             };
-            foreach (var item in EquipmentRelation)
+            foreach (GymRelation item in EquipmentRelation)
             {
                 context.RelativeGyms.Add(item);
             }
@@ -282,7 +282,7 @@ namespace OCFX.Data.DataRepo
             {
                 return;
             }
-            var faqs = new Facts[]
+            Facts[] faqs = new Facts[]
             {
                 new Facts
                 {
@@ -309,7 +309,7 @@ namespace OCFX.Data.DataRepo
                     Section = SectionName.Community
                 }
             };
-            foreach (var faq in faqs)
+            foreach (Facts faq in faqs)
             {
                 context.FAQs.Add(faq);
             }
