@@ -21,7 +21,6 @@
     <Folder Include="Areas\Identity\Services\" />
     <Folder Include="Pages\Campaigns\Dashes\" />
     <Folder Include="Pages\Test\" />
-    <Folder Include="wwwroot\lib\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -15,7 +15,7 @@
 	<input type="hidden" asp-for="Photo.ProfileId" />
     <section class="row">
         <figure class="col-sm-4 mx-auto roundbox-xy">
-            <img src="~/images/uploads/@Model.Photo.URL" alt="Alternate Text" class="figure-img img-fluid rounded" />
+            <img src="@Model.Photo.URL" alt="Alternate Text" class="figure-img img-fluid rounded" />
         </figure>
         <div class="col-sm-8 mx-auto shadowbox-xy">
             <div class="form-group">

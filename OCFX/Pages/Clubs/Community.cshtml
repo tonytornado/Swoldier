@@ -37,7 +37,7 @@
                                         </form>
                                     }
                                 </div>
-                                <img src="~/images/uploads/@athlete.Member.Photos.FirstOrDefault(m => m.ProfileId == athlete.Member.Id).URL" alt="Alternate Text" class="friend_avatar border">
+                                <img src="@athlete.Member.Photos.FirstOrDefault(m => m.ProfileId == athlete.Member.Id).URL" alt="Alternate Text" class="friend_avatar border">
                             </div>
                         </li>
                     }
@@ -121,7 +121,7 @@
                                                 </div>
                                             </form>
                                         </div>
-                                        <img src="~/images/uploads/@applicant.Member.Photos.FirstOrDefault(m => m.ProfileId == applicant.Member.Id).URL" alt="Alternate Text" class="friend_avatar border">
+                                        <img src="@applicant.Member.Photos.FirstOrDefault(m => m.ProfileId == applicant.Member.Id).URL" alt="Alternate Text" class="friend_avatar border">
                                     </div>
                                 </li>
                             }
