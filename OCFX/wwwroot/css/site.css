@@ -1,12 +1,12 @@
 ﻿@import url('https://fonts.googleapis.com/css?family=Montserrat:400|Staatliches');
 
 /* Standard headers */
-h1,h2,h3,h4,h5,h6,.title-font {
-	font-family: 'Staatliches', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+h1, h2, h3, h4, h5, h6, .title-font {
+    font-family: 'Staatliches', Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 body {
-	background-color: black;
+    background-color: black;
 }
 
 input, textarea {
@@ -14,8 +14,8 @@ input, textarea {
 }
 
 nav {
-	font-family: 'Staatliches', cursive;
-	font-size: 1.2em;
+    font-family: 'Staatliches', cursive;
+    font-size: 1.2em;
 }
 
 .dash_section {
@@ -57,9 +57,9 @@ nav {
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
-	padding-top: 10px;
-	padding-left: 15px;
-	padding-right: 15px;
+    padding-top: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 /* Carousel */
@@ -88,9 +88,9 @@ nav {
 }
 
 .friend_avatar {
-	height: 100px;
-	width: 100px;
-	border-radius: 15%;
+    height: 100px;
+    width: 100px;
+    border-radius: 15%;
 }
 
 .club_avatar {
@@ -100,7 +100,7 @@ nav {
     border: 2px ridge black;
 }
 
-/* Front page only*/ 
+/* Front page only*/
 .front-photo {
     border: 3px solid darkgray;
     border-radius: 2%;
@@ -123,7 +123,7 @@ nav {
     margin: 1rem auto 1rem auto;
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
     border: 1px solid #dee2e6;
-    border-radius: .3rem ;
+    border-radius: .3rem;
 }
 
 .insetbox-xy {
@@ -149,5 +149,3 @@ nav {
         display: none;
     }
 }
-
-

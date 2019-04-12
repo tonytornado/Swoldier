@@ -18,24 +18,31 @@ nav {
     font-size: 1.2em;
 }
 
-.dash {
+%dash_section {
     padding: 1rem 1rem;
     margin-bottom: 1rem;
     background-color: #e9ecef;
     border-radius: .5rem;
-
-    .dash_section_left {
-        margin-right: 1rem;
-    }
-
-    .dash_section_right {
-        margin-left: 1rem;
-    }
 }
+
+dash_box {
+    @extend dash_section;
+}
+
+.dash_section_left {
+    @extend dash_section;
+    margin-right: 1rem;
+}
+
+.dash_section_right {
+    @extend dash_section;
+    margin-left: 1rem;
+}
+
 
 #content {
     font-family: 'Montserrat','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: lightslategrey;
+    background-color: white;
     color: black;
 }
 
@@ -71,27 +78,23 @@ nav {
 }
 
 /* Avatars */
-$avatarWidth:   100px;
-$avatarHeight:  100px;
-
-
 .profile_avatar {
-    height: $avatarHeight*2.75;
-    width: $avatarWidth*2.75;
+    height: 275px;
+    width: 275px;
     border-radius: 50%;
     border: 2px solid gray;
     image-rendering: optimizespeed;
 }
 
 .friend_avatar {
-    height: $avatarHeight;
-    width: $avatarWidth;
+    height: 100px;
+    width: 100px;
     border-radius: 15%;
 }
 
 .club_avatar {
-    height: $avatarHeight*.75;
-    width: $avatarWidth*.75;
+    height: 75px;
+    width: 75px;
     border-radius: 15%;
     border: 2px ridge black;
 }
@@ -113,32 +116,27 @@ $avatarHeight:  100px;
 }
 
 /* Roundbox Aesthetic Types */
+
 %box {
-    background-color: white;
+    background-color: azure;
     padding: 1rem;
-    margin: 1rem auto 1rem auto;
     border: 1px solid #dee2e6;
     border-radius: .3rem;
 }
-.shadowbox-xy{
+
+.shadowbox-xy {
     @extend %box;
+    margin: 1rem auto 1rem auto;
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
-} 
-    
+}
+
 .insetbox-xy {
     @extend %box;
+    margin: 1rem auto 1rem auto;
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) inset;
 }
 
 .roundbox-xy {
     @extend %box;
-}
-
-
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
-    }
+    margin: auto;
 }

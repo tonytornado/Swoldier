@@ -7,7 +7,7 @@
 }
 <partial name="_StatusMessage" model="Model.StatusMessage" />
 <div class="row text-center">
-    <div class="col-md-4 dash_section border" id="profile_center">
+    <div class="col-md-4 dash_section dash_section_left border" id="profile_center">
         <h3 class="align-text-bottom">@Model.UserTitle</h3>
         <hr />
         <img src="@Model.ProfilePhoto.URL" alt="@Model.ProfilePhoto.Caption" class="rounded border-secondary mw-100" />
@@ -105,7 +105,7 @@
             </table>
         }
     </div>
-    <div class="col-md-4 dash_section border" id="post_center">
+    <div class="col-md-4 dash_section dash_section_right border" id="post_center">
         @if (Model.Profiler.Posts != null)
         {
             <div>
@@ -138,7 +138,7 @@
 <div class="row">
     @if (Model.Profiler.Gym != null)
     {
-        <div class="col-md dash_section_left border">
+        <div class="col-md dash_section dash_section_left border">
             <table class="table table-bordered text-center">
                 <thead class="thead-dark">
                     <tr>
@@ -176,7 +176,7 @@
 
     @if (Model.Profiler.ReceivedMessages != null && Model.Profiler.ReceivedMessages.Count > 0)
     {
-        <div class="col-md dash_section_right border">
+        <div class="col-md dash_section dash_section_right border">
             <table class="table table-bordered table-striped text-center">
                 <thead class="thead-dark">
                     <tr>
@@ -208,7 +208,7 @@
     }
     else
     {
-        <div class="col-md dash_section_right border">
+        <div class="col-md dash_section dash_section_right border">
             <table class="table table-bordered table-striped text-center">
                 <thead class="thead-dark">
                     <tr>
@@ -225,13 +225,13 @@
 <div class="row">
     @if (Model.Ad != null)
     {
-    <div class="col-md dash_section_left text-center">
+    <div class="col-md dash_section dash_section_left text-center">
         <h3>Your BMI is @Model.Ad[3]</h3>
         <h6>@Model.Ad[1]</h6>
         <p>@Model.Ad[2]</p>
     </div>
     }
-    <div class="col-md dash_section_right text-center">
+    <div class="col-md dash_section dash_section_right text-center">
         <h3>@Model.CalorieBurn Calories</h3>
         <p>You should have an overall calorie intake of around @Model.CalorieBurn calories. <br />
         If you move a bit, you can add another ~250 or so on that number depending on how much activity you normally do.</p>
