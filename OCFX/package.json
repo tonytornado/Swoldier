@@ -1,6 +1,6 @@
 {
   "name": "swoldiers-inc",
-  "version": "1.0.0",
+  "version": "0.5.0",
   "description": "A fitness D&D app.",
   "repository": "https://github.com/tonytornado/Swoldier",
   "main": "index.cshtml",

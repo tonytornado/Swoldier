@@ -10,10 +10,10 @@
     <div class="form-group roundbox-xy">
         <p>
             <h6>Find a club by name:</h6>
-            <input type="text" name="SearchString" value="@Model.CurrentSearch" class="form-control" />
+            <input type="text" name="SearchString" value="@Model.CurrentSearch" class="form-control form-control-lg" />
 
-            <div class="btn-group btn-group-sm">
-                <input type="submit" value="Search" class="btn btn-default" />
+            <div class="btn-group btn-group-sm btn-block">
+                <input type="submit" value="Search" class="btn btn-dark" />
                 @if (Model.CurrentSearch != null)
                 {
                     <a asp-page="./Index" class="btn btn-default">Back to full List</a>

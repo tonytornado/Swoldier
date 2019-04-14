@@ -13,11 +13,11 @@
 
 <form method="post" enctype="multipart/form-data">
 	<input type="hidden" asp-for="Photo.ProfileId" />
-    <section class="row">
-        <figure class="col-sm-4 mx-auto roundbox-xy">
+    <section class="row jumbotron">
+        <figure class="col-md-3 roundbox-xy">
             <img src="@Model.Photo.URL" alt="Alternate Text" class="figure-img img-fluid rounded" />
         </figure>
-        <div class="col-sm-8 mx-auto shadowbox-xy">
+        <div class="col-md-8 shadowbox-xy">
             <div class="form-group">
                 <label asp-for="Image" class="control-label">Show us your shiny teeth!</label>
                 <input asp-for="Image" class="form-control form-control-file" style="height:auto" required />

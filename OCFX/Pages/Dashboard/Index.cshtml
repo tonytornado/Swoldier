@@ -7,7 +7,7 @@
 }
 <partial name="_StatusMessage" model="Model.StatusMessage" />
 <div class="row text-center">
-    <div class="col-md-4 dash_section dash_section_left border" id="profile_center">
+    <div class="col-md-4 dash_section dash_section_left" id="profile_center">
         <h3 class="align-text-bottom">@Model.UserTitle</h3>
         <hr />
         <img src="@Model.ProfilePhoto.URL" alt="@Model.ProfilePhoto.Caption" class="rounded border-secondary mw-100" />
@@ -18,7 +18,7 @@
             <a asp-page="/Profiles/Friends" class="btn btn-sm btn-dark">Edit Friends</a>
         </div>
     </div>
-    <div class="col-md-4 dash_section bg-light" id="quest_center">
+    <div class="col-md-4 dash_section" id="quest_center">
         @if (Model.Profiler.Campaign != null)
         {
             <table class="table table-bordered">
@@ -105,7 +105,7 @@
             </table>
         }
     </div>
-    <div class="col-md-4 dash_section dash_section_right border" id="post_center">
+    <div class="col-md-4 dash_section dash_section_right" id="post_center">
         @if (Model.Profiler.Posts != null)
         {
             <div>
@@ -115,7 +115,7 @@
 
             foreach (var post in Model.Profiler.Posts.OrderByDescending(x => x.DatePosted).Take(5))
             {
-                <div class="border rounded shadow py-3 col-12">
+                <div class="roundbox-xy col-12">
                     <h6>@post.Profile.FullName</h6>
                     <p>@post.Text</p>
                     <small>@post.DatePosted</small>
@@ -124,7 +124,7 @@
                 {
                     foreach (var comment in post.Comments.OrderByDescending(x => x.DatePosted))
                     {
-                        <div class="border rounded shadow py-3 col-11">
+                        <div class="roundbox-xy py-3 col-11">
                             <h6>@comment.Profile.FullName</h6>
                             <p>@comment.Text</p>
                             <small>@comment.DatePosted</small>
@@ -138,7 +138,7 @@
 <div class="row">
     @if (Model.Profiler.Gym != null)
     {
-        <div class="col-md dash_section dash_section_left border">
+        <div class="col-md dash_section_left">
             <table class="table table-bordered text-center">
                 <thead class="thead-dark">
                     <tr>
@@ -169,14 +169,14 @@
     }
     else
     {
-        <div class="col-md dash_section_left border">
+        <div class="col-md dash_section_left">
             <p class="text-center">You are not a part of any gyms.</p>
         </div>
     }
 
     @if (Model.Profiler.ReceivedMessages != null && Model.Profiler.ReceivedMessages.Count > 0)
     {
-        <div class="col-md dash_section dash_section_right border">
+        <div class="col-md dash_section_right">
             <table class="table table-bordered table-striped text-center">
                 <thead class="thead-dark">
                     <tr>
@@ -208,7 +208,7 @@
     }
     else
     {
-        <div class="col-md dash_section dash_section_right border">
+        <div class="col-md dash_section_right">
             <table class="table table-bordered table-striped text-center">
                 <thead class="thead-dark">
                     <tr>
@@ -225,7 +225,7 @@
 <div class="row">
     @if (Model.Ad != null)
     {
-    <div class="col-md dash_section dash_section_left text-center">
+    <div class="col-md dash_section_left text-center">
         <h3>Your BMI is @Model.Ad[3]</h3>
         <h6>@Model.Ad[1]</h6>
         <p>@Model.Ad[2]</p>

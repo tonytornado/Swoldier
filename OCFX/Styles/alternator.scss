@@ -22,21 +22,23 @@ nav {
     padding: 1rem 1rem;
     margin-bottom: 1rem;
     background-color: #e9ecef;
-    border-radius: .5rem;
+    border: 2px groove;
 }
 
-dash_box {
-    @extend dash_section;
+.dash_section {
+    @extend %dash_section;
 }
 
 .dash_section_left {
-    @extend dash_section;
-    margin-right: 1rem;
+    @extend %dash_section;
+    border-top-left-radius: 1%;
+    border-bottom-left-radius: 1%;
 }
 
 .dash_section_right {
-    @extend dash_section;
-    margin-left: 1rem;
+    @extend %dash_section;
+    border-top-right-radius: 1%;
+    border-bottom-right-radius: 1%;
 }
 
 
@@ -78,23 +80,27 @@ dash_box {
 }
 
 /* Avatars */
+
+$avatarWidth: 100px;
+$avatarHeight: 100px;
+
 .profile_avatar {
-    height: 275px;
-    width: 275px;
+    height: $avatarHeight * 2.5;
+    width: $avatarWidth * 2.5;
     border-radius: 50%;
     border: 2px solid gray;
     image-rendering: optimizespeed;
 }
 
 .friend_avatar {
-    height: 100px;
-    width: 100px;
+    height: $avatarHeight;
+    width: $avatarHeight;
     border-radius: 15%;
 }
 
 .club_avatar {
-    height: 75px;
-    width: 75px;
+    height: $avatarHeight * .75;
+    width: $avatarWidth * .75;
     border-radius: 15%;
     border: 2px ridge black;
 }
@@ -118,7 +124,7 @@ dash_box {
 /* Roundbox Aesthetic Types */
 
 %box {
-    background-color: azure;
+    /*background-color: azure;*/
     padding: 1rem;
     border: 1px solid #dee2e6;
     border-radius: .3rem;

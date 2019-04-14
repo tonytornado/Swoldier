@@ -18,12 +18,12 @@ namespace OCFX.Pages.Clubs
         }
 
         public string CurrentSearch { get; set; }
-        public IQueryable<Gym> Kars { get; private set; }
+        public IQueryable<Gym> ClubListing { get; private set; }
         public PaginatedList<Gym> Gyms { get; private set; }
 
         public async System.Threading.Tasks.Task OnGetAsync(string searchString, int? pageIndex)
         {
-            Kars = from s in _context.Gyms select s;
+            ClubListing = from s in _context.Gyms select s;
 
             if (searchString != null)
             {
@@ -33,11 +33,11 @@ namespace OCFX.Pages.Clubs
             }
 
             if (!String.IsNullOrEmpty(searchString)){
-                Kars = Kars.Where(s => s.Title.Contains(searchString));
+                ClubListing = ClubListing.Where(s => s.Title.Contains(searchString));
             }
 
-            int pageSize = 2;
-            Gyms = await PaginatedList<Gym>.CreateAsync(Kars.AsNoTracking(), pageIndex ?? 1, pageSize);
+            int pageSize = 5;
+            Gyms = await PaginatedList<Gym>.CreateAsync(ClubListing.AsNoTracking(), pageIndex ?? 1, pageSize);
         }
     }
 }
