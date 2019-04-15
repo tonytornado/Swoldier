@@ -11,22 +11,33 @@
 @if (Model.InitialBoardPost != null)
 {
     <div class="rounded shadow-lg p-3 my-3">
-        <h3>
-            @Model.InitialBoardPost.Title
-            <small>from @Model.InitialBoardPost.Profile.FirstName</small>
-        </h3>
-        <p>@Model.InitialBoardPost.Text</p>
-        <small>@Model.InitialBoardPost.DatePosted</small>
+        <div class="row">
+            <div class="col-auto">
+                <img src="@Model.InitialBoardPost.Profile.Photos.OrderByDescending(d => d.DateAdded).FirstOrDefault(p => p.Type == DataModels.Photo.PhotoType.Profile).URL" alt="Alternate Text" class="club_avatar"/>
+            </div>
+            <div class="col-10">
+                <h3>
+                    @Model.InitialBoardPost.Title
+                    @*<small>from @Model.InitialBoardPost.Profile.FirstName</small>*@
+                </h3>
+                <p>@Model.InitialBoardPost.Text</p>
+                <small>@Model.InitialBoardPost.DatePosted</small>
+            </div>
+        </div>
     </div>
     <div>
         <ul class="list-group list-group-flush">
             @foreach (var item in Model.InitialBoardComments)
             {
-                <li class="list-group-item">
-                    <div class="p-3">
-                        <h6>@item.Profile.FirstName</h6>
-                        <p>@item.Text</p>
-                        <small>@item.DatePosted</small>
+                <li class="list-group-item list-group-item-dark">
+                    <div class="row">
+                        <div class="col-auto">
+                            <img src="@item.Profile.Photos.OrderByDescending(d => d.DateAdded).FirstOrDefault(p => p.Type == DataModels.Photo.PhotoType.Profile).URL" alt="Alternate Text" class="club_avatar" />
+                        </div>
+                        <div class="col-10 p-1">
+                            <p>@item.Text</p>
+                            <small>@item.DatePosted</small>
+                        </div>
                     </div>
                 </li>
             }

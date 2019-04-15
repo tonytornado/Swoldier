@@ -43,7 +43,11 @@ namespace OCFX.Pages.Clubs
 
             BoardViewingMember = await _userManager.GetUserAsync(User);
 
-            BoardPosts = await _context.MessageBoardPosts.Include(c => c.MessageBoardComments).Where(c => c.Board.Id == id).ToListAsync();
+            BoardPosts = await _context.MessageBoardPosts
+                .Include(P => P.Profile)
+                    .ThenInclude(P => P.Photos)
+                .Include(c => c.MessageBoardComments)
+                .Where(c => c.Board.Id == id).ToListAsync();
 
             BoardId = id;
 

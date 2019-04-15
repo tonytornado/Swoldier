@@ -39,8 +39,10 @@ namespace OCFX.Pages.Clubs.MessageBoard
             InitialBoardPost = await _context.MessageBoardPosts
                 .Include(b => b.Board)
                 .Include(p => p.Profile)
+                    .ThenInclude(c => c.Photos)
                 .Include(c => c.MessageBoardComments)
                     .ThenInclude(c => c.Profile)
+                        .ThenInclude(c => c.Photos)
                 .SingleOrDefaultAsync(c => 
             c.Board.Id == BoardId 
             && c.Id == MessageId);
