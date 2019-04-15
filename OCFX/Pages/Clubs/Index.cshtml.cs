@@ -17,7 +17,7 @@ namespace OCFX.Pages.Clubs
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public string CurrentSearch { get; set; }
+        public bool CurrentSearch { get; set; }
         public IQueryable<Gym> ClubListing { get; private set; }
         public PaginatedList<Gym> Gyms { get; private set; }
 
@@ -29,7 +29,7 @@ namespace OCFX.Pages.Clubs
             {
                 pageIndex = 1;
             } else {
-                CurrentSearch = searchString;
+                CurrentSearch = true;
             }
 
             if (!String.IsNullOrEmpty(searchString)){

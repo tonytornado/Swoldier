@@ -9,9 +9,20 @@
 <partial name="_StatusMessage" model="Model.StatusMessage" />
 <section class="row">
     <div class="col-md-8">
+        @if (Model.GymDetail.Status == DataModels.ApprovalStatus.Pending)
+        {
+            <div class="alert alert-warning">
+                <p class="text-danger">
+                    This club is pending approval.
+                    <hr />
+                    All gyms have to go through an approval process. You'll just have to wait for it to open.
+                </p>
+            </div>
+        }
         <div>
-            <p>@Model.GymDetail.Description</p>
+            <p class="lead">@Model.GymDetail.Description</p>
         </div>
+        <hr />
         @if (Model.MemberCount != 0)
         {
             <div>
@@ -132,7 +143,7 @@
         </div>
     </div>
     <div class="col-sm-4 text-center" id="amenities_boardpost_container">
-        @if (Model.ClubAllegiance == false && Model.Subscription != null)
+        @if (!Model.ClubAllegiance && Model.Subscription != null)
         {
             <div id="messageBoard_container">
                 @if (Model.MessageBoardPosts > 0)

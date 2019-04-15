@@ -155,7 +155,7 @@
                         @if (Model.Profiler.Gym.Club.Leader != null)
                         {
                             <td>
-                                (Model.Profiler.Gym.Club.Leader.FirstName + " " + Model.Profiler.Gym.Club.Leader.LastName)
+                                (@Model.Profiler.Gym.Club.Leader.FirstName + " " + @Model.Profiler.Gym.Club.Leader.LastName)
                             </td>
                         }
                         else
