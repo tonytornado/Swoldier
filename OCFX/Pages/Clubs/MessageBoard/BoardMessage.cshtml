@@ -10,7 +10,7 @@
 
 @if (Model.InitialBoardPost != null)
 {
-    <div class="rounded shadow-lg p-3 my-3">
+    <div class="roundbox-xy my-3">
         <div class="row">
             <div class="col-auto">
                 <img src="@Model.InitialBoardPost.Profile.Photos.OrderByDescending(d => d.DateAdded).FirstOrDefault(p => p.Type == DataModels.Photo.PhotoType.Profile).URL" alt="Alternate Text" class="club_avatar" />
@@ -22,13 +22,14 @@
                     @Model.InitialBoardPost.Title
                     @**@
                 </h3>
-                <p>@Model.InitialBoardPost.Text</p>
+                <span>@Model.InitialBoardPost.Text</span>
+                <hr />
                 <small>@Model.InitialBoardPost.DatePosted</small>
             </div>
         </div>
     </div>
     <div>
-        <ul class="list-group list-group-flush">
+        <ul class="list-group">
             @foreach (var item in Model.InitialBoardComments)
             {
                 <li class="list-group-item list-group-item-dark">
@@ -40,6 +41,7 @@
                         </div>
                         <div class="col-10 p-1">
                             <p>@item.Text</p>
+                            <hr />
                             <small>@item.DatePosted</small>
                         </div>
                     </div>
@@ -48,8 +50,8 @@
         </ul>
     </div>
 }
-<div>
-    <a href="#TopicBox" onclick="$('#TopicBox').show()" class="btn btn-block btn-outline-primary">Reply</a>
+<div class="m-3">
+    <a href="#TopicBox" onclick="$('#TopicBox').slideToggle()" class="btn btn-block btn-outline-primary">Reply</a>
 </div>
 <div id="TopicBox" class="rounded shadow col-md-11 mx-auto p-1 m-3" style="display: none;">
     <form method="post">
@@ -64,7 +66,7 @@
                     asp-page-handler="Comment">
                 Comment
             </button>
-            <a onclick="$('#TopicBox').hide()" class="btn btn-danger">Cancel</a>
+            <a onclick="$('#TopicBox').slideToggle()" class="btn btn-danger">Cancel</a>
         </div>
     </form>
 </div>
