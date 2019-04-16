@@ -13,12 +13,14 @@
     <div class="rounded shadow-lg p-3 my-3">
         <div class="row">
             <div class="col-auto">
-                <img src="@Model.InitialBoardPost.Profile.Photos.OrderByDescending(d => d.DateAdded).FirstOrDefault(p => p.Type == DataModels.Photo.PhotoType.Profile).URL" alt="Alternate Text" class="club_avatar"/>
+                <img src="@Model.InitialBoardPost.Profile.Photos.OrderByDescending(d => d.DateAdded).FirstOrDefault(p => p.Type == DataModels.Photo.PhotoType.Profile).URL" alt="Alternate Text" class="club_avatar" />
+                <br />
+                <small>@string.Format("{0} {1}.", Model.InitialBoardPost.Profile.FirstName, Model.InitialBoardPost.Profile.LastName.Substring(0,1))</small>
             </div>
             <div class="col-10">
                 <h3>
                     @Model.InitialBoardPost.Title
-                    @*<small>from @Model.InitialBoardPost.Profile.FirstName</small>*@
+                    @**@
                 </h3>
                 <p>@Model.InitialBoardPost.Text</p>
                 <small>@Model.InitialBoardPost.DatePosted</small>
@@ -33,6 +35,8 @@
                     <div class="row">
                         <div class="col-auto">
                             <img src="@item.Profile.Photos.OrderByDescending(d => d.DateAdded).FirstOrDefault(p => p.Type == DataModels.Photo.PhotoType.Profile).URL" alt="Alternate Text" class="club_avatar" />
+                            <br />
+                            <small>@string.Format("{0} {1}.", item.Profile.FirstName, item.Profile.LastName.Substring(0,1))</small>
                         </div>
                         <div class="col-10 p-1">
                             <p>@item.Text</p>

@@ -1,28 +1,23 @@
 {
-  "name": "swoldiers-inc",
-  "version": "0.5.0",
+  "author": "Antonio Thigpen",
+  "dependencies": {},
   "description": "A fitness D&D app.",
-  "repository": "https://github.com/tonytornado/Swoldier",
-  "main": "index.cshtml",
   "devDependencies": {
     "autoprefixer": "latest",
     "grunt": "latest",
     "grunt-cli": "latest",
-    "grunt-contrib-cssmin": "latest",
-    "grunt-contrib-sass": "latest",
-    "grunt-contrib-uglify": "latest",
-    "grunt-contrib-watch": "latest",
-    "grunt-postcss": "latest",
-    "grunt-sass": "^3.0.2",
-    "node-sass": "^4.11.0"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "grunt-sass": "latest",
+    "node-sass": "latest"
   },
   "keywords": [
     "Swoldiers"
   ],
-  "author": "Antonio Thigpen",
   "license": "ISC",
-  "dependencies": {}
+  "main": "index.cshtml",
+  "name": "swoldiers-inc",
+  "repository": "https://github.com/tonytornado/Swoldier",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.5.0"
 }
