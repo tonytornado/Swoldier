@@ -15,7 +15,7 @@ namespace OCFX.Areas.Identity.Data
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
-			base.OnModelCreating(builder);
+            base.OnModelCreating(builder);
 			builder.Entity<Friend>().HasKey(c => new { c.ProfileId, c.FriendId });
 
 			foreach (var relationship in builder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
