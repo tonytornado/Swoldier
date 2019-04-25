@@ -1,0 +1,17 @@
+﻿@page "{id}"
+@model OCFX.Pages.Programs.DetailModel
+@{
+    ViewData["Title"] = Model.WorkoutDetail.Title;
+    ViewData["BannerTitle"] = Model.WorkoutDetail.Title;
+    ViewData["BannerSubTitle"] = Model.WorkoutDetail.TargetedMuscles;
+}
+
+<section>
+    <p>@Model.WorkoutDetail.Description</p>
+    <ul class="list-group">
+        @foreach (var item in Model.Exercises)
+        {
+            <li class="list-group-item">@item.Exercise.Name [@item.Exercise.ExerType]</li>
+        }
+    </ul>
+</section>

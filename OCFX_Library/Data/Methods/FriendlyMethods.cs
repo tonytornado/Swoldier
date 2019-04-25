@@ -10,12 +10,6 @@ namespace OCFX.Data.Methods
 {
     public class FriendlyMethods
     {
-        private readonly OCFXContext _context;
-        public FriendlyMethods(OCFXContext context)
-        {
-            _context = context;
-        }
-
         /// <summary>
         /// Gets a list of friends for a specified user
         /// </summary>
