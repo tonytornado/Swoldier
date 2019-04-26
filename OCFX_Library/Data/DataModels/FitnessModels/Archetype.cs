@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace OCFX.DataModels
 {
@@ -18,22 +19,40 @@ namespace OCFX.DataModels
 		// Modifications to the base stats of the character.
 		[Display(Name = "STR")]
 		[Range(0, 5)]
+        [Required]
 		public int StrengthMod { get; set; }
 		[Display(Name = "SPD")]
 		[Range(0, 5)]
-		public int SpeedMod { get; set; }
+        [Required]
+        public int SpeedMod { get; set; }
 		[Display(Name = "VIT")]
 		[Range(0, 5)]
-		public int ConstitutionMod { get; set; }
+        [Required]
+        public int ConstitutionMod { get; set; }
 		[Display(Name = "DEX")]
 		[Range(0, 5)]
-		public int DexterityMod { get; set; }
+        [Required]
+        public int DexterityMod { get; set; }
 		[Display(Name = "CON")]
 		[Range(0, 5)]
-		public int ConcentrationMod { get; set; }
+        [Required]
+        public int ConcentrationMod { get; set; }
 		[Display(Name = "MVN")]
 		[Range(0, 5)]
-		public int MotivationMod { get; set; }
+        [Required]
+        public int MotivationMod { get; set; }
+
+        [Display(Name = "Class Details")]
+        public string Story { get; set; }
+        [Display(Name = "Class Background")]
+        public string Background { get; set; }
+        [Display(Name = "Class Strengths")]
+        public string Strengths { get; set; }
+        [Display(Name = "Class Weaknesses")]
+        public string Weakness { get; set; }
+
+        [Display(Name = "Available Skill Set")]
+        public ICollection<Skills> Skillset { get; set; }
     }
 
     /// <summary>
