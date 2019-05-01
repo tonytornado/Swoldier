@@ -11,7 +11,7 @@
     <ul class="list-group list-group-flush">
         @foreach (var item in Model.Workouts)
         {
-            <li class="list-group-item"><a asp-page="Detail" asp-route-id="@item.Id" class="stretched-link">@item.Title</a></li>
+        <li class="list-group-item text-center"><a asp-page="Detail" asp-route-id="@item.Id" class="stretched-link btn btn-block btn-outline-dark">@item.Title</a></li>
         }
         </ul>
 </div>

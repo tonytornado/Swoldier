@@ -4,7 +4,6 @@ using OCFX.Areas.Identity.Data;
 using OCFX.DataModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace OCFX_API.Controllers
@@ -24,8 +23,17 @@ namespace OCFX_API.Controllers
         [HttpGet]
         public async Task<List<Profile>> Get()
         {
-            var profiles = await _context.Profiles.ToListAsync();
+            List<Profile> profiles = await _context.Profiles.ToListAsync();
             return profiles;
+        }
+
+        // Get api/spectre/gyms
+        [HttpGet("GetGyms")]
+        public async Task<List<Gym>> GetGyms()
+        {
+            List<Gym> gyms = await _context.Gyms.ToListAsync();
+            return gyms;
+            
         }
 
         // GET api/spectre/5

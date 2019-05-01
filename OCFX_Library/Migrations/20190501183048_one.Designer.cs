@@ -10,8 +10,8 @@ using OCFX.Areas.Identity.Data;
 namespace OCFX.Migrations
 {
     [DbContext(typeof(OCFXContext))]
-    [Migration("20190425202449_workout-detail")]
-    partial class workoutdetail
+    [Migration("20190501183048_one")]
+    partial class one
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -161,6 +161,8 @@ namespace OCFX.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Background");
+
                     b.Property<int>("ConcentrationMod");
 
                     b.Property<int>("ConstitutionMod");
@@ -175,7 +177,13 @@ namespace OCFX.Migrations
 
                     b.Property<int>("SpeedMod");
 
+                    b.Property<string>("Story");
+
                     b.Property<int>("StrengthMod");
+
+                    b.Property<string>("Strengths");
+
+                    b.Property<string>("Weakness");
 
                     b.HasKey("Id");
 
@@ -284,11 +292,7 @@ namespace OCFX.Migrations
 
                     b.Property<string>("Url");
 
-                    b.Property<int?>("WorkoutId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("WorkoutId");
 
                     b.ToTable("Exercises");
                 });
@@ -779,6 +783,37 @@ namespace OCFX.Migrations
                     b.ToTable("Messages");
                 });
 
+            modelBuilder.Entity("OCFX.DataModels.Skills", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AirCost");
+
+                    b.Property<int?>("ArchetypeId");
+
+                    b.Property<TimeSpan>("Cooldown");
+
+                    b.Property<string>("Description");
+
+                    b.Property<int>("Effect");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("Style");
+
+                    b.Property<int>("Target");
+
+                    b.Property<string>("Warning");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArchetypeId");
+
+                    b.ToTable("Skills");
+                });
+
             modelBuilder.Entity("OCFX.DataModels.Workout", b =>
                 {
                     b.Property<int>("Id")
@@ -905,14 +940,6 @@ namespace OCFX.Migrations
                     b.HasOne("OCFX.DataModels.Profile", "Profile")
                         .WithMany()
                         .HasForeignKey("ProfileId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("OCFX.DataModels.Exercise", b =>
-                {
-                    b.HasOne("OCFX.DataModels.Workout")
-                        .WithMany("Exercises")
-                        .HasForeignKey("WorkoutId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
@@ -1111,6 +1138,14 @@ namespace OCFX.Migrations
                     b.HasOne("OCFX.DataModels.Profile", "Sender")
                         .WithMany("SentMessages")
                         .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("OCFX.DataModels.Skills", b =>
+                {
+                    b.HasOne("OCFX.DataModels.Archetype")
+                        .WithMany("Skillset")
+                        .HasForeignKey("ArchetypeId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

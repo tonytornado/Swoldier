@@ -16,7 +16,7 @@ namespace OCFX.DataModels
         [Display(Name = "Exercise Type")]
 		public ExerciseType ExerType { get; set; }
 
-        [Display(Name = "Muscles targeted")]
+        [Display(Name = "Targeted Muscle Groups")]
 		public WorkoutType TargetedMuscles { get; set; }
 
         [Display(Name = "Exercise Description")]

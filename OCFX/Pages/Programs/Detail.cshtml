@@ -2,16 +2,29 @@
 @model OCFX.Pages.Programs.DetailModel
 @{
     ViewData["Title"] = Model.WorkoutDetail.Title;
-    ViewData["BannerTitle"] = Model.WorkoutDetail.Title;
-    ViewData["BannerSubTitle"] = Model.WorkoutDetail.TargetedMuscles;
+    ViewData["BannerTitle"] = ViewData["Title"];
+    ViewData["BannerSubTitle"] = Html.DisplayFor(m => m.WorkoutDetail.TargetedMuscles);
 }
 
-<section>
+<section class="col-md-8">
     <p>@Model.WorkoutDetail.Description</p>
-    <ul class="list-group">
-        @foreach (var item in Model.Exercises)
-        {
-            <li class="list-group-item">@item.Exercise.Name [@item.Exercise.ExerType]</li>
-        }
-    </ul>
+    <table class="table table-responsive-sm table-bordered text-center">
+        <thead class="thead-dark">
+            <tr>
+                <th>Exercise</th>
+                <th>Sets</th>
+                <th>Reps</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ex in Model.Exercises.OrderBy(e => e.Order))
+            {
+                <tr>
+                    <th>@ex.Exercise.Name</th>
+                    <th>@ex.Sets</th>
+                    <th>@ex.Repetitions</th>
+                </tr>
+            }
+        </tbody>
+    </table>
 </section>

@@ -1,17 +1,27 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace OCFX.DataModels
 {
     public class Skills
     {
+        [Display(Name = "Id")]
         public int Id { get; set; }
+        [Display(Name = "Name")]
         public string Name { get; set; }
+        [Display(Name = "O2 Cost")]
         public int AirCost { get; set; }
+        [Display(Name = "Type")]
         public StyleType Style { get; set; }
+        [Display(Name = "Cooldown")]
         public TimeSpan Cooldown { get; set; }
+        [Display(Name = "Target")]
         public TargetType Target { get; set; }
+        [Display(Name = "Effect")]
         public EffectType Effect { get; set; }
+        [Display(Name = "Description")]
         public string Description { get; set; }
+        [Display(Name = "Dangers")]
         public string Warning { get; set; }
     }
 
@@ -30,10 +40,15 @@ namespace OCFX.DataModels
     /// </summary>
     public enum TargetType
     {
+        [Display(Name = "Self")]
         Self = 0,
+        [Display(Name = "Front Target")]
         SingleFront = 1,
+        [Display(Name = "Rear Target")]
         SingleRear = 2,
+        [Display(Name = "Side Target")]
         SingleSide = 3,
+        [Display(Name = "Area of Effect")]
         AreaOfEffect = 4,
     }
 
