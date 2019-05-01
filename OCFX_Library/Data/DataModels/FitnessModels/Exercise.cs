@@ -5,19 +5,19 @@ namespace OCFX.DataModels
 {
     // An exercise can be a part of several workouts?
     public class Exercise
-	{
-		[Key]
-		[Display(Name = "Exercise")]
-		public int Id { get; set; }
+    {
+        [Key]
+        [Display(Name = "Exercise")]
+        public int Id { get; set; }
 
         [Display(Name = "Exercise Name")]
-		public string Name { get; set; }
+        public string Name { get; set; }
 
         [Display(Name = "Exercise Type")]
-		public ExerciseType ExerType { get; set; }
+        public ExerciseType ExerType { get; set; }
 
         [Display(Name = "Targeted Muscle Groups")]
-		public WorkoutType TargetedMuscles { get; set; }
+        public WorkoutType TargetedMuscles { get; set; }
 
         [Display(Name = "Exercise Description")]
         public string Description { get; set; }
@@ -28,17 +28,17 @@ namespace OCFX.DataModels
         public string Url { get; set; }
 
         public enum ExerciseType
-		{
-			[Display(Name ="Cardio")]
-			Cardio = 1,
-			[Display(Name = "Strength")]
-			Strength = 2,
-			[Display(Name = "Balance")]
-			Balance = 3,
-			[Display(Name = "Flexibility")]
-			Flexibility = 4,
-			[Display(Name = "Tabata")]
-			Tabata = 5
-		}
-	}
+        {
+            [Display(Name = "Cardio")]
+            Cardio = 1,
+            [Display(Name = "Strength")]
+            Strength = 2,
+            [Display(Name = "Balance")]
+            Balance = 3,
+            [Display(Name = "Flexibility")]
+            Flexibility = 4,
+            [Display(Name = "Tabata")]
+            Tabata = 5
+        }
+    }
 }

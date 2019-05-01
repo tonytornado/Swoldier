@@ -70,6 +70,6 @@ namespace OCFX.DataModels
         // Incapacitation
         Concussion = 8,
         BrokenLimb = 9,
-        DoctorsOrder =10
+        DoctorsOrder = 10
     }
 }
