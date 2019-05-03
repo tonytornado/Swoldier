@@ -9,6 +9,13 @@ namespace OCFX.Data.DataRepo
     {
         public static void Initialize(OCFXContext context)
         {
+            AddNerdery(context);
+            AddFitness(context);
+            AddFaq(context);
+        }
+
+        private static void AddNerdery(OCFXContext context)
+        {
             // Archetype/Classes
             if (context.Archetypes.Any())
             {
@@ -22,24 +29,36 @@ namespace OCFX.Data.DataRepo
                     Strengths = "None"},
                 new Archetype {SkillMod = SkillType.Basic, FitType = ClassType.Runner, StrengthMod = 1, DexterityMod = 1, ConcentrationMod = 1, MotivationMod = 1, ConstitutionMod = 1, SpeedMod = 3,
                     Background = "Gotta go fast",
-                Weakness = "Strength",
-                Strengths = "Speed"},
+                    Weakness = "Strength",
+                    Strengths = "Speed"},
                 new Archetype {SkillMod = SkillType.Basic, FitType = ClassType.Powerlifter, StrengthMod = 3, DexterityMod = 1, MotivationMod = 1, ConcentrationMod = 1, ConstitutionMod = 2, SpeedMod = 1,
-                Background = "It's not about the size; but rather how friggin' heavy it is.",
-                Weakness = "Strength and Constitution",
-                Strengths = "Speed"},
+                    Background = "It's not about the size; but rather how friggin' heavy it is.",
+                    Weakness = "Strength and Constitution",
+                    Strengths = "Speed"},
                 new Archetype {SkillMod = SkillType.Basic, FitType = ClassType.Bodybuilder, StrengthMod = 3, DexterityMod = 1, MotivationMod = 2, ConcentrationMod = 1, ConstitutionMod = 2, SpeedMod = 1,
-                Background = "We're going to PUMP you UP.", Weakness = "Speed", Strengths = "Stregnth and Constitution"},
+                    Background = "We're going to PUMP you UP.",
+                    Weakness = "Speed",
+                    Strengths = "Stregnth and Constitution"},
                 new Archetype {SkillMod = SkillType.Basic, FitType = ClassType.Crossfit, StrengthMod = 2, DexterityMod = 1, MotivationMod = 3, ConcentrationMod = 1, ConstitutionMod = 1, SpeedMod = 1,
-                Background = "Did this person ever tell you about Crossfit? Well...", Weakness = "Concentration", Strengths = "Strength and Motivation"},
+                    Background = "Did this person ever tell you about Crossfit? Well...",
+                    Weakness = "Concentration",
+                    Strengths = "Strength and Motivation"},
                 new Archetype {SkillMod = SkillType.Basic, FitType = ClassType.Olympian, StrengthMod = 2, DexterityMod = 2, MotivationMod = 2, ConcentrationMod = 2, ConstitutionMod = 2, SpeedMod = 2,
-                Background = "Peak performance, gold standard.", Weakness = "Constitution", Strengths = "Dexterity and Concentration"},
+                    Background = "Peak performance, gold standard.",
+                    Weakness = "Constitution",
+                    Strengths = "Dexterity and Concentration"},
                 new Archetype {SkillMod = SkillType.Basic, FitType = ClassType.Fighter, StrengthMod = 2, DexterityMod = 2, MotivationMod = 1, ConcentrationMod = 2, ConstitutionMod = 1, SpeedMod = 2,
-                Background = "Trained from the early days to do one thing and one thing only: Kick ass.", Weakness = "Speed", Strengths = "Dexterity and Constitution" },
+                    Background = "Trained from the early days to do one thing and one thing only: Kick ass.",
+                    Weakness = "Speed",
+                    Strengths = "Dexterity and Constitution" },
                 new Archetype {SkillMod = SkillType.Basic, FitType = ClassType.Dancer, StrengthMod = 1, DexterityMod = 3, MotivationMod = 1, ConcentrationMod = 1, ConstitutionMod = 1, SpeedMod = 2,
-                Background = "Dance Dance Revolution", Weakness = "Strength", Strengths = "Dexterity and Speed"},
+                    Background = "Dance Dance Revolution",
+                    Weakness = "Strength",
+                    Strengths = "Dexterity and Speed"},
                 new Archetype {SkillMod = SkillType.Basic, FitType = ClassType.Yoga, StrengthMod = 1, DexterityMod = 3, MotivationMod = 1, ConcentrationMod = 2, ConstitutionMod = 1, SpeedMod = 1,
-                Background = "You can't spit fire but you can still stretch harder than anyone else.", Weakness = "Strength", Strengths = "Dexterity and Concentration"}
+                    Background = "You can't spit fire but you can still stretch harder than anyone else.",
+                    Weakness = "Strength",
+                    Strengths = "Dexterity and Concentration"}
             };
             foreach (Archetype classy in classes)
             {
@@ -184,7 +203,33 @@ namespace OCFX.Data.DataRepo
             }
             context.SaveChanges();
 
+            // Quests (Campaigns first)
+            CombineQuests(context);
+
             // Workout Programs (Diets, Campaigns, Quests, Exercises, Workouts first)
+            CombineNerdery(context);
+        }
+
+        private static void CombineQuests(OCFXContext context)
+        {
+            if (context.Quests.Any())
+            {
+                return;
+            }
+            Quest[] quests = new Quest[]
+            {
+                new Quest{ QuestName = "Run the Grid", QuestStyle = QuestType.Speed, QuestStory = "There's someone in this area creating a ruckus. Run them down.", CampaignId = 1},
+                new Quest{ QuestName = "Stomp the Grid", QuestStyle = QuestType.Power, QuestStory = "Oh great, you caught them! Now let's show them what you've got.", CampaignId = 1}
+            };
+            foreach (Quest quest in quests)
+            {
+                context.Quests.Add(quest);
+            }
+            context.SaveChanges();
+        }
+
+        private static void CombineNerdery(OCFXContext context)
+        {
             if (context.WorkoutPrograms.Any())
             {
                 return;
@@ -206,23 +251,10 @@ namespace OCFX.Data.DataRepo
                 context.WorkoutPrograms.Add(program);
             }
             context.SaveChanges();
+        }
 
-            // Quests (Campaigns first)
-            if (context.Quests.Any())
-            {
-                return;
-            }
-            Quest[] quests = new Quest[]
-            {
-                new Quest{ QuestName = "Run the Grid", QuestStyle = QuestType.Speed, QuestStory = "There's someone in this area creating a ruckus. Run them down.", CampaignId = 1},
-                new Quest{ QuestName = "Stomp the Grid", QuestStyle = QuestType.Power, QuestStory = "Oh great, you caught them! Now let's show them what you've got.", CampaignId = 1}
-            };
-            foreach (Quest quest in quests)
-            {
-                context.Quests.Add(quest);
-            }
-            context.SaveChanges();
-
+        private static void AddFitness(OCFXContext context)
+        {
             // Gyms
             if (context.Gyms.Any())
             {
@@ -291,7 +323,10 @@ namespace OCFX.Data.DataRepo
                 context.RelativeGyms.Add(item);
             }
             context.SaveChanges();
+        }
 
+        private static void AddFaq(OCFXContext context)
+        {
             // FAQs
             if (context.FAQs.Any())
             {
