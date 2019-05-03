@@ -16,15 +16,30 @@ namespace OCFX.Data.DataRepo
             }
             Archetype[] classes = new Archetype[]
             {
-                new Archetype {SkillMod = SkillType.Basic, FitType = ClassType.Hobbyist, StrengthMod = 0, DexterityMod = 0, ConcentrationMod = 0, MotivationMod = 0, ConstitutionMod = 0, SpeedMod = 0 },
-                new Archetype {SkillMod = SkillType.Basic, FitType = ClassType.Runner, StrengthMod = 1, DexterityMod = 1, ConcentrationMod = 1, MotivationMod = 1, ConstitutionMod = 1, SpeedMod = 3 },
-                new Archetype {SkillMod = SkillType.Basic, FitType = ClassType.Powerlifter, StrengthMod = 3, DexterityMod = 1, MotivationMod = 1, ConcentrationMod = 1, ConstitutionMod = 2, SpeedMod = 1 },
-                new Archetype {SkillMod = SkillType.Basic, FitType = ClassType.Bodybuilder, StrengthMod = 3, DexterityMod = 1, MotivationMod = 2, ConcentrationMod = 1, ConstitutionMod = 2, SpeedMod = 1 },
-                new Archetype {SkillMod = SkillType.Basic, FitType = ClassType.Crossfit, StrengthMod = 2, DexterityMod = 1, MotivationMod = 3, ConcentrationMod = 1, ConstitutionMod = 1, SpeedMod = 1 },
-                new Archetype {SkillMod = SkillType.Basic, FitType = ClassType.Olympian, StrengthMod = 2, DexterityMod = 2, MotivationMod = 2, ConcentrationMod = 2, ConstitutionMod = 2, SpeedMod = 2 },
-                new Archetype {SkillMod = SkillType.Basic, FitType = ClassType.Fighter, StrengthMod = 2, DexterityMod = 2, MotivationMod = 1, ConcentrationMod = 2, ConstitutionMod = 1, SpeedMod = 2 },
-                new Archetype {SkillMod = SkillType.Basic, FitType = ClassType.Dancer, StrengthMod = 1, DexterityMod = 3, MotivationMod = 1, ConcentrationMod = 1, ConstitutionMod = 1, SpeedMod = 2 },
-                new Archetype {SkillMod = SkillType.Basic, FitType = ClassType.Yoga, StrengthMod = 1, DexterityMod = 3, MotivationMod = 1, ConcentrationMod = 2, ConstitutionMod = 1, SpeedMod = 1 }
+                new Archetype {SkillMod = SkillType.Basic, FitType = ClassType.Hobbyist, StrengthMod = 0, DexterityMod = 0, ConcentrationMod = 0, MotivationMod = 0, ConstitutionMod = 0, SpeedMod = 0,
+                    Background = "They have no idea what they're doing and that's okay.",
+                    Weakness = "None",
+                    Strengths = "None"},
+                new Archetype {SkillMod = SkillType.Basic, FitType = ClassType.Runner, StrengthMod = 1, DexterityMod = 1, ConcentrationMod = 1, MotivationMod = 1, ConstitutionMod = 1, SpeedMod = 3,
+                    Background = "Gotta go fast",
+                Weakness = "Strength",
+                Strengths = "Speed"},
+                new Archetype {SkillMod = SkillType.Basic, FitType = ClassType.Powerlifter, StrengthMod = 3, DexterityMod = 1, MotivationMod = 1, ConcentrationMod = 1, ConstitutionMod = 2, SpeedMod = 1,
+                Background = "It's not about the size; but rather how friggin' heavy it is.",
+                Weakness = "Strength and Constitution",
+                Strengths = "Speed"},
+                new Archetype {SkillMod = SkillType.Basic, FitType = ClassType.Bodybuilder, StrengthMod = 3, DexterityMod = 1, MotivationMod = 2, ConcentrationMod = 1, ConstitutionMod = 2, SpeedMod = 1,
+                Background = "We're going to PUMP you UP.", Weakness = "Speed", Strengths = "Stregnth and Constitution"},
+                new Archetype {SkillMod = SkillType.Basic, FitType = ClassType.Crossfit, StrengthMod = 2, DexterityMod = 1, MotivationMod = 3, ConcentrationMod = 1, ConstitutionMod = 1, SpeedMod = 1,
+                Background = "Did this person ever tell you about Crossfit? Well...", Weakness = "Concentration", Strengths = "Strength and Motivation"},
+                new Archetype {SkillMod = SkillType.Basic, FitType = ClassType.Olympian, StrengthMod = 2, DexterityMod = 2, MotivationMod = 2, ConcentrationMod = 2, ConstitutionMod = 2, SpeedMod = 2,
+                Background = "Peak performance, gold standard.", Weakness = "Constitution", Strengths = "Dexterity and Concentration"},
+                new Archetype {SkillMod = SkillType.Basic, FitType = ClassType.Fighter, StrengthMod = 2, DexterityMod = 2, MotivationMod = 1, ConcentrationMod = 2, ConstitutionMod = 1, SpeedMod = 2,
+                Background = "Trained from the early days to do one thing and one thing only: Kick ass.", Weakness = "Speed", Strengths = "Dexterity and Constitution" },
+                new Archetype {SkillMod = SkillType.Basic, FitType = ClassType.Dancer, StrengthMod = 1, DexterityMod = 3, MotivationMod = 1, ConcentrationMod = 1, ConstitutionMod = 1, SpeedMod = 2,
+                Background = "Dance Dance Revolution", Weakness = "Strength", Strengths = "Dexterity and Speed"},
+                new Archetype {SkillMod = SkillType.Basic, FitType = ClassType.Yoga, StrengthMod = 1, DexterityMod = 3, MotivationMod = 1, ConcentrationMod = 2, ConstitutionMod = 1, SpeedMod = 1,
+                Background = "You can't spit fire but you can still stretch harder than anyone else.", Weakness = "Strength", Strengths = "Dexterity and Concentration"}
             };
             foreach (Archetype classy in classes)
             {
