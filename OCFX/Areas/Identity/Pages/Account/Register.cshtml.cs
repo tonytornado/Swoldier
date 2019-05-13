@@ -138,7 +138,7 @@ namespace OCFX.Areas.Identity.Pages.Account
                     {
                         FirstName = Input.FirstName,
                         LastName = Input.LastName,
-                        Age = Convert.ToInt32((DateTime.Today - Input.DOB).TotalDays / 365),
+                        DOB = Input.DOB,
                         Gender = Profiler.Gender,
                         Weight = Profiler.Weight,
                         Height = Profiler.Height,

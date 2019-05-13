@@ -10,6 +10,12 @@ namespace OCFX.Data.Methods
 {
     public class ProfileMethods
     {
+        private readonly OCFXContext _context;
+        public ProfileMethods(OCFXContext context)
+        {
+            _context = context ?? throw new ArgumentNullException(nameof(context));
+        }
+
         /// <summary>
         /// Gets a user profile with the provided user id
         /// </summary>
@@ -38,6 +44,38 @@ namespace OCFX.Data.Methods
                 .Include(p => p.Campaign)
                     .ThenInclude(p => p.CampaignQuest)
                 .SingleOrDefaultAsync(m => m.Id == id);
+
+            return Profiler;
+        }
+
+        /// <summary>
+        /// The synchronus version of GetProfileAsync
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static Profile GetProfile(OCFXContext context, int? id)
+        {
+            Profile Profiler = context.Profiles
+                .Include(p => p.Posts)
+                    .ThenInclude(p => p.Comments)
+                        .ThenInclude(p => p.Replies)
+                .Include(p => p.Posts)
+                    .ThenInclude(p => p.Entry)
+                .Include(p => p.Followers)
+                .Include(p => p.Following)
+                .Include(p => p.Gym)
+                    .ThenInclude(p => p.Club)
+                .Include(p => p.Photos)
+                .Include(p => p.FitStyle)
+                .Include(p => p.ReceivedMessages)
+                .Include(p => p.SentMessages)
+                .Include(p => p.Quest)
+                .Include(p => p.Campaign)
+                    .ThenInclude(p => p.CampaignDiet)
+                .Include(p => p.Campaign)
+                    .ThenInclude(p => p.CampaignQuest)
+                .SingleOrDefault(m => m.Id == id);
 
             return Profiler;
         }
@@ -94,12 +132,18 @@ namespace OCFX.Data.Methods
             if (Profiler.Gender == Profile.GenderSpectrum.CisMale ||
                 Profiler.Gender == Profile.GenderSpectrum.TransFemale ||
                 Profiler.Gender == Profile.GenderSpectrum.NotDisclosed)
+            //{
+            //    double f1 = (weight * 1.082) + 94.42;
+            //    double? f2 = waist * 4.15;
+            //    double? lbm = f1 - f2;
+            //    double? bfw = weight - lbm;
+            //    percentage = Convert.ToDouble((bfw / weight) * 100);
+            //}
             {
-                double f1 = (weight * 1.082) + 94.42;
-                double? f2 = waist * 4.15;
-                double? lbm = f1 - f2;
-                double? bfw = weight - lbm;
-                percentage = Convert.ToDouble((bfw / weight) * 100);
+                double f1 = 495.0;
+                double f2 = 1.0324 - (0.19077 * Math.Log10(Convert.ToDouble(waist - neck))) + (0.15456 * Math.Log10(height));
+                double f3 = 450.0;
+                percentage = (f1 / f2) - f3;
             }
 
             if (Profiler.Gender == Profile.GenderSpectrum.CisFemale ||
@@ -123,6 +167,7 @@ namespace OCFX.Data.Methods
             string Advice = "";
             string WeightClass = "";
             double BMI = Math.Round((weight * 703) / Math.Pow(height, 2), 2);
+            double BodyFatLeft = Math.Round(bodyFat);
 
             if (BMI > 30)
             {
@@ -149,7 +194,8 @@ namespace OCFX.Data.Methods
             {
                 { 1, WeightClass },
                 { 2, Advice },
-                { 3, BMI.ToString() }
+                { 3, BMI.ToString() },
+                { 4, BodyFatLeft.ToString() }
             };
             return thing;
         }

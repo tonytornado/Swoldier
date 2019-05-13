@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OCFX_Library\OCFX Library.csproj" />
+    <ProjectReference Include="..\OCFX_Library\OCFX_Library.csproj" />
   </ItemGroup>
 
   <ItemGroup>
