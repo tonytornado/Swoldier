@@ -10,12 +10,6 @@ namespace OCFX.Data.Methods
 {
     public class ProfileMethods
     {
-        private readonly OCFXContext _context;
-        public ProfileMethods(OCFXContext context)
-        {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
-        }
-
         /// <summary>
         /// Gets a user profile with the provided user id
         /// </summary>
@@ -172,22 +166,28 @@ namespace OCFX.Data.Methods
             if (BMI > 30)
             {
                 WeightClass = "Obese";
-                Advice = "This is generally considered obese. Variations of this depends on whether or not your body fat percentage is above or below 20% which is the general average for most males and females. Best course of action if body fat percentage is above 20% is to decrease calorie intake and increase exercise/movement.";
+                Advice = "This is generally considered obese. " +
+                    "Variations of this depends on whether or not your body fat percentage is above or below 20% which is the general average for most males and females. " +
+                    "Best course of action if body fat percentage is above 20% is to decrease calorie intake and increase exercise/movement.";
             }
             if (29.9 > BMI && BMI > 25.0)
             {
                 WeightClass = "Overweight";
-                Advice = "This is generally considered overweight. Generally the advice here is decreased calorie intake and increased physical activity.";
+                Advice = "This is generally considered overweight. " +
+                    "Generally the advice here is decreased calorie intake and increased physical activity.";
             }
             if (24.9 > BMI && BMI > 18.5)
             {
                 WeightClass = "Normal";
-                Advice = "This is generally considered good. Generally the advice here is decreased calorie intake and increased physical activity.";
+                Advice = "This is generally considered good. " +
+                    "Generally the advice here is decreased calorie intake and increased physical activity.";
             }
             if (BMI < 18.4)
             {
                 WeightClass = "Underweight";
-                Advice = "This is generally considered underweight. Generally the advice here is increased calorie intake. With increased physical activity, a caloric surplus is necessary for muscle growth.";
+                Advice = "This is generally considered underweight. " +
+                    "Generally the advice here is increased calorie intake. " +
+                    "With increased physical activity, a caloric surplus is necessary for muscle growth.";
             }
 
             Dictionary<int, string> thing = new Dictionary<int, string>

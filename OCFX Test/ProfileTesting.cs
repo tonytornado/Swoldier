@@ -8,13 +8,13 @@ namespace OCFX_Test
     public class ProfileTests
     {
         [TestMethod]
-        public void SimpleTest()
+        public void SimpleProfileTest()
         {
             Profile result = new Profile
             {
                 Id = 1,
                 FirstName = "Tony",
-                LastName = "T"
+                LastName = "T",
             };
 
             Assert.IsNotNull(result);

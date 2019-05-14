@@ -4,6 +4,7 @@ using OCFX.Areas.Identity.Data;
 using OCFX.DataModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace OCFX_API.Controllers
@@ -20,10 +21,10 @@ namespace OCFX_API.Controllers
         }
 
         // GET api/spectre
-        [HttpGet]
-        public async Task<List<Profile>> Get()
+        [HttpGet("[action]")]
+        public List<Profile> Profiles()
         {
-            List<Profile> profiles = await _context.Profiles.ToListAsync();
+            var profiles = _context.Profiles.ToList();
             return profiles;
         }
 
@@ -33,7 +34,14 @@ namespace OCFX_API.Controllers
         {
             List<Gym> gyms = await _context.Gyms.ToListAsync();
             return gyms;
-            
+        }
+
+        // Get api/spectre/gyms
+        [HttpGet("[action]")]
+        public Array GetValues()
+        {
+            int[] jumble = { 8, 9, 10 };
+            return jumble;
         }
 
         // GET api/spectre/5
