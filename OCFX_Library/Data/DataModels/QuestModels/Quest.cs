@@ -22,6 +22,9 @@ namespace OCFX.DataModels
 		// Folks that are on this quest
 		public List<Profile> CurrentPlayers { get; set; }
 
+        // Encounters on this quest
+        public List<Encounter> Encounters { get; set; }
+
 		// It's part of the campaign, yeah?
 		public int CampaignId { get; set; }
 		[ForeignKey("CampaignId")]

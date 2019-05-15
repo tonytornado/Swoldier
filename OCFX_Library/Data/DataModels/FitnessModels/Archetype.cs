@@ -52,7 +52,7 @@ namespace OCFX.DataModels
         public string Weakness { get; set; }
 
         [Display(Name = "Available Skill Set")]
-        public ICollection<Skills> Skillset { get; set; }
+        public Skills[] SkillSet { get; set; }
     }
 
     /// <summary>

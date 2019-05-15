@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -23,6 +23,9 @@ namespace OCFX.DataModels
         [Display(Name = "Date of Birth")]
         [NotMapped]
         public DateTime DOB { get; set; }
+        [PersonalData]
+        [Display(Name = "Age")]
+        public int Age => GetAge(DOB);
         [PersonalData]
         [Display(Name = "Gender")]
         public GenderSpectrum Gender { get; set; }
@@ -77,27 +80,27 @@ namespace OCFX.DataModels
         public Archetype FitStyle { get; set; }
 
         // Navigation properties
-        public ICollection<Address> Addresses { get; set; }
-        public ICollection<Phone> Phones { get; set; }
-        public ICollection<Photo> Photos { get; set; }
+        public Collection<Address> Addresses { get; set; }
+        public Collection<Phone> Phones { get; set; }
+        public Collection<Photo> Photos { get; set; }
 
         [InverseProperty("Following")]
-        public ICollection<Friend> Following { get; set; }
+        public Collection<Friend> Following { get; set; }
 
         [InverseProperty("Follower")]
-        public ICollection<Friend> Followers { get; set; }
+        public Collection<Friend> Followers { get; set; }
 
         [InverseProperty("Receiver")]
-        public ICollection<Shout> ReceivedMessages { get; set; }
+        public Collection<Shout> ReceivedMessages { get; set; }
 
         [InverseProperty("Sender")]
-        public ICollection<Shout> SentMessages { get; set; }
+        public Collection<Shout> SentMessages { get; set; }
 
         [InverseProperty("Profile")]
-        public ICollection<Post> Posts { get; set; }
+        public Collection<Post> Posts { get; set; }
 
         [InverseProperty("Entry")]
-        public ICollection<Post> Entries { get; set; }
+        public Collection<Post> Entries { get; set; }
 
         [InverseProperty("Member")]
         public Membership Gym { get; set; }
@@ -111,7 +114,7 @@ namespace OCFX.DataModels
         public enum GenderSpectrum
         {
             [Display(Name = "Non-Binary")]
-            Non_binary = 0,
+            NonBinary = 0,
             [Display(Name = "Cis Male")]
             CisMale = 1,
             [Display(Name = "Cis Female")]
@@ -127,10 +130,6 @@ namespace OCFX.DataModels
         // Anything else?
         [NotMapped]
         public string FullName => $"{FirstName} {LastName}";
-
-        [Display(Name = "Age")]
-        [PersonalData]
-        public int Age => GetAge(DOB);
 
         private int GetAge(DateTime DOB)
         {
