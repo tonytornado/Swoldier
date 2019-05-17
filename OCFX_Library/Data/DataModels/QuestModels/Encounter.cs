@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OCFX.DataModels
 {
+    [NotMapped]
     public class Encounter
     {
         [Display(Name = "Id")]
@@ -27,16 +28,23 @@ namespace OCFX.DataModels
         public Skills[] SkillSet { get; set; }
     }
 
+    [Table("Enemies")]
     public class PersonalEncounter : Encounter
     {
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
     }
 
+    [Table("Bosses")]
     public class BossEncounter: Encounter
     {
+        [Display(Name = "Boss Name")]
         public string Name { get; set; }
+        [Display(Name = "Armor Level")]
         public int Armor { get; set; }
+        [Display(Name = "Boss Skill")]
         public Skills BurstSkill { get; set; }
     }
 }

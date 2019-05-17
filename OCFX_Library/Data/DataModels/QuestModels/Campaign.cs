@@ -29,5 +29,10 @@ namespace OCFX.DataModels
 
         // Get the list of appropriate quests for each campaign
         public List<Quest> CampaignQuest { get; set; }
-	}
+
+        // Wait, we're adding bosses now!?
+        // That Boss is gonna need some MINIONS
+        public BossEncounter Boss { get; set; }
+        public PersonalEncounter[] Minions { get; set; }
+    }
 }

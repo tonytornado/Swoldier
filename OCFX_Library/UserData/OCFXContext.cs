@@ -60,6 +60,7 @@ namespace OCFX.Areas.Identity.Data
 		public DbSet<Campaign> Campaigns { get; set; }
 		public DbSet<Quest> Quests { get; set; }
 		public DbSet<QuestLog> QuestLogs { get; set; }
-        
+        public DbSet<BossEncounter> Bosses { get; set; }
+        public DbSet<PersonalEncounter> People { get; set; }
     }
 }
