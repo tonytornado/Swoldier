@@ -236,15 +236,15 @@ namespace OCFX.Data.DataRepo
             }
             WorkoutProgram[] programs = new WorkoutProgram[]
             {
-                new WorkoutProgram{ WorkoutId = 1, ExerciseId = 1, CampaignId = 1, Sets = 3, Repetitions=10 },
-                new WorkoutProgram{ WorkoutId = 1, ExerciseId = 2, CampaignId = 1,  Sets = 3, Repetitions=10 },
-                new WorkoutProgram{ WorkoutId = 1, ExerciseId = 3, CampaignId = 1,  Sets = 3, Repetitions=10 },
-                new WorkoutProgram{ WorkoutId = 1, ExerciseId = 4, CampaignId = 1,  Sets = 3, Repetitions=10 },
-                new WorkoutProgram{ WorkoutId = 1, ExerciseId = 5, CampaignId = 1,  Sets = 3, Repetitions=10 },
-                new WorkoutProgram{ WorkoutId = 2, ExerciseId = 1, CampaignId = 1,  Sets = 3, Repetitions=10 },
-                new WorkoutProgram{ WorkoutId = 2, ExerciseId = 2, CampaignId = 1,  Sets = 3, Repetitions=10 },
-                new WorkoutProgram{ WorkoutId = 2, ExerciseId = 3, CampaignId = 1,  Sets = 3, Repetitions=10 },
-                new WorkoutProgram{ WorkoutId = 2, ExerciseId = 4, CampaignId = 1,  Sets = 3, Repetitions=10 },
+                new WorkoutProgram{ WorkoutId = 1, ExerciseId = 1, Sets = 3, Repetitions=10 },
+                new WorkoutProgram{ WorkoutId = 1, ExerciseId = 2, Sets = 3, Repetitions=10 },
+                new WorkoutProgram{ WorkoutId = 1, ExerciseId = 3, Sets = 3, Repetitions=10 },
+                new WorkoutProgram{ WorkoutId = 1, ExerciseId = 4, Sets = 3, Repetitions=10 },
+                new WorkoutProgram{ WorkoutId = 1, ExerciseId = 5, Sets = 3, Repetitions=10 },
+                new WorkoutProgram{ WorkoutId = 2, ExerciseId = 1, Sets = 3, Repetitions=10 },
+                new WorkoutProgram{ WorkoutId = 2, ExerciseId = 2, Sets = 3, Repetitions=10 },
+                new WorkoutProgram{ WorkoutId = 2, ExerciseId = 3, Sets = 3, Repetitions=10 },
+                new WorkoutProgram{ WorkoutId = 2, ExerciseId = 4, Sets = 3, Repetitions=10 },
             };
             foreach (WorkoutProgram program in programs)
             {

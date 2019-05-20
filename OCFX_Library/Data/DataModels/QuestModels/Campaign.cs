@@ -4,24 +4,25 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OCFX.DataModels
 {
-	// Campaigns have several players, workouts and quests.
-	public class Campaign
+    /// <summary>
+    /// The main Campaign class. Used to designate a campaign.
+    /// </summary>
+    public class Campaign
     {
-        [Key]
-		[Display(Name = "Campaign")]
+        [Display(Name = "Campaign")]
         public int Id { get; set; }
         [Display(Name = "Campaign Name")]
         public string CampaignName { get; set; }
-		[Display(Name = "Campaign Tagline")]
-		public string CampaignDetails { get; set; }
-		[Display(Name = "Campaign Story")]
-		public string CampaignLore { get; set; }
-		[Display(Name = "Campaign Risks")]
-		public RiskLevel CampaignRisk { get; set; }
+        [Display(Name = "Campaign Tagline")]
+        public string CampaignDetails { get; set; }
+        [Display(Name = "Campaign Story")]
+        public string CampaignLore { get; set; }
+        [Display(Name = "Campaign Risks")]
+        public RiskLevel CampaignRisk { get; set; }
 
-		[Display(Name = "Associated Diet")]
+        [Display(Name = "Associated Diet")]
         public int DietId { get; set; }
-		[ForeignKey("DietId")]
+        [ForeignKey("DietId")]
         public Diet CampaignDiet { get; set; }
 
         // The list of all workouts associated with the campaign
@@ -32,7 +33,7 @@ namespace OCFX.DataModels
 
         // Wait, we're adding bosses now!?
         // That Boss is gonna need some MINIONS
-        public BossEncounter Boss { get; set; }
-        public PersonalEncounter[] Minions { get; set; }
+        //public BossEncounter Boss { get; set; }
+        //public PersonalEncounter[] Minions { get; set; }
     }
 }

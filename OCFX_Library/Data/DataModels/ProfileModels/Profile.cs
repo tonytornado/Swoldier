@@ -3,6 +3,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace OCFX.DataModels
 {
@@ -127,14 +128,83 @@ namespace OCFX.DataModels
             NotDisclosed = 5
         }
 
-        // Anything else?
-        [NotMapped]
+        // Properties
         public string FullName => $"{FirstName} {LastName}";
+        public string ProfilePhotoUrl => GetProfilePhoto();
+        public double BodyFat => _bodyFat(Height, Weight, NeckMeasurement, WaistMeasurement, HipMeasurement);
 
+        private string GetProfilePhoto()
+        {
+            string URL = Photos
+                .OrderByDescending(d => d.DateAdded)
+                .FirstOrDefault(c =>
+                {
+                    return c.Type == Photo.PhotoType.Profile
+                           && c.ProfileId == Id;
+                }).URL;
+            return URL;
+        }
         private int GetAge(DateTime DOB)
         {
             int age = Convert.ToInt32((DateTime.Today - DOB).TotalDays / 365);
             return age;
+        }
+        
+        /// <summary>
+        /// Calculate the body fat percentage of the profile
+        /// </summary>
+        /// <param name="height">Height in cm</param>
+        /// <param name="weight">Weight in lbs.</param>
+        /// <param name="neck">Neck Length in inches</param>
+        /// <param name="waist">Waist Circumference in inches</param>
+        /// <param name="hip">Hip Circumference in inches</param>
+        /// <returns>double</returns>
+        private double _bodyFat(int height, int weight, int? neck, int? waist, int? hip)
+        {
+            double percentage = 0.0;
+
+            if (neck == null || waist == null || hip == null)
+            {
+                return 0.0;
+            }
+
+            if (neck == 0 || waist == 0 || hip == 0)
+            {
+                return 0.0;
+            }
+
+            // Check bone structures
+            if (Gender == Profile.GenderSpectrum.CisMale ||
+                Gender == Profile.GenderSpectrum.TransFemale ||
+                Gender == Profile.GenderSpectrum.NotDisclosed)
+            //{
+            //    double f1 = (weight * 1.082) + 94.42;
+            //    double? f2 = waist * 4.15;
+            //    double? lbm = f1 - f2;
+            //    double? bfw = weight - lbm;
+            //    percentage = Convert.ToDouble((bfw / weight) * 100);
+            //}
+            {
+                double f1 = 495.0;
+                double f2 = 1.0324 - (0.19077 * Math.Log10(Convert.ToDouble(waist - neck))) + (0.15456 * Math.Log10(height));
+                double f3 = 450.0;
+                percentage = (f1 / f2) - f3;
+            }
+
+            if (Gender == Profile.GenderSpectrum.CisFemale ||
+                Gender == Profile.GenderSpectrum.TransMale)
+            {
+                double f1 = (weight * 0.732) + 8.987;
+                double f2 = 6 / 3.140;
+                double? f3 = waist * 0.157;
+                double? f4 = hip * 0.249;
+                double f5 = 9 * 0.434;
+                double? lbm = f1 + f2 - f3 - f4 + f5;
+                double? bfw = weight - lbm;
+                percentage = Convert.ToDouble((bfw / weight) * 100);
+            }
+
+            return percentage;
         }
     }
 }

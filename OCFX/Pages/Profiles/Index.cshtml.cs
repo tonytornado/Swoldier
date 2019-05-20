@@ -69,18 +69,12 @@ namespace OCFX.Pages.Profiles
             Friender = FriendlyMethods.GetFriendList(_context, Profiler.Id);
             Requests = await FriendlyMethods.GetFriendRequestsAsync(_context, Profiler.Id);
 
-            // Loads the current users's profile photo
-            ProfilePhoto = await ProfileMethods.GetProfilePhoto(_context, Profiler.Id);
-
             // Loads any related users through their fitness profile and skill mods
             RelatedFolkList = await _context.Profiles.Where(p => p.FitStyle.FitType == Profiler.FitStyle.FitType).ToListAsync();
 
             // First and Last Name
             userTitle = Profiler.FirstName + " " + Profiler.LastName;
 
-            // Bodyfat calculation
-            bodyFat = Math.Round(ProfileMethods.BodyFat(Profiler, Profiler.Height, Profiler.Weight, Profiler.NeckMeasurement, Profiler.WaistMeasurement, Profiler.HipMeasurement), 1);
-            
             return Page();
         }
 

@@ -26,12 +26,6 @@ namespace OCFX_API
                     .UseSqlServer(Configuration.GetConnectionString("OCFXContextConnection"))
                     );
 
-            //services
-            //    .AddIdentity<OCFXUser, OCFXRole>()
-            //    .AddEntityFrameworkStores<OCFXContext>()
-            //    .AddDefaultUI()
-            //    .AddDefaultTokenProviders();
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

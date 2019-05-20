@@ -23,7 +23,7 @@ namespace OCFX.Pages.MadminAccess.Programs
             WorkoutProgram = await _context.WorkoutPrograms
                 .Include(w => w.Exercise)
                 .Include(w => w.Workout)
-                .Include(w => w.Campaign)
+                //.Include(w => w.Campaign)
                 .ToListAsync();
         }
     }

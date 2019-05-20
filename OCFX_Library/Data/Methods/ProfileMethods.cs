@@ -74,22 +74,6 @@ namespace OCFX.Data.Methods
             return Profiler;
         }
 
-        /// <summary>
-        /// Snags the profile photo.
-        /// </summary>
-        /// <param name="userManager"></param>
-        /// <param name="context"></param>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public static async Task<Photo> GetProfilePhoto(OCFXContext context, int id)
-        {
-            Photo ProfilePhoto = await context.Photos
-                    .OrderByDescending(d => d.DateAdded)
-                    .FirstOrDefaultAsync(i => i.ProfileId == id);
-
-            return ProfilePhoto;
-        }
-
         public static async Task<Profile> GetProfileUser(OCFXContext context, int id)
         {
             Profile Poster = await context.Profiles.SingleOrDefaultAsync(i => i.Id == id);

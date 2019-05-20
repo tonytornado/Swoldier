@@ -4,9 +4,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OCFX.DataModels
 {
-    // Each quest can have several players running it.
-    // May also have a specific type of workouts associated with it.
-
     public class Quest
 	{
 		[Key]
@@ -42,4 +39,16 @@ namespace OCFX.DataModels
 		[Display(Name = "Consistency")]
 		Consistency = 4
 	}
+
+    public enum RiskLevel
+    {
+        [Display(Name = "Low")]
+        Low = 1,
+        [Display(Name = "Mid")]
+        Mid = 2,
+        [Display(Name = "High")]
+        High = 3,
+        [Display(Name = "JOJO'S BIZARRE SMASH ULTIMATE ELIMINATION CHAMBER IN THE BANK IN A CELL")]
+        EX = 4
+    }
 }

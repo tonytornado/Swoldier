@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using OCFX.Areas.Identity.Data;
 using OCFX.DataModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace OCFX.Pages.Campaigns
 {
@@ -13,13 +14,14 @@ namespace OCFX.Pages.Campaigns
         public string Story { get; set; }
         public string Name { get; set; }
         public string Details { get; set; }
-        public BossEncounter BigBad { get; internal set; }
+        public BossEncounter BigBad { get; set; }
+        public List<Quest> Quests { get; set; }
+        public int TypeChecker { get; set; }
     }
 
     public class CampaignCreatorModel : PageModel
     {
         private readonly OCFXContext context;
-        private List<BossEncounter> bossList;
 
         public CampaignCreatorModel(OCFXContext context)
         {
@@ -28,28 +30,37 @@ namespace OCFX.Pages.Campaigns
 
         [BindProperty]
         public InputModel Creator { get; set; }
-
-        
+        public SelectList BossSelection { get; private set; }
+        [TempData]
+        public string StatusMessage { get; set; }
 
         public void OnGet()
         {
-            bossList = context.Bosses.ToList();
+            List<BossEncounter> BossList = context.Bosses.ToList();
+            BossSelection = new SelectList(BossList, "Id", "Name");
         }
 
         public void OnPost()
         {
-            Campaign customCampaign = new Campaign()
+            if (ModelState.IsValid == false)
+            {
+                StatusMessage = "Something's wrong. Fix it!";
+                RedirectToAction("Get");
+            }
+
+            var customCampaign = new Campaign()
             {
                 CampaignLore = Creator.Story,
                 CampaignName = Creator.Name,
                 CampaignDetails = Creator.Details,
-                Boss = Creator.BigBad
+                CampaignQuest = Creator.Quests,
+                //Boss = Creator.BigBad
             };
-            
+
             context.Add(customCampaign);
-            context.SaveChanges();
+            _ = context.SaveChanges();
+
+            RedirectToPage("Campaign", new { customCampaign.Id });
         }
     }
-
-    
 }

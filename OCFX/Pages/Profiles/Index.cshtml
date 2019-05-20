@@ -29,7 +29,7 @@
         @if (Model.ProfilePhoto != null)
         {
             <div class="col-md" id="photo_section">
-                <img src="@Model.ProfilePhoto.URL" alt="@Model.ProfilePhoto.Caption" title="@Model.ProfilePhoto.Caption" class="profile_avatar" />
+                <img src="@Model.Profiler.ProfilePhotoUrl" alt="@Model.ProfilePhoto.Caption" title="@Model.ProfilePhoto.Caption" class="profile_avatar" />
                 <br />
                 @if (Model.Player != null)
                 {
@@ -68,7 +68,7 @@
             @foreach (var friend in Model.Friender)
             {
                 <div class="shadowbox-xy">
-                    <img width="50" height="50" src="@friend.Following.Photos.OrderByDescending(d => d.DateAdded).FirstOrDefault(p => p.ProfileId == friend.Following.Id).URL" alt="@friend.Following.FirstName's photo." />
+                    <img width="50" height="50" src="@friend.Following.ProfilePhotoUrl" alt="@friend.Following.FirstName's photo." />
                     <small>
                         <a asp-page="./Index" asp-route-id="@friend.Following.Id">@friend.Following.FullName</a>
                         @if (friend.Following.Id != friend.Follower.Id && User.IsInRole("Member"))

@@ -54,7 +54,6 @@ namespace OCFX.Areas.Identity.Data
         public DbSet<MessageBoardPost> MessageBoardPosts { get; set; }
         public DbSet<MessageBoardComment> MessageBoardComments { get; set; }
 
-
         // Quest DB
         public DbSet<Archetype> Archetypes { get; set; }
 		public DbSet<Campaign> Campaigns { get; set; }

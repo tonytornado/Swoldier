@@ -59,7 +59,7 @@ namespace OCFX.Pages.MadminAccess.Programs
 					{
 						ExerciseId = int.Parse(exercise),
 						WorkoutId = WorkoutProgram.WorkoutId,
-                        CampaignId = int.Parse(CampaignList.DataValueField),
+                        //CampaignId = int.Parse(CampaignList.DataValueField),
                         Sets = WorkoutProgram.Sets,
                         Repetitions = WorkoutProgram.Repetitions,
                         Order = Counter

@@ -12,8 +12,13 @@ namespace OCFX.Data.DataRepo
     {
         public static async Task CreateRoles(IServiceProvider serviceProvider, IConfiguration Configuration)
         {
+            if (Configuration == null)
+            {
+                throw new ArgumentNullException(nameof(Configuration));
+            }
+
             RoleManager<OCFXRole> _roleManager = serviceProvider.GetRequiredService<RoleManager<OCFXRole>>();
-            _ = serviceProvider.GetRequiredService<UserManager<OCFXUser>>();
+            serviceProvider.GetRequiredService<UserManager<OCFXUser>>();
             string[] RoleNames = { "Administrator", "Coach", "User" };
 
             foreach (string rolename in RoleNames)
@@ -29,25 +34,6 @@ namespace OCFX.Data.DataRepo
                     await _roleManager.CreateAsync(role);
                 }
             }
-
-            // Wait on the user creation until the site is fixed up.
-            //var _user = await _userManager.FindByEmailAsync("tony@phantomhex.com");
-            //if (_user == null) { 
-            //	var user = new OCFXUser
-            //	{
-            //		UserName = "tony@phantomhex.com",
-            //		Email = "tony@phantomhex.com"
-            //	};
-
-            //	string userPWD = "Bankotsu88!";
-
-            //	IdentityResult chkUser = await _userManager.CreateAsync(user, userPWD);
-
-            //	//Add default User to Role Admin    
-            //	if (chkUser.Succeeded)
-            //	{
-            //	}	var result1 = await _userManager.AddToRoleAsync(user, "Administrator");
-            //}
         }
     }
 }

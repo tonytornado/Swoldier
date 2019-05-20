@@ -13,7 +13,7 @@
         @foreach (var friend in Model.Friends)
         {
         <div class="d-flex justify-content-around shadowbox-xy">
-            <img src="@friend.Following.Photos.FirstOrDefault(f => f.Type == DataModels.Photo.PhotoType.Profile).URL" alt="@friend.Following.Id" class="friend_avatar border">
+            <img src="@friend.Following.ProfilePhotoUrl" alt="@friend.Following.Id" class="friend_avatar border">
             <div class="px-3">
                 <h4><a asp-page="/Profiles/Index" asp-route-id="@friend.Following.Id">@friend.Following.FullName </a></h4>
                 <h6>@friend.Following.Age @friend.Following.Gender</h6>

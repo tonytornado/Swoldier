@@ -3,7 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OCFX.DataModels
 {
-    // A relation table for the many to many relationship of the workouts to exercises.
+    /// <summary>
+    /// A relation table for the many to many relationship of the workouts to exercises.
+    /// </summary>
     public class WorkoutProgram
     {
         [Key]
@@ -20,12 +22,6 @@ namespace OCFX.DataModels
         [ForeignKey("WorkoutId")]
         public Workout Workout { get; set; }
 
-        [InverseProperty("CampaignProgram")]
-        [Display(Name = "Campaign Name")]
-        public int CampaignId { get; set; }
-        [ForeignKey("CampaignId")]
-        public Campaign Campaign { get; set; }
-
         [Display(Name = "Sets")]
         public int Sets { get; set; }
 
@@ -35,5 +31,8 @@ namespace OCFX.DataModels
 
         [Display(Name = "Order")]
         public int Order { get; set; }
+
+        [Display(Name = "Description")]
+        public string Description { get; set; }
     }
 }

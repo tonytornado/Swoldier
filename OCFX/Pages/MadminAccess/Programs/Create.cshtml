@@ -17,10 +17,6 @@
                 <select asp-for="WorkoutProgram.WorkoutId" class="form-control" asp-items="Model.Worklist"></select>
             </div>
             <div class="form-group">
-                <label asp-for="WorkoutProgram.CampaignId" class="control-label h6"></label>
-                <select asp-for="WorkoutProgram.CampaignId" class="form-control" asp-items="Model.CampaignList"></select>
-            </div>
-            <div class="form-group">
                 <label asp-for="WorkoutProgram.Sets" class="control-label h6"></label>
                 <input asp-for="WorkoutProgram.Sets" class="form-control" />
                 <span asp-validation-for="WorkoutProgram.Sets" class="text-danger"></span>
