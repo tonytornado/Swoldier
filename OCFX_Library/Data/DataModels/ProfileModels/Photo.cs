@@ -13,7 +13,6 @@ namespace OCFX.DataModels
 		public DateTime DateAdded { get; set; }
 
 		public int ProfileId { get; set; }
-		public Profile Photos { get; set; }
 
 		public enum PhotoType
 		{

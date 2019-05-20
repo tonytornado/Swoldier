@@ -42,6 +42,16 @@ namespace OCFX.Data.Methods
             return Profiler;
         }
 
+        public static Photo GetProfilePhoto(OCFXContext context, int id)
+        {
+            var photo = context.Photos
+                .OrderByDescending(d => d.DateAdded)
+                .FirstOrDefault(c => c.Type == Photo.PhotoType.Profile
+                           && c.ProfileId == id);
+
+            return photo;
+        }
+
         /// <summary>
         /// The synchronus version of GetProfileAsync
         /// </summary>

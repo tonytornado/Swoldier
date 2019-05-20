@@ -42,6 +42,7 @@ namespace OCFX.Pages.Dashboard.Messaging
                 .OrderByDescending(d => d.DateSent)
                 .ToListAsync();
 
+            // Get the archived messages
             ArchivedMailReceived = await _context.Messages.Include(p => p.Sender)
                 .Where(u => u.ReceiverId == MailboxOwner.ProfileId)
                 .Where(u => u.Status == Shout.MessageStatus.Archived)

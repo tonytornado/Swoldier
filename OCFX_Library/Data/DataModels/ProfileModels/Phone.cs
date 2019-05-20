@@ -15,6 +15,8 @@ namespace OCFX.DataModels
         public int PhoneNumber { get; set; }
 
 		public Profile Profile { get; set; }
+
+        public string FullNumber => $"({AreaCode}) {PhoneNumber}";
     }
 
     public enum PhoneType

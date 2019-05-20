@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OCFX.DataModels
@@ -35,10 +34,12 @@ namespace OCFX.DataModels
         public string FirstName { get; set; }
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
+
+        public string FullName => $"{FirstName} {LastName}";
     }
 
     [Table("Bosses")]
-    public class BossEncounter: Encounter
+    public class BossEncounter : Encounter
     {
         [Display(Name = "Boss Name")]
         public string Name { get; set; }

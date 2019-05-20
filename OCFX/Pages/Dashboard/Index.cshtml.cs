@@ -42,10 +42,7 @@ namespace OCFX.Pages.Dashboard
 
             // Get the profile and profile photo
             Profiler = await ProfileMethods.GetProfileAsync(_context, user.Result.ProfileId);
-			ProfilePhoto = await ProfileMethods.GetProfilePhoto(_context, Profiler.Id);
-
-            // Get user's full name
-            UserTitle = Profiler.FirstName + " " + Profiler.LastName;
+			ProfilePhoto = ProfileMethods.GetProfilePhoto(_context, Profiler.Id);
 
             // Get the completed quests
             CompletedQuests = QuestMethods.CheckCompletedQuests(_context, Profiler.Id);

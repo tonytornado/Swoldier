@@ -130,18 +130,18 @@ namespace OCFX.DataModels
 
         // Properties
         public string FullName => $"{FirstName} {LastName}";
-        public string ProfilePhotoUrl => GetProfilePhoto();
-        public double BodyFat => _bodyFat(Height, Weight, NeckMeasurement, WaistMeasurement, HipMeasurement);
+        public string ProfilePhotoUrl => GetProfilePhoto().URL;
+        public double BodyFat => GetBodyFat(Height, Weight, NeckMeasurement, WaistMeasurement, HipMeasurement);
 
-        private string GetProfilePhoto()
+        private Photo GetProfilePhoto()
         {
-            string URL = Photos
+            Photo URL = Photos
                 .OrderByDescending(d => d.DateAdded)
                 .FirstOrDefault(c =>
                 {
                     return c.Type == Photo.PhotoType.Profile
                            && c.ProfileId == Id;
-                }).URL;
+                });
             return URL;
         }
         private int GetAge(DateTime DOB)
@@ -159,7 +159,11 @@ namespace OCFX.DataModels
         /// <param name="waist">Waist Circumference in inches</param>
         /// <param name="hip">Hip Circumference in inches</param>
         /// <returns>double</returns>
-        private double _bodyFat(int height, int weight, int? neck, int? waist, int? hip)
+        private double GetBodyFat(int height,
+                               int weight,
+                               int? neck,
+                               int? waist,
+                               int? hip)
         {
             double percentage = 0.0;
 
