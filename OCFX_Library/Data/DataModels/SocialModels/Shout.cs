@@ -32,10 +32,7 @@ namespace OCFX.DataModels
         public virtual Profile Sender { get; set; }
 
         [ForeignKey("ReceiverId")]
-        public virtual Profile Receiver
-        {
-            get; set;
-        }
+        public virtual Profile Receiver { get; set; }
 
         public enum MessageStatus
         {
