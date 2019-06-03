@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Identity;
 
 namespace OCFX.DataModels
 {
@@ -22,15 +22,15 @@ namespace OCFX.DataModels
         [PersonalData]
         [Required]
         [Display(Name = "Date of Birth")]
-		[DataType(DataType.Date)]
-        [Range(typeof(DateTime), "1/1/1920", "4/20/2001", 
+        [DataType(DataType.Date)]
+        [Range(typeof(DateTime), "1/1/1920", "4/20/2001",
             ErrorMessage = "You must be 18 or older to even use this site... also, not dead or dying.")]
         public DateTime DOB { get; set; }
 
-		// To prevent frequent name changes!
-		public DateTime NameChangedDate { get; set; }
+        // To prevent frequent name changes!
+        public DateTime NameChangedDate { get; set; }
 
-		public int ProfileId { get; set; }
+        public int ProfileId { get; set; }
         public Profile Profile { get; set; }
     }
 }

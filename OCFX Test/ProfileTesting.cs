@@ -18,7 +18,7 @@ namespace OCFX_Test
             };
 
             Assert.IsNotNull(result);
-            
+
         }
 
         [TestMethod]

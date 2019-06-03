@@ -9,38 +9,38 @@ namespace OCFX.DataModels
     /// A general feed element that can be used for posts and such
     /// </summary>
     public class PostElement
-	{
-		[Key]
-		[Display(Name = "ID")]
-		public int Id { get; set; }
+    {
+        [Key]
+        [Display(Name = "ID")]
+        public int Id { get; set; }
         [Display(Name = "Post Content")]
-		public string Text { get; set; }
-		[Display(Name = "Post Date")]
-		public DateTime DatePosted { get; set; }
+        public string Text { get; set; }
+        [Display(Name = "Post Date")]
+        public DateTime DatePosted { get; set; }
 
         [Display(Name = "Profile")]
-		public int ProfileId { get; set; }
+        public int ProfileId { get; set; }
         [ForeignKey("ProfileId")]
-		public Profile Profile { get; set; }
+        public Profile Profile { get; set; }
     }
     /// <summary>
     /// A profile post 
     /// </summary>
 	public class Post : PostElement
-	{
+    {
         [Display(Name = "Entry")]
         public int EntryId { get; set; }
         [ForeignKey("EntryId")]
         public Profile Entry { get; set; }
 
         public List<Comment> Comments { get; set; }
-	}
+    }
 
     /// <summary>
     /// A comment on a profile's post.
     /// </summary>
 	public class Comment : PostElement
-	{
+    {
         [Display(Name = "Entry")]
         public int EntryId { get; set; }
         [ForeignKey("EntryId")]
@@ -58,7 +58,7 @@ namespace OCFX.DataModels
     /// A reply to a profile post's comment
     /// </summary>
 	public class Reply : PostElement
-	{
+    {
         [Display(Name = "Entry")]
         public int EntryId { get; set; }
         [ForeignKey("EntryId")]

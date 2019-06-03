@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using OCFX.Areas.Identity.Data;
 using OCFX.DataModels;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace OCFX.Pages.MadminAccess.Campaigns
 {
@@ -16,7 +16,7 @@ namespace OCFX.Pages.MadminAccess.Campaigns
             _context = context;
         }
 
-        public IList<Campaign> Campaign { get;set; }
+        public IList<Campaign> Campaign { get; set; }
 
         public async Task OnGetAsync()
         {

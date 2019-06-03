@@ -1,20 +1,20 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OCFX.Areas.Identity.Data;
 using OCFX.DataModels;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace OCFX.Pages.Profiles
 {
-	public class EditProfileModel : PageModel
-	{
-		private readonly OCFXContext _context;
-		private readonly UserManager<OCFXUser> _userManager;
+    public class EditProfileModel : PageModel
+    {
+        private readonly OCFXContext _context;
+        private readonly UserManager<OCFXUser> _userManager;
 
         public EditProfileModel(OCFXContext context, UserManager<OCFXUser> userManager)
         {
@@ -26,63 +26,63 @@ namespace OCFX.Pages.Profiles
 
         [BindProperty]
         public Profile Profile { get; set; }
-        
+
         [TempData]
         public string StatusMessage { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
-		{
-			Player = await _userManager.GetUserAsync(User);
+        {
+            Player = await _userManager.GetUserAsync(User);
 
-			Profile = await _context.Profiles
-				.Include(p => p.FitStyle).FirstOrDefaultAsync(m => m.Id == Player.ProfileId);
+            Profile = await _context.Profiles
+                .Include(p => p.FitStyle).FirstOrDefaultAsync(m => m.Id == Player.ProfileId);
 
-			if (Profile == null)
-			{
-				return NotFound();
-			}
-			ViewData["ClassId"] = new SelectList(_context.Archetypes, "Id", "Id");
-			return Page();
-		}
+            if (Profile == null)
+            {
+                return NotFound();
+            }
+            ViewData["ClassId"] = new SelectList(_context.Archetypes, "Id", "Id");
+            return Page();
+        }
 
-		public async Task<IActionResult> OnPostAsync()
-		{
+        public async Task<IActionResult> OnPostAsync()
+        {
 
             var errors = ModelState.Values.SelectMany(v => v.Errors);
             if (!ModelState.IsValid)
-			{
+            {
                 StatusMessage = "Error: Well, something must have happened. Let's check that information again.";
-				return Page();
-			}
+                return Page();
+            }
 
-			_context.Attach(Profile).State = EntityState.Modified;
+            _context.Attach(Profile).State = EntityState.Modified;
 
-			try
-			{
-				await _context.SaveChangesAsync();
-			}
-			catch (DbUpdateConcurrencyException)
-			{
-				if (!ProfileExists(Profile.Id))
-				{
-					return NotFound();
-				}
-				else
-				{
-					throw;
-				}
-			}
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ProfileExists(Profile.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
             StatusMessage = "Profile changed!";
 
-			return RedirectToPage("Index");
-		}
+            return RedirectToPage("Index");
+        }
 
-		private bool ProfileExists(int id)
-		{
-			return _context.Profiles.Any(e => e.Id == id);
-		}
+        private bool ProfileExists(int id)
+        {
+            return _context.Profiles.Any(e => e.Id == id);
+        }
 
-        
+
     }
 }

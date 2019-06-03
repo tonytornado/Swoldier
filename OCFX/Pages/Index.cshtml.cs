@@ -1,14 +1,14 @@
-﻿using System;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OCFX.DataModels;
+using System;
 
 namespace OCFX.Pages
 {
-	[AllowAnonymous]
-	public class IndexModel : PageModel
+    [AllowAnonymous]
+    public class IndexModel : PageModel
     {
         private readonly SignInManager<OCFXUser> _signInManager;
 
@@ -29,7 +29,7 @@ namespace OCFX.Pages
                 }
                 if (User != null)
                 {
-                   return RedirectToPage("/Dashboard/Index");
+                    return RedirectToPage("/Dashboard/Index");
                 }
             }
 

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace OCFX.DataModels
 {
     public class Membership
-    { 
+    {
         [Key]
         [Display(Name = "Id")]
         public int Id { get; set; }

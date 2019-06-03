@@ -20,6 +20,6 @@ namespace OCFX.DataModels
         [ForeignKey("ProfileId")]
         public Profile Profile { get; set; }
 
-        
+
     }
 }

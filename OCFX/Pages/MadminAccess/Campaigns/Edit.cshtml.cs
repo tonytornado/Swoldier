@@ -1,11 +1,11 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OCFX.Areas.Identity.Data;
 using OCFX.DataModels;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace OCFX.Pages.MadminAccess.Campaigns
 {
@@ -18,28 +18,28 @@ namespace OCFX.Pages.MadminAccess.Campaigns
             _context = context;
         }
 
-		public SelectList DietListing { get; set; }
-		public SelectList ProgramListing { get; set; }
+        public SelectList DietListing { get; set; }
+        public SelectList ProgramListing { get; set; }
 
-		public void PopulateProgramList(OCFXContext _context, object selectedProgram = null)
-		{
-			var AlistQuery = from d in _context.Workouts
-							 orderby d.Title
-							 select d;
+        public void PopulateProgramList(OCFXContext _context, object selectedProgram = null)
+        {
+            var AlistQuery = from d in _context.Workouts
+                             orderby d.Title
+                             select d;
 
-			ProgramListing = new SelectList(AlistQuery.AsNoTracking(), "Id", "Title", selectedProgram);
-		}
+            ProgramListing = new SelectList(AlistQuery.AsNoTracking(), "Id", "Title", selectedProgram);
+        }
 
-		public void PopulateDietList(OCFXContext _context, object selectedDiet = null)
-		{
-			var BlistQuery = from d in _context.Diets
-							 orderby d.Id
-							 select d;
+        public void PopulateDietList(OCFXContext _context, object selectedDiet = null)
+        {
+            var BlistQuery = from d in _context.Diets
+                             orderby d.Id
+                             select d;
 
-			DietListing = new SelectList(BlistQuery.AsNoTracking(), "Id", "DietName", selectedDiet);
-		}
+            DietListing = new SelectList(BlistQuery.AsNoTracking(), "Id", "DietName", selectedDiet);
+        }
 
-		[BindProperty]
+        [BindProperty]
         public Campaign Campaign { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
@@ -50,8 +50,8 @@ namespace OCFX.Pages.MadminAccess.Campaigns
             }
 
             Campaign = await _context.Campaigns.FirstOrDefaultAsync(m => m.Id == id);
-			PopulateDietList(_context, Campaign.DietId);
-			PopulateProgramList(_context, Campaign.CampaignQuest);
+            PopulateDietList(_context, Campaign.DietId);
+            PopulateProgramList(_context, Campaign.CampaignQuest);
 
             if (Campaign == null)
             {
@@ -64,9 +64,9 @@ namespace OCFX.Pages.MadminAccess.Campaigns
         {
             if (!ModelState.IsValid)
             {
-				PopulateDietList(_context, Campaign.DietId);
-				PopulateProgramList(_context, Campaign.CampaignQuest);
-				return Page();
+                PopulateDietList(_context, Campaign.DietId);
+                PopulateProgramList(_context, Campaign.CampaignQuest);
+                return Page();
             }
 
             _context.Attach(Campaign).State = EntityState.Modified;

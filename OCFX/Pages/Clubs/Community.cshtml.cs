@@ -33,7 +33,7 @@ namespace OCFX.Pages.Clubs
         public int MemberCount { get; private set; }
         public bool ClubAllegiance { get; private set; }
         public int MessageBoardPosts { get; private set; }
-        
+
         [TempData]
         public string StatusMessage { get; set; }
 
@@ -56,13 +56,13 @@ namespace OCFX.Pages.Clubs
 
             // Check for subscription
             Subscription = await _context.Memberships
-                .SingleOrDefaultAsync(i => i.Member.Id == Visitor.ProfileId && 
+                .SingleOrDefaultAsync(i => i.Member.Id == Visitor.ProfileId &&
                 i.Status != Membership.MembershipType.Banned &&
                 i.Club.Id == id);
 
             // Get the count of members in the club
             MemberCount = GymMembers != null ? GymMembers
-                .Where(u => u.Status == Membership.MembershipType.Member).Count() : 0; 
+                .Where(u => u.Status == Membership.MembershipType.Member).Count() : 0;
 
             // Check the user's club count.
             ClubAllegiance = _context.Memberships.Where(m => m.Member.Id == Visitor.ProfileId).Count() is 0;

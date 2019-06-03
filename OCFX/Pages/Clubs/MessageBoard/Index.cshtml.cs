@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using OCFX.Areas.Identity.Data;
 using OCFX.DataModels;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace OCFX.Pages.Clubs
 {
@@ -35,7 +35,7 @@ namespace OCFX.Pages.Clubs
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 StatusMessage = "ERROR: You did a no-no. Go back now.";
                 return Page();
@@ -78,7 +78,8 @@ namespace OCFX.Pages.Clubs
                 await _context.SaveChangesAsync();
 
                 StatusMessage = "Topic posted.";
-            } else
+            }
+            else
             {
                 StatusMessage = "ERROR: Topic not posted. Something has goofed up.";
             }

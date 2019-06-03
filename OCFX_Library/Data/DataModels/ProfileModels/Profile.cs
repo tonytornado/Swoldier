@@ -149,7 +149,7 @@ namespace OCFX.DataModels
             int age = Convert.ToInt32((DateTime.Today - DOB).TotalDays / 365);
             return age;
         }
-        
+
         /// <summary>
         /// Calculate the body fat percentage of the profile
         /// </summary>

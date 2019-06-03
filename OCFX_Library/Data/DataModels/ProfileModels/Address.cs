@@ -5,8 +5,8 @@ namespace OCFX.DataModels
     public class Address
     {
         [Key]
-		[Display(Name = "Address")]
-		public int Id { get; set; }
+        [Display(Name = "Address")]
+        public int Id { get; set; }
         [Display(Name = "Address Type")]
         public AddressType AddressTypeName { get; set; }
         [Display(Name = "Street")]
@@ -18,7 +18,7 @@ namespace OCFX.DataModels
         [Display(Name = "Postal Code")]
         public int ZipCode { get; set; }
 
-		public Profile Profile { get; set; }
+        public Profile Profile { get; set; }
     }
 
     public enum AddressType

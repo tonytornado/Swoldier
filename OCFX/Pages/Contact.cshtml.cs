@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace OCFX.Pages
 {
-	[AllowAnonymous]
+    [AllowAnonymous]
     public class ContactModel : PageModel
     {
         public string Message { get; set; }

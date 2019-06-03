@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using OCFX.Areas.Identity.Data;
 using OCFX.DataModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace OCFX.Pages.Clubs
 {
@@ -41,9 +41,9 @@ namespace OCFX.Pages.Clubs
         {
             var user = await _manager.GetUserAsync(User);
             Profile pro = _context.Profiles.Include(G => G.Gym).SingleOrDefault(p => p.Id == user.ProfileId);
-            
+
             // Check if the user is already with a gym/club
-            if(pro.Gym != null)
+            if (pro.Gym != null)
             {
                 StatusMessage = "Error: You're already in a club, man. You gotta leave one to make one.";
                 return Page();

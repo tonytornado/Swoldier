@@ -8,7 +8,7 @@ namespace OCFX.DataModels
     {
         [Key]
         public int Id { get; set; }
-        [Display(Name ="Type of Event")]
+        [Display(Name = "Type of Event")]
         public EventType Type { get; set; }
         [Display(Name = "Name of Event")]
         public string Name { get; set; }

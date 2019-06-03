@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OCFX.Areas.Identity.Data;
 using OCFX.Data.Methods;
 using OCFX.DataModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace OCFX.Pages.Campaigns.Quests
 {
@@ -33,7 +33,7 @@ namespace OCFX.Pages.Campaigns.Quests
         {
             var user = await _userManager.GetUserAsync(User);
 
-            Quest =  _context.Quests.SingleOrDefault(q => q.Id == id);
+            Quest = _context.Quests.SingleOrDefault(q => q.Id == id);
             QuestBlocker = _context.QuestLogs.SingleOrDefault(q => q.QuestId == id && q.Completed == false && q.ProfileId == user.ProfileId);
             Completed = QuestMethods.CheckCompletedQuests(_context, user.ProfileId);
         }
@@ -69,7 +69,7 @@ namespace OCFX.Pages.Campaigns.Quests
                 StatusMessage = e.Message;
                 return RedirectToPage(new { id });
             }
-            
+
             StatusMessage = "Quest Completed!";
             return RedirectToPage(new { id });
         }

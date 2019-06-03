@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using OCFX.Areas.Identity.Data;
 using OCFX.DataModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace OCFX.Pages.Clubs.MessageBoard
 {
@@ -43,8 +43,8 @@ namespace OCFX.Pages.Clubs.MessageBoard
                 .Include(c => c.MessageBoardComments)
                     .ThenInclude(c => c.Profile)
                         .ThenInclude(c => c.Photos)
-                .SingleOrDefaultAsync(c => 
-            c.Board.Id == BoardId 
+                .SingleOrDefaultAsync(c =>
+            c.Board.Id == BoardId
             && c.Id == MessageId);
 
             InitialBoardComments = InitialBoardPost.MessageBoardComments.ToList();
@@ -54,24 +54,26 @@ namespace OCFX.Pages.Clubs.MessageBoard
 
         public async Task<IActionResult> OnPostCommentAsync(int BoardId, int MessageId)
         {
-            if (ModelState.IsValid) { 
-
-            BoardViewingMember = await _userManager.GetUserAsync(User);
-
-            MessageBoardComment BoardPost = new MessageBoardComment
+            if (ModelState.IsValid)
             {
-                BoardId = BoardId,
-                BoardPostId = MessageId,
-                ProfileId = BoardViewingMember.ProfileId,
-                Text = Input,
-                DatePosted = DateTime.Now
 
-            };
+                BoardViewingMember = await _userManager.GetUserAsync(User);
 
-            _context.MessageBoardComments.Add(BoardPost);
-            _context.SaveChanges();
+                MessageBoardComment BoardPost = new MessageBoardComment
+                {
+                    BoardId = BoardId,
+                    BoardPostId = MessageId,
+                    ProfileId = BoardViewingMember.ProfileId,
+                    Text = Input,
+                    DatePosted = DateTime.Now
+
+                };
+
+                _context.MessageBoardComments.Add(BoardPost);
+                _context.SaveChanges();
                 StatusMessage = "Reply posted.";
-            } else
+            }
+            else
             {
                 StatusMessage = "ERROR: Reply not posted. Something has goofed up.";
             }

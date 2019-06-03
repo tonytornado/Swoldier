@@ -9,7 +9,7 @@
         // Method for changing campaigns
         // Method for adding to campaigns
         // Method for when someone joins your campaign instance
-        
+
         // Method for changing name information
         // Method for changing profile information
         // Method for changing drive information

@@ -40,5 +40,7 @@ namespace OCFX.DataModels
             [Display(Name = "Tabata")]
             Tabata = 5
         }
+
+        public string ExerciseTitle => $"{Name} [{ExerType}]";
     }
 }

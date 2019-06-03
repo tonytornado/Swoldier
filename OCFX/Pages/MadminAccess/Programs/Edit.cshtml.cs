@@ -1,11 +1,11 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OCFX.Areas.Identity.Data;
 using OCFX.DataModels;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace OCFX.Pages.MadminAccess.Programs
 {
@@ -32,7 +32,7 @@ namespace OCFX.Pages.MadminAccess.Programs
                 .Include(w => w.Exercise)
                 .Include(w => w.Workout)
                 //.Include(w => w.Campaign)
-				.FirstOrDefaultAsync(m => m.WorkoutProgramId == id);
+                .FirstOrDefaultAsync(m => m.WorkoutProgramId == id);
 
             if (WorkoutProgram == null)
             {

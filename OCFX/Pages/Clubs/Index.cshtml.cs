@@ -1,10 +1,10 @@
-﻿using System;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using OCFX.Areas.Identity.Data;
 using OCFX.Data.DataModels;
 using OCFX.DataModels;
+using System;
+using System.Linq;
 
 namespace OCFX.Pages.Clubs
 {
@@ -28,11 +28,14 @@ namespace OCFX.Pages.Clubs
             if (searchString != null)
             {
                 pageIndex = 1;
-            } else {
+            }
+            else
+            {
                 CurrentSearch = true;
             }
 
-            if (!String.IsNullOrEmpty(searchString)){
+            if (!String.IsNullOrEmpty(searchString))
+            {
                 ClubListing = ClubListing.Where(s => s.Title.Contains(searchString));
             }
 

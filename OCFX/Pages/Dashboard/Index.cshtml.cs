@@ -1,30 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OCFX.Areas.Identity.Data;
 using OCFX.Data.Methods;
 using OCFX.DataModels;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace OCFX.Pages.Dashboard
 {
     [Authorize]
     public class DashboardModel : PageModel
     {
-		private readonly UserManager<OCFXUser> _userManager;
-		private readonly OCFXContext _context;
+        private readonly UserManager<OCFXUser> _userManager;
+        private readonly OCFXContext _context;
 
-		public DashboardModel(UserManager<OCFXUser> userManager, OCFXContext context)
-		{
-			_userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
-			_context = context ?? throw new ArgumentNullException(nameof(context));
-		}
+        public DashboardModel(UserManager<OCFXUser> userManager, OCFXContext context)
+        {
+            _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
+            _context = context ?? throw new ArgumentNullException(nameof(context));
+        }
 
-		public Profile Profiler { get; private set; }
-		public Photo ProfilePhoto { get; private set; }
+        public Profile Profiler { get; private set; }
+        public Photo ProfilePhoto { get; private set; }
         public List<int> CompletedQuests { get; private set; }
 
         public string UserTitle { get; private set; }
@@ -33,16 +33,16 @@ namespace OCFX.Pages.Dashboard
 
         [TempData]
         public string StatusMessage { get; set; }
-        
+
 
         public async Task OnGetAsync()
         {
             // Get the logged-in user information
-			Task<OCFXUser> user = _userManager.GetUserAsync(User);
+            Task<OCFXUser> user = _userManager.GetUserAsync(User);
 
             // Get the profile and profile photo
             Profiler = await ProfileMethods.GetProfileAsync(_context, user.Result.ProfileId);
-			ProfilePhoto = ProfileMethods.GetProfilePhoto(_context, Profiler.Id);
+            ProfilePhoto = ProfileMethods.GetProfilePhoto(_context, Profiler.Id);
 
             // Get the completed quests
             CompletedQuests = QuestMethods.CheckCompletedQuests(_context, Profiler.Id);
@@ -59,7 +59,7 @@ namespace OCFX.Pages.Dashboard
             double heightc = height * 2.54;
             double value = (10 * weightc) + (6.25 * heightc) - (5 * age) + 5;
 
-            return Math.Round(value,0);
+            return Math.Round(value, 0);
         }
     }
 }

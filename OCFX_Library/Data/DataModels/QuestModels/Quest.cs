@@ -5,40 +5,40 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace OCFX.DataModels
 {
     public class Quest
-	{
-		[Key]
-		[Display(Name = "Quest")]
-		public int Id { get; set; }
-		[Display(Name = "Quest Name")]
-		public string QuestName { get; set; }
-		[Display(Name = "Quest Type")]
-		public QuestType QuestStyle { get; set; }
-		[Display(Name = "Quest Description")]
-		public string QuestStory { get; set; }
+    {
+        [Key]
+        [Display(Name = "Quest")]
+        public int Id { get; set; }
+        [Display(Name = "Quest Name")]
+        public string QuestName { get; set; }
+        [Display(Name = "Quest Type")]
+        public QuestType QuestStyle { get; set; }
+        [Display(Name = "Quest Description")]
+        public string QuestStory { get; set; }
 
-		// Folks that are on this quest
-		public List<Profile> CurrentPlayers { get; set; }
+        // Folks that are on this quest
+        public List<Profile> CurrentPlayers { get; set; }
 
         // Encounters on this quest
         public List<Encounter> Encounters { get; set; }
 
-		// It's part of the campaign, yeah?
-		public int CampaignId { get; set; }
-		[ForeignKey("CampaignId")]
-		public Campaign Campaign { get; set; }
-	}
+        // It's part of the campaign, yeah?
+        public int CampaignId { get; set; }
+        [ForeignKey("CampaignId")]
+        public Campaign Campaign { get; set; }
+    }
 
-	public enum QuestType
-	{
-		[Display(Name = "Power")]
-		Power = 1,
-		[Display(Name = "Endurance")]
-		Endurance = 2,
-		[Display(Name = "Speed")]
-		Speed = 3,
-		[Display(Name = "Consistency")]
-		Consistency = 4
-	}
+    public enum QuestType
+    {
+        [Display(Name = "Power")]
+        Power = 1,
+        [Display(Name = "Endurance")]
+        Endurance = 2,
+        [Display(Name = "Speed")]
+        Speed = 3,
+        [Display(Name = "Consistency")]
+        Consistency = 4
+    }
 
     public enum RiskLevel
     {

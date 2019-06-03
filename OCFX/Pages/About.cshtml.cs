@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace OCFX.Pages
 {
     [AllowAnonymous]
-	public class AboutModel : PageModel
+    public class AboutModel : PageModel
     {
         public string Message { get; set; }
 
