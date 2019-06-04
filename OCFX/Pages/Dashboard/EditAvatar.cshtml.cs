@@ -84,12 +84,12 @@ namespace OCFX.Pages.Profiles
                 if (Image.ContentType == "image/jpeg" || Image.ContentType == "image/png")
                 {
                     fileName = GetUniqueName(Image.FileName);
-                    string folderPath = string.Format("images/{0}/profilePhoto", Photo.ProfileId);
+                    string folderPath = $"images/{Photo.ProfileId}/profilePhoto";
                     string upload = Path.Combine(_environment.WebRootPath, folderPath);
                     CheckFolderPath(upload);
                     string filePath = Path.Combine(upload, fileName);
                     await Image.CopyToAsync(new FileStream(filePath, FileMode.Create));
-                    photograph.URL = string.Format("/images/{0}/profilePhoto/{1}", Photo.ProfileId, fileName);
+                    photograph.URL = $"../images/{Photo.ProfileId}/profilePhoto/{fileName}";
                     photograph.Caption = Photo.Caption;
 
                     _context.Photos.Add(photograph);

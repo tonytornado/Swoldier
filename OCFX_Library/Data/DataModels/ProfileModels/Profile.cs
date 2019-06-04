@@ -130,19 +130,29 @@ namespace OCFX.DataModels
 
         // Properties
         public string FullName => $"{FirstName} {LastName}";
-        public string ProfilePhotoUrl => GetProfilePhoto().URL;
-        public double BodyFat => GetBodyFat(Height, Weight, NeckMeasurement, WaistMeasurement, HipMeasurement);
+        [NotMapped]
+        public string ProfilePhotoUrl => GetProfilePhoto(Id);
+        public double BodyFat => GetBodyFat(Height,
+                                            Weight,
+                                            NeckMeasurement,
+                                            WaistMeasurement,
+                                            HipMeasurement);
 
-        private Photo GetProfilePhoto()
+        private string GetProfilePhoto(int? Id)
         {
-            Photo URL = Photos
-                .OrderByDescending(d => d.DateAdded)
-                .FirstOrDefault(c =>
-                {
-                    return c.Type == Photo.PhotoType.Profile
-                           && c.ProfileId == Id;
-                });
-            return URL;
+            if (Id != null && Id != 0)
+            {
+                Photo p = Photos
+                    .OrderByDescending(d => d.DateAdded)
+                    .FirstOrDefault(c =>
+                    {
+                        return c.Type == Photo.PhotoType.Profile
+                               && c.ProfileId == Id;
+                    });
+                string j = p.URL;
+                return j;
+            }
+            return "";
         }
         private int GetAge(DateTime DOB)
         {

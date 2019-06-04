@@ -192,7 +192,7 @@ namespace OCFX.Areas.Identity.Pages.Account
                 user.Profile.Photos.Add(new Photo
                 {
                     DateAdded = DateTime.Now,
-                    URL = "~/images/default.jpg",
+                    URL = "../images/default.jpg",
                     Caption = "Default Look",
                     Type = Photo.PhotoType.Profile
                 });
