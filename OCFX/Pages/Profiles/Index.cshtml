@@ -26,14 +26,14 @@
                 }
             }
         </div>
-        @if (Model.ProfilePhoto != null)
+        @if (Model.Profiler.ProfilePhotoUrl != "")
         {
             <div class="col-md" id="photo_section">
-                <img src="@Model.Profiler.ProfilePhotoUrl" alt="@Model.ProfilePhoto.Caption" title="@Model.ProfilePhoto.Caption" class="profile_avatar" />
+                <img src="@Model.Profiler.ProfilePhotoUrl" alt="@Model.Profiler.ProfilePhoto.Caption" title="@Model.Profiler.ProfilePhoto.Caption" class="profile_avatar" />
                 <br />
                 @if (Model.Player != null)
                 {
-                    @if (Model.ProfilePhoto.ProfileId == Model.Player.ProfileId)
+                    @if (Model.Profiler.Id == Model.Player.ProfileId)
                     {
                         <a asp-page="/Dashboard/EditAvatar" asp-route-id="@Model.Profiler.Id" class="btn btn-sm btn-block btn-outline-dark mt-3">Edit Photo</a>
                     }
@@ -44,7 +44,7 @@
         {
             @if (Model.Profiler.Id == Model.Player.ProfileId)
             {
-                <a asp-page="./Dashboard/EditAvatar" asp-route-id="@Model.Profiler.Id" class="page-link btn btn-block btn-dark">Add Photo</a>
+                <a asp-page="/Dashboard/EditAvatar" asp-route-id="@Model.Profiler.Id" class="page-link btn btn-block btn-dark">Add Photo</a>
             }
         }
     </header>

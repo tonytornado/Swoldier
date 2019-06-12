@@ -131,14 +131,16 @@ namespace OCFX.DataModels
         // Properties
         public string FullName => $"{FirstName} {LastName}";
         [NotMapped]
-        public string ProfilePhotoUrl => GetProfilePhoto(Id);
+        public string ProfilePhotoUrl => GetProfilePhoto(Id).URL;
+        [NotMapped]
+        public Photo ProfilePhoto => GetProfilePhoto(Id);
         public double BodyFat => GetBodyFat(Height,
                                             Weight,
                                             NeckMeasurement,
                                             WaistMeasurement,
                                             HipMeasurement);
 
-        private string GetProfilePhoto(int? Id)
+        private Photo GetProfilePhoto(int? Id)
         {
             if (Id != null && Id != 0)
             {
@@ -149,10 +151,10 @@ namespace OCFX.DataModels
                         return c.Type == Photo.PhotoType.Profile
                                && c.ProfileId == Id;
                     });
-                string j = p.URL;
-                return j;
+                //string j = p.URL;
+                return p;
             }
-            return "";
+            return null;
         }
         private int GetAge(DateTime DOB)
         {

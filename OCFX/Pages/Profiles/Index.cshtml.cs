@@ -27,7 +27,6 @@ namespace OCFX.Pages.Profiles
         public Profile Profiler { get; set; }
         public List<Friend> Friender { get; set; }
         public List<Friend> Requests { get; set; }
-        public Photo ProfilePhoto { get; set; }
         public List<Profile> RelatedFolkList { get; set; }
 
         public string userTitle;
