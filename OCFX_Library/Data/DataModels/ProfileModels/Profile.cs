@@ -34,9 +34,11 @@ namespace OCFX.DataModels
         // Body Measurements [PERSONAL DATA]
         [PersonalData]
         [Display(Name = "Height")]
+        [Range(60, 272, ErrorMessage = "Let's go with something believable here.")]
         public int Height { get; set; }
         [PersonalData]
         [Display(Name = "Weight")]
+        [Range(45.35, 226.80, ErrorMessage = "Again, something believable. ")]
         public int Weight { get; set; }
         [PersonalData]
         [Display(Name = "Neck")]

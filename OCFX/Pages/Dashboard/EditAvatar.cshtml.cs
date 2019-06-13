@@ -16,7 +16,7 @@ namespace OCFX.Pages.Profiles
     public class EditAvatarModel : PageModel
     {
         private readonly OCFXContext _context;
-        private IHostingEnvironment _environment;
+        private readonly IHostingEnvironment _environment;
         private string fileName;
         private readonly UserManager<OCFXUser> _userManager;
 
@@ -45,7 +45,7 @@ namespace OCFX.Pages.Profiles
                 .OrderByDescending(d => d.DateAdded)
                 .FirstOrDefaultAsync(p => p.ProfileId == Player.ProfileId);
 
-            if (Photo == null)
+            if (Photo.URL == "../images/default.jpg")
             {
                 StatusMessage = "Let's try on a new face! Enter a litle bit of information so we can get rid of that Beerus photo. It looks weird, okay?";
                 Photo.ProfileId = Player.ProfileId;
@@ -57,7 +57,7 @@ namespace OCFX.Pages.Profiles
 
         public async Task<IActionResult> OnPostAsync()
         {
-            System.Collections.Generic.IEnumerable<Microsoft.AspNetCore.Mvc.ModelBinding.ModelError> errors = ModelState.Values.SelectMany(v => v.Errors);
+            var errors = ModelState.Values.SelectMany(v => v.Errors);
             if (!ModelState.IsValid)
             {
                 StatusMessage = "Error: Something's wrong! We can't change your picture!";
@@ -127,14 +127,12 @@ namespace OCFX.Pages.Profiles
         /// <summary>
         /// Create a unique file name for the file being uploaded.
         /// </summary>
-        /// <param name="fileName"></param>
+        /// <param name="fileName">A filename string</param>
         /// <returns></returns>
         private string GetUniqueName(string fileName)
         {
             fileName = Path.GetFileName(fileName);
-            return Path.GetFileNameWithoutExtension(fileName)
-                   + "_" + Guid.NewGuid().ToString().Substring(0, 6)
-                   + Path.GetExtension(fileName);
+            return $"{Path.GetFileNameWithoutExtension(fileName)}_{Guid.NewGuid().ToString().Substring(0, 6)}{Path.GetExtension(fileName)}";
         }
     }
 }

@@ -48,25 +48,9 @@ namespace OCFX.Areas.Identity.Pages.Account
         public Profile Profiler { get; set; }
 
         public string ReturnUrl { get; set; }
-        public SelectList QuestList { get; set; }
-
+        
         [TempData]
         public string StatusMessage { get; set; }
-
-        /// <summary>
-        /// Fills out the Program list.
-        /// </summary>
-        /// <param name="_context">DBcontext</param>
-        /// <param name="selectedListItem">The selected item</param>
-        public void PopulateProgramList(Data.OCFXContext _context, object selectedListItem = null)
-        {
-            IQueryable<Campaign> Query = from d in _context.Campaigns
-                                         orderby d.Id ascending
-                                         where d.CampaignRisk == RiskLevel.Low
-                                         select d;
-
-            QuestList = new SelectList(Query.AsNoTracking(), "Id", "CampaignName", selectedListItem);
-        }
 
         /// <summary>
         /// The input model for the Register Model
@@ -86,7 +70,7 @@ namespace OCFX.Areas.Identity.Pages.Account
 
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Compare("Password", ErrorMessage = "Your passwords do not match.")]
             public string ConfirmPassword { get; set; }
 
             [Display(Name = "First Name")]
@@ -111,7 +95,6 @@ namespace OCFX.Areas.Identity.Pages.Account
 
         public void OnGet(string returnUrl = null)
         {
-            PopulateProgramList(_context);
             ReturnUrl = returnUrl;
         }
 
@@ -234,14 +217,11 @@ namespace OCFX.Areas.Identity.Pages.Account
                 }
                 foreach (IdentityError error in result.Errors)
                 {
-
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
 
             // If we got this far, something failed, redisplay form
-            StatusMessage = "Something's wrong.";
-            PopulateProgramList(_context);
             return Page();
         }
     }
