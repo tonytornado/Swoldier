@@ -22,6 +22,8 @@ namespace OCFX.DataModels
         public int ProfileId { get; set; }
         [ForeignKey("ProfileId")]
         public Profile Profile { get; set; }
+
+
     }
     /// <summary>
     /// A profile post 

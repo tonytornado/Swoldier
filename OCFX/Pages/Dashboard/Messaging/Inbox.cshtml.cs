@@ -70,7 +70,7 @@ namespace OCFX.Pages.Dashboard.Messaging
                 return Page();
             }
 
-            var reply = new Shout()
+            Shout reply = new Shout()
             {
                 Identifier = Guid.NewGuid(),
                 ChainIdentifier = IMessage.ChainIdentifier,
@@ -113,7 +113,7 @@ namespace OCFX.Pages.Dashboard.Messaging
                 .Where(u => u.ChainIdentifier == ChainId)
                 .ToListAsync();
 
-            foreach (var item in IMessageChain)
+            foreach (Shout item in IMessageChain)
             {
                 item.Status = Shout.MessageStatus.Archived;
             }

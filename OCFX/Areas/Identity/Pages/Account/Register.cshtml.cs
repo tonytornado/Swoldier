@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using OCFX.Areas.Identity.Data;
@@ -10,7 +9,6 @@ using OCFX.DataModels;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
@@ -24,12 +22,11 @@ namespace OCFX.Areas.Identity.Pages.Account
         private readonly IEmailSender _emailSender;
         private readonly OCFXContext _context;
 
-        public RegisterModel(
-            OCFXContext context,
-            UserManager<OCFXUser> userManager,
-            SignInManager<OCFXUser> signInManager,
-            ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+        public RegisterModel(OCFXContext context,
+                             UserManager<OCFXUser> userManager,
+                             SignInManager<OCFXUser> signInManager,
+                             ILogger<RegisterModel> logger,
+                             IEmailSender emailSender)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
@@ -48,7 +45,7 @@ namespace OCFX.Areas.Identity.Pages.Account
         public Profile Profiler { get; set; }
 
         public string ReturnUrl { get; set; }
-        
+
         [TempData]
         public string StatusMessage { get; set; }
 
