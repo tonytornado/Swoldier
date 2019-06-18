@@ -133,15 +133,23 @@ namespace OCFX.DataModels
         // Properties
         public string FullName => $"{FirstName} {LastName}";
         [NotMapped]
-        public string ProfilePhotoUrl => GetProfilePhoto(Id).URL;
-        [NotMapped]
         public Photo ProfilePhoto => GetProfilePhoto(Id);
-        public double BodyFat => GetBodyFat(Height,
-                                            Weight,
-                                            NeckMeasurement,
-                                            WaistMeasurement,
-                                            HipMeasurement);
+        [NotMapped]
+        public string ProfilePhotoUrl
+        {
+            get
+            {
+                Photo k = GetProfilePhoto(Id);
+                return k?.URL;
+            }
+        }
+        public double BodyFat => GetBodyFat(Height, Weight, NeckMeasurement, WaistMeasurement, HipMeasurement);
 
+        /// <summary>
+        /// Retrieves a Profile Photo
+        /// </summary>
+        /// <param name="Id">Profile ID</param>
+        /// <returns></returns>
         private Photo GetProfilePhoto(int? Id)
         {
             if (Id != null && Id != 0)
