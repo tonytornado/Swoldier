@@ -22,10 +22,10 @@ namespace OCFX.DataModels
         public string LastName { get; set; }
         [PersonalData]
         [Display(Name = "Date of Birth")]
-        [NotMapped]
         public DateTime DOB { get; set; }
         [PersonalData]
         [Display(Name = "Age")]
+        [NotMapped]
         public int Age => GetAge(DOB);
         [PersonalData]
         [Display(Name = "Gender")]
@@ -133,6 +133,8 @@ namespace OCFX.DataModels
         // Properties
         public string FullName => $"{FirstName} {LastName}";
         [NotMapped]
+        public string AgeName => $"{Age} year-old {Gender} {FitStyle.SkillMod} {FitStyle.FitType}";
+        [NotMapped]
         public Photo ProfilePhoto => GetProfilePhoto(Id);
         [NotMapped]
         public string ProfilePhotoUrl
@@ -143,8 +145,9 @@ namespace OCFX.DataModels
                 return k?.URL;
             }
         }
-        public double BodyFat => GetBodyFat(Height, Weight, NeckMeasurement, WaistMeasurement, HipMeasurement);
 
+        [NotMapped]
+        public double BodyFat => GetBodyFat(Height, Weight, NeckMeasurement, WaistMeasurement, HipMeasurement);
         /// <summary>
         /// Retrieves a Profile Photo
         /// </summary>
@@ -166,12 +169,16 @@ namespace OCFX.DataModels
             }
             return null;
         }
+        /// <summary>
+        /// Get the age from a given date of birth
+        /// </summary>
+        /// <param name="DOB"></param>
+        /// <returns></returns>
         private int GetAge(DateTime DOB)
         {
-            int age = Convert.ToInt32((DateTime.Today - DOB).TotalDays / 365);
+            int age = Convert.ToInt32((DateTime.Now - DOB).TotalDays / 365);
             return age;
         }
-
         /// <summary>
         /// Calculate the body fat percentage of the profile
         /// </summary>
@@ -181,11 +188,7 @@ namespace OCFX.DataModels
         /// <param name="waist">Waist Circumference in inches</param>
         /// <param name="hip">Hip Circumference in inches</param>
         /// <returns>double</returns>
-        private double GetBodyFat(int height,
-                               int weight,
-                               int? neck,
-                               int? waist,
-                               int? hip)
+        private double GetBodyFat(int height, int weight, int? neck, int? waist, int? hip)
         {
             double percentage = 0.0;
 

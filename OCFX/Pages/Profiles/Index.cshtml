@@ -17,7 +17,7 @@
             @if (Model.Profiler.Gym != null)
             {
                 <h5>@Model.Profiler.Gym.Club.Title</h5>}
-            <h5>@Model.Profiler.Age year-old @Html.DisplayFor(m => m.Profiler.Gender) @Model.Profiler.FitStyle.SkillMod @Model.Profiler.FitStyle.FitType</h5>
+            <h5>@Model.Profiler.AgeName</h5>
             @if (Model.Player != null)
             {
                 if (Model.Profiler.Id == Model.Player.ProfileId)
@@ -339,4 +339,4 @@
         </div>
     </form>
 </div>
-<partial name="_sendMessage" model="new { 'SendMail', Model.MessageSubject, Model.MessageText}" />
+@*<partial name="_sendMessage" model="new { 'SendMail', Model.MessageSubject, Model.MessageText}" />*@
