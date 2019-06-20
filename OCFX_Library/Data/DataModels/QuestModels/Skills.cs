@@ -23,6 +23,8 @@ namespace OCFX.DataModels
         public string Description { get; set; }
         [Display(Name = "Dangers")]
         public string Warning { get; set; }
+
+        public string SkillPower => $"{Name} [{Style}][{Target}][{Effect}]";
     }
 
     /// <summary>
@@ -57,7 +59,7 @@ namespace OCFX.DataModels
     /// </summary>
     public enum EffectType
     {
-        Nothing = 0,
+        None = 0,
         // Negatives
         Aggro = 1,
         DOMS = 2,

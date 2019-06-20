@@ -48,6 +48,9 @@ namespace OCFX.DataModels
             return time;
         }
 
+        public string MeetingTime => $"{StartTime} - {EndTime}";
+        public string FullMeetingTitle => $"{Name} ({Type}) [{MeetingTime}]";
+
         public enum DayInterval
         {
             First = 1,
@@ -67,8 +70,9 @@ namespace OCFX.DataModels
         public enum EventType
         {
             Sitewide = 1,
-            Gym = 2,
+            Club = 2,
             Personal = 3,
+            Maint
         }
     }
 }

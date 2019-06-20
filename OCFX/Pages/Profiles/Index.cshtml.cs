@@ -1,11 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using OCFX.Areas.Identity.Data;
-using OCFX.Data.Methods;
-using OCFX.DataModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -70,9 +63,6 @@ namespace OCFX.Pages.Profiles
 
             // Loads any related users through their fitness profile and skill mods
             RelatedFolkList = await _context.Profiles.Where(p => p.FitStyle.FitType == Profiler.FitStyle.FitType).ToListAsync();
-
-            // First and Last Name
-            userTitle = Profiler.FirstName + " " + Profiler.LastName;
 
             return Page();
         }

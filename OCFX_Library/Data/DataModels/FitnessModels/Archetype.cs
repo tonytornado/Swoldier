@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OCFX.DataModels
 {
@@ -14,6 +15,9 @@ namespace OCFX.DataModels
         public SkillType SkillMod { get; set; }
         [Display(Name = "Fit Type")]
         public ClassType FitType { get; set; }
+
+        [NotMapped]
+        public string SubTitle => $"{SkillMod} {FitType}";
 
         // Modifications to the base stats of the character.
         [Display(Name = "STR")]

@@ -20,8 +20,9 @@ namespace OCFX.DataModels
         [Display(Name = "Campaign Risks")]
         public RiskLevel CampaignRisk { get; set; }
 
-        [Display(Name = "Associated Diet")]
+        
         public int DietId { get; set; }
+        [Display(Name = "Associated Diet")]
         [ForeignKey("DietId")]
         public Diet CampaignDiet { get; set; }
 

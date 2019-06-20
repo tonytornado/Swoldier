@@ -133,7 +133,7 @@ namespace OCFX.DataModels
         // Properties
         public string FullName => $"{FirstName} {LastName}";
         [NotMapped]
-        public string AgeName => $"{Age} year-old {Gender} {FitStyle.SkillMod} {FitStyle.FitType}";
+        public string SubTitle => $"{Age} year-old {Gender} {FitStyle.SkillMod} {FitStyle.FitType}";
         [NotMapped]
         public Photo ProfilePhoto => GetProfilePhoto(Id);
         [NotMapped]
@@ -145,9 +145,10 @@ namespace OCFX.DataModels
                 return k?.URL;
             }
         }
-
         [NotMapped]
+        [Display(Name = "Body Fat Percentage")]
         public double BodyFat => GetBodyFat(Height, Weight, NeckMeasurement, WaistMeasurement, HipMeasurement);
+
         /// <summary>
         /// Retrieves a Profile Photo
         /// </summary>

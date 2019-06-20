@@ -17,7 +17,9 @@ namespace OCFX.DataModels
         public enum PhotoType
         {
             Profile = 1,
-            Other = 2
+            Progress = 2,
+            Action = 3,
+            Other = 4
         }
     }
 

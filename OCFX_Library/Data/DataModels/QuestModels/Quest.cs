@@ -26,6 +26,8 @@ namespace OCFX.DataModels
         public int CampaignId { get; set; }
         [ForeignKey("CampaignId")]
         public Campaign Campaign { get; set; }
+
+        public string QuestCampaignName => $"{QuestName} [{QuestStyle}] - {Campaign.CampaignName}";
     }
 
     public enum QuestType

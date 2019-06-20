@@ -19,6 +19,8 @@ namespace OCFX.DataModels
         Main = 1,
         Site = 2,
         Lore = 3,
-        Community = 4
+        Community = 4,
+        Fitness = 5,
+        Integration = 6
     }
 }
