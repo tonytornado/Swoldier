@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace OCFX.DataModels
@@ -40,8 +41,11 @@ namespace OCFX.DataModels
     }
 
 
-    public class WorkoutSet
+    public class WorkoutSetLog
     {
-
+        public int Id { get; set; }
+        public Workout Workout { get; set; }
+        public ICollection<ExerciseLog> ExercisesLogged { get; set; }
+        public DateTime Date { get; set; }
     }
 }

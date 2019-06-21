@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OCFX.DataModels
 {
+    /// <summary>
+    /// Records all quests completed
+    /// </summary>
     public class QuestLog
     {
         [Key]

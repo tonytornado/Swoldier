@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OCFX.DataModels
 {
+    /// <summary>
+    /// Skills for the DnD side of Swoldier Application
+    /// </summary>
     public class Skills
     {
         [Display(Name = "Id")]
