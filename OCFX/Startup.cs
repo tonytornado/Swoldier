@@ -30,6 +30,7 @@ namespace OCFX
                 .AddRazorPagesOptions(options =>
                 {
                     options.Conventions.AllowAnonymousToPage("/Profiles/Index");
+                    options.Conventions.AllowAnonymousToFolder("/FAQ");
                     options.Conventions.AuthorizeFolder("/MadminAccess");
                     options.Conventions.AuthorizeFolder("/Campaigns");
                     options.Conventions.AuthorizeFolder("/Clubs");
