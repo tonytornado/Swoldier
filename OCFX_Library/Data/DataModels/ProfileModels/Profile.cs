@@ -133,7 +133,7 @@ namespace OCFX.DataModels
         // Properties
         public string FullName => $"{FirstName} {LastName}";
         [NotMapped]
-        public string SubTitle => $"{Age} year-old {Gender} {FitStyle.SkillMod} {FitStyle.FitType}";
+        public string SubTitle => $"{Age} year-old {Gender}";
         [NotMapped]
         public Photo ProfilePhoto => GetProfilePhoto(Id);
         [NotMapped]
