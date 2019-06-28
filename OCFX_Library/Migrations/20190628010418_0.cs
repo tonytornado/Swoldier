@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OCFX_Library.Migrations
@@ -13,7 +12,7 @@ namespace OCFX_Library.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     SkillMod = table.Column<int>(nullable: false),
                     FitType = table.Column<int>(nullable: false),
                     StrengthMod = table.Column<int>(nullable: false),
@@ -52,7 +51,7 @@ namespace OCFX_Library.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     DietName = table.Column<string>(nullable: true),
                     DietTypeName = table.Column<int>(nullable: false),
                     Carbohydrates = table.Column<int>(nullable: false),
@@ -69,7 +68,7 @@ namespace OCFX_Library.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
                     ExerType = table.Column<int>(nullable: false),
                     TargetedMuscles = table.Column<int>(nullable: false),
@@ -86,7 +85,7 @@ namespace OCFX_Library.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Question = table.Column<string>(nullable: true),
                     Answer = table.Column<string>(nullable: true),
                     Section = table.Column<int>(nullable: false)
@@ -101,7 +100,7 @@ namespace OCFX_Library.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     EquipName = table.Column<string>(nullable: true),
                     EquipDescription = table.Column<string>(nullable: true)
                 },
@@ -115,7 +114,7 @@ namespace OCFX_Library.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Duration = table.Column<int>(nullable: false),
@@ -132,7 +131,7 @@ namespace OCFX_Library.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     RoleId = table.Column<Guid>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -153,7 +152,7 @@ namespace OCFX_Library.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     CampaignName = table.Column<string>(nullable: true),
                     CampaignDetails = table.Column<string>(nullable: true),
                     CampaignLore = table.Column<string>(nullable: true),
@@ -176,7 +175,7 @@ namespace OCFX_Library.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     QuestName = table.Column<string>(nullable: true),
                     QuestStyle = table.Column<int>(nullable: false),
                     QuestStory = table.Column<string>(nullable: true),
@@ -198,7 +197,7 @@ namespace OCFX_Library.Migrations
                 columns: table => new
                 {
                     WorkoutProgramId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     ExerciseId = table.Column<int>(nullable: false),
                     WorkoutId = table.Column<int>(nullable: false),
                     Sets = table.Column<int>(nullable: false),
@@ -235,9 +234,10 @@ namespace OCFX_Library.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
+                    DOB = table.Column<DateTime>(nullable: false),
                     Gender = table.Column<int>(nullable: false),
                     Height = table.Column<int>(nullable: false),
                     Weight = table.Column<int>(nullable: false),
@@ -285,7 +285,7 @@ namespace OCFX_Library.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     AddressTypeName = table.Column<int>(nullable: false),
                     StreetName = table.Column<string>(nullable: true),
                     CityName = table.Column<string>(nullable: true),
@@ -373,7 +373,7 @@ namespace OCFX_Library.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(nullable: false),
                     LeaderId = table.Column<int>(nullable: true),
                     Description = table.Column<string>(nullable: false),
@@ -398,7 +398,7 @@ namespace OCFX_Library.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Identifier = table.Column<Guid>(nullable: false),
                     ChainIdentifier = table.Column<string>(nullable: true),
                     SenderId = table.Column<int>(nullable: false),
@@ -431,7 +431,7 @@ namespace OCFX_Library.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     PhoneTypeName = table.Column<int>(nullable: false),
                     AreaCode = table.Column<int>(nullable: false),
                     PhoneNumber = table.Column<int>(nullable: false),
@@ -453,7 +453,7 @@ namespace OCFX_Library.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     URL = table.Column<string>(nullable: true),
                     Caption = table.Column<string>(nullable: true),
                     Type = table.Column<int>(nullable: false),
@@ -476,7 +476,7 @@ namespace OCFX_Library.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Text = table.Column<string>(nullable: true),
                     DatePosted = table.Column<DateTime>(nullable: false),
                     ProfileId = table.Column<int>(nullable: false),
@@ -504,7 +504,7 @@ namespace OCFX_Library.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     QuestId = table.Column<int>(nullable: false),
                     ProfileId = table.Column<int>(nullable: false),
                     CampaignId = table.Column<int>(nullable: false),
@@ -538,7 +538,7 @@ namespace OCFX_Library.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<Guid>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -623,7 +623,7 @@ namespace OCFX_Library.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Type = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
@@ -648,7 +648,7 @@ namespace OCFX_Library.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Status = table.Column<int>(nullable: false),
                     JoinDate = table.Column<DateTime>(nullable: false),
                     MemberId = table.Column<int>(nullable: true),
@@ -676,7 +676,7 @@ namespace OCFX_Library.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Text = table.Column<string>(nullable: true),
                     DatePosted = table.Column<DateTime>(nullable: false),
                     ProfileId = table.Column<int>(nullable: false),
@@ -705,7 +705,7 @@ namespace OCFX_Library.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     EquipmentId = table.Column<int>(nullable: false),
                     GymId = table.Column<int>(nullable: false)
                 },
@@ -731,7 +731,7 @@ namespace OCFX_Library.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Text = table.Column<string>(nullable: true),
                     DatePosted = table.Column<DateTime>(nullable: false),
                     ProfileId = table.Column<int>(nullable: false),
@@ -766,7 +766,7 @@ namespace OCFX_Library.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Text = table.Column<string>(nullable: true),
                     DatePosted = table.Column<DateTime>(nullable: false),
                     ProfileId = table.Column<int>(nullable: false),
@@ -801,7 +801,7 @@ namespace OCFX_Library.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Text = table.Column<string>(nullable: true),
                     DatePosted = table.Column<DateTime>(nullable: false),
                     ProfileId = table.Column<int>(nullable: false),
@@ -836,7 +836,7 @@ namespace OCFX_Library.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
                     AirCost = table.Column<int>(nullable: false),
                     Style = table.Column<int>(nullable: false),
@@ -864,7 +864,7 @@ namespace OCFX_Library.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     HP = table.Column<int>(nullable: false),
                     STR = table.Column<int>(nullable: false),
                     VIT = table.Column<int>(nullable: false),
@@ -912,8 +912,7 @@ namespace OCFX_Library.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
-                unique: true,
-                filter: "[NormalizedName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -939,8 +938,7 @@ namespace OCFX_Library.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUsers_ProfileId",
@@ -997,8 +995,7 @@ namespace OCFX_Library.Migrations
                 name: "IX_Memberships_MemberId",
                 table: "Memberships",
                 column: "MemberId",
-                unique: true,
-                filter: "[MemberId] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_MessageBoardComments_BoardId",

@@ -17,8 +17,8 @@ namespace OCFX.Areas.Identity
             {
                 services.AddDbContext<OCFXContext>(options =>
                     options
-                    //.UseSqlite("Data Source=OCFX.db")
-                    .UseInMemoryDatabase("Shard")
+                    .UseSqlite("Data Source=OCFX.db")
+                    //.UseInMemoryDatabase("Shard")
                     //.UseSqlServer(context.Configuration.GetConnectionString("OCFXContextConnection"))
                     );
 
