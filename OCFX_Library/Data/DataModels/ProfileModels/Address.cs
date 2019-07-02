@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OCFX.DataModels
 {
@@ -17,6 +18,11 @@ namespace OCFX.DataModels
         public string StateName { get; set; }
         [Display(Name = "Postal Code")]
         public int ZipCode { get; set; }
+
+        [NotMapped]
+        public string AddressLine1 => $"{StreetName}";
+        [NotMapped]
+        public string AddressLine2 => $"{CityName}, {StateName} {ZipCode}";
 
         public Profile Profile { get; set; }
     }

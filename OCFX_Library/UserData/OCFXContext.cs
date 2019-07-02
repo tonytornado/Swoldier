@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using OCFX.DataModels;
+using OCFX.DataModels.SiteModels;
 using System;
 using System.Linq;
 
@@ -26,6 +27,7 @@ namespace OCFX.Areas.Identity.Data
 
         // Site DB
         public DbSet<Facts> FAQs { get; set; }
+        //public DbSet<Options> Options { get; set; }
 
         // Social DB 
         public DbSet<Friend> Friends { get; set; }
@@ -36,8 +38,8 @@ namespace OCFX.Areas.Identity.Data
         public DbSet<Session> Events { get; set; }
 
         // Profile DB
-        public DbSet<Phone> Phones { get; set; }
-        public DbSet<Address> Addresses { get; set; }
+        //public DbSet<Phone> Phones { get; set; }
+        //public DbSet<Address> Addresses { get; set; }
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<Photo> Photos { get; set; }
 
@@ -60,6 +62,6 @@ namespace OCFX.Areas.Identity.Data
         public DbSet<Quest> Quests { get; set; }
         public DbSet<QuestLog> QuestLogs { get; set; }
         public DbSet<BossEncounter> Bosses { get; set; }
-        public DbSet<PersonalEncounter> People { get; set; }
+        public DbSet<PersonalEncounter> Minions { get; set; }
     }
 }

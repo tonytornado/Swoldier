@@ -33,12 +33,12 @@ namespace OCFX.DataModels
 
         // Body Measurements [PERSONAL DATA]
         [PersonalData]
-        [Display(Name = "Height")]
+        [Display(Name = "Height (in inches)")]
         [Range(60, 272, ErrorMessage = "Let's go with something believable here.")]
         public int Height { get; set; }
         [PersonalData]
-        [Display(Name = "Weight")]
-        [Range(45.35, 226.80, ErrorMessage = "Again, something believable. ")]
+        [Display(Name = "Weight (in lbs.")]
+        [Range(50, 600, ErrorMessage = "Again, something believable. ")]
         public int Weight { get; set; }
         [PersonalData]
         [Display(Name = "Neck")]
@@ -130,8 +130,15 @@ namespace OCFX.DataModels
             NotDisclosed = 5
         }
 
-        // Properties
+        // Convenience Properties
+        /// <summary>
+        /// Shows the full name
+        /// </summary>
         public string FullName => $"{FirstName} {LastName}";
+
+        /// <summary>
+        /// Shows the subtitle of a person
+        /// </summary>
         [NotMapped]
         public string SubTitle => $"{Age} year-old {Gender}";
         [NotMapped]
@@ -145,6 +152,7 @@ namespace OCFX.DataModels
                 return k?.URL;
             }
         }
+
         [NotMapped]
         [Display(Name = "Body Fat Percentage")]
         public double BodyFat => GetBodyFat(Height, Weight, NeckMeasurement, WaistMeasurement, HipMeasurement);
@@ -170,6 +178,7 @@ namespace OCFX.DataModels
             }
             return null;
         }
+
         /// <summary>
         /// Get the age from a given date of birth
         /// </summary>
@@ -180,6 +189,7 @@ namespace OCFX.DataModels
             int age = Convert.ToInt32((DateTime.Now - DOB).TotalDays / 365);
             return age;
         }
+
         /// <summary>
         /// Calculate the body fat percentage of the profile
         /// </summary>
@@ -192,6 +202,8 @@ namespace OCFX.DataModels
         private double GetBodyFat(int height, int weight, int? neck, int? waist, int? hip)
         {
             double percentage = 0.0;
+            double weightConversion = weight / 2.2;
+            double heightConversion = height / 2.54;
 
             if (neck == null || waist == null || hip == null)
             {
@@ -216,7 +228,7 @@ namespace OCFX.DataModels
             //}
             {
                 double f1 = 495.0;
-                double f2 = 1.0324 - (0.19077 * Math.Log10(Convert.ToDouble(waist - neck))) + (0.15456 * Math.Log10(height));
+                double f2 = 1.0324 - (0.19077 * Math.Log10(Convert.ToDouble(waist - neck))) + (0.15456 * Math.Log10(heightConversion));
                 double f3 = 450.0;
                 percentage = (f1 / f2) - f3;
             }
@@ -224,13 +236,13 @@ namespace OCFX.DataModels
             if (Gender == Profile.GenderSpectrum.CisFemale ||
                 Gender == Profile.GenderSpectrum.TransMale)
             {
-                double f1 = (weight * 0.732) + 8.987;
+                double f1 = (weightConversion * 0.732) + 8.987;
                 double f2 = 6 / 3.140;
                 double? f3 = waist * 0.157;
                 double? f4 = hip * 0.249;
                 double f5 = 9 * 0.434;
                 double? lbm = f1 + f2 - f3 - f4 + f5;
-                double? bfw = weight - lbm;
+                double? bfw = weightConversion - lbm;
                 percentage = Convert.ToDouble((bfw / weight) * 100);
             }
 

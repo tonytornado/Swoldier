@@ -7,9 +7,13 @@ namespace OCFX.DataModels
     public class Photo
     {
         public int Id { get; set; }
+        [Display(Name = "URL")]
         public string URL { get; set; }
+        [Display(Name = "Caption")]
         public string Caption { get; set; }
+        [Display(Name = "Type")]
         public PhotoType Type { get; set; }
+        [Display(Name = "Date Created")]
         public DateTime DateAdded { get; set; }
 
         public int ProfileId { get; set; }

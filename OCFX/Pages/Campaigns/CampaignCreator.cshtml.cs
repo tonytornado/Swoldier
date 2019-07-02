@@ -37,6 +37,7 @@ namespace OCFX.Pages.Campaigns
         public void OnGet()
         {
             List<BossEncounter> BossList = context.Bosses.ToList();
+            List<PersonalEncounter> MinionList = context.Minions.ToList();
             BossSelection = new SelectList(BossList, "Id", "Name");
         }
 
@@ -58,7 +59,7 @@ namespace OCFX.Pages.Campaigns
             };
 
             context.Add(customCampaign);
-            _ = context.SaveChanges();
+            context.SaveChanges();
 
             RedirectToPage("Campaign", new { customCampaign.Id });
         }

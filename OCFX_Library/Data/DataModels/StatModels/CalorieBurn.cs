@@ -24,8 +24,8 @@ namespace OCFX.DataModels
         public Photo ProgressPhoto { get; set; }
         [Display(Name = "Photo Date")]
         public DateTime Date { get; set; }
-        [Display(Name = "Weight (in kg)")]
-        public int Weight { get; set; }
+        [Display(Name = "Weight (in lbs.)")]
+        public double Weight { get; set; }
     }
 
     /// <summary>
@@ -40,7 +40,9 @@ namespace OCFX.DataModels
         public int Reps { get; set; }
     }
 
-
+    /// <summary>
+    /// The Relation Table for WorkoutSets
+    /// </summary>
     public class WorkoutSetLog
     {
         public int Id { get; set; }

@@ -7,7 +7,7 @@ namespace OCFX.DataModels
     // Add profile data for application users by adding properties to the OCFXUser class
 
     /// <summary>
-    /// Additional properties for the standard user class
+    /// Added properties for the standard user class
     /// </summary>
     public class OCFXUser : IdentityUser<Guid>
     {
@@ -27,7 +27,10 @@ namespace OCFX.DataModels
             ErrorMessage = "You must be 18 or older to even use this site... also, not dead or dying.")]
         public DateTime DOB { get; set; }
 
-        // To prevent frequent name changes!
+        /// <summary>
+        /// A datetime value of the last name change
+        /// Used in preventing frequent name changes
+        /// </summary>
         public DateTime NameChangedDate { get; set; }
 
         public int ProfileId { get; set; }
