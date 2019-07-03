@@ -1,0 +1,21 @@
+﻿@page
+@model OCFX.Pages.Dashboard.AddWeightModel
+@{
+    ViewData["Title"] = "Add Current Weight";
+    ViewData["BannerTitle"] = ViewData["Title"];
+    ViewData["BannerSubTitle"] = "";
+}
+
+<section>
+    <div class="form-inline">
+        <label asp-for="Input.Weight"></label>
+        <input asp-for="Input.Weight" />
+    </div>
+    <div class="form-inline">
+        <div class="form-group">
+            <label asp-for="ProgressPhoto" class="control-label">Show us your good side</label>
+            <input asp-for="ProgressPhoto" class="form-control form-control-file" style="height:auto" required />
+            <span asp-validation-for="ProgressPhoto" class="text-danger"></span>
+        </div>
+    </div>
+</section>

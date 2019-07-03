@@ -81,7 +81,17 @@ namespace OCFX.Pages.Profiles
 
             if (Image != null)
             {
-                if (Image.ContentType == "image/jpeg" || Image.ContentType == "image/png")
+                if (Image.ContentType != "image/jpeg" && Image.ContentType != "image/png")
+                {
+                    StatusMessage = "Error: That doesn't look like a photo file to us!";
+                    Player = await _userManager.GetUserAsync(User);
+                    Photo = await _context.Photos
+                        .Where(p => p.Type == Photo.PhotoType.Profile)
+                        .OrderByDescending(d => d.DateAdded)
+                        .FirstOrDefaultAsync(p => p.ProfileId == Player.ProfileId);
+                    return Page();
+                }
+                else
                 {
                     fileName = GetUniqueName(Image.FileName);
                     string folderPath = $"images/{Photo.ProfileId}/profilePhoto";
@@ -94,16 +104,6 @@ namespace OCFX.Pages.Profiles
 
                     _context.Photos.Add(photograph);
                     StatusMessage = "Profile Image changed!";
-                }
-                else
-                {
-                    StatusMessage = "Error: That doesn't look like a photo file to us!";
-                    Player = await _userManager.GetUserAsync(User);
-                    Photo = await _context.Photos
-                        .Where(p => p.Type == Photo.PhotoType.Profile)
-                        .OrderByDescending(d => d.DateAdded)
-                        .FirstOrDefaultAsync(p => p.ProfileId == Player.ProfileId);
-                    return Page();
                 }
             }
 
