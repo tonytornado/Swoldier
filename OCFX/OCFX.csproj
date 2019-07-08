@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <PackageReference Include="Google.Apis.Fitness.v1" Version="1.40.2.1629" />
+    <PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="2.2.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.4" />

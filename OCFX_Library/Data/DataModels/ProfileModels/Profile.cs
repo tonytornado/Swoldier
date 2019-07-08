@@ -105,8 +105,11 @@ namespace OCFX.DataModels
         [InverseProperty("Entry")]
         public Collection<Post> Entries { get; set; }
 
+        public Collection<WeightMeasurement> Weights { get; set; }
+
         [InverseProperty("Member")]
         public Membership Gym { get; set; }
+
 
         // Tie to user login, quest, campaign?
         public OCFXUser FitUser { get; set; }

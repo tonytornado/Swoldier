@@ -6,16 +6,34 @@
     ViewData["BannerSubTitle"] = "";
 }
 
-<section>
-    <div class="form-inline">
-        <label asp-for="Input.Weight"></label>
-        <input asp-for="Input.Weight" />
-    </div>
-    <div class="form-inline">
-        <div class="form-group">
-            <label asp-for="ProgressPhoto" class="control-label">Show us your good side</label>
-            <input asp-for="ProgressPhoto" class="form-control form-control-file" style="height:auto" required />
-            <span asp-validation-for="ProgressPhoto" class="text-danger"></span>
+<section class="col-md-8 shadowbox-xy">
+    <form method="post" enctype="multipart/form-data" asp-route-id="@Model.Player.ProfileId">
+        <div class="form-inline">
+            <label asp-for="Input.Weight"></label>
+            <input asp-for="Input.Weight" />
+            <span asp-validation-for="Input.Weight" class="text-danger"></span>
         </div>
-    </div>
+        <div class="form-inline">
+            <label asp-for="Input.Filename"></label>
+            <input asp-for="Input.Filename" class="form-control-file" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Input.Caption" class="control-label">Caption</label>
+            <textarea asp-for="Input.Caption" class="form-control" rows="6" placeholder="What can you say about this progress photo?"></textarea>
+        </div>
+        <div class="form-inline">
+            <div class="form-group">
+                <label asp-for="ProgressPhoto" class="control-label">Show us your good side</label>
+                <input asp-for="ProgressPhoto" class="form-control form-control-file" style="height:auto" required />
+                <span asp-validation-for="ProgressPhoto" class="text-danger"></span>
+            </div>
+        </div>
+        <div>
+            <button class="btn btn-block btn-primary" type="submit">Update</button>
+        </div>
+    </form>
 </section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

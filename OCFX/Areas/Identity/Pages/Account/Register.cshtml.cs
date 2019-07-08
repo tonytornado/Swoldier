@@ -177,6 +177,12 @@ namespace OCFX.Areas.Identity.Pages.Account
                     Type = Photo.PhotoType.Profile
                 });
 
+                user.Profile.Weights.Add(new WeightMeasurement
+                {
+                    Date = DateTime.Now,
+                    Weight = Profiler.Weight,
+                });
+
                 IdentityResult result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

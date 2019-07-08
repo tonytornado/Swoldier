@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OCFX.Areas.Identity.Data;
@@ -14,8 +15,14 @@ namespace OCFX.Pages.Dashboard
     {
         private readonly OCFXContext _context;
         private readonly IHostingEnvironment _environment;
+        private readonly UserManager<OCFXUser> _userManager;
 
-        public AddWeightModel(OCFXContext context) => _context = context ?? throw new ArgumentNullException(nameof(context));
+        public AddWeightModel(OCFXContext context, IHostingEnvironment environment, UserManager<OCFXUser> userManager)
+        {
+            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _environment = environment ?? throw new ArgumentNullException(nameof(environment));
+            _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
+        }
 
         [BindProperty]
         public InputModel Input { get; set; }
@@ -24,17 +31,22 @@ namespace OCFX.Pages.Dashboard
 
         [TempData]
         public string StatusMessage { get; private set; }
+        public OCFXUser Player { get; private set; }
 
-        public void OnGet()
+        public async void OnGetAsync()
         {
-
+            Player = await _userManager.GetUserAsync(User);
         }
 
+        /// <summary>
+        /// Submits the form
+        /// </summary>
+        /// <param name="Id">The user's Id</param>
+        /// <returns></returns>
         public IActionResult OnPost(int? Id)
         {
             if (ModelState.IsValid && Id != null)
             {
-
                 ProgressPhoto = new Photo
                 {
                     Type = Photo.PhotoType.Progress,
@@ -42,28 +54,34 @@ namespace OCFX.Pages.Dashboard
                     ProfileId = ProgressPhoto.ProfileId,
                 };
 
-                if (Image.ContentType != "image/jpeg" && Image.ContentType != "image/png")
+                if (Input.Filename != null)
                 {
-                    StatusMessage = "Error: That doesn't look like a photo file to us!";
-                    return Page();
+                    if (Image.ContentType != "image/jpeg" && Image.ContentType != "image/png")
+                    {
+                        StatusMessage = "Error: That doesn't look like a photo file to us!";
+                        return Page();
+                    }
+                    else
+                    {
+                        string fileName = GetUniqueName(Image.FileName);
+                        string folderPath = $"images/{ProgressPhoto.ProfileId}/progressPhoto";
+                        string upload = Path.Combine(_environment.WebRootPath, folderPath);
+                        CheckFolderPath(upload);
+                        string filePath = Path.Combine(upload, fileName);
+                        Image.CopyToAsync(new FileStream(filePath, FileMode.Create));
+                        ProgressPhoto.URL = $"../images/{ProgressPhoto.ProfileId}/progressPhoto/{fileName}";
+                        ProgressPhoto.Caption = Input.Caption;
+                    }
                 }
                 else
                 {
-                    string fileName = GetUniqueName(Image.FileName);
-                    string folderPath = $"images/{ProgressPhoto.ProfileId}/profilePhoto";
-                    string upload = Path.Combine(_environment.WebRootPath, folderPath);
-                    CheckFolderPath(upload);
-                    string filePath = Path.Combine(upload, fileName);
-                    Image.CopyToAsync(new FileStream(filePath, FileMode.Create));
-                    ProgressPhoto.URL = $"../images/{ProgressPhoto.ProfileId}/profilePhoto/{fileName}";
-                    ProgressPhoto.Caption = ProgressPhoto.Caption;
-
-                    _context.Photos.Add(ProgressPhoto);
-                    StatusMessage = "Profile Image changed!";
+                    ProgressPhoto.URL = "../images/default.jpg";
+                    ProgressPhoto.Caption = "No Photo Data";
                 }
 
+                _context.Photos.Add(ProgressPhoto);
 
-                var Weight = new WeightMeasurement
+                WeightMeasurement Weight = new WeightMeasurement
                 {
                     Date = DateTime.Now,
                     Weight = Input.Weight,
@@ -71,7 +89,7 @@ namespace OCFX.Pages.Dashboard
                     Profile = _context.Profiles.SingleOrDefault(c => c.Id == Id)
                 };
 
-                var Post = new Post
+                Post Post = new Post
                 {
                     DatePosted = DateTime.Now,
                     Profile = Weight.Profile,
@@ -80,7 +98,6 @@ namespace OCFX.Pages.Dashboard
                 };
 
                 StatusMessage = "New weight added!";
-
                 RedirectToPage("Index");
             }
 
@@ -113,6 +130,8 @@ namespace OCFX.Pages.Dashboard
 
     public class InputModel
     {
-        public double Weight { get; internal set; }
+        public double Weight { get; set; }
+        public string Filename { get; set; }
+        public string Caption { get; set; }
     }
 }

@@ -13,6 +13,7 @@
         <img src="@Model.ProfilePhoto.URL" alt="@Model.ProfilePhoto.Caption" class="rounded border-secondary mw-100" />
         <hr />
         <div class="btn-group-vertical btn-block">
+            <a asp-page="./AddWeight" class="btn btn-sm btn-dark">Add Weight</a>
             <a asp-page="./EditAvatar" class="btn btn-sm btn-dark">Change Photo</a>
             <a asp-page="./EditProfile" class="btn btn-sm btn-dark">Edit Profile</a>
             <a asp-page="/Profiles/Friends" class="btn btn-sm btn-dark">Edit Friends</a>

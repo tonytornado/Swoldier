@@ -57,8 +57,21 @@ namespace OCFX.Pages.Profiles
 
             _context.Attach(Profile).State = EntityState.Modified;
 
+            if (Profile.Weight != Profile.Weights.OrderByDescending(c => c.Date).First().Weight)
+            {
+                Profile.Weights.Add(new WeightMeasurement
+                {
+                    Date = DateTime.Now,
+                    Weight = Profile.Weight,
+                    Profile = Profile
+                });
+
+                StatusMessage = "Weight Added and ";
+            }
+
             try
             {
+
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -73,7 +86,7 @@ namespace OCFX.Pages.Profiles
                 }
             }
 
-            StatusMessage = "Profile changed!";
+            StatusMessage += "Profile changed!";
 
             return RedirectToPage("Index");
         }
