@@ -141,18 +141,20 @@ namespace OCFX.Areas.Identity.Pages.Account
                         Phones = new Collection<Phone>(),
                         Addresses = new Collection<Address>(),
                         Photos = new Collection<Photo>(),
+                        Weights = new Collection<WeightMeasurement>()
                     }
                 };
 
                 // Add the phone number
                 if (Phoney == null)
                 {
-                    user.Profile.Phones.Add(new Phone
+                    Phone phone = new Phone
                     {
                         AreaCode = Phoney.AreaCode,
                         PhoneTypeName = Phoney.PhoneTypeName,
                         PhoneNumber = Phoney.PhoneNumber
-                    });
+                    };
+                    user.Profile.Phones.Add(phone);
                 }
 
                 // Add the address
@@ -169,19 +171,23 @@ namespace OCFX.Areas.Identity.Pages.Account
                 }
 
                 // Add the default profile picture
-                user.Profile.Photos.Add(new Photo
+                Photo FirstProfilePhoto = new Photo
                 {
                     DateAdded = DateTime.Now,
                     URL = "../images/default.jpg",
                     Caption = "Default Look",
                     Type = Photo.PhotoType.Profile
-                });
+                };
+                user.Profile.Photos.Add(FirstProfilePhoto);
 
-                user.Profile.Weights.Add(new WeightMeasurement
+                // Add the first weight
+                WeightMeasurement FirstWeight = new WeightMeasurement
                 {
                     Date = DateTime.Now,
                     Weight = Profiler.Weight,
-                });
+                    ProgressPhoto = FirstProfilePhoto
+                };
+                user.Profile.Weights.Add(FirstWeight);
 
                 IdentityResult result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)

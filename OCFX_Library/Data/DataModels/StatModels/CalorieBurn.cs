@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OCFX.DataModels
 {
@@ -19,13 +20,15 @@ namespace OCFX.DataModels
     public class WeightMeasurement
     {
         public int Id { get; set; }
-        public Profile Profile { get; set; }
         [Display(Name = "Progress Photo")]
         public Photo ProgressPhoto { get; set; }
         [Display(Name = "Photo Date")]
         public DateTime Date { get; set; }
         [Display(Name = "Weight (in lbs.)")]
         public double Weight { get; set; }
+
+        [ForeignKey("ProfileId")]
+        public Profile Profile { get; set; }
     }
 
     /// <summary>

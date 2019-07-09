@@ -63,7 +63,7 @@ namespace OCFX.Pages.Profiles
                 {
                     Date = DateTime.Now,
                     Weight = Profile.Weight,
-                    Profile = Profile
+                    //Profile = Profile
                 });
 
                 StatusMessage = "Weight Added and ";

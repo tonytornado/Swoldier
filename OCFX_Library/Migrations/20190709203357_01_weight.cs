@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OCFX_Library.Migrations
 {
-    public partial class _0 : Migration
+    public partial class _01_weight : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -281,7 +281,7 @@ namespace OCFX_Library.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Addresses",
+                name: "Address",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -295,9 +295,9 @@ namespace OCFX_Library.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Addresses", x => x.Id);
+                    table.PrimaryKey("PK_Address", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Addresses_Profiles_ProfileId",
+                        name: "FK_Address_Profiles_ProfileId",
                         column: x => x.ProfileId,
                         principalTable: "Profiles",
                         principalColumn: "Id",
@@ -427,7 +427,7 @@ namespace OCFX_Library.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Phones",
+                name: "Phone",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -439,9 +439,9 @@ namespace OCFX_Library.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Phones", x => x.Id);
+                    table.PrimaryKey("PK_Phone", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Phones_Profiles_ProfileId",
+                        name: "FK_Phone_Profiles_ProfileId",
                         column: x => x.ProfileId,
                         principalTable: "Profiles",
                         principalColumn: "Id",
@@ -727,6 +727,34 @@ namespace OCFX_Library.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Weights",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    ProgressPhotoId = table.Column<int>(nullable: true),
+                    Date = table.Column<DateTime>(nullable: false),
+                    Weight = table.Column<double>(nullable: false),
+                    ProfileId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Weights", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Weights_Profiles_ProfileId",
+                        column: x => x.ProfileId,
+                        principalTable: "Profiles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Weights_Photos_ProgressPhotoId",
+                        column: x => x.ProgressPhotoId,
+                        principalTable: "Photos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Comments",
                 columns: table => new
                 {
@@ -899,8 +927,8 @@ namespace OCFX_Library.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Addresses_ProfileId",
-                table: "Addresses",
+                name: "IX_Address_ProfileId",
+                table: "Address",
                 column: "ProfileId");
 
             migrationBuilder.CreateIndex(
@@ -1033,8 +1061,8 @@ namespace OCFX_Library.Migrations
                 column: "SenderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Phones_ProfileId",
-                table: "Phones",
+                name: "IX_Phone_ProfileId",
+                table: "Phone",
                 column: "ProfileId");
 
             migrationBuilder.CreateIndex(
@@ -1123,6 +1151,16 @@ namespace OCFX_Library.Migrations
                 column: "EncounterId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Weights_ProfileId",
+                table: "Weights",
+                column: "ProfileId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Weights_ProgressPhotoId",
+                table: "Weights",
+                column: "ProgressPhotoId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_WorkoutPrograms_CampaignId",
                 table: "WorkoutPrograms",
                 column: "CampaignId");
@@ -1157,7 +1195,7 @@ namespace OCFX_Library.Migrations
                 table: "Encounter");
 
             migrationBuilder.DropTable(
-                name: "Addresses");
+                name: "Address");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -1193,10 +1231,7 @@ namespace OCFX_Library.Migrations
                 name: "Messages");
 
             migrationBuilder.DropTable(
-                name: "Phones");
-
-            migrationBuilder.DropTable(
-                name: "Photos");
+                name: "Phone");
 
             migrationBuilder.DropTable(
                 name: "QuestLogs");
@@ -1206,6 +1241,9 @@ namespace OCFX_Library.Migrations
 
             migrationBuilder.DropTable(
                 name: "Replies");
+
+            migrationBuilder.DropTable(
+                name: "Weights");
 
             migrationBuilder.DropTable(
                 name: "WorkoutPrograms");
@@ -1224,6 +1262,9 @@ namespace OCFX_Library.Migrations
 
             migrationBuilder.DropTable(
                 name: "Comments");
+
+            migrationBuilder.DropTable(
+                name: "Photos");
 
             migrationBuilder.DropTable(
                 name: "Exercises");

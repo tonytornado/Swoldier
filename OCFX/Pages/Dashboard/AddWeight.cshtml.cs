@@ -26,11 +26,10 @@ namespace OCFX.Pages.Dashboard
 
         [BindProperty]
         public InputModel Input { get; set; }
-        public Photo ProgressPhoto { get; set; }
         public IFormFile Image { get; set; }
 
         [TempData]
-        public string StatusMessage { get; private set; }
+        public string StatusMessage { get; set; }
         public OCFXUser Player { get; private set; }
 
         public async void OnGetAsync()
@@ -43,15 +42,15 @@ namespace OCFX.Pages.Dashboard
         /// </summary>
         /// <param name="Id">The user's Id</param>
         /// <returns></returns>
-        public IActionResult OnPost(int? Id)
+        public IActionResult OnPost(int Id)
         {
             if (ModelState.IsValid && Id != null)
             {
-                ProgressPhoto = new Photo
+                Photo ProgressPhoto = new Photo
                 {
                     Type = Photo.PhotoType.Progress,
                     DateAdded = DateTime.Now,
-                    ProfileId = ProgressPhoto.ProfileId,
+                    ProfileId = Id,
                 };
 
                 if (Input.Filename != null)

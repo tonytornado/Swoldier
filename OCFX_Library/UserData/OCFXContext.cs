@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using OCFX.DataModels;
-using OCFX.DataModels.SiteModels;
 using System;
 using System.Linq;
 
@@ -52,6 +51,7 @@ namespace OCFX.Areas.Identity.Data
         public DbSet<Workout> Workouts { get; set; }
         public DbSet<Equipment> GymAmenities { get; set; }
         public DbSet<GymRelation> RelativeGyms { get; set; }
+        public DbSet<WeightMeasurement> Weights { get; set; }
 
         public DbSet<MessageBoardPost> MessageBoardPosts { get; set; }
         public DbSet<MessageBoardComment> MessageBoardComments { get; set; }

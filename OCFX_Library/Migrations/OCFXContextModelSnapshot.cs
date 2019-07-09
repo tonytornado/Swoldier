@@ -143,7 +143,7 @@ namespace OCFX_Library.Migrations
 
                     b.HasIndex("ProfileId");
 
-                    b.ToTable("Addresses");
+                    b.ToTable("Address");
                 });
 
             modelBuilder.Entity("OCFX.DataModels.Archetype", b =>
@@ -553,7 +553,7 @@ namespace OCFX_Library.Migrations
 
                     b.HasIndex("ProfileId");
 
-                    b.ToTable("Phones");
+                    b.ToTable("Phone");
                 });
 
             modelBuilder.Entity("OCFX.DataModels.Photo", b =>
@@ -818,6 +818,28 @@ namespace OCFX_Library.Migrations
                     b.HasIndex("EncounterId");
 
                     b.ToTable("Skills");
+                });
+
+            modelBuilder.Entity("OCFX.DataModels.WeightMeasurement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<int?>("ProfileId");
+
+                    b.Property<int?>("ProgressPhotoId");
+
+                    b.Property<double>("Weight");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProfileId");
+
+                    b.HasIndex("ProgressPhotoId");
+
+                    b.ToTable("Weights");
                 });
 
             modelBuilder.Entity("OCFX.DataModels.Workout", b =>
@@ -1195,6 +1217,19 @@ namespace OCFX_Library.Migrations
                     b.HasOne("OCFX.DataModels.Encounter")
                         .WithMany("SkillSet")
                         .HasForeignKey("EncounterId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("OCFX.DataModels.WeightMeasurement", b =>
+                {
+                    b.HasOne("OCFX.DataModels.Profile", "Profile")
+                        .WithMany("Weights")
+                        .HasForeignKey("ProfileId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("OCFX.DataModels.Photo", "ProgressPhoto")
+                        .WithMany()
+                        .HasForeignKey("ProgressPhotoId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
