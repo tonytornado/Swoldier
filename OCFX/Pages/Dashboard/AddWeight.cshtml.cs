@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OCFX.Areas.Identity.Data;
+using OCFX.Data.Methods;
 using OCFX.DataModels;
 using System;
 using System.IO;
@@ -44,7 +45,7 @@ namespace OCFX.Pages.Dashboard
         /// <returns></returns>
         public IActionResult OnPost(int Id)
         {
-            if (ModelState.IsValid && Id != null)
+            if (ModelState.IsValid)
             {
                 Photo ProgressPhoto = new Photo
                 {
@@ -53,7 +54,12 @@ namespace OCFX.Pages.Dashboard
                     ProfileId = Id,
                 };
 
-                if (Input.Filename != null)
+                if (Input.Filename == null)
+                {
+                    ProgressPhoto.URL = "../images/default.jpg";
+                    ProgressPhoto.Caption = "No Photo Data";
+                }
+                else
                 {
                     if (Image.ContentType != "image/jpeg" && Image.ContentType != "image/png")
                     {
@@ -62,23 +68,11 @@ namespace OCFX.Pages.Dashboard
                     }
                     else
                     {
-                        string fileName = GetUniqueName(Image.FileName);
-                        string folderPath = $"images/{ProgressPhoto.ProfileId}/progressPhoto";
-                        string upload = Path.Combine(_environment.WebRootPath, folderPath);
-                        CheckFolderPath(upload);
-                        string filePath = Path.Combine(upload, fileName);
-                        Image.CopyToAsync(new FileStream(filePath, FileMode.Create));
-                        ProgressPhoto.URL = $"../images/{ProgressPhoto.ProfileId}/progressPhoto/{fileName}";
-                        ProgressPhoto.Caption = Input.Caption;
+                        ImageFileManagement.UploadImageToFolder(_environment, Image, ProgressPhoto, Id, "progressPhoto", ProgressPhoto.Caption);
                     }
                 }
-                else
-                {
-                    ProgressPhoto.URL = "../images/default.jpg";
-                    ProgressPhoto.Caption = "No Photo Data";
-                }
-
                 _context.Photos.Add(ProgressPhoto);
+                _context.SaveChanges();
 
                 WeightMeasurement Weight = new WeightMeasurement
                 {
@@ -87,6 +81,8 @@ namespace OCFX.Pages.Dashboard
                     ProgressPhoto = ProgressPhoto,
                     Profile = _context.Profiles.SingleOrDefault(c => c.Id == Id)
                 };
+                _context.Weights.Add(Weight);
+                _context.SaveChanges();
 
                 Post Post = new Post
                 {
@@ -95,35 +91,14 @@ namespace OCFX.Pages.Dashboard
                     ProfileId = Weight.Profile.Id,
                     Text = $"{Weight.Profile.FirstName} now weighs {Weight.Weight}!",
                 };
-
+                _context.Posts.Add(Post);
+                _context.SaveChanges();
+                
                 StatusMessage = "New weight added!";
                 RedirectToPage("Index");
             }
 
             return Page();
-        }
-
-        /// <summary>
-        /// Checks for folder on the server; and creates it if necessary
-        /// </summary>
-        /// <param name="v">The folder path</param>
-        private void CheckFolderPath(string v)
-        {
-            if (!Directory.Exists(v))
-            {
-                Directory.CreateDirectory(v);
-            }
-        }
-
-        /// <summary>
-        /// Create a unique file name for the file being uploaded.
-        /// </summary>
-        /// <param name="fileName">A filename string</param>
-        /// <returns></returns>
-        private string GetUniqueName(string fileName)
-        {
-            fileName = Path.GetFileName(fileName);
-            return $"{Path.GetFileNameWithoutExtension(fileName)}_{Guid.NewGuid().ToString().Substring(0, 6)}{Path.GetExtension(fileName)}";
         }
     }
 

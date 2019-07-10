@@ -9,8 +9,8 @@ using OCFX.Areas.Identity.Data;
 namespace OCFX_Library.Migrations
 {
     [DbContext(typeof(OCFXContext))]
-    [Migration("20190709203357_01_weight")]
-    partial class _01_weight
+    [Migration("20190710151953_0")]
+    partial class _0
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
