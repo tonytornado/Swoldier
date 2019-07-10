@@ -7,8 +7,8 @@ using OCFX.Areas.Identity.Data;
 using OCFX.Data.Methods;
 using OCFX.DataModels;
 using System;
-using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace OCFX.Pages.Dashboard
 {
@@ -43,69 +43,64 @@ namespace OCFX.Pages.Dashboard
         /// </summary>
         /// <param name="Id">The user's Id</param>
         /// <returns></returns>
-        public IActionResult OnPost(int Id)
+        public async Task<IActionResult> OnPostAsync(int Id)
         {
-            if (ModelState.IsValid)
+            Photo ProgressPhoto = new Photo
             {
-                Photo ProgressPhoto = new Photo
-                {
-                    Type = Photo.PhotoType.Progress,
-                    DateAdded = DateTime.Now,
-                    ProfileId = Id,
-                };
+                Type = Photo.PhotoType.Progress,
+                DateAdded = DateTime.Now,
+                ProfileId = Id,
+            };
 
-                if (Input.Filename == null)
+            if (Image == null)
+            {
+                ProgressPhoto.URL = "../images/default.jpg";
+                ProgressPhoto.Caption = "No Photo Data";
+            }
+            else
+            {
+                if (Image.ContentType != "image/jpeg" && Image.ContentType != "image/png")
                 {
-                    ProgressPhoto.URL = "../images/default.jpg";
-                    ProgressPhoto.Caption = "No Photo Data";
+                    StatusMessage = "Error: That doesn't look like a photo file to us!";
+                    RedirectToPage("AddWeight");
                 }
                 else
                 {
-                    if (Image.ContentType != "image/jpeg" && Image.ContentType != "image/png")
-                    {
-                        StatusMessage = "Error: That doesn't look like a photo file to us!";
-                        return Page();
-                    }
-                    else
-                    {
-                        ImageFileManagement.UploadImageToFolder(_environment, Image, ProgressPhoto, Id, "progressPhoto", ProgressPhoto.Caption);
-                    }
+                    ImageFileManagement.UploadImageToFolder(_environment, Image, ProgressPhoto, Id, "progressPhoto", ProgressPhoto.Caption);
                 }
-                _context.Photos.Add(ProgressPhoto);
-                _context.SaveChanges();
-
-                WeightMeasurement Weight = new WeightMeasurement
-                {
-                    Date = DateTime.Now,
-                    Weight = Input.Weight,
-                    ProgressPhoto = ProgressPhoto,
-                    Profile = _context.Profiles.SingleOrDefault(c => c.Id == Id)
-                };
-                _context.Weights.Add(Weight);
-                _context.SaveChanges();
-
-                Post Post = new Post
-                {
-                    DatePosted = DateTime.Now,
-                    Profile = Weight.Profile,
-                    ProfileId = Weight.Profile.Id,
-                    Text = $"{Weight.Profile.FirstName} now weighs {Weight.Weight}!",
-                };
-                _context.Posts.Add(Post);
-                _context.SaveChanges();
-                
-                StatusMessage = "New weight added!";
-                RedirectToPage("Index");
             }
+            _context.Photos.Add(ProgressPhoto);
+            await _context.SaveChangesAsync();
 
-            return Page();
+            WeightMeasurement Weight = new WeightMeasurement
+            {
+                Date = DateTime.Now,
+                Weight = Input.Weight,
+                ProgressPhoto = ProgressPhoto,
+                Profile = _context.Profiles.SingleOrDefault(c => c.Id == Id)
+            };
+            _context.Weights.Add(Weight);
+            await _context.SaveChangesAsync();
+
+            Post Post = new Post
+            {
+                DatePosted = DateTime.Now,
+                ProfileId = Weight.Profile.Id,
+                EntryId = Weight.Profile.Id,
+                Text = $"{Weight.Profile.FirstName} now weighs {Weight.Weight}!",
+            };
+            _context.Posts.Add(Post);
+            await _context.SaveChangesAsync();
+
+            StatusMessage = "New weight added!";
+            return Redirect("./Index");
         }
-    }
 
-    public class InputModel
-    {
-        public double Weight { get; set; }
-        public string Filename { get; set; }
-        public string Caption { get; set; }
+        public class InputModel
+        {
+            public double Weight { get; set; }
+            public string Filename { get; set; }
+            public string Caption { get; set; }
+        }
     }
 }
