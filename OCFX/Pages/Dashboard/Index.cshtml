@@ -229,7 +229,26 @@
     @if (Model.Ad != null)
     {
     <div class="col-md dash_section_left text-center">
-        <h3>Your BMI is @Model.Ad[3]</h3>
+
+        @*@{
+            double Change;
+            string WeightText;
+
+            if (Model.Profiler.Weights.Count >= 0)
+            {
+                Change = Model.Profiler.Weight - Model.Profiler.Weights.OrderBy(w => w.Date).Single().Weight;
+                WeightText = $"{Model.Profiler.Weight}";
+            }
+            else
+            {
+                Change = 0.0;
+                WeightText = $"{Model.Profiler.Weight}";
+            }
+            ViewData["ChangeText"] = $"{WeightText} ({Change} kg)";
+        }*@
+
+        @*<p>@ViewData["ChangeText"]</p>*@
+        <h6>Your BMI is @Model.Ad[3]</h6>
         <h6>@Model.Ad[1]</h6>
         <p>@Model.Ad[2]</p>
     </div>
