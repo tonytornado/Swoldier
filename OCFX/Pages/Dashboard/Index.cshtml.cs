@@ -7,6 +7,8 @@ using OCFX.Data.Methods;
 using OCFX.DataModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace OCFX.Pages.Dashboard
@@ -30,10 +32,11 @@ namespace OCFX.Pages.Dashboard
         public string UserTitle { get; private set; }
         public Dictionary<int, string> Ad { get; private set; }
         public double CalorieBurn { get; private set; }
+        public double WeightChange { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
-
+        
 
         public async Task OnGetAsync()
         {
@@ -42,7 +45,6 @@ namespace OCFX.Pages.Dashboard
 
             // Get the profile and profile photo
             Profiler = await ProfileMethods.GetProfileAsync(_context, user.Result.ProfileId);
-            ProfilePhoto = ProfileMethods.GetProfilePhoto(_context, Profiler.Id);
 
             // Get the completed quests
             CompletedQuests = QuestMethods.CheckCompletedQuests(_context, Profiler.Id);
@@ -51,8 +53,42 @@ namespace OCFX.Pages.Dashboard
             double bodyFat = Math.Round(ProfileMethods.BodyFat(Profiler, Profiler.Height, Profiler.Weight, Profiler.NeckMeasurement, Profiler.WaistMeasurement, Profiler.HipMeasurement), 1);
             Ad = ProfileMethods.Consultation(bodyFat, Profiler.Weight, Profiler.Height);
             CalorieBurn = CalorieTasker(Profiler.Weight, Profiler.Height, Profiler.Age);
+
+            WeightChange = ShowWeightChange(Profiler.Weights);
+
         }
 
+        /// <summary>
+        /// Compares first weight and last weight
+        /// </summary>
+        /// <param name="weights"></param>
+        /// <returns></returns>
+        private double ShowWeightChange(Collection<WeightMeasurement> weights)
+        {
+            if (weights == null)
+            {
+                throw new ArgumentNullException("This user has no weight... how??");
+            }
+
+            double change;
+            
+            double FirstWeight = weights.First().Weight;
+            double SecondWeight = weights.Last().Weight;
+
+            change = FirstWeight == SecondWeight 
+                ? 0.0 
+                : SecondWeight - FirstWeight;
+
+            return change;
+        }
+
+        /// <summary>
+        /// Gets the calorie details for someone.
+        /// </summary>
+        /// <param name="weight"></param>
+        /// <param name="height"></param>
+        /// <param name="age"></param>
+        /// <returns></returns>
         private double CalorieTasker(int weight, int height, int age)
         {
             double weightc = weight / 2.2;

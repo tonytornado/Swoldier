@@ -10,7 +10,7 @@
     <div class="col-md-4 dash_section dash_section_left" id="profile_center">
         <h3 class="align-text-bottom">@Model.UserTitle</h3>
         <hr />
-        <img src="@Model.ProfilePhoto.URL" alt="@Model.ProfilePhoto.Caption" class="rounded border-secondary mw-100" />
+        <img src="@Model.Profiler.ProfilePhoto.URL" alt="@Model.Profiler.ProfilePhoto.Caption" class="rounded border-secondary mw-100" />
         <hr />
         <div class="btn-group-vertical btn-block">
             <a asp-page="./AddWeight" class="btn btn-sm btn-dark">Add Weight</a>
@@ -229,32 +229,13 @@
     @if (Model.Ad != null)
     {
     <div class="col-md dash_section_left text-center">
-
-        @*@{
-            double Change;
-            string WeightText;
-
-            if (Model.Profiler.Weights.Count >= 0)
-            {
-                Change = Model.Profiler.Weight - Model.Profiler.Weights.OrderBy(w => w.Date).Single().Weight;
-                WeightText = $"{Model.Profiler.Weight}";
-            }
-            else
-            {
-                Change = 0.0;
-                WeightText = $"{Model.Profiler.Weight}";
-            }
-            ViewData["ChangeText"] = $"{WeightText} ({Change} kg)";
-        }*@
-
-        @*<p>@ViewData["ChangeText"]</p>*@
-        <h6>Your BMI is @Model.Ad[3]</h6>
-        <h6>@Model.Ad[1]</h6>
+        <h3>Current Weight: @Model.Profiler.Weight [@Model.WeightChange]</h3>
+        <h6>BMI: @Model.Ad[3] [@Model.Ad[1]]</h6>
         <p>@Model.Ad[2]</p>
     </div>
     }
     <div class="col-md dash_section dash_section_right text-center">
-        <h3>@Model.CalorieBurn Calories</h3>
+        <h3>Suggested Intake: @Model.CalorieBurn Calories</h3>
         <p>You should have an overall calorie intake of around @Model.CalorieBurn calories. <br />
         If you move a bit, you can add another ~250 or so on that number depending on how much activity you normally do.</p>
     </div>

@@ -34,7 +34,7 @@ namespace OCFX.DataModels
         // Body Measurements [PERSONAL DATA]
         [PersonalData]
         [Display(Name = "Height (in inches)")]
-        [Range(60, 272, ErrorMessage = "Let's go with something believable here.")]
+        [Range(30, 96, ErrorMessage = "Let's go with something believable here.")]
         public int Height { get; set; }
         [PersonalData]
         [Display(Name = "Weight (in lbs.")]
@@ -136,6 +136,7 @@ namespace OCFX.DataModels
         /// <summary>
         /// Shows the full name
         /// </summary>
+        [NotMapped]
         public string FullName => $"{FirstName} {LastName}";
 
         /// <summary>
@@ -143,8 +144,14 @@ namespace OCFX.DataModels
         /// </summary>
         [NotMapped]
         public string SubTitle => $"{Age} year-old {Gender}";
+        /// <summary>
+        /// Profile Photo
+        /// </summary>
         [NotMapped]
         public Photo ProfilePhoto => GetProfilePhoto(Id);
+        /// <summary>
+        /// Profile Photo URL
+        /// </summary>
         [NotMapped]
         public string ProfilePhotoUrl
         {
@@ -160,7 +167,7 @@ namespace OCFX.DataModels
         public double BodyFat => GetBodyFat(Height, Weight, NeckMeasurement, WaistMeasurement, HipMeasurement);
 
         /// <summary>
-        /// Retrieves a Profile Photo
+        /// Retrieves a Profile Photo from the Photos Nav Property
         /// </summary>
         /// <param name="Id">Profile ID</param>
         /// <returns></returns>
@@ -182,7 +189,7 @@ namespace OCFX.DataModels
         }
 
         /// <summary>
-        /// Get the age from a given date of birth
+        /// Calculate age from a given date of birth
         /// </summary>
         /// <param name="DOB"></param>
         /// <returns></returns>

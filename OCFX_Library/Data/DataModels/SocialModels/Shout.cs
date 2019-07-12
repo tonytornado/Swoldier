@@ -4,6 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OCFX.DataModels
 {
+    /// <summary>
+    /// A message item.
+    /// </summary>
     public class Shout
     {
         [Key]

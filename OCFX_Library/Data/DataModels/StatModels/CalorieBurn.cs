@@ -5,6 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OCFX.DataModels
 {
+    /// <summary>
+    /// An item that charts calories burned by an exercise or workout
+    /// </summary>
     public class CaloriesBurned
     {
         public int Id { get; set; }
@@ -15,7 +18,7 @@ namespace OCFX.DataModels
     }
 
     /// <summary>
-    /// Log a weight along with a progress photo
+    /// An log entry for a user's weight along with a progress photo (optional)
     /// </summary>
     public class WeightMeasurement
     {
@@ -25,8 +28,8 @@ namespace OCFX.DataModels
         [Display(Name = "Photo Date")]
         public DateTime Date { get; set; }
         [Display(Name = "Weight (in lbs.)")]
+        [StringLength(4)]
         public double Weight { get; set; }
-
         [ForeignKey("ProfileId")]
         public Profile Profile { get; set; }
     }

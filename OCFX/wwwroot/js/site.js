@@ -11,7 +11,9 @@ function myMap() {
 		center: new google.maps.LatLng(38.200946, -85.601353),
 		zoom: 10
 	};
-	var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+    var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+
+    return map;
 }
 
 // SLIDE IN CODE //

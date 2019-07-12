@@ -6,9 +6,8 @@
     ViewData["BannerSubTitle"] = Html.DisplayFor(m => m.WorkoutDetail.TargetedMuscles);
 }
 
-<section class="col-md-8">
-    <div>
-        <p>@Model.WorkoutDetail.Description</p>
+<section class="row container-fluid">
+    <div class="col-md-6">
         <table class="table table-responsive-sm table-bordered text-center">
             <thead class="thead-dark">
                 <tr>
@@ -21,16 +20,16 @@
                 @foreach (var ex in Model.Exercises.OrderBy(e => e.Order))
                 {
                     <tr>
-                        <th>@ex.Exercise.Name</th>
+                        <th><a asp-page="./Exercise" asp-route-Id="@ex.Exercise.Id">@ex.Exercise.Name</a></th>
                         <th>@ex.Sets</th>
                         <th>@ex.Repetitions</th>
                     </tr>
                 }
             </tbody>
         </table>
-        <p>@Model.WorkoutDetail.Duration</p>
     </div>
-    <div>
+    <div class="col-md-6">
+        <p class="lead">Duration: @Model.WorkoutDetail.Duration</p>
         <p>@Model.WorkoutDetail.Description</p>
     </div>
 </section>

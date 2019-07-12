@@ -80,6 +80,7 @@ namespace OCFX.Pages.Dashboard
                 Profile = _context.Profiles.SingleOrDefault(c => c.Id == Id)
             };
             _context.Weights.Add(Weight);
+            Weight.Profile.Weight = (int)Weight.Weight;
             await _context.SaveChangesAsync();
 
             Post Post = new Post
@@ -91,6 +92,8 @@ namespace OCFX.Pages.Dashboard
             };
             _context.Posts.Add(Post);
             await _context.SaveChangesAsync();
+
+            
 
             StatusMessage = "New weight added!";
             return Redirect("./Index");

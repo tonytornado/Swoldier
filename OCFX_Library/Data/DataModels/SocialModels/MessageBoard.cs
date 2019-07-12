@@ -5,6 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OCFX.DataModels
 {
+    /// <summary>
+    /// A message board object
+    /// </summary>
     public class MessageBoard
     {
         [Key]

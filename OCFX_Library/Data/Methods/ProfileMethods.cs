@@ -37,6 +37,7 @@ namespace OCFX.Data.Methods
                     .ThenInclude(p => p.CampaignDiet)
                 .Include(p => p.Campaign)
                     .ThenInclude(p => p.CampaignQuest)
+                .Include(p => p.Weights)
                 .SingleOrDefaultAsync(m => m.Id == id);
 
             return Profiler;
@@ -184,7 +185,7 @@ namespace OCFX.Data.Methods
                     "With increased physical activity, a caloric surplus is necessary for muscle growth.";
             }
 
-            Dictionary<int, string> thing = new Dictionary<int, string>
+            var thing = new Dictionary<int, string>
             {
                 { 1, WeightClass },
                 { 2, Advice },
