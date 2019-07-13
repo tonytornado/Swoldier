@@ -1,28 +1,30 @@
 ﻿@page "{id}"
 @model OCFX.Pages.Programs.ExerciseModel
+
 @{
-    ViewData["Title"] = Model.Exercise;
+    ViewData["Title"] = Model.Excel.ExerciseTitle;
     ViewData["BannerTitle"] = ViewData["Title"];
     ViewData["BannerSubTitle"] = "";
 }
 
-<h1>
-    @Model.Exercise.ExerciseTitle
+<h1 class="text-center">
+    @Model.Excel.Name
 </h1>
 <section>
     <div class="row">
-        @if (Model.Exercise.Url != null)
+        @if (Model.Excel.Url != null)
         {
             <div class="col-md">
-                <iframe width="560" height="315" src="@Model.Exercise.Url" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe width="560" height="315" src="@Model.Excel.Url" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 <hr />
             </div>
         }
         <div class="col-md">
-            @Model.Exercise.Description
+            @Model.Excel.Description
         </div>
     </div>
+    <hr />
     <div>
-        <a href="#" onclick="history.go(-1);return false;" class="btn btn-block">Back</a>
+        <a href="#" onclick="history.go(-1);return false;" class="btn btn-block btn-outline-dark">Back</a>
     </div>
 </section>

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using OCFX.Areas.Identity.Data;
 using OCFX.DataModels;
+using System;
+using System.Linq;
 
 namespace OCFX.Pages.Programs
 {
@@ -14,18 +10,17 @@ namespace OCFX.Pages.Programs
     {
         private readonly OCFXContext _context;
 
-        public ExerciseModel(OCFXContext context, Exercise exercise)
+        public ExerciseModel(OCFXContext context)
         {
             _context = context ?? throw new ArgumentNullException("Where's my database??");
-            Exercise = exercise ?? throw new ArgumentNullException("Where's the exercise??");
         }
 
-        public Exercise Exercise { get; set; }
+        public Exercise Excel { get; set; }
 
-        public void OnGet(int Id)
+        public void OnGet(int id)
         {
-            Exercise = _context.Exercises
-                .Single(e => e.Id == Id);
+            Excel = _context.Exercises
+                .SingleOrDefault(e => e.Id == id);
         }
     }
 }
