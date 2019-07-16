@@ -53,7 +53,9 @@ namespace OCFX.DataModels
     {
         public int Id { get; set; }
         public Workout Workout { get; set; }
-        public ICollection<ExerciseLog> ExercisesLogged { get; set; }
+        public Profile Profile { get; set; }
         public DateTime Date { get; set; }
+        public string Notes { get; set; }
+        public int Duration { get; set; }
     }
 }

@@ -14,17 +14,16 @@ namespace OCFX.Pages.Programs
     {
         private readonly OCFXContext _context;
 
-        public ExerciseModel(OCFXContext context, Exercise exercise)
+        public ExerciseModel(OCFXContext context)
         {
             _context = context ?? throw new ArgumentNullException("Where's my database??");
-            Exercise = exercise ?? throw new ArgumentNullException("Where's the exercise??");
         }
 
-        public Exercise Exercise { get; set; }
+        public Exercise Ex { get; set; }
 
         public void OnGet(int Id)
         {
-            Exercise = _context.Exercises
+            Ex = _context.Exercises
                 .Single(e => e.Id == Id);
         }
     }

@@ -52,9 +52,11 @@ namespace OCFX.Areas.Identity.Data
         public DbSet<Equipment> GymAmenities { get; set; }
         public DbSet<GymRelation> RelativeGyms { get; set; }
         public DbSet<WeightMeasurement> Weights { get; set; }
-
+        public DbSet<WorkoutSetLog> WorkoutSetLogs { get; set; }
         public DbSet<MessageBoardPost> MessageBoardPosts { get; set; }
         public DbSet<MessageBoardComment> MessageBoardComments { get; set; }
+        
+        //public DbSet<WorkoutProgramLog> WorkoutLogs { get; set; }
 
         // Quest DB
         public DbSet<Archetype> Archetypes { get; set; }
@@ -63,5 +65,6 @@ namespace OCFX.Areas.Identity.Data
         public DbSet<QuestLog> QuestLogs { get; set; }
         public DbSet<BossEncounter> Bosses { get; set; }
         public DbSet<PersonalEncounter> Minions { get; set; }
+
     }
 }
