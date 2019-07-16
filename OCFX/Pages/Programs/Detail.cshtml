@@ -20,7 +20,7 @@
                 @foreach (var ex in Model.Exercises.OrderBy(e => e.Order))
                 {
                     <tr>
-                        <th><a asp-page="./Exercise" asp-route-Id="@ex.Exercise.Id">@ex.Exercise.Name</a></th>
+                        <th><a asp-page="./Exercise" asp-route-id="@ex.Exercise.Id">@ex.Exercise.Name</a></th>
                         <th>@ex.Sets</th>
                         <th>@ex.Repetitions</th>
                     </tr>
