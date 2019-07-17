@@ -26,30 +26,36 @@ namespace OCFX.Pages.Dashboard
 
         [BindProperty]
         public InputModel Input { get; set; }
+
         [TempData]
         public string StatusMessage { get; set; }
+
         public SelectList WL { get; set; }
         public List<Workout> WorkoutList { get; set; }
 
         public void OnGet()
         {
-            WL = new SelectList(_context.Workouts.ToList(), "Id", "Name");
+            var listing = _context.Workouts.ToList();
+            WL = new SelectList(listing, "Id", "Title", null);
         }
 
-        public async Task<ActionResult> OnPostAsync(int Id)
+        public async Task<ActionResult> OnPostAsync()
         {
             var user = await _userManager.GetUserAsync(User);
 
+            // Create the workout log
             var Workout = new WorkoutSetLog
             {
                 Date = DateTime.Now,
-                Profile = _context.Profiles.SingleOrDefault(c => c.Id == user.ProfileId),
-                Workout = _context.Workouts.SingleOrDefault(c => c.Id == Input.WorkoutId),
+                Profile = _context.Profiles.Single(c => c.Id == user.ProfileId),
+                Workout = _context.Workouts.Single(c => c.Id == Input.WorkoutId),
                 Duration = Input.Time,
                 Notes = Input.Notes
             };
             _context.WorkoutSetLogs.Add(Workout);
 
+
+            // Create the post for the workout log on the user's profile page.
             Post Post = new Post
             {
                 DatePosted = DateTime.Now,

@@ -10,7 +10,7 @@ namespace OCFX.DataModels
     {
         [Key]
         [Display(Name = "Workout / Exercise Relation")]
-        public int Id { get; set; }
+        public int WorkoutProgramId { get; set; }
 
         [Display(Name = "Exercise ID's")]
         public int ExerciseId { get; set; }
@@ -36,11 +36,11 @@ namespace OCFX.DataModels
         public string Description { get; set; }
     }
 
-    struct WorkoutProgramName
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        [ForeignKey("WorkoutProgramId")]
-        public WorkoutProgram WorkoutProgram { get; set; }
-    }
+    //struct WorkoutProgramName
+    //{
+    //    public int Id { get; set; }
+    //    public string Name { get; set; }
+    //    [ForeignKey("WorkoutProgramId")]
+    //    public WorkoutProgram Worx { get; set; }
+    //}
 }

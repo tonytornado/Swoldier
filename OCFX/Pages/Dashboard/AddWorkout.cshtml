@@ -6,11 +6,11 @@
     ViewData["BannerSubTitle"] = "Prove you did something";
 }
 
-<section class="col-md-8 shadowbox-xy">
-    <form class="form" method="post" asp-route-Id="">
+<section class="container shadowbox-xy">
+    <form class="form" method="post" asp-route-Id="@Model">
         <div class="form-group">
             <label asp-for="Input.WorkoutId"></label>
-            <select asp-items="Model.WL" class="form-control custom-select custom-select-lg">
+            <select asp-for="Input.WorkoutId" asp-items="Model.WL" class="form-control custom-select custom-select-lg">
                 <option value="0"></option>
             </select>
         </div>
