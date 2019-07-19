@@ -11,12 +11,24 @@ namespace OCFX.DataModels
     {
         [Display(Name = "Campaign")]
         public int Id { get; set; }
+        /// <summary>
+        /// All campaigns need names.
+        /// </summary>
         [Display(Name = "Campaign Name")]
         public string CampaignName { get; set; }
+        /// <summary>
+        /// Give it something witty.
+        /// </summary>
         [Display(Name = "Campaign Tagline")]
         public string CampaignDetails { get; set; }
+        /// <summary>
+        /// Lore is needed for this tale to be told proper, so you have to do that world building, right?
+        /// </summary>
         [Display(Name = "Campaign Story")]
         public string CampaignLore { get; set; }
+        /// <summary>
+        /// I mean, yeah, you have to have risks in this campaign you're making, right?
+        /// </summary>
         [Display(Name = "Campaign Risks")]
         public RiskLevel CampaignRisk { get; set; }
 
@@ -34,7 +46,9 @@ namespace OCFX.DataModels
 
         // Wait, we're adding bosses now!?
         // That Boss is gonna need some MINIONS
-        //public BossEncounter Boss { get; set; }
-        //public PersonalEncounter[] Minions { get; set; }
+        // AND YOUR CHARACTER NEEDS A DESIGNATED RIVAL PERSON
+        public BossEncounter Antagonist { get; set; }
+        public PersonalEncounter Rival { get; set; }
+        public List<PersonalEncounter> Enemies { get; set; }
     }
 }
