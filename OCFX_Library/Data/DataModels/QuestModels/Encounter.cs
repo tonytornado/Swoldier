@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OCFX.DataModels
 {
+    /// <summary>
+    /// Describes an encounter type
+    /// </summary>
     public class Encounter
     {
         [Display(Name = "Id")]
@@ -22,12 +25,16 @@ namespace OCFX.DataModels
         [Display(Name = "MVN")]
         public int MVN { get; set; }
         [Display(Name = "Story")]
-        public long Background { get; set; }
+        public string Background { get; set; }
 
+        /// <summary>
+        /// The NPC's skill set
+        /// </summary>
         public Skills[] SkillSet { get; set; }
     }
 
-    [Table("Enemies")]
+
+    [Table("NPCs")]
     public class PersonalEncounter : Encounter
     {
         [Display(Name = "First Name")]
@@ -38,6 +45,9 @@ namespace OCFX.DataModels
         public string FullName => $"{FirstName} {LastName}";
     }
 
+    /// <summary>
+    /// Represents a boss encounter that adds special elements to the fight
+    /// </summary>
     [Table("Bosses")]
     public class BossEncounter : Encounter
     {
@@ -47,5 +57,11 @@ namespace OCFX.DataModels
         public int Armor { get; set; }
         [Display(Name = "Boss Skill")]
         public Skills BurstSkill { get; set; }
+
+        /// <summary>
+        /// Bosses get armor, didn't you know? This adds more heft to the fight.
+        /// </summary>
+        public int BossArmor => Armor + CON;
+        public int BossHP => HP * 2;
     }
 }

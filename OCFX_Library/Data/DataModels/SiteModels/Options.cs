@@ -13,8 +13,17 @@ namespace OCFX.DataModels.SiteModels
     {
         [Key]
         public int Id { get; set; }
-        public int Newsletter { get; set; }
-        public int Notify { get; set; }
+        /// <summary>
+        /// Option for newsletter subscription
+        /// </summary>
+        public int NewsletterOption { get; set; }
+        /// <summary>
+        /// Option for push/email notifications
+        /// </summary>
+        public int NotificationOption { get; set; }
+        /// <summary>
+        /// Option for conversion units
+        /// </summary>
         public Conversion MeasurementUnits { get; set; }
 
         public Profile UserProfile { get; set; }

@@ -22,7 +22,7 @@ namespace OCFX.DataModels
         [Display(Name = "Campaign Tagline")]
         public string CampaignDetails { get; set; }
         /// <summary>
-        /// Lore is needed for this tale to be told proper, so you have to do that world building, right?
+        /// Lore for the campaign
         /// </summary>
         [Display(Name = "Campaign Story")]
         public string CampaignLore { get; set; }
@@ -39,9 +39,15 @@ namespace OCFX.DataModels
         public Diet CampaignDiet { get; set; }
 
         // The list of all workouts associated with the campaign
+        /// <summary>
+        /// The list of associated Campaign Programs
+        /// </summary>
         public List<WorkoutProgram> CampaignPrograms { get; set; }
 
         // Get the list of appropriate quests for each campaign
+        /// <summary>
+        /// A list of quests in the Campaign
+        /// </summary>
         public List<Quest> CampaignQuest { get; set; }
 
         // Wait, we're adding bosses now!?

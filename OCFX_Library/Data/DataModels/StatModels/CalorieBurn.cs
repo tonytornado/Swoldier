@@ -23,13 +23,25 @@ namespace OCFX.DataModels
     public class WeightMeasurement
     {
         public int Id { get; set; }
+        /// <summary>
+        /// An optional progress @Photo object
+        /// </summary>
         [Display(Name = "Progress Photo")]
         public Photo ProgressPhoto { get; set; }
+        /// <summary>
+        /// The date that the photo was taken, added automatically in most cases.
+        /// </summary>
         [Display(Name = "Photo Date")]
         public DateTime Date { get; set; }
-        [Display(Name = "Weight (in lbs.)")]
+        /// <summary>
+        /// Current weight
+        /// </summary>
+        [Display(Name = "Weight")]
         [StringLength(4)]
         public double Weight { get; set; }
+        /// <summary>
+        /// The profile ID of the user making the change.
+        /// </summary>
         [ForeignKey("ProfileId")]
         public Profile Profile { get; set; }
     }
