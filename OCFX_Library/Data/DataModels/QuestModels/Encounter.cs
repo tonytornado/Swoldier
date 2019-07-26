@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace OCFX.DataModels
 {
     /// <summary>
-    /// Describes an encounter type
+    /// Describes an encounter class
     /// </summary>
     public class Encounter
     {
@@ -33,7 +33,9 @@ namespace OCFX.DataModels
         public Skills[] SkillSet { get; set; }
     }
 
-
+    /// <summary>
+    /// These are the NPC's you may have to deal with
+    /// </summary>
     [Table("NPCs")]
     public class PersonalEncounter : Encounter
     {

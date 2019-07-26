@@ -14,24 +14,24 @@
 		<form method="post">
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 			<div class="form-group">
-				<label asp-for="Campaign.CampaignName" class="control-label"></label>
-				<input asp-for="Campaign.CampaignName" class="form-control" />
-				<span asp-validation-for="Campaign.CampaignName" class="text-danger"></span>
+				<label asp-for="Campaign.Name" class="control-label"></label>
+				<input asp-for="Campaign.Name" class="form-control" />
+				<span asp-validation-for="Campaign.Name" class="text-danger"></span>
 			</div>
 			<div class="form-group">
-				<label asp-for="Campaign.CampaignDetails" class="control-label"></label>
-				<textarea asp-for="Campaign.CampaignDetails" class="form-control" rows="6" cols="40"></textarea>
-				<span asp-validation-for="Campaign.CampaignDetails" class="text-danger"></span>
+				<label asp-for="Campaign.Details" class="control-label"></label>
+				<textarea asp-for="Campaign.Details" class="form-control" rows="6" cols="40"></textarea>
+				<span asp-validation-for="Campaign.Details" class="text-danger"></span>
 			</div>
 			<div class="form-group">
-				<label asp-for="Campaign.CampaignLore" class="control-label"></label>
-				<textarea asp-for="Campaign.CampaignLore" class="form-control" rows="6" cols="40"></textarea>
-				<span asp-validation-for="Campaign.CampaignLore" class="text-danger"></span>
+				<label asp-for="Campaign.Lore" class="control-label"></label>
+				<textarea asp-for="Campaign.Lore" class="form-control" rows="6" cols="40"></textarea>
+				<span asp-validation-for="Campaign.Lore" class="text-danger"></span>
 			</div>
 			<div class="form-group">
-				<label asp-for="Campaign.CampaignRisk" class="control-label"></label>
-				<select asp-for="Campaign.CampaignRisk" asp-items="@Html.GetEnumSelectList<OCFX.DataModels.RiskLevel>()" class="form-control"></select>
-				<span asp-validation-for="Campaign.CampaignRisk" class="text-danger"></span>
+				<label asp-for="Campaign.Risk" class="control-label"></label>
+				<select asp-for="Campaign.Risk" asp-items="@Html.GetEnumSelectList<OCFX.DataModels.RiskLevel>()" class="form-control"></select>
+				<span asp-validation-for="Campaign.Risk" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label asp-for="Campaign.DietId" class="control-label"></label>

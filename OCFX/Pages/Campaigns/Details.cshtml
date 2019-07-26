@@ -3,16 +3,16 @@
 
 @{
     ViewData["Title"] = "Details";
-    ViewData["BannerTitle"] = Model.Campaign.CampaignName;
-    ViewData["BannerSubtitle"] = Model.Campaign.CampaignDetails;
+    ViewData["BannerTitle"] = Model.Campaign.Name;
+    ViewData["BannerSubtitle"] = Model.Campaign.Details;
 }
 <div class="shadowbox-xy">
 	<h4>Campaign Details</h4>
-	@if (Model.Campaign.CampaignQuest != null)
+	@if (Model.Campaign.Quests != null)
 	{
-		<p>@Model.Campaign.CampaignLore</p>
+		<p>@Model.Campaign.Lore</p>
 		<ul class="list-group list-group-flush">
-			@foreach (var quest in Model.Campaign.CampaignQuest)
+			@foreach (var quest in Model.Campaign.Quests)
 			{
 				// Set quest conditions, statuses if logged in.
 
@@ -23,7 +23,7 @@
 		</ul>
 	}
     <br />
-	<p>This one's good for @Model.Campaign.CampaignRisk-level folks. Good luck, don't die.</p>
+	<p>This one's good for @Model.Campaign.Risk-level folks. Good luck, don't die.</p>
 </div>
 <div class="text-center">
     <a class="btn btn-block btn-outline-dark" asp-page="./Index">Back to Campaign Selection</a>

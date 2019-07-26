@@ -41,7 +41,7 @@ namespace OCFX.Pages.MadminAccess.Programs
 
             ViewData["ExerciseId"] = new SelectList(_context.Exercises.ToList(), "Id", "Name");
             ViewData["WorkoutId"] = new SelectList(_context.Workouts.ToList(), "Id", "Title");
-            ViewData["CampaignId"] = new SelectList(_context.Campaigns.ToList(), "Id", "CampaignName");
+            ViewData["CampaignId"] = new SelectList(_context.Campaigns.ToList(), "Id", "Name");
             return Page();
         }
 
@@ -51,7 +51,7 @@ namespace OCFX.Pages.MadminAccess.Programs
             {
                 ViewData["ExerciseId"] = new SelectList(_context.Exercises.ToList(), "Id", "Name");
                 ViewData["WorkoutId"] = new SelectList(_context.Workouts.ToList(), "Id", "Title");
-                ViewData["CampaignId"] = new SelectList(_context.Campaigns.ToList(), "Id", "CampaignName");
+                ViewData["CampaignId"] = new SelectList(_context.Campaigns.ToList(), "Id", "Name");
                 return Page();
             }
 

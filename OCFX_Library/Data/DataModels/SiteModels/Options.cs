@@ -16,14 +16,17 @@ namespace OCFX.DataModels.SiteModels
         /// <summary>
         /// Option for newsletter subscription
         /// </summary>
+        [Display(Name = "Newsletter Option")]
         public int NewsletterOption { get; set; }
         /// <summary>
         /// Option for push/email notifications
         /// </summary>
+        [Display(Name = "Notifications")]
         public int NotificationOption { get; set; }
         /// <summary>
         /// Option for conversion units
         /// </summary>
+        [Display(Name = "Measurement Units")]
         public Conversion MeasurementUnits { get; set; }
 
         public Profile UserProfile { get; set; }

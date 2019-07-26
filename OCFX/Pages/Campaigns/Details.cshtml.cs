@@ -18,8 +18,7 @@ namespace OCFX.Pages.Campaigns
         }
 
         public Campaign Campaign { get; private set; }
-
-        private List<Campaign> QuestList;
+        public List<Quest> QuestList { get; private set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,12 +28,11 @@ namespace OCFX.Pages.Campaigns
             }
 
             Campaign = await _context.Campaigns
-                .Include(c => c.CampaignDiet)
+                .Include(c => c.Nutrition)
+                .Include(c => c.Quests)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            QuestList = await _context.Campaigns
-                .Include(c => c.CampaignQuest)
-                .ToListAsync();
+            QuestList = Campaign.Quests;
 
             if (Campaign == null)
             {

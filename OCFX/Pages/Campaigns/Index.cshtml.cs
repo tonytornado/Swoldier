@@ -24,8 +24,8 @@ namespace OCFX.Pages.Campaigns
             Message = "Get ready for the next challenge!";
 
             Campaigns = _context.Campaigns
-                .Include(c => c.CampaignDiet)
-                .Include(c => c.CampaignQuest)
+                .Include(c => c.Nutrition)
+                .Include(c => c.Quests)
                 .ToList();
         }
     }

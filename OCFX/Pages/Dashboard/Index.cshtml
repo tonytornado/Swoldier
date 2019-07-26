@@ -32,7 +32,7 @@
                 </thead>
                 <tr>
                     <td>
-                        <a asp-page="/Campaigns/Details" asp-route-id="@Model.Profiler.Campaign.Id">@Model.Profiler.Campaign.CampaignName</a>
+                        <a asp-page="/Campaigns/Details" asp-route-id="@Model.Profiler.Campaign.Id">@Model.Profiler.Campaign.Name</a>
                     </td>
                 </tr>
                 @if (Model.Profiler.Quest != null)
@@ -52,7 +52,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var task in Model.Profiler.Campaign.CampaignQuest)
+                        @foreach (var task in Model.Profiler.Campaign.Quests)
                         {
                             if (Model.Profiler.Quest != null)
                             {

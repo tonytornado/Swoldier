@@ -31,6 +31,8 @@ namespace OCFX.Pages.Campaigns
         [BindProperty]
         public InputModel Creator { get; set; }
         public SelectList BossSelection { get; private set; }
+        public List<PersonalEncounter> MinionSelection { get; private set; }
+
         [TempData]
         public string StatusMessage { get; set; }
 
@@ -39,6 +41,7 @@ namespace OCFX.Pages.Campaigns
             List<BossEncounter> BossList = context.Bosses.ToList();
             List<PersonalEncounter> MinionList = context.Minions.ToList();
             BossSelection = new SelectList(BossList, "Id", "Name");
+            MinionSelection = MinionList;
         }
 
         public void OnPost()
@@ -51,10 +54,10 @@ namespace OCFX.Pages.Campaigns
 
             var customCampaign = new Campaign()
             {
-                CampaignLore = Creator.Story,
-                CampaignName = Creator.Name,
-                CampaignDetails = Creator.Details,
-                CampaignQuest = Creator.Quests,
+                Lore = Creator.Story,
+                Name = Creator.Name,
+                Details = Creator.Details,
+                Quests = Creator.Quests,
                 //Boss = Creator.BigBad
             };
 

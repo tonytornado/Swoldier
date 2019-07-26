@@ -15,28 +15,28 @@ namespace OCFX.DataModels
         /// All campaigns need names.
         /// </summary>
         [Display(Name = "Campaign Name")]
-        public string CampaignName { get; set; }
+        public string Name { get; set; }
         /// <summary>
         /// Give it something witty.
         /// </summary>
         [Display(Name = "Campaign Tagline")]
-        public string CampaignDetails { get; set; }
+        public string Details { get; set; }
         /// <summary>
         /// Lore for the campaign
         /// </summary>
         [Display(Name = "Campaign Story")]
-        public string CampaignLore { get; set; }
+        public string Lore { get; set; }
         /// <summary>
         /// I mean, yeah, you have to have risks in this campaign you're making, right?
         /// </summary>
         [Display(Name = "Campaign Risks")]
-        public RiskLevel CampaignRisk { get; set; }
+        public RiskLevel Risk { get; set; }
 
         
         public int DietId { get; set; }
         [Display(Name = "Associated Diet")]
         [ForeignKey("DietId")]
-        public Diet CampaignDiet { get; set; }
+        public Diet Nutrition { get; set; }
 
         // The list of all workouts associated with the campaign
         /// <summary>
@@ -48,13 +48,11 @@ namespace OCFX.DataModels
         /// <summary>
         /// A list of quests in the Campaign
         /// </summary>
-        public List<Quest> CampaignQuest { get; set; }
+        public List<Quest> Quests { get; set; }
 
         // Wait, we're adding bosses now!?
         // That Boss is gonna need some MINIONS
-        // AND YOUR CHARACTER NEEDS A DESIGNATED RIVAL PERSON
         public BossEncounter Antagonist { get; set; }
-        public PersonalEncounter Rival { get; set; }
-        public List<PersonalEncounter> Enemies { get; set; }
+        public List<PersonalEncounter> Minions { get; set; }
     }
 }

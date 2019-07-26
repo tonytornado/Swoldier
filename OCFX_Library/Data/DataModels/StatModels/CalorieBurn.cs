@@ -52,9 +52,26 @@ namespace OCFX.DataModels
     public class ExerciseLog
     {
         public int Id { get; set; }
+        /// <summary>
+        /// Associated Profile
+        /// </summary>
         public Profile Profile { get; set; }
+        /// <summary>
+        /// Associated Exercise being logged
+        /// </summary>
+        [Display(Name = "Exercise")]
         public Exercise Exercise { get; set; }
+        /// <summary>
+        /// Sets done for the exercise
+        /// </summary>
+        [Display(Name = "Set")]
         public int Set { get; set; }
+        /// <summary>
+        /// Repetitions of the exercise.
+        /// Generally 1-20, anything more is overkill
+        /// </summary>
+        [Display(Name = "Repetitions")]
+        [Range(1,20)]
         public int Reps { get; set; }
     }
 

@@ -127,10 +127,10 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <a asp-page="/Campaigns/Details" asp-route-id="@Model.Profiler.Campaign.Id">@Model.Profiler.Campaign.CampaignName</a>
+                                    <a asp-page="/Campaigns/Details" asp-route-id="@Model.Profiler.Campaign.Id">@Model.Profiler.Campaign.Name</a>
                                 </td>
-                                <td>@Model.Profiler.Campaign.CampaignDiet.DietName</td>
-                                <td>@Model.Profiler.Campaign.CampaignQuest.Count</td>
+                                <td>@Model.Profiler.Campaign.Nutrition.DietName</td>
+                                <td>@Model.Profiler.Campaign.Quests.Count</td>
                             </tr>
                         </tbody>
                     </table>

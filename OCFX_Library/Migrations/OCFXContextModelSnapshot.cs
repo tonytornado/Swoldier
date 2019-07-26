@@ -185,13 +185,13 @@ namespace OCFX_Library.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CampaignDetails");
+                    b.Property<string>("Details");
 
-                    b.Property<string>("CampaignLore");
+                    b.Property<string>("Lore");
 
-                    b.Property<string>("CampaignName");
+                    b.Property<string>("Name");
 
-                    b.Property<int>("CampaignRisk");
+                    b.Property<int>("Risk");
 
                     b.Property<int>("DietId");
 
@@ -977,7 +977,7 @@ namespace OCFX_Library.Migrations
 
             modelBuilder.Entity("OCFX.DataModels.Campaign", b =>
                 {
-                    b.HasOne("OCFX.DataModels.Diet", "CampaignDiet")
+                    b.HasOne("OCFX.DataModels.Diet", "Nutrition")
                         .WithMany()
                         .HasForeignKey("DietId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -1145,7 +1145,7 @@ namespace OCFX_Library.Migrations
             modelBuilder.Entity("OCFX.DataModels.Quest", b =>
                 {
                     b.HasOne("OCFX.DataModels.Campaign", "Campaign")
-                        .WithMany("CampaignQuest")
+                        .WithMany("Quests")
                         .HasForeignKey("CampaignId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });

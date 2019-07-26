@@ -93,7 +93,7 @@ namespace OCFX.Data.Methods
         {
             Profile player = context.Profiles.SingleOrDefault(p => p.Id == x);
             Quest quest = context.Quests.SingleOrDefault(p => p.Id == y);
-            Campaign campaign = context.Campaigns.FirstOrDefault(p => p.CampaignQuest.Contains(quest));
+            Campaign campaign = context.Campaigns.FirstOrDefault(p => p.Quests.Contains(quest));
 
             if (campaign != player.Campaign)
             {

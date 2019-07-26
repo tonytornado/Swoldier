@@ -24,7 +24,7 @@ namespace OCFX.Pages.MadminAccess.Programs
 
             Exerlist = new SelectList(_context.Exercises.ToList(), "Id", "ExName");
             Worklist = new SelectList(_context.Workouts.ToList(), "Id", "Title");
-            CampaignList = new SelectList(_context.Campaigns.ToList(), "Id", "CampaignName");
+            CampaignList = new SelectList(_context.Campaigns.ToList(), "Id", "Name");
 
             ExerciseSet = await _context.Exercises.ToListAsync();
 
@@ -77,7 +77,7 @@ namespace OCFX.Pages.MadminAccess.Programs
 
             Exerlist = new SelectList(_context.Exercises, "Id", "ExName");
             Worklist = new SelectList(_context.Workouts, "Id", "Title");
-            CampaignList = new SelectList(_context.Campaigns.ToList(), "Id", "CampaignName");
+            CampaignList = new SelectList(_context.Campaigns.ToList(), "Id", "Name");
 
             ExerciseSet = await _context.Exercises.ToListAsync();
 

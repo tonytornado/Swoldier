@@ -153,10 +153,10 @@ namespace OCFX_Library.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    CampaignName = table.Column<string>(nullable: true),
-                    CampaignDetails = table.Column<string>(nullable: true),
-                    CampaignLore = table.Column<string>(nullable: true),
-                    CampaignRisk = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    Details = table.Column<string>(nullable: true),
+                    Lore = table.Column<string>(nullable: true),
+                    Risk = table.Column<int>(nullable: false),
                     DietId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

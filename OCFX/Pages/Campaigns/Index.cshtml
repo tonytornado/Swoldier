@@ -15,13 +15,13 @@
 	{
 	<article class="list-group-item">
         <div class="d-flex justify-content-between align-items-center">
-            <h2>@story.CampaignName</h2>
+            <h2>@story.Name</h2>
             <h3><a asp-page="./Details" asp-route-id="@story.Id" class="btn btn-outline-dark btn-block stretched-link">Info</a></h3>
         </div>
-		<p class="title-font lead">@story.CampaignDetails</p>
+		<p class="title-font lead">@story.Details</p>
 		<ul>
-			<li>Great for the @story.CampaignDiet.DietName dieters!</li>
-			<li>@story.CampaignRisk Intensity</li>
+			<li>Great for the @story.Nutrition.DietName dieters!</li>
+			<li>@story.Risk Intensity</li>
 		</ul>
 	</article>
 	}

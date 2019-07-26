@@ -34,9 +34,9 @@ namespace OCFX.Data.Methods
                 .Include(p => p.SentMessages)
                 .Include(p => p.Quest)
                 .Include(p => p.Campaign)
-                    .ThenInclude(p => p.CampaignDiet)
+                    .ThenInclude(p => p.Nutrition)
                 .Include(p => p.Campaign)
-                    .ThenInclude(p => p.CampaignQuest)
+                    .ThenInclude(p => p.Quests)
                 .Include(p => p.Weights)
                 .SingleOrDefaultAsync(m => m.Id == id);
 
@@ -77,9 +77,9 @@ namespace OCFX.Data.Methods
                 .Include(p => p.SentMessages)
                 .Include(p => p.Quest)
                 .Include(p => p.Campaign)
-                    .ThenInclude(p => p.CampaignDiet)
+                    .ThenInclude(p => p.Nutrition)
                 .Include(p => p.Campaign)
-                    .ThenInclude(p => p.CampaignQuest)
+                    .ThenInclude(p => p.Quests)
                 .SingleOrDefault(m => m.Id == id);
 
             return Profiler;

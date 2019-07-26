@@ -88,16 +88,16 @@ namespace OCFX.Data.DataRepo
                         {
                             new Campaign
                             {
-                                CampaignName = "Tutorial",
-                                CampaignDetails = "This is just a tutorial level created to show you the ropes.",
-                                CampaignLore = "This is how we get started; and everyone has to start from somewhere.",
-                                CampaignRisk = RiskLevel.Low, DietId = 1,
+                                Name = "Tutorial",
+                                Details = "This is just a tutorial level created to show you the ropes.",
+                                Lore = "This is how we get started; and everyone has to start from somewhere.",
+                                Risk = RiskLevel.Low, DietId = 1,
                             },
                             new Campaign {
-                                CampaignName = "The Great Sheng Long",
-                                CampaignDetails = "Face death.",
-                                CampaignLore = "To move onward into the next tier, you must defeat thee great Sheng Long. He is a magnificent and deadly fighter capable of crushing boulders and breaking islands! A puny mortal such as yourself cannot stand in front of him at this level where you are; but with just enough training, you might have a chance - a rather slim chance, mind you - to survive.",
-                                CampaignRisk = RiskLevel.EX,
+                                Name = "The Great Sheng Long",
+                                Details = "Face death.",
+                                Lore = "To move onward into the next tier, you must defeat thee great Sheng Long. He is a magnificent and deadly fighter capable of crushing boulders and breaking islands! A puny mortal such as yourself cannot stand in front of him at this level where you are; but with just enough training, you might have a chance - a rather slim chance, mind you - to survive.",
+                                Risk = RiskLevel.EX,
                                 DietId = 3
                             }
                         };
@@ -174,20 +174,16 @@ namespace OCFX.Data.DataRepo
                             {
                                 Workout[] lessons = new Workout[]
                                 {
-                            new Workout {
-                                Title = "The Basics",
-                                Description = "The first of many workouts to get someone started on their fitness journey.",
-                                Duration = 45,
-                                TargetedMuscles = Workout.WorkoutType.TotalBody,
-                                DateAdded = DateTime.Now,
-                            },
-                            new Workout {
-                                Title = "The Ropes",
-                                Description = "Something a little quicker, but harder",
-                                Duration = 25,
-                                TargetedMuscles = Workout.WorkoutType.TotalBody,
-                                DateAdded = DateTime.Now
-                            }
+                                new Workout(
+                                    "The Basics",
+                                    "The first of many workouts to get someone started on their fitness journey.",
+                                    45,
+                                    Workout.WorkoutType.TotalBody),
+                                new Workout(
+                                    "The Ropes",
+                                    "Something a little quicker, but harder",
+                                    25,
+                                    Workout.WorkoutType.TotalBody)
                                 };
                                 foreach (Workout lesson in lessons)
                                 {

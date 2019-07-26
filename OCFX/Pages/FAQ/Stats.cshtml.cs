@@ -22,8 +22,8 @@ namespace OCFX.Pages.FAQ
             Stats = _context.Profiles
                 .Include(p => p.Photos)
                 .Include(p => p.Age)
-                .Include(p => p.Campaign).ThenInclude(c => c.CampaignDiet)
-                .Include(c => c.Campaign).ThenInclude(c => c.CampaignQuest)
+                .Include(p => p.Campaign).ThenInclude(c => c.Nutrition)
+                .Include(c => c.Campaign).ThenInclude(c => c.Quests)
                 .Include(p => p.Gym)
                 .Include(p => p.Addresses)
                 .ToList();
