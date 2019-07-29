@@ -87,6 +87,7 @@ namespace OCFX.DataModels
         public Collection<Phone> Phones { get; set; }
         public Collection<Photo> Photos { get; set; }
         public Collection<WeightMeasurement> Weights { get; set; }
+        public Collection<WorkoutSetLog> WorkoutHistory { get; set; }
 
         [InverseProperty("Following")]
         public Collection<Friend> Following { get; set; }

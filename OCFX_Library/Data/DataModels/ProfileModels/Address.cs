@@ -1,10 +1,25 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OCFX.DataModels
 {
     public class Address
     {
+        public Address()
+        {
+        }
+
+        public Address(AddressType addressTypeName, string streetName, string cityName, string stateName, int zipCode, Profile profile)
+        {
+            AddressTypeName = addressTypeName;
+            StreetName = streetName ?? throw new ArgumentNullException(nameof(streetName), "Street is invalid");
+            CityName = cityName ?? throw new ArgumentNullException(nameof(cityName),"No city found");
+            StateName = stateName ?? throw new ArgumentNullException(nameof(stateName),"No state found");
+            ZipCode = zipCode;
+            Profile = profile ?? throw new ArgumentNullException(nameof(profile),"A profile could not be found for this address");
+        }
+
         [Key]
         [Display(Name = "Address")]
         public int Id { get; set; }

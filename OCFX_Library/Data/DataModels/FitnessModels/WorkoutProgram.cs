@@ -35,12 +35,4 @@ namespace OCFX.DataModels
         [Display(Name = "Description")]
         public string Description { get; set; }
     }
-
-    //struct WorkoutProgramName
-    //{
-    //    public int Id { get; set; }
-    //    public string Name { get; set; }
-    //    [ForeignKey("WorkoutProgramId")]
-    //    public WorkoutProgram Worx { get; set; }
-    //}
 }

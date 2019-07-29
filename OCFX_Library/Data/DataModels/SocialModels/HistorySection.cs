@@ -6,6 +6,14 @@ namespace OCFX.DataModels
 {
     public class HistorySection
     {
+        public HistorySection(string historyAction, string historyDescription, Profile profile)
+        {
+            HistoryAction = historyAction ?? throw new ArgumentNullException(nameof(historyAction), "What happened and why can't I see it??");
+            HistoryDescription = historyDescription ?? throw new ArgumentNullException(nameof(historyDescription), "Description Needed");
+            Date = DateTime.Now;
+            Profile = profile ?? throw new ArgumentNullException(nameof(profile), "Profile not found");
+        }
+
         [Key]
         [Display(Name = "ID")]
         public int Id { get; set; }

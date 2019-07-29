@@ -50,7 +50,7 @@ namespace OCFX.Pages.MadminAccess.Campaigns
             }
 
             Campaign = await _context.Campaigns.FirstOrDefaultAsync(m => m.Id == id);
-            PopulateDietList(_context, Campaign.DietId);
+            PopulateDietList(_context, Campaign.Nutrition.Id);
             PopulateProgramList(_context, Campaign.Quests);
 
             if (Campaign == null)
@@ -64,7 +64,7 @@ namespace OCFX.Pages.MadminAccess.Campaigns
         {
             if (!ModelState.IsValid)
             {
-                PopulateDietList(_context, Campaign.DietId);
+                PopulateDietList(_context, Campaign.Nutrition.Id);
                 PopulateProgramList(_context, Campaign.Quests);
                 return Page();
             }

@@ -5,6 +5,17 @@ namespace OCFX.DataModels
 {
     public class Facts
     {
+        public Facts()
+        {
+        }
+
+        public Facts(string question, string answer, SectionName section)
+        {
+            Question = question ?? throw new ArgumentNullException(nameof(question));
+            Answer = answer ?? throw new ArgumentNullException(nameof(answer));
+            Section = section;
+        }
+
         [Display(Name = "FAQ #")]
         public int Id { get; set; }
         /// <summary>

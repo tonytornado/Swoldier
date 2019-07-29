@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -9,6 +10,19 @@ namespace OCFX.DataModels
     /// </summary>
     public class Campaign
     {
+        public Campaign()
+        {
+        }
+
+        public Campaign(string name, string details, string lore, RiskLevel risk, Diet nutrition)
+        {
+            Name = name ?? throw new ArgumentNullException(nameof(name));
+            Details = details ?? throw new ArgumentNullException(nameof(details));
+            Lore = lore ?? throw new ArgumentNullException(nameof(lore));
+            Risk = risk;
+            Nutrition = nutrition ?? throw new ArgumentNullException(nameof(nutrition));
+        }
+
         [Display(Name = "Campaign")]
         public int Id { get; set; }
         /// <summary>
@@ -32,8 +46,6 @@ namespace OCFX.DataModels
         [Display(Name = "Campaign Risks")]
         public RiskLevel Risk { get; set; }
 
-        
-        public int DietId { get; set; }
         [Display(Name = "Associated Diet")]
         [ForeignKey("DietId")]
         public Diet Nutrition { get; set; }

@@ -214,7 +214,7 @@ namespace OCFX.Areas.Identity.Pages.Account
                     {
                         Profile = user.Profile,
                         Campaign = user.Profile.Campaign,
-                        QuestId = user.Profile.Quest.Id,
+                        Quest = user.Profile.Quest,
                         Completed = false,
                     });
 

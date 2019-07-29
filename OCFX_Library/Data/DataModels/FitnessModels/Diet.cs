@@ -1,9 +1,43 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace OCFX.DataModels
 {
     public class Diet
     {
+        /// <summary>
+        /// Simple implementation of Diet
+        /// </summary>
+        public Diet()
+        {
+        }
+
+        /// <summary>
+        /// Standard implementation of Diet
+        /// </summary>
+        /// <param name="dietName"></param>
+        /// <param name="dietTypeName"></param>
+        /// <param name="carbohydrates"></param>
+        /// <param name="protein"></param>
+        /// <param name="fats"></param>
+        public Diet(string dietName,
+                    DietType dietTypeName,
+                    int carbohydrates,
+                    int protein,
+                    int fats)
+        {
+            if(carbohydrates + protein + fats != 100)
+            {
+                throw new ArgumentOutOfRangeException("Macronutrients", "Total macronutrient percentages must equal 100.");
+            }
+
+            DietName = dietName ?? throw new ArgumentNullException(nameof(dietName));
+            DietTypeName = dietTypeName;
+            Carbohydrates = carbohydrates;
+            Protein = protein;
+            Fats = fats;
+        }
+
         [Display(Name = "Diet")]
         public int Id { get; set; }
         [Display(Name = "Diet Name")]

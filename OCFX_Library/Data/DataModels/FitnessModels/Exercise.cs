@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using static OCFX.DataModels.Workout;
 
 namespace OCFX.DataModels
@@ -17,12 +18,19 @@ namespace OCFX.DataModels
         {
         }
 
+        /// <summary>
+        /// An exercise that doesn't have a URL
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="exerType"></param>
+        /// <param name="targetedMuscles"></param>
+        /// <param name="description"></param>
         public Exercise(string name, ExerciseType exerType, WorkoutType targetedMuscles, string description)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
             ExerType = exerType;
             TargetedMuscles = targetedMuscles;
-            Description = description ?? throw new ArgumentNullException(nameof(description));
+            Description = description ?? throw new ArgumentNullException(nameof(description), "This doesn't have a description on it.");
         }
 
         /// <summary>
@@ -74,6 +82,7 @@ namespace OCFX.DataModels
             Tabata = 5
         }
 
+        [NotMapped]
         public string ExerciseTitle => $"{Name} [{ExerType}]";
     }
 }

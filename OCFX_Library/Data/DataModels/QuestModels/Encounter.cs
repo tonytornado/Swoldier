@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OCFX.DataModels
@@ -30,7 +31,7 @@ namespace OCFX.DataModels
         /// <summary>
         /// The NPC's skill set
         /// </summary>
-        public Skills[] SkillSet { get; set; }
+        public Skill[] SkillSet { get; set; }
     }
 
     /// <summary>
@@ -39,6 +40,16 @@ namespace OCFX.DataModels
     [Table("NPCs")]
     public class PersonalEncounter : Encounter
     {
+        public PersonalEncounter()
+        {
+        }
+
+        public PersonalEncounter(string firstName, string lastName)
+        {
+            FirstName = firstName ?? throw new ArgumentNullException(nameof(firstName));
+            LastName = lastName ?? throw new ArgumentNullException(nameof(lastName));
+        }
+
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
         [Display(Name = "Last Name")]
@@ -53,12 +64,23 @@ namespace OCFX.DataModels
     [Table("Bosses")]
     public class BossEncounter : Encounter
     {
+        public BossEncounter()
+        {
+        }
+
+        public BossEncounter(string name, int armor, Skill burstSkill)
+        {
+            Name = name ?? throw new ArgumentNullException(nameof(name));
+            Armor = armor;
+            BurstSkill = burstSkill ?? throw new ArgumentNullException(nameof(burstSkill));
+        }
+
         [Display(Name = "Boss Name")]
         public string Name { get; set; }
         [Display(Name = "Armor Level")]
         public int Armor { get; set; }
         [Display(Name = "Boss Skill")]
-        public Skills BurstSkill { get; set; }
+        public Skill BurstSkill { get; set; }
 
         /// <summary>
         /// Bosses get armor, didn't you know? This adds more heft to the fight.

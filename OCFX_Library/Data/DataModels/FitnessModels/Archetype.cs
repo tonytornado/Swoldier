@@ -8,6 +8,40 @@ namespace OCFX.DataModels
     /// </summary>
     public class Archetype
     {
+        /// <summary>
+        /// Simple implementation
+        /// </summary>
+        public Archetype()
+        {
+        }
+
+        /// <summary>
+        /// Six aspect implementation
+        /// </summary>
+        /// <param name="fitType"></param>
+        /// <param name="strengthMod"></param>
+        /// <param name="speedMod"></param>
+        /// <param name="constitutionMod"></param>
+        /// <param name="dexterityMod"></param>
+        /// <param name="concentrationMod"></param>
+        /// <param name="motivationMod"></param>
+        public Archetype(ClassType fitType,
+                         int strengthMod,
+                         int speedMod,
+                         int constitutionMod,
+                         int dexterityMod,
+                         int concentrationMod,
+                         int motivationMod)
+        {
+            FitType = fitType;
+            StrengthMod = strengthMod;
+            SpeedMod = speedMod;
+            ConstitutionMod = constitutionMod;
+            DexterityMod = dexterityMod;
+            ConcentrationMod = concentrationMod;
+            MotivationMod = motivationMod;
+        }
+
         [Key]
         [Display(Name = "Character Class")]
         public int Id { get; set; }
@@ -55,7 +89,7 @@ namespace OCFX.DataModels
         public string Weakness { get; set; }
 
         [Display(Name = "Available Skill Set")]
-        public Skills[] SkillSet { get; set; }
+        public Skill[] SkillSet { get; set; }
     }
 
     /// <summary>

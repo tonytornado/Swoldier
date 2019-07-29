@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -6,6 +7,18 @@ namespace OCFX.DataModels
 {
     public class Quest
     {
+        public Quest()
+        {
+        }
+
+        public Quest(string questName, QuestType questStyle, string questStory, Campaign campaign)
+        {
+            QuestName = questName ?? throw new ArgumentNullException(nameof(questName));
+            QuestStyle = questStyle;
+            QuestStory = questStory ?? throw new ArgumentNullException(nameof(questStory));
+            Campaign = campaign ?? throw new ArgumentNullException(nameof(campaign));
+        }
+
         [Key]
         [Display(Name = "Quest")]
         public int Id { get; set; }
@@ -23,7 +36,6 @@ namespace OCFX.DataModels
         public List<Encounter> Encounters { get; set; }
 
         // It's part of the campaign, yeah?
-        public int CampaignId { get; set; }
         [ForeignKey("CampaignId")]
         public Campaign Campaign { get; set; }
 

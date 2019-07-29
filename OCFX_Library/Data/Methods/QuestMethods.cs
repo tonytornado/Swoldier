@@ -19,10 +19,10 @@ namespace OCFX.Data.Methods
         {
             int QuestGoer = UserId;
             IQueryable<int> ops = from q in context.Quests
-                                  join ql in context.QuestLogs on q.Id equals ql.QuestId
-                                  where ql.ProfileId == UserId
+                                  join ql in context.QuestLogs on q.Id equals ql.Quest.Id
+                                  where ql.Profile.Id == UserId
                                   where ql.Completed == true
-                                  select ql.QuestId;
+                                  select ql.Quest.Id;
 
             return ops.ToList();
         }
@@ -42,10 +42,10 @@ namespace OCFX.Data.Methods
             // Create the new quest log
             QuestLog challenger = new QuestLog()
             {
-                ProfileId = UserId,
-                QuestId = QuestId,
+                Profile = context.Profiles.SingleOrDefault(c => c.Id == UserId),
+                Quest = quest,
                 Completed = false,
-                CampaignId = quest.CampaignId
+                Campaign = quest.Campaign
             };
             context.QuestLogs.Add(challenger);
             context.SaveChanges();
@@ -64,10 +64,10 @@ namespace OCFX.Data.Methods
         public static void CompleteQuest(OCFXContext context, int QuestId, int UserId)
         {
             int QuestGoer = UserId;
-            QuestLog CompletedQuest = context.QuestLogs.SingleOrDefault(q => q.QuestId == QuestId && q.ProfileId == QuestGoer);
+            QuestLog CompletedQuest = context.QuestLogs.SingleOrDefault(q => q.Quest.Id == QuestId && q.Profile.Id == QuestGoer);
 
             // Check if the quest is actually part of the campaign
-            bool QuestCheck = CheckForCampaign(context, QuestGoer, CompletedQuest.CampaignId);
+            bool QuestCheck = CheckForCampaign(context, QuestGoer, CompletedQuest.Campaign.Id);
             if (QuestCheck != true)
             {
                 throw new Exception("Yeah, they didn't complete the quest, fall back.");

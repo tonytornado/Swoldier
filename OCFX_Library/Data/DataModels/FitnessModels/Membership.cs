@@ -6,6 +6,25 @@ namespace OCFX.DataModels
 {
     public class Membership
     {
+        public Membership()
+        {
+        }
+
+        /// <summary>
+        /// Standard implementation of a member object
+        /// </summary>
+        /// <param name="status"></param>
+        /// <param name="joinDate"></param>
+        /// <param name="member"></param>
+        /// <param name="club"></param>
+        public Membership(MembershipType status, DateTime joinDate, Profile member, Gym club)
+        {
+            Status = status;
+            JoinDate = joinDate;
+            Member = member ?? throw new ArgumentNullException(nameof(member));
+            Club = club ?? throw new ArgumentNullException(nameof(club));
+        }
+
         [Key]
         [Display(Name = "Id")]
         public int Id { get; set; }

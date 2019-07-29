@@ -86,19 +86,17 @@ namespace OCFX.Data.DataRepo
                     {
                         Campaign[] campaigns = new Campaign[]
                         {
-                            new Campaign
-                            {
-                                Name = "Tutorial",
-                                Details = "This is just a tutorial level created to show you the ropes.",
-                                Lore = "This is how we get started; and everyone has to start from somewhere.",
-                                Risk = RiskLevel.Low, DietId = 1,
-                            },
+                            new Campaign("Tutorial",
+                                         "This is just a tutorial level created to show you the ropes.",
+                                         "This is how we get started; and everyone has to start from somewhere.",
+                                         RiskLevel.Low,
+                                         diets[0]),
                             new Campaign {
                                 Name = "The Great Sheng Long",
                                 Details = "Face death.",
                                 Lore = "To move onward into the next tier, you must defeat thee great Sheng Long. He is a magnificent and deadly fighter capable of crushing boulders and breaking islands! A puny mortal such as yourself cannot stand in front of him at this level where you are; but with just enough training, you might have a chance - a rather slim chance, mind you - to survive.",
                                 Risk = RiskLevel.EX,
-                                DietId = 3
+                                Nutrition = diets[2]
                             }
                         };
                         for (int i = 0; i < campaigns.Length; i++)
@@ -209,8 +207,8 @@ namespace OCFX.Data.DataRepo
             {
                 Quest[] quests = new Quest[]
                 {
-                new Quest{ QuestName = "Run the Grid", QuestStyle = QuestType.Speed, QuestStory = "There's someone in this area creating a ruckus. Run them down.", CampaignId = 1},
-                new Quest{ QuestName = "Stomp the Grid", QuestStyle = QuestType.Power, QuestStory = "Oh great, you caught them! Now let's show them what you've got.", CampaignId = 1}
+                new Quest{ QuestName = "Run the Grid", QuestStyle = QuestType.Speed, QuestStory = "There's someone in this area creating a ruckus. Run them down.", Campaign = context.Campaigns.Find(1)},
+                new Quest{ QuestName = "Stomp the Grid", QuestStyle = QuestType.Power, QuestStory = "Oh great, you caught them! Now let's show them what you've got.", Campaign = context.Campaigns.Find(1)}
                 };
                 foreach (Quest quest in quests)
                 {
@@ -271,9 +269,8 @@ namespace OCFX.Data.DataRepo
                         MeetingFrequency = Session.MeetingInterval.Weekly
                     }
                 };
-                for (int i = 0; i < clubs.Length; i++)
+                foreach (Gym character in clubs)
                 {
-                    Gym character = clubs[i];
                     context.Gyms.Add(character);
                 }
                 context.SaveChanges();
@@ -307,9 +304,8 @@ namespace OCFX.Data.DataRepo
                         new GymRelation { EquipmentId = 2, GymId = 2 },
                         new GymRelation { EquipmentId = 3, GymId = 2 },
                     };
-                    for (int i = 0; i < EquipmentRelation.Length; i++)
+                    foreach (GymRelation item in EquipmentRelation)
                     {
-                        GymRelation item = EquipmentRelation[i];
                         context.RelativeGyms.Add(item);
                     }
                     context.SaveChanges();
@@ -356,5 +352,7 @@ namespace OCFX.Data.DataRepo
                 context.SaveChanges();
             }
         }
+
+
     }
 }
