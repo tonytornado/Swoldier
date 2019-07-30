@@ -22,7 +22,7 @@
             {
                 if (Model.Profiler.Id == Model.Player.ProfileId)
                 {
-                    <p class="small lead">(That's you!)</p>
+                    <small class="text-center badge-primary badge mb-3">That's you!</small>
                 }
             }
         </div>
@@ -136,62 +136,77 @@
                     </table>
                 </div>
             }
-            <div>
-                <table class="table table-sm table-bordered text-center">
-                    <thead class="thead-light">
-                        <tr class="lead">
-                            <th>STR</th>
-                            <th>VIT</th>
-                            <th>CON</th>
-                            <th>AGI</th>
-                            <th>DEX</th>
-                            <th>MOT</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>@Model.Profiler.StrengthStat</td>
-                            <td>@Model.Profiler.ConstitutionStat</td>
-                            <td>@Model.Profiler.ConcentrationStat</td>
-                            <td>@Model.Profiler.SpeedStat</td>
-                            <td>@Model.Profiler.DexterityStat</td>
-                            <td>@Model.Profiler.MotivationStat</td>
-                        </tr>
-                        <tr>
-                            <td>+@Model.Profiler.FitStyle.StrengthMod</td>
-                            <td>+@Model.Profiler.FitStyle.ConstitutionMod</td>
-                            <td>+@Model.Profiler.FitStyle.ConcentrationMod</td>
-                            <td>+@Model.Profiler.FitStyle.SpeedMod</td>
-                            <td>+@Model.Profiler.FitStyle.DexterityMod</td>
-                            <td>+@Model.Profiler.FitStyle.MotivationMod</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
         </div>
     </section>
     <section id="story_section" class="col-lg-6 text-sm-center">
         <h2 class="text-center">
-            <u>Character</u>
+            <u>Character Stats</u>
         </h2>
         <div class="roundbox-xy">
-            <div class="">
-                <h3>Background</h3>
-                <p>@Model.Profiler.BackStory</p>
-            </div>
-            <div class="">
-                <h3>What drives me?</h3>
-                <p>@Model.Profiler.DriveStory</p>
-            </div>
-            <div class="">
-                <h3>Goals</h3>
-                <p>@Model.Profiler.Goals</p>
-            </div>
+            <table class="table table-sm table-bordered text-center">
+                <thead class="thead-light">
+                    <tr class="lead">
+                        <th>STR</th>
+                        <th>VIT</th>
+                        <th>CON</th>
+                        <th>AGI</th>
+                        <th>DEX</th>
+                        <th>MOT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@Model.Profiler.StrengthStat</td>
+                        <td>@Model.Profiler.ConstitutionStat</td>
+                        <td>@Model.Profiler.ConcentrationStat</td>
+                        <td>@Model.Profiler.SpeedStat</td>
+                        <td>@Model.Profiler.DexterityStat</td>
+                        <td>@Model.Profiler.MotivationStat</td>
+                    </tr>
+                    <tr>
+                        <td>+@Model.Profiler.FitStyle.StrengthMod</td>
+                        <td>+@Model.Profiler.FitStyle.ConstitutionMod</td>
+                        <td>+@Model.Profiler.FitStyle.ConcentrationMod</td>
+                        <td>+@Model.Profiler.FitStyle.SpeedMod</td>
+                        <td>+@Model.Profiler.FitStyle.DexterityMod</td>
+                        <td>+@Model.Profiler.FitStyle.MotivationMod</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+        @if (!String.IsNullOrEmpty(Model.Profiler.BackStory) && !String.IsNullOrEmpty(Model.Profiler.DriveStory) && !String.IsNullOrEmpty(Model.Profiler.Goals))
+        {
+            <h2 class="text-center">
+                Character Background
+            </h2>
+            <div class="roundbox-xy">
+                @if (!String.IsNullOrEmpty(Model.Profiler.BackStory))
+                {
+                    <div class="">
+                        <h3>Background</h3>
+                        <p>@Model.Profiler.BackStory</p>
+                    </div>
+                }
+                @if (!String.IsNullOrEmpty(Model.Profiler.DriveStory))
+                {
+                    <div class="">
+                        <h3>What drives me?</h3>
+                        <p>@Model.Profiler.DriveStory</p>
+                    </div>
+                }
+                @if (!String.IsNullOrEmpty(Model.Profiler.Goals))
+                {
+                    <div class="">
+                        <h3>Goals</h3>
+                        <p>@Model.Profiler.Goals</p>
+                    </div>
+                }
+
+            </div>
+        }
     </section>
 </section>
 <hr />
-
 
 <section id="feed_section" class="">
     @if (Model.Player != null)
@@ -208,9 +223,9 @@
     {
         foreach (var post in Model.Profiler.Posts.OrderByDescending(x => x.DatePosted))
         {
-            <div class="border rounded shadow py-3 col-12" id="Comment-@post.Id">
-                <h6>@post.Entry.FirstName @post.Entry.LastName</h6>
-                <p>@post.Text</p>
+            <div class="shadowbox-xy col-12 mt-n3 mr-0" id="Comment-@post.Id">
+                <h6>@post.Entry.FullName</h6>
+                <p class="roundbox-xy">@post.Text</p>
                 <small>
                     @post.DatePosted | @post.Comments.Count @(post.Comments.Count == 1 ? "comment" : "comments") <br />
                     @if (Model.Player != null)
@@ -219,8 +234,8 @@
                     }
                 </small>
             </div>
-            <div id="CommentBox" class="col-md-11" style="display: none;">
-                <form method="post" class="form-group border rounded mt-4 p-1">
+            <div id="CommentBox" class="roundbox-xy col-md-12 mr-0 mb-5" style="display: none;">
+                <form method="post" class="form-group">
                     <div>
                         <textarea asp-for="PostNote.Text" class="form-control form-control-sm" placeholder="Comment something..." rows="4"></textarea>
                     </div>
@@ -235,9 +250,9 @@
             {
                 foreach (var comment in post.Comments.OrderByDescending(x => x.DatePosted))
                 {
-                    <div class="border rounded shadow py-3 col-11" id="Reply-@comment.Id">
-                        <h6>@comment.Entry.FirstName @comment.Entry.LastName</h6>
-                        <p>@comment.Text</p>
+                    <div class="shadowbox-xy col-11 mt-n3 mr-0" id="Reply-@comment.Id">
+                        <h6>@comment.Entry.FullName</h6>
+                        <p class="roundbox-xy">@comment.Text</p>
                         <small>
                             @comment.DatePosted | @comment.Replies.Count @(comment.Replies.Count == 1 ? "reply" : "replies") <br />
                             @if (Model.Player != null)
@@ -247,8 +262,8 @@
                         </small>
                     </div>
 
-                    <div id="ReplyBox" class="col-md-11" style="display: none;">
-                        <form method="post" class="form-group border rounded mt-4 p-1" asp-page-handler="EntryReply" asp-route-CommentId="@comment.Id">
+                    <div id="ReplyBox" class="roundbox-xy col-md-11 mr-0 mb-5" style="display: none;">
+                        <form method="post" class="form-group" asp-page-handler="EntryReply" asp-route-CommentId="@comment.Id">
                             <div>
                                 <textarea asp-for="CommentNote.Text" class="form-control form-control-sm" placeholder="Got something to say?" rows="4"></textarea>
                             </div>
@@ -264,9 +279,9 @@
                     {
                         foreach (var reply in comment.Replies)
                         {
-                            <div class="border rounded shadow py-3 col-10">
-                                <h6>@reply.Entry.FirstName @comment.Entry.LastName</h6>
-                                <p>@reply.Text</p>
+                            <div class="shadowbox-xy mt-n3 mr-0 col-10">
+                                <h6>@reply.Entry.FullName</h6>
+                                <p class="roundbox-xy">@reply.Text</p>
                                 <small>
                                     @reply.DatePosted<br />
                                 </small>
@@ -278,7 +293,6 @@
         }
     }
 </section>
-
 
 @if (Model.RelatedFolkList.Where(m => m.Id != Model.Profiler.Id).ToList().Count > 0)
 {

@@ -8,18 +8,21 @@
 <partial name="_StatusMessage" model="Model.StatusMessage" />
 <div class="row text-center">
     <div class="col-md-4 dash_section dash_section_left" id="profile_center">
-        <h3 class="align-text-bottom">@Model.UserTitle</h3>
+        <h3 class="align-text-bottom">@Model.Profiler.FullName</h3>
         <hr />
         <img src="@Model.Profiler.ProfilePhoto.URL" alt="@Model.Profiler.ProfilePhoto.Caption" class="rounded border-secondary mw-100" />
         <hr />
-        <div class="btn-group-vertical btn-group-toggle btn-block">
-            
-            <a asp-page="./AddWorkout" class="btn btn-sm btn-dark">Add Workout</a>
-                 <a asp-page="/Fitness/History" class="btn btn-sm btn-dark">View Workouts</a>
+        <div class="btn-group-vertical btn-group-toggle btn-block btn-group-sm">
+            <div class="btn-group btn-group-sm">
+                <a asp-page="./AddWorkout" class="btn btn-sm btn-dark">Add Workout</a>
+                <a asp-page="/Fitness/History" class="btn btn-sm btn-dark">View Workouts</a>
+            </div>
             <a asp-page="./AddWeight" class="btn btn-sm btn-dark">Add Weight</a>
             <a asp-page="./EditAvatar" class="btn btn-sm btn-dark">Change Photo</a>
-            <a asp-page="./EditProfile" class="btn btn-sm btn-dark">Edit Profile</a>
-            <a asp-page="/Profiles/Friends" class="btn btn-sm btn-dark">Edit Friends</a>
+            <div class="btn-group btn-group-sm">
+                <a asp-page="./EditProfile" class="btn btn-sm btn-dark">Edit Profile</a>
+                <a asp-page="/Profiles/Friends" class="btn btn-sm btn-dark">Edit Friends</a>
+            </div>
         </div>
     </div>
     <div class="col-md-4 dash_section" id="quest_center">
@@ -232,13 +235,12 @@
     @if (Model.Ad != null)
     {
     <div class="col-md dash_section_left text-center">
-        <h3>Current Weight: @Model.Profiler.Weight [@Model.WeightChange]</h3>
-        <h6>BMI: @Model.Ad[3] [@Model.Ad[1]]</h6>
-        <p>@Model.Ad[2]</p>
+        <h3 class="roundbox-xy">Current Weight <br/> @Model.Profiler.Weight [@Model.WeightChange]</h3>
+        <p>Your BMI is @Model.Ad[3]. While not usually counted nowadays, @Model.Ad[2]</p>
     </div>
     }
     <div class="col-md dash_section dash_section_right text-center">
-        <h3>Suggested Intake: @Model.CalorieBurn Calories</h3>
+        <h3 class="roundbox-xy">Suggested Intake <br /> @Model.CalorieBurn Calories</h3>
         <p>You should have an overall calorie intake of around @Model.CalorieBurn calories. <br />
         If you move a bit, you can add another ~250 or so on that number depending on how much activity you normally do.</p>
     </div>
