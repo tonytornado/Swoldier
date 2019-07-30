@@ -38,6 +38,7 @@ namespace OCFX.Data.Methods
                 .Include(p => p.Campaign)
                     .ThenInclude(p => p.Quests)
                 .Include(p => p.Weights)
+                .Include(p => p.WorkoutHistory)
                 .SingleOrDefaultAsync(m => m.Id == id);
 
             return Profiler;

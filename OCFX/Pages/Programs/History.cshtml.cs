@@ -17,6 +17,7 @@ namespace OCFX.Pages.Fitness
         private readonly UserManager<OCFXUser> _userManager;
 
         public List<WorkoutSetLog> History { get; set; }
+        public int FullTime { get; private set; }
 
         public HistoryModel(OCFXContext context, UserManager<OCFXUser> userManager)
         {
@@ -28,6 +29,18 @@ namespace OCFX.Pages.Fitness
         {
             var user = await _userManager.GetUserAsync(User);
             History = _context.WorkoutSetLogs.Include(p => p.Workout).OrderByDescending(c => c.Date).Where(p => p.Profile.Id == user.ProfileId).ToList();
+            FullTime = Stopwatch(History);
+        }
+
+        private int Stopwatch(List<WorkoutSetLog> X)
+        {
+            int FullTime = 0;
+            for (int i = 0; i < X.Count; i++)
+            {
+                WorkoutSetLog time = X[i];
+                FullTime += time.Duration;
+            }
+            return FullTime;
         }
     }
 }

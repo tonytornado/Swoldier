@@ -37,6 +37,17 @@
         }
     </tbody>
 </table>
+<hr />
+<div class="row text-center">
+    <div class="col-sm">
+        <h2>Total Workout Minutes</h2>
+        <p class="display-4">@Model.FullTime</p>
+    </div>
+    <div class="col-sm">
+        <h2>Total Workouts Logged</h2>
+        <p class="display-4">@Model.History.Count</p>
+    </div>
+</div>
 } else
 {
     <h3>No workout data available.</h3>

@@ -13,14 +13,13 @@
     <div class="roundbox-xy my-3">
         <div class="row">
             <div class="col-auto">
-                <img src="@Model.InitialBoardPost.Profile.Photos.OrderByDescending(d => d.DateAdded).FirstOrDefault(p => p.Type == DataModels.Photo.PhotoType.Profile).URL" alt="Alternate Text" class="club_avatar" />
+                <img src="../@Model.InitialBoardPost.Profile.ProfilePhoto.URL" alt="Alternate Text" class="club_avatar" />
                 <br />
                 <small>@string.Format("{0} {1}.", Model.InitialBoardPost.Profile.FirstName, Model.InitialBoardPost.Profile.LastName.Substring(0,1))</small>
             </div>
             <div class="col-10">
                 <h3>
                     @Model.InitialBoardPost.Title
-                    @**@
                 </h3>
                 <span>@Model.InitialBoardPost.Text</span>
                 <hr />
@@ -35,7 +34,7 @@
                 <li class="list-group-item list-group-item-dark">
                     <div class="row">
                         <div class="col-auto">
-                            <img src="@item.Profile.Photos.OrderByDescending(d => d.DateAdded).FirstOrDefault(p => p.Type == DataModels.Photo.PhotoType.Profile).URL" alt="Alternate Text" class="club_avatar" />
+                            <img src="../@item.Profile.ProfilePhoto.URL" alt="Alternate Text" class="club_avatar" />
                             <br />
                             <small>@string.Format("{0} {1}.", item.Profile.FirstName, item.Profile.LastName.Substring(0,1))</small>
                         </div>
@@ -50,8 +49,9 @@
         </ul>
     </div>
 }
-<div class="m-3">
-    <a href="#TopicBox" onclick="$('#TopicBox').slideToggle()" class="btn btn-block btn-outline-primary">Reply</a>
+<div class="mt-3 btn-group btn-group-toggle btn-block">
+    <a href="#TopicBox" onclick="$('#TopicBox').slideToggle()" class="btn btn-outline-primary">Reply</a>
+    <a href="#" onclick="window.history.back()" class="btn btn-outline-dark">Back</a>
 </div>
 <div id="TopicBox" class="rounded shadow col-md-11 mx-auto p-1 m-3" style="display: none;">
     <form method="post">

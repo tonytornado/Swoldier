@@ -83,39 +83,93 @@
         <hr />
     }
 </section>
-<section id="stats_story_section" class="row shadowbox-xy">
-    <section id="stats_section" class="col-lg-6 text-sm-center">
-        <h2 class="text-center">
-            <u>Vital Stats</u>
-        </h2>
-        <div class="roundbox-xy">
-            @if (Model.Profiler.HipMeasurement != null && Model.Profiler.NeckMeasurement != null && Model.Profiler.WaistMeasurement != null)
-            {
-                <div>
-                    <table class="table table-sm table-bordered text-center">
-                        <thead class="thead-light">
-                            <tr class="lead">
-                                <th>Height</th>
-                                <th>Weight</th>
-                                <th>BF%</th>
-                                @*<th>EXP</th>*@
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>@Model.Profiler.Height cm</td>
-                                <td>@Model.Profiler.Weight kg</td>
-                                <td>@Model.bodyFat%</td>
-                                @*<td>0</td>*@
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-            }
+<div class="row">
+    <section id="stats_story_section" class="row shadowbox-xy col-xl-6">
+        <section id="stats_section" class="col-lg-6 col-xl-12 text-sm-center">
+            <div>
+                @if (Model.Profiler.HipMeasurement != null && Model.Profiler.NeckMeasurement != null && Model.Profiler.WaistMeasurement != null)
+                {
+                    <div id="vitals_table">
+                        <h2 class="text-center border"><u>Vital Stats</u></h2>
+                        <table class="table table-sm table-bordered">
+                            <thead class="thead-light">
+                                <tr class="lead">
+                                    <th>Height</th>
+                                    <th>Weight</th>
+                                    <th>BF%</th>
+                                    @*<th>EXP</th>*@
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>@Model.Profiler.Height cm</td>
+                                    <td>@Model.Profiler.Weight kg</td>
+                                    <td>@Model.bodyFat%</td>
+                                    @*<td>0</td>*@
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="workouts_table border">
+                        <h2 class="text-center border"><u>Fitness Stats</u></h2>
+                        <table class="table table-sm table-bordered">
+                            <thead class="thead-light">
+                                <tr class="lead">
+                                    <th>Workouts</th>
+                                    <th>Exercises</th>
+                                </tr>
+                            </thead>
+                            <tbody class="">
+                                <tr>
+                                    <td>@Model.Profiler.WorkoutHistory.Count</td>
+                                    <td>0</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </section>
+        <section id="story_section" class="col-lg-6 col-xl-12 text-sm-center">
+            <div id="character_stats">
+                <h2 class="text-center border">
+                    <u>Character Stats</u>
+                </h2>
+                <table class="table table-sm table-bordered text-center">
+                    <thead class="thead-light">
+                        <tr class="lead">
+                            <th>STR</th>
+                            <th>VIT</th>
+                            <th>CON</th>
+                            <th>AGI</th>
+                            <th>DEX</th>
+                            <th>MOT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>@Model.Profiler.StrengthStat</td>
+                            <td>@Model.Profiler.ConstitutionStat</td>
+                            <td>@Model.Profiler.ConcentrationStat</td>
+                            <td>@Model.Profiler.SpeedStat</td>
+                            <td>@Model.Profiler.DexterityStat</td>
+                            <td>@Model.Profiler.MotivationStat</td>
+                        </tr>
+                        <tr>
+                            <td>+@Model.Profiler.FitStyle.StrengthMod</td>
+                            <td>+@Model.Profiler.FitStyle.ConstitutionMod</td>
+                            <td>+@Model.Profiler.FitStyle.ConcentrationMod</td>
+                            <td>+@Model.Profiler.FitStyle.SpeedMod</td>
+                            <td>+@Model.Profiler.FitStyle.DexterityMod</td>
+                            <td>+@Model.Profiler.FitStyle.MotivationMod</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             @if (Model.Profiler.Campaign != null)
             {
-                <div>
+                <div id="campaign_stats">
+                    <h2 class="text-center border"><u>Campaign</u></h2>
                     <table class="table table-sm table-bordered text-center">
                         <thead class="thead-light">
                             <tr class="lead">
@@ -136,163 +190,125 @@
                     </table>
                 </div>
             }
-        </div>
-    </section>
-    <section id="story_section" class="col-lg-6 text-sm-center">
-        <h2 class="text-center">
-            <u>Character Stats</u>
-        </h2>
-        <div class="roundbox-xy">
-            <table class="table table-sm table-bordered text-center">
-                <thead class="thead-light">
-                    <tr class="lead">
-                        <th>STR</th>
-                        <th>VIT</th>
-                        <th>CON</th>
-                        <th>AGI</th>
-                        <th>DEX</th>
-                        <th>MOT</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>@Model.Profiler.StrengthStat</td>
-                        <td>@Model.Profiler.ConstitutionStat</td>
-                        <td>@Model.Profiler.ConcentrationStat</td>
-                        <td>@Model.Profiler.SpeedStat</td>
-                        <td>@Model.Profiler.DexterityStat</td>
-                        <td>@Model.Profiler.MotivationStat</td>
-                    </tr>
-                    <tr>
-                        <td>+@Model.Profiler.FitStyle.StrengthMod</td>
-                        <td>+@Model.Profiler.FitStyle.ConstitutionMod</td>
-                        <td>+@Model.Profiler.FitStyle.ConcentrationMod</td>
-                        <td>+@Model.Profiler.FitStyle.SpeedMod</td>
-                        <td>+@Model.Profiler.FitStyle.DexterityMod</td>
-                        <td>+@Model.Profiler.FitStyle.MotivationMod</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        @if (!String.IsNullOrEmpty(Model.Profiler.BackStory) && !String.IsNullOrEmpty(Model.Profiler.DriveStory) && !String.IsNullOrEmpty(Model.Profiler.Goals))
-        {
-            <h2 class="text-center">
-                Character Background
-            </h2>
-            <div class="roundbox-xy">
-                @if (!String.IsNullOrEmpty(Model.Profiler.BackStory))
-                {
-                    <div class="">
-                        <h3>Background</h3>
-                        <p>@Model.Profiler.BackStory</p>
-                    </div>
-                }
-                @if (!String.IsNullOrEmpty(Model.Profiler.DriveStory))
-                {
-                    <div class="">
-                        <h3>What drives me?</h3>
-                        <p>@Model.Profiler.DriveStory</p>
-                    </div>
-                }
-                @if (!String.IsNullOrEmpty(Model.Profiler.Goals))
-                {
-                    <div class="">
-                        <h3>Goals</h3>
-                        <p>@Model.Profiler.Goals</p>
-                    </div>
-                }
 
-            </div>
-        }
-    </section>
-</section>
-<hr />
-
-<section id="feed_section" class="">
-    @if (Model.Player != null)
-    {
-        <form method="post" class="form-group shadowbox-xy">
-            <div class="form-group form-group-sm">
-                <textarea asp-for="Entry.Text" class="form-control form-control-sm" placeholder="Post something..."></textarea>
-            </div>
-            <input asp-for="Entry.ProfileId" value="@Model.Profiler.Id" class="form-control" hidden />
-            <input asp-page-handler="EntryFeed" value="Post" type="submit" class="btn btn-sm btn-block btn-primary" />
-        </form>
-    }
-    @if (Model.Profiler.Posts.Count > 0)
-    {
-        foreach (var post in Model.Profiler.Posts.OrderByDescending(x => x.DatePosted))
-        {
-            <div class="shadowbox-xy col-12 mt-n3 mr-0" id="Comment-@post.Id">
-                <h6>@post.Entry.FullName</h6>
-                <p class="roundbox-xy">@post.Text</p>
-                <small>
-                    @post.DatePosted | @post.Comments.Count @(post.Comments.Count == 1 ? "comment" : "comments") <br />
-                    @if (Model.Player != null)
-                    {
-                        <a onclick="showCommentBox()" href="#Comment-@post.Id" title="Leave a comment" class="btn-link">Comment</a>
-                    }
-                </small>
-            </div>
-            <div id="CommentBox" class="roundbox-xy col-md-12 mr-0 mb-5" style="display: none;">
-                <form method="post" class="form-group">
-                    <div>
-                        <textarea asp-for="PostNote.Text" class="form-control form-control-sm" placeholder="Comment something..." rows="4"></textarea>
-                    </div>
-                    <input asp-for="PostNote.ProfileId" value="@Model.Profiler.Id" class="form-control form-control-sm" hidden />
-                    <div class="btn-group btn-group-sm btn-block">
-                        <button class="btn btn-primary" asp-page-handler="EntryComment" asp-route-PostId="@post.Id">Post</button>
-                        <a class="btn btn-danger " onclick="showCommentBox()" href="#">Cancel</a>
-                    </div>
-                </form>
-            </div>
-            if (post.Comments.Count > 0)
+            @if (!String.IsNullOrEmpty(Model.Profiler.BackStory) && !String.IsNullOrEmpty(Model.Profiler.DriveStory) && !String.IsNullOrEmpty(Model.Profiler.Goals))
             {
-                foreach (var comment in post.Comments.OrderByDescending(x => x.DatePosted))
-                {
-                    <div class="shadowbox-xy col-11 mt-n3 mr-0" id="Reply-@comment.Id">
-                        <h6>@comment.Entry.FullName</h6>
-                        <p class="roundbox-xy">@comment.Text</p>
-                        <small>
-                            @comment.DatePosted | @comment.Replies.Count @(comment.Replies.Count == 1 ? "reply" : "replies") <br />
-                            @if (Model.Player != null)
-                            {
-                                <a onclick="showReplyBox()" href="#Reply-@comment.Id" title="Reply to this comment">Reply</a>
-                            }
-                        </small>
-                    </div>
-
-                    <div id="ReplyBox" class="roundbox-xy col-md-11 mr-0 mb-5" style="display: none;">
-                        <form method="post" class="form-group" asp-page-handler="EntryReply" asp-route-CommentId="@comment.Id">
-                            <div>
-                                <textarea asp-for="CommentNote.Text" class="form-control form-control-sm" placeholder="Got something to say?" rows="4"></textarea>
-                            </div>
-                            <input asp-for="CommentNote.ProfileId" value="@Model.Profiler.Id" class="form-control" hidden />
-                            <div class="btn-group btn-group-sm btn-block">
-                                <button class="btn btn-primary ">Post</button>
-                                <a class="btn btn-danger " onclick="showReplyBox()" href="#">Cancel</a>
-                            </div>
-                        </form>
-                    </div>
-
-                    @if (comment.Replies.Count > 0)
+                <h2 class="text-center border-dark">
+                    Character Background
+                </h2>
+                <div class="roundbox-xy">
+                    @if (!String.IsNullOrEmpty(Model.Profiler.BackStory))
                     {
-                        foreach (var reply in comment.Replies)
+                        <div class="">
+                            <h3>Background</h3>
+                            <p>@Model.Profiler.BackStory</p>
+                        </div>
+                    }
+                    @if (!String.IsNullOrEmpty(Model.Profiler.DriveStory))
+                    {
+                        <div class="">
+                            <h3>What drives me?</h3>
+                            <p>@Model.Profiler.DriveStory</p>
+                        </div>
+                    }
+                    @if (!String.IsNullOrEmpty(Model.Profiler.Goals))
+                    {
+                        <div class="">
+                            <h3>Goals</h3>
+                            <p>@Model.Profiler.Goals</p>
+                        </div>
+                    }
+
+                </div>
+            }
+        </section>
+    </section>
+    <section id="feed_section" class="col-xl-6">
+        @if (Model.Player != null)
+        {
+            <form method="post" class="form-group shadowbox-xy">
+                <div class="form-group form-group-sm">
+                    <textarea asp-for="Entry.Text" class="form-control form-control-sm" placeholder="Post something..."></textarea>
+                </div>
+                <input asp-for="Entry.ProfileId" value="@Model.Profiler.Id" class="form-control" hidden />
+                <input asp-page-handler="EntryFeed" value="Post" type="submit" class="btn btn-sm btn-block btn-primary" />
+            </form>
+        }
+        @if (Model.Profiler.Posts.Count > 0)
+        {
+            foreach (var post in Model.Profiler.Posts.OrderByDescending(x => x.DatePosted))
+            {
+                <div class="shadowbox-xy col-12 mt-n3 mr-0" id="Comment-@post.Id">
+                    <h6>@post.Entry.FullName</h6>
+                    <p class="roundbox-xy">@post.Text</p>
+                    <small>
+                        @post.DatePosted | @post.Comments.Count @(post.Comments.Count == 1 ? "comment" : "comments") <br />
+                        @if (Model.Player != null)
                         {
-                            <div class="shadowbox-xy mt-n3 mr-0 col-10">
-                                <h6>@reply.Entry.FullName</h6>
-                                <p class="roundbox-xy">@reply.Text</p>
-                                <small>
-                                    @reply.DatePosted<br />
-                                </small>
-                            </div>
+                            <a onclick="showCommentBox()" href="#Comment-@post.Id" title="Leave a comment" class="btn-link">Comment</a>
+                        }
+                    </small>
+                </div>
+                <div id="CommentBox" class="roundbox-xy col-md-12 mr-0 mb-5" style="display: none;">
+                    <form method="post" class="form-group">
+                        <div>
+                            <textarea asp-for="PostNote.Text" class="form-control form-control-sm" placeholder="Comment something..." rows="4"></textarea>
+                        </div>
+                        <input asp-for="PostNote.ProfileId" value="@Model.Profiler.Id" class="form-control form-control-sm" hidden />
+                        <div class="btn-group btn-group-sm btn-block">
+                            <button class="btn btn-primary" asp-page-handler="EntryComment" asp-route-PostId="@post.Id">Post</button>
+                            <a class="btn btn-danger " onclick="showCommentBox()" href="#">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+                if (post.Comments.Count > 0)
+                {
+                    foreach (var comment in post.Comments.OrderByDescending(x => x.DatePosted))
+                    {
+                        <div class="shadowbox-xy col-11 mt-n3 mr-0" id="Reply-@comment.Id">
+                            <h6>@comment.Entry.FullName</h6>
+                            <p class="roundbox-xy">@comment.Text</p>
+                            <small>
+                                @comment.DatePosted | @comment.Replies.Count @(comment.Replies.Count == 1 ? "reply" : "replies") <br />
+                                @if (Model.Player != null)
+                                {
+                                    <a onclick="showReplyBox()" href="#Reply-@comment.Id" title="Reply to this comment">Reply</a>
+                                }
+                            </small>
+                        </div>
+
+                        <div id="ReplyBox" class="roundbox-xy col-md-11 mr-0 mb-5" style="display: none;">
+                            <form method="post" class="form-group" asp-page-handler="EntryReply" asp-route-CommentId="@comment.Id">
+                                <div>
+                                    <textarea asp-for="CommentNote.Text" class="form-control form-control-sm" placeholder="Got something to say?" rows="4"></textarea>
+                                </div>
+                                <input asp-for="CommentNote.ProfileId" value="@Model.Profiler.Id" class="form-control" hidden />
+                                <div class="btn-group btn-group-sm btn-block">
+                                    <button class="btn btn-primary ">Post</button>
+                                    <a class="btn btn-danger " onclick="showReplyBox()" href="#">Cancel</a>
+                                </div>
+                            </form>
+                        </div>
+
+                        @if (comment.Replies.Count > 0)
+                        {
+                            foreach (var reply in comment.Replies)
+                            {
+                                <div class="shadowbox-xy mt-n3 mr-0 col-10">
+                                    <h6>@reply.Entry.FullName</h6>
+                                    <p class="roundbox-xy">@reply.Text</p>
+                                    <small>
+                                        @reply.DatePosted<br />
+                                    </small>
+                                </div>
+                            }
                         }
                     }
                 }
             }
         }
-    }
-</section>
+    </section>
+</div>
 
 @if (Model.RelatedFolkList.Where(m => m.Id != Model.Profiler.Id).ToList().Count > 0)
 {
@@ -314,7 +330,6 @@
         </div>
     </section>
 }
-
 @if (Model.Player != null)
 {
     @if (Model.Profiler.Id == Model.Player.ProfileId)
