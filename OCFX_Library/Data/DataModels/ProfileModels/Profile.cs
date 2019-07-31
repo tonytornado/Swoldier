@@ -108,7 +108,7 @@ namespace OCFX.DataModels
         public Collection<Post> Entries { get; set; }
 
         [InverseProperty("Member")]
-        public Membership Gym { get; set; }
+        public Membership ClubMemberShip { get; set; }
 
 
         // Tie to user login, quest, campaign?

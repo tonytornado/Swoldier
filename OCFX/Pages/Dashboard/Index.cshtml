@@ -145,7 +145,7 @@
     </div>
 </div>
 <div class="row">
-    @if (Model.Profiler.Gym != null)
+    @if (Model.Profiler.ClubMemberShip != null)
     {
         <div class="col-md dash_section_left">
             <table class="table table-bordered text-center">
@@ -158,13 +158,13 @@
                 <tbody>
                     <tr>
                         <td>
-                            <a asp-page="/Clubs/Community" asp-route-id="@Model.Profiler.Gym.Club.Id">@Model.Profiler.Gym.Club.Title</a>
+                            <a asp-page="/Clubs/Community" asp-route-id="@Model.Profiler.ClubMemberShip.Club.Id">@Model.Profiler.ClubMemberShip.Club.Title</a>
                         </td>
 
-                        @if (Model.Profiler.Gym.Club.Leader != null)
+                        @if (Model.Profiler.ClubMemberShip.Club.Leader != null)
                         {
                             <td>
-                                (@Model.Profiler.Gym.Club.Leader.FullName)
+                                (@Model.Profiler.ClubMemberShip.Club.Leader.FullName)
                             </td>
                         }
                         else

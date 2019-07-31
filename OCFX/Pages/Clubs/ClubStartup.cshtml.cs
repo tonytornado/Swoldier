@@ -40,10 +40,10 @@ namespace OCFX.Pages.Clubs
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _manager.GetUserAsync(User);
-            Profile pro = _context.Profiles.Include(G => G.Gym).SingleOrDefault(p => p.Id == user.ProfileId);
+            Profile pro = _context.Profiles.Include(G => G.ClubMemberShip).SingleOrDefault(p => p.Id == user.ProfileId);
 
             // Check if the user is already with a gym/club
-            if (pro.Gym != null)
+            if (pro.ClubMemberShip != null)
             {
                 StatusMessage = "Error: You're already in a club, man. You gotta leave one to make one.";
                 return Page();

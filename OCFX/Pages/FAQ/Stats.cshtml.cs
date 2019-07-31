@@ -24,7 +24,7 @@ namespace OCFX.Pages.FAQ
                 .Include(p => p.Age)
                 .Include(p => p.Campaign).ThenInclude(c => c.Nutrition)
                 .Include(c => c.Campaign).ThenInclude(c => c.Quests)
-                .Include(p => p.Gym)
+                .Include(p => p.ClubMemberShip)
                 .Include(p => p.Addresses)
                 .ToList();
         }

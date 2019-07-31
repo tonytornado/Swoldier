@@ -22,6 +22,8 @@ namespace OCFX.Data.Methods
             // Get ALL the friends!
             List<Friend> friend = _context.Friends
                             .Where(b => b.Follower.FitUser.ProfileId == UserId && b.FriendshipConfirmer == Friend.Confirmer.Confirmed)
+                            .Include(f => f.Follower)
+                                .ThenInclude(p => p.Photos)
                             .Include(f => f.Following)
                                 .ThenInclude(p => p.Photos)
                             .ToList();
@@ -57,6 +59,7 @@ namespace OCFX.Data.Methods
         /// <param name="catcher">User id for the receiver</param>
         public static void AddFriend(OCFXContext _context, int pitcher, int catcher)
         {
+            CheckFriend(_context, pitcher, catcher);
             Friend friendRequest = new Friend()
             {
                 ActionUserId = pitcher,
@@ -67,6 +70,22 @@ namespace OCFX.Data.Methods
             };
             _context.Friends.Add(friendRequest);
             _context.SaveChanges();
+        }
+
+        /// <summary>
+        /// Checks to see if there's already a request in the system.
+        /// </summary>
+        /// <param name="_context">DB Context</param>
+        /// <param name="pitcher"></param>
+        /// <param name="catcher"></param>
+        private static void CheckFriend(OCFXContext _context, int pitcher, int catcher)
+        {
+            var check = _context.Friends.FirstOrDefault(c => c.ProfileId == pitcher && c.FriendId == catcher);
+            if (check == (default) || check == null)
+            {
+                return;
+            }
+            throw new Exception($"Yeah, that ain't happening. I'm shutting this shit down.");
         }
 
         /// <summary>

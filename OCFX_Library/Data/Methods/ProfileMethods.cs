@@ -26,7 +26,7 @@ namespace OCFX.Data.Methods
                     .ThenInclude(p => p.Entry)
                 .Include(p => p.Followers)
                 .Include(p => p.Following)
-                .Include(p => p.Gym)
+                .Include(p => p.ClubMemberShip)
                     .ThenInclude(p => p.Club)
                 .Include(p => p.Photos)
                 .Include(p => p.FitStyle)
@@ -70,7 +70,7 @@ namespace OCFX.Data.Methods
                     .ThenInclude(p => p.Entry)
                 .Include(p => p.Followers)
                 .Include(p => p.Following)
-                .Include(p => p.Gym)
+                .Include(p => p.ClubMemberShip)
                     .ThenInclude(p => p.Club)
                 .Include(p => p.Photos)
                 .Include(p => p.FitStyle)
@@ -81,6 +81,8 @@ namespace OCFX.Data.Methods
                     .ThenInclude(p => p.Nutrition)
                 .Include(p => p.Campaign)
                     .ThenInclude(p => p.Quests)
+                .Include(p => p.Weights)
+                .Include(p => p.WorkoutHistory)
                 .SingleOrDefault(m => m.Id == id);
 
             return Profiler;

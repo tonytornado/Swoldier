@@ -162,7 +162,6 @@ namespace OCFX.Pages.Profiles
             return RedirectToPage("./Index", new { CommentNote.ProfileId });
         }
 
-
         /// <summary>
         /// Adds a new friend.
         /// </summary>
@@ -171,11 +170,25 @@ namespace OCFX.Pages.Profiles
         /// <returns></returns>
         public IActionResult OnGetFriending(int user, int friend)
         {
-            FriendlyMethods.AddFriend(_context, user, friend);
-            StatusMessage = "Friend request sent.";
+            try
+            {
+                FriendlyMethods.AddFriend(_context, user, friend);
+                StatusMessage = "Friend request sent.";
+            }
+            catch (Exception)
+            {
+                StatusMessage = "ERROR: You've probably friended them already. Give it some time!";
+            }
+            
+            
             return RedirectToPage("/Dashboard/Index", new { friend });
         }
 
+        /// <summary>
+        /// Sends a message
+        /// </summary>
+        /// <param name="id">The Profile Id</param>
+        /// <returns></returns>
         public async Task<IActionResult> OnPostSendMailAsync(int id)
         {
             Player = await _userManager.GetUserAsync(User);
