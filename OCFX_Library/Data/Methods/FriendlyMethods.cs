@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace OCFX.Data.Methods
 {
-    public class FriendlyMethods
+    public static class FriendlyMethods
     {
+
         /// <summary>
         /// Gets a list of friends for a specified user
         /// </summary>
@@ -17,7 +18,7 @@ namespace OCFX.Data.Methods
         /// <param name="UserId">User's Profile Id</param>
         /// <returns>List</returns>
         public static List<Friend> GetFriendList(OCFXContext _context,
-                                         int UserId)
+                                         int UserId )
         {
             // Get ALL the friends!
             List<Friend> friend = _context.Friends
@@ -59,7 +60,10 @@ namespace OCFX.Data.Methods
         /// <param name="catcher">User id for the receiver</param>
         public static void AddFriend(OCFXContext _context, int pitcher, int catcher)
         {
+            // Make sure the friend request isn't already happening
             CheckFriend(_context, pitcher, catcher);
+
+            // Process the friend request
             Friend friendRequest = new Friend()
             {
                 ActionUserId = pitcher,

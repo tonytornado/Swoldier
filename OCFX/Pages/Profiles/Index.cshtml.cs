@@ -175,9 +175,9 @@ namespace OCFX.Pages.Profiles
                 FriendlyMethods.AddFriend(_context, user, friend);
                 StatusMessage = "Friend request sent.";
             }
-            catch (Exception)
+            catch (Exception t)
             {
-                StatusMessage = "ERROR: You've probably friended them already. Give it some time!";
+                StatusMessage = $"ERROR: {t.Message}";
             }
             
             
