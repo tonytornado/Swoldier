@@ -9,6 +9,12 @@ namespace OCFX.DataModels
         {
         }
 
+        /// <summary>
+        /// Standard implementation of a new fact
+        /// </summary>
+        /// <param name="question"></param>
+        /// <param name="answer"></param>
+        /// <param name="section"></param>
         public Facts(string question, string answer, SectionName section)
         {
             Question = question ?? throw new ArgumentNullException(nameof(question));

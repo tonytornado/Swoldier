@@ -11,6 +11,13 @@ namespace OCFX.DataModels
         {
         }
 
+        /// <summary>
+        /// Standard implementation of a new quest
+        /// </summary>
+        /// <param name="questName">Name for the quest</param>
+        /// <param name="questStyle">Type of quest</param>
+        /// <param name="questStory">Associated story for quest</param>
+        /// <param name="campaign">Campaign associated with the quest</param>
         public Quest(string questName, QuestType questStyle, string questStory, Campaign campaign)
         {
             QuestName = questName ?? throw new ArgumentNullException(nameof(questName));

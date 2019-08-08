@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OCFX.DataModels
@@ -8,6 +9,20 @@ namespace OCFX.DataModels
     /// </summary>
     public class WorkoutProgram
     {
+        public WorkoutProgram()
+        {
+        }
+
+        public WorkoutProgram(Exercise exercise, Workout workout, int sets, int repetitions, int order, string description)
+        {
+            Exercise = exercise ?? throw new ArgumentNullException(nameof(exercise));
+            Workout = workout ?? throw new ArgumentNullException(nameof(workout));
+            Sets = sets;
+            Repetitions = repetitions;
+            Order = order;
+            Description = description ?? throw new ArgumentNullException(nameof(description));
+        }
+
         [Key]
         [Display(Name = "Workout / Exercise Relation")]
         public int WorkoutProgramId { get; set; }

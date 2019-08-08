@@ -25,7 +25,10 @@ namespace OCFX.DataModels
         /// <param name="exerType"></param>
         /// <param name="targetedMuscles"></param>
         /// <param name="description"></param>
-        public Exercise(string name, ExerciseType exerType, WorkoutType targetedMuscles, string description)
+        public Exercise(string name,
+                        ExerciseType exerType,
+                        WorkoutType targetedMuscles,
+                        string description)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
             ExerType = exerType;
@@ -39,7 +42,9 @@ namespace OCFX.DataModels
         /// <param name="name">Exercise Name</param>
         /// <param name="exerType">Exercise Type</param>
         /// <param name="targetedMuscles">Targeted Muscles of the Exercise</param>
-        public Exercise(string name, ExerciseType exerType, WorkoutType targetedMuscles)
+        public Exercise(string name,
+                        ExerciseType exerType,
+                        WorkoutType targetedMuscles)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
             ExerType = exerType;
@@ -68,6 +73,9 @@ namespace OCFX.DataModels
         [Url]
         public string Url { get; set; }
 
+        /// <summary>
+        /// Choice of Exercise Type
+        /// </summary>
         public enum ExerciseType
         {
             [Display(Name = "Cardio")]

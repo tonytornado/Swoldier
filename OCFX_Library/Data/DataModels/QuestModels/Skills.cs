@@ -8,6 +8,10 @@ namespace OCFX.DataModels
     /// </summary>
     public class Skill
     {
+        public Skill()
+        {
+        }
+
         [Display(Name = "Id")]
         public int Id { get; set; }
         [Display(Name = "Name")]

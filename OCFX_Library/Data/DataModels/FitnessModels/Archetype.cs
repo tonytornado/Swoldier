@@ -40,6 +40,7 @@ namespace OCFX.DataModels
             DexterityMod = dexterityMod;
             ConcentrationMod = concentrationMod;
             MotivationMod = motivationMod;
+            SkillMod = SkillType.Basic;
         }
 
         [Key]

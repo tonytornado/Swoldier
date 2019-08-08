@@ -9,6 +9,10 @@ namespace OCFX.DataModels
 {
     public class Profile
     {
+        public Profile()
+        {
+        }
+
         [Key]
         [Display(Name = "User Profile")]
         public int Id { get; set; }

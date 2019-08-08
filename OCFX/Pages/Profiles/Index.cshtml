@@ -104,7 +104,8 @@
                                 <tr>
                                     <td>@Model.Profiler.Height cm</td>
                                     <td>@Model.Profiler.Weight kg</td>
-                                    <td>@Model.bodyFat%</td>
+                                    <td>@Model.Profiler.BodyFat
+                                    %</td>
                                     @*<td>0</td>*@
                                 </tr>
                             </tbody>
@@ -344,12 +345,14 @@
     {
 <div class="btn-group btn-group-sm btn-group-justified d-flex align-content-center my-3">
     <a href="#SendBox" class="btn btn-outline-dark" onclick="showSendBox()">Send a message</a>
-    @*@if (Model.Friender.Where(c => c.ActionUserId == Model.Player.ProfileId && c.FriendId == Model.Player.Profile.Id).Any())
-    {*@
+    @if (Model.Clops != false)
+    {
         <a asp-page-handler="Friending"
            asp-route-user="@Model.Player.ProfileId"
-           asp-route-friend="@Model.Profiler.Id" class="btn btn-outline-secondary">Add Friend</a>
-    @* } *@
+           asp-route-friend="@Model.Profiler.Id" 
+           class="btn btn-outline-secondary"
+           title="Shoot your shot, you only get one.">Add Friend</a>
+     } 
     <a asp-page="/Index" class="btn btn-primary">Home</a>
 </div>
     }

@@ -29,8 +29,7 @@ namespace OCFX.Pages.Profiles
         public List<Friend> Requests { get; set; }
         public List<Profile> RelatedFolkList { get; set; }
 
-        public string userTitle;
-        public double bodyFat;
+        public bool Clops;
 
         [BindProperty]
         public Post Entry { get; set; }
@@ -70,6 +69,14 @@ namespace OCFX.Pages.Profiles
 
             // Loads any related users through their fitness profile and skill mods
             RelatedFolkList = await _context.Profiles.Where(p => p.FitStyle.FitType == Profiler.FitStyle.FitType).ToListAsync();
+
+            // See if a person can be added
+            Clops = Friender
+                .Where(c => c.ActionUserId == Player.ProfileId 
+                && c.FriendId == Profiler.Id
+                && c.ProfileId == Player.ProfileId
+                )
+                .Any();
 
             return Page();
         }
@@ -179,8 +186,7 @@ namespace OCFX.Pages.Profiles
             {
                 StatusMessage = $"ERROR: {t.Message}";
             }
-            
-            
+                        
             return RedirectToPage("/Dashboard/Index", new { friend });
         }
 
