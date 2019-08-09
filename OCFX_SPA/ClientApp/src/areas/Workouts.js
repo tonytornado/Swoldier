@@ -67,12 +67,8 @@ export class Workout extends Component {
 
     render() {
         let table = this.state.loading
-            ? <p>Now loading new data</p>
+            ? <p className="text-center"><i className="fas fa-spinner"></i></p>
             : Workout.renderWorkouts(this.state.workouts)
-
-        if (this.state.error) {
-            table = <h1>Oh dammit, something broke</h1>
-        }
 
         return (
             <section>

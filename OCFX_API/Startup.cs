@@ -22,17 +22,17 @@ namespace OCFX_API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<OCFXContext>(options =>
-                    options
-                    .UseInMemoryDatabase("Shard")
-                    //.UseSqlServer(Configuration.GetConnectionString("OCFXContextConnection"))
-                    );
+            //services.AddDbContext<OCFXContext>(options =>
+            //        options
+            //        .UseInMemoryDatabase("Shard")
+            //        //.UseSqlServer(Configuration.GetConnectionString("OCFXContextConnection"))
+            //        );
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddIdentity<OCFXUser, OCFXRole>()
-                    .AddEntityFrameworkStores<OCFXContext>()
-                    .AddDefaultUI()
-                    .AddDefaultTokenProviders();
+            //services.AddIdentity<OCFXUser, OCFXRole>()
+            //        .AddEntityFrameworkStores<OCFXContext>()
+            //        .AddDefaultUI()
+            //        .AddDefaultTokenProviders();
 
             services.AddCors();
 

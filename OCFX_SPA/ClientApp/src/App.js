@@ -3,7 +3,7 @@ import { Route } from 'react-router';
 import { Layout } from './components/Layout';
 import { Home } from './components/Home';
 import { Counter } from './components/Counter';
-import { Workout } from './components/Workouts';
+import { Workout } from './areas/Workouts';
 
 export default class App extends Component {
   static displayName = App.name;
