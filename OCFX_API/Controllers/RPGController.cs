@@ -11,22 +11,22 @@ namespace OCFX_API.Controllers
     [ApiController]
     public class RPGController : ControllerBase
     {
-        public RPGController(OCFXContext context) => Context = context ?? throw new ArgumentNullException(nameof(context));
+        private readonly OCFXContext Context;
 
-        public OCFXContext Context { get; }
+        public RPGController(OCFXContext context) => Context = context ?? throw new ArgumentNullException(nameof(context), "Where's the DB bro?");
 
         /// <summary>
         /// Gets a list of all the campaigns
         /// </summary>
         /// <returns></returns>
-        [HttpGet("Campaigns")]
+        [HttpGet("[action]")]
         public List<Campaign> GetCampaigns() => Context.Campaigns.ToList();
 
         /// <summary>
         /// Gets all the quests
         /// </summary>
         /// <returns></returns>
-        [HttpGet("Quests")]
+        [HttpGet("[action]")]
         public List<Quest> GetQuests() => Context.Quests.ToList();
     }
 }

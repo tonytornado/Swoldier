@@ -11,15 +11,15 @@ namespace OCFX_API.Controllers
     [ApiController]
     public class FitnessController : ControllerBase
     {
-        public FitnessController(OCFXContext context) => this.Context = context ?? throw new ArgumentNullException(nameof(context));
+        private readonly OCFXContext Context;
 
-        public OCFXContext Context { get; }
+        public FitnessController(OCFXContext context) => Context = context ?? throw new ArgumentNullException(nameof(context), "There ain't a DB, bro.");
 
         /// <summary>
-        /// Gets the workouts from the DBContext
+        /// Gets the workouts from the DB
         /// </summary>
-        /// <returns></returns>
-        [HttpGet]
+        /// <returns>List of all workouts loaded</returns>
+        [HttpGet("[action]")]
         public List<Workout> GetWorkouts() => Context.Workouts.ToList();
     }
 }

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,10 +7,11 @@ using OCFX.Areas.Identity.Data;
 using OCFX.Data.DataRepo;
 using System;
 
-namespace OCFX_API
+namespace OCFX_SPA
 {
     public class Program
     {
+
         public static void Main(string[] args)
         {
             var host = CreateWebHostBuilder(args).Build();
@@ -54,7 +55,6 @@ namespace OCFX_API
             }
 
             host.Run();
-
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
