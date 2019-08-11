@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OCFX.Areas.Identity.Data;
 using OCFX.DataModels;
 using System;
@@ -20,14 +21,19 @@ namespace OCFX_API.Controllers
         /// </summary>
         /// <returns>List of all workouts loaded</returns>
         [HttpGet("[action]")]
-        public List<Workout> GetWorkouts() => Context.Workouts.ToList();
+        public List<Workout> GetWorkouts() => Context
+            .Workouts
+            .ToList();
 
         /// <summary>
         /// Gets all exercises from the DB
         /// </summary>
         /// <returns>List of all exercises loaded</returns>
         [HttpGet("[action]")]
-        public List<Exercise> GetExercises() => Context.Exercises.ToList();
+        public List<Exercise> GetExercises() => 
+            Context
+            .Exercises
+            .ToList();
 
         [HttpGet("ExerciseTypes")]
         public Array GetExerciseTypes() => Enum.GetValues(typeof(Exercise.ExerciseType));

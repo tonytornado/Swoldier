@@ -1,8 +1,8 @@
 ﻿import React, { Component } from 'react';
-import { ExerciseModal } from '../modals/ExerciseModal';
+//import { ExerciseModal } from '../modals/ExerciseModal';
 
-export class Workout extends Component {
-    static displayName = Workout.name;
+export class Exercise extends Component {
+    static displayName = Exercise.name;
 
     constructor(props) {
         super(props);
@@ -67,19 +67,14 @@ export class Workout extends Component {
     render() {
         let table = this.state.loading
             ? <p className="text-center"><i className="fas fa-spinner"></i></p>
-            : Workout.renderWorkouts(this.state.exercises)
+            : Exercise.renderExercise(this.state.exercises)
 
         return (
             <section>
-                <h1>Exercises prepared</h1>
-                <p>Workouts loaded</p>
-                {table}
-            </section>
-            <section>
-                <h4>
-                    Load new exercise
-                    <ExerciseModal />
-                </h4>
+                <div>
+                    <h1>Exercises prepared</h1>
+                    {table}
+                </div>
             </section>
         );
     }

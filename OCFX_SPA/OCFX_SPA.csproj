@@ -22,8 +22,24 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\components\site.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="ClientApp\src\components\site.css">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\OCFX_API\OCFX_API.csproj" />
     <ProjectReference Include="..\OCFX_Library\OCFX_Library.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ClientApp\package.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

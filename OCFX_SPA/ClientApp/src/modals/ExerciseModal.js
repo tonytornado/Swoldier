@@ -44,4 +44,21 @@ export class ExerciseModal extends Component {
             })
             .catch(console.error);
     }
+
+    handleSubmit(e) {
+
+    }
+
+    render() {
+        return (
+            <div>
+                <form method='post'>
+                    <div className='form-control'>
+                        <label htmlFor='EName' />
+                        <input name='EName' className='form-control' />
+                    </div>
+                </form>
+            </div>
+        );
+    }
 }

@@ -3,7 +3,7 @@
   "dependencies": {},
   "description": "A fitness D&D app.",
   "devDependencies": {
-    "autoprefixer": "9.6.1",
+    "autoprefixer": "latest",
     "grunt": "latest",
     "grunt-cli": "latest",
     "grunt-sass": "latest",

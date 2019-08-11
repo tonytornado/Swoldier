@@ -5,7 +5,7 @@ export class Footer extends Component {
 
     render() {
         return (
-            <footer className="bg-dark text-white">
+            <footer className="bg-dark text-white py-3">
                 <div className="text-center lead">
                     <p>
                         &copy;  Phantom-Hex 2019

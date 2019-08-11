@@ -72,8 +72,7 @@ export class Workout extends Component {
 
         return (
             <section>
-                <h1>Workouts prepared</h1>
-                <p>Workouts loaded</p>
+                <h1>Current Workouts in Library</h1>
                     {table}
             </section>
         );
