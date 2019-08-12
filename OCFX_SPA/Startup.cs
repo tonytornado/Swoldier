@@ -34,9 +34,13 @@ namespace OCFX_SPA
 
             services
                 .AddIdentity<OCFXUser, OCFXRole>()
-                .AddEntityFrameworkStores<OCFXContext>()
-                .AddDefaultUI()
-                .AddDefaultTokenProviders();
+                .AddEntityFrameworkStores<OCFXContext>();
+
+            // Add the identity server
+            services.AddIdentityServer()
+                .AddAspNetIdentity<OCFXUser>();
+
+            //services.AddAuthentication().AddIdentityServerJwt();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -62,6 +66,8 @@ namespace OCFX_SPA
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+
+            app.UseIdentityServer();
 
             app.UseMvc(routes =>
             {
