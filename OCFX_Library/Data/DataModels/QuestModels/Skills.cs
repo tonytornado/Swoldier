@@ -39,9 +39,9 @@ namespace OCFX.DataModels
     /// </summary>
     public enum StyleType
     {
-        Physical = 0,
-        Mental = 1,
-        Spiritual = 2
+        Physical,
+        Mental,
+        Spiritual
     }
 
     /// <summary>
@@ -50,15 +50,15 @@ namespace OCFX.DataModels
     public enum TargetType
     {
         [Display(Name = "Self")]
-        Self = 0,
+        Self,
         [Display(Name = "Front Target")]
-        SingleFront = 1,
+        SingleFront,
         [Display(Name = "Rear Target")]
-        SingleRear = 2,
+        SingleRear,
         [Display(Name = "Side Target")]
-        SingleSide = 3,
+        SingleSide,
         [Display(Name = "Area of Effect")]
-        AreaOfEffect = 4,
+        AreaOfEffect,
     }
 
     /// <summary>
@@ -66,19 +66,19 @@ namespace OCFX.DataModels
     /// </summary>
     public enum EffectType
     {
-        None = 0,
+        None,
         // Negatives
-        Aggro = 1,
-        DOMS = 2,
-        Strain = 3,
-        MuscleTear = 4,
+        Aggro,
+        DOMS,
+        Strain,
+        MuscleTear,
         // Positives
-        Pump = 5,
-        Buff = 6,
-        Hype = 7,
+        Pump,
+        Buff,
+        Hype,
         // Incapacitation
-        Concussion = 8,
-        BrokenLimb = 9,
-        DoctorsOrder = 10
+        Concussion,
+        BrokenLimb,
+        DoctorsOrder
     }
 }

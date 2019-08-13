@@ -69,25 +69,25 @@ namespace OCFX.DataModels
         public enum WorkoutType
         {
             [Display(Name = "Upper Body")]
-            UpperBody = 1,
+            UpperBody,
             [Display(Name = "Lower Body")]
-            LowerBody = 2,
+            LowerBody,
             [Display(Name = "Total Body")]
-            TotalBody = 3,
+            TotalBody,
             [Display(Name = "Chest")]
-            Chest = 4,
+            Chest,
             [Display(Name = "Back")]
-            Back = 5,
+            Back,
             [Display(Name = "Shoulders")]
-            Shoulders = 6,
+            Shoulders,
             [Display(Name = "Legs")]
-            Legs = 7,
+            Legs,
             [Display(Name = "Interval Training")]
-            HIIT = 8,
+            HIIT,
             [Display(Name = "Bodyweight")]
-            Bodyweight = 9,
+            Bodyweight,
             [Display(Name = "Stretch")]
-            Stretch = 10
+            Stretch
         }
     }
 }

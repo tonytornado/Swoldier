@@ -48,11 +48,11 @@ namespace OCFX.DataModels
 
     public enum SectionName
     {
-        Main = 1,
-        Site = 2,
-        Lore = 3,
-        Community = 4,
-        Fitness = 5,
-        Integration = 6
+        Main,
+        Site,
+        Lore,
+        Community,
+        Fitness,
+        Integration
     }
 }

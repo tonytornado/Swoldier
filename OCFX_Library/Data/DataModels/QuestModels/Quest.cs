@@ -53,24 +53,24 @@ namespace OCFX.DataModels
     public enum QuestType
     {
         [Display(Name = "Power")]
-        Power = 1,
+        Power,
         [Display(Name = "Endurance")]
-        Endurance = 2,
+        Endurance,
         [Display(Name = "Speed")]
-        Speed = 3,
+        Speed,
         [Display(Name = "Consistency")]
-        Consistency = 4
+        Consistency
     }
 
     public enum RiskLevel
     {
         [Display(Name = "Low")]
-        Low = 1,
+        Low,
         [Display(Name = "Mid")]
-        Mid = 2,
+        Mid,
         [Display(Name = "High")]
-        High = 3,
+        High,
         [Display(Name = "JOJO'S BIZARRE SMASH ULTIMATE ELIMINATION CHAMBER IN THE BANK IN A CELL")]
-        EX = 4
+        EX
     }
 }

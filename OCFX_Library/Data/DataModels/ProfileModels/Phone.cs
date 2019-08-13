@@ -49,10 +49,10 @@ namespace OCFX.DataModels
     public enum PhoneType
     {
         [Display(Name = "Home")]
-        Home = 1,
+        Home,
         [Display(Name = "Work")]
-        Work = 2,
+        Work,
         [Display(Name = "Mobile")]
-        Mobile = 3
+        Mobile
     }
 }

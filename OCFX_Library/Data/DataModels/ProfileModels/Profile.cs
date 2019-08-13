@@ -120,21 +120,23 @@ namespace OCFX.DataModels
         public Quest Quest { get; set; }
         public Campaign Campaign { get; set; }
 
-        // The Gender Attribute Enum
+        /// <summary>
+        /// The Gender Attribute <see cref="Enum"/>
+        /// </summary>
         public enum GenderSpectrum
         {
             [Display(Name = "Non-Binary")]
-            NonBinary = 0,
+            NonBinary,
             [Display(Name = "Cis Male")]
-            CisMale = 1,
+            CisMale,
             [Display(Name = "Cis Female")]
-            CisFemale = 2,
+            CisFemale,
             [Display(Name = "Trans Male")]
-            TransMale = 3,
+            TransMale,
             [Display(Name = "Trans Female")]
-            TransFemale = 4,
+            TransFemale,
             [Display(Name = "Prefer not to disclose")]
-            NotDisclosed = 5
+            NotDisclosed
         }
 
         // Convenience Properties

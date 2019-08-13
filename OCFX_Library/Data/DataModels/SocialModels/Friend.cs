@@ -53,10 +53,10 @@ namespace OCFX.DataModels
         /// </summary>
         public enum Confirmer
         {
-            Pending = 0,
-            Confirmed = 1,
-            Declined = 2,
-            Blocked = 3
+            Pending,
+            Confirmed,
+            Declined,
+            Blocked
         }
     }
 }

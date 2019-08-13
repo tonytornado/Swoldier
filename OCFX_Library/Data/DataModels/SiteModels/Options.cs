@@ -37,8 +37,8 @@ namespace OCFX.DataModels.SiteModels
         /// </summary>
         public enum Conversion
         {
-            Metric = 1,
-            Imperial = 2
+            Metric,
+            Imperial
         }
     }
 }

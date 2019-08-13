@@ -53,26 +53,26 @@ namespace OCFX.DataModels
 
         public enum DayInterval
         {
-            First = 1,
-            Second = 2,
-            Third = 3,
-            Fourth = 4
+            First,
+            Second,
+            Third,
+            Fourth
         }
 
         public enum MeetingInterval
         {
-            Once = 1,
-            Weekly = 2,
-            Monthly = 3,
-            Annually = 4,
+            Once,
+            Weekly,
+            Monthly,
+            Annually,
         }
 
         public enum EventType
         {
-            Sitewide = 1,
-            Club = 2,
-            Personal = 3,
-            Maint
+            Sitewide,
+            Club,
+            Personal,
+            Maintenance
         }
     }
 }

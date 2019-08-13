@@ -79,15 +79,15 @@ namespace OCFX.DataModels
         public enum ExerciseType
         {
             [Display(Name = "Cardio")]
-            Cardio = 1,
+            Cardio,
             [Display(Name = "Strength")]
-            Strength = 2,
+            Strength,
             [Display(Name = "Balance")]
-            Balance = 3,
+            Balance,
             [Display(Name = "Flexibility")]
-            Flexibility = 4,
+            Flexibility,
             [Display(Name = "Tabata")]
-            Tabata = 5
+            Tabata
         }
 
         [NotMapped]

@@ -38,9 +38,9 @@ namespace OCFX.DataModels
 
         public enum MessageStatus
         {
-            Unread = 1,
-            Opened = 2,
-            Archived = 3
+            Unread,
+            Opened,
+            Archived
         }
     }
 }

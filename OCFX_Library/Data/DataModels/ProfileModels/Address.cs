@@ -45,10 +45,10 @@ namespace OCFX.DataModels
     public enum AddressType
     {
         [Display(Name = "Home")]
-        Home = 1,
+        Home,
         [Display(Name = "Work")]
-        Work = 2,
+        Work,
         [Display(Name = "Other")]
-        Other = 3
+        Other
     }
 }
