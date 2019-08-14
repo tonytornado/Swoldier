@@ -1,13 +1,16 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
+using OCFX_SPA.Data;
+using OCFX_SPA.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OCFX.Areas.Identity.Data;
-using OCFX.DataModels;
+using Microsoft.Extensions.Hosting;
 
 namespace OCFX_SPA
 {
@@ -23,26 +26,22 @@ namespace OCFX_SPA
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
             services.AddDbContext<OCFXContext>(options =>
-                    options
+                options
                     //.UseSqlite("Data Source=OCFX.db")
                     .UseInMemoryDatabase("Shard")
                     //.UseSqlServer(context.Configuration.GetConnectionString("OCFXContextConnection"))
                     );
 
-            services
-                .AddIdentity<OCFXUser, OCFXRole>()
+            services.AddDefaultIdentity<OCFXUser>()
                 .AddEntityFrameworkStores<OCFXContext>();
 
-            // Add the identity server
             services.AddIdentityServer()
-                .AddApiAuthorization<OCFXUser, OCFXContext>()
-                .AddAspNetIdentity<OCFXUser>();
+                .AddApiAuthorization<OCFXUser, OCFXContext>();
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
+            services.AddMvc(options => options.EnableEndpointRouting = false);
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -52,11 +51,12 @@ namespace OCFX_SPA
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
             else
             {
@@ -69,6 +69,7 @@ namespace OCFX_SPA
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
+            app.UseAuthentication();
             app.UseIdentityServer();
 
             app.UseMvc(routes =>
@@ -85,7 +86,6 @@ namespace OCFX_SPA
                 if (env.IsDevelopment())
                 {
                     spa.UseReactDevelopmentServer(npmScript: "start");
-                    //spa.UseProxyToSpaDevelopmentServer("http://localhost:3000");
                 }
             });
         }
