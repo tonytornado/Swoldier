@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@using OCFX_SPA.Models;
-@inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
+@using OCFX.DataModels;
+@inject SignInManager<OCFXUser> SignInManager
+@inject UserManager<OCFXUser> UserManager
 
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))

@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
+import authService from './api-authorization/AuthorizeService'
 
 export class FetchData extends Component {
   static displayName = FetchData.name;
 
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = { forecasts: [], loading: true };
-
-    fetch('api/SampleData/WeatherForecasts')
-      .then(response => response.json())
-      .then(data => {
-        this.setState({ forecasts: data, loading: false });
-      });
   }
 
-  static renderForecastsTable (forecasts) {
+  componentDidMount() {
+    this.populateWeatherData();
+  }
+
+  static renderForecastsTable(forecasts) {
     return (
       <table className='table table-striped'>
         <thead>
@@ -27,8 +26,8 @@ export class FetchData extends Component {
         </thead>
         <tbody>
           {forecasts.map(forecast =>
-            <tr key={forecast.dateFormatted}>
-              <td>{forecast.dateFormatted}</td>
+            <tr key={forecast.date}>
+              <td>{forecast.date}</td>
               <td>{forecast.temperatureC}</td>
               <td>{forecast.temperatureF}</td>
               <td>{forecast.summary}</td>
@@ -39,7 +38,7 @@ export class FetchData extends Component {
     );
   }
 
-  render () {
+  render() {
     let contents = this.state.loading
       ? <p><em>Loading...</em></p>
       : FetchData.renderForecastsTable(this.state.forecasts);
@@ -51,5 +50,14 @@ export class FetchData extends Component {
         {contents}
       </div>
     );
+  }
+
+  async populateWeatherData() {
+    const token = await authService.getAccessToken();
+    const response = await fetch('weatherforecast', {
+      headers: !token ? {} : { 'Authorization': `Bearer ${token}` }
+    });
+    const data = await response.json();
+    this.setState({ forecasts: data, loading: false });
   }
 }

@@ -1,16 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using OCFX.Areas.Identity.Data;
+using OCFX.Data.DataRepo;
+using System;
 
 namespace OCFX_SPA
 {
     public class Program
     {
+
         public static void Main(string[] args)
         {
             var host = CreateWebHostBuilder(args).Build();
