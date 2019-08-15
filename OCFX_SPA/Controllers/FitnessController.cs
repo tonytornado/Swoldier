@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OCFX.Areas.Identity.Data;
 using OCFX.DataModels;
@@ -8,6 +9,7 @@ using System.Linq;
 
 namespace OCFX_API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class FitnessController : ControllerBase

@@ -1,16 +1,18 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
-using OCFX_SPA.Data;
+using OCFX_Arc.Data;
+using OCFX_Arc.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using OCFX.Areas.Identity.Data;
-using OCFX.DataModels;
 
-namespace OCFX_SPA
+namespace OCFX_Arc
 {
     public class Startup
     {
@@ -24,22 +26,21 @@ namespace OCFX_SPA
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<OCFXContext>(options =>
-                options
-                    .UseSqlite("Data Source=OCFX.db")
-                    //.UseInMemoryDatabase("Shard")
-                    //.UseSqlServer(context.Configuration.GetConnectionString("OCFXContextConnection"))
-                    );
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<OCFXUser>()
-                .AddEntityFrameworkStores<OCFXContext>();
+            services.AddDefaultIdentity<ApplicationUser>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddIdentityServer()
-                    .AddApiAuthorization<OCFXUser, ApplicationDbContext>();
+                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
             services.AddAuthentication()
-                    .AddIdentityServerJwt();
-            services.AddMvc(options => options.EnableEndpointRouting = false);
+                .AddIdentityServerJwt();
+
+            services.AddControllersWithViews();
+            services.AddRazorPages();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -67,14 +68,17 @@ namespace OCFX_SPA
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
+            app.UseRouting();
+
             app.UseAuthentication();
             app.UseIdentityServer();
-
-            app.UseMvc(routes =>
+            app.UseAuthorization();
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
+                    pattern: "{controller}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
 
             app.UseSpa(spa =>

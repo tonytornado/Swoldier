@@ -9,7 +9,7 @@ namespace OCFX.DataModels
     /// <summary>
     /// Added properties for the standard user class
     /// </summary>
-    public class OCFXUser : IdentityUser<Guid>
+    public class OCFXUser : IdentityUser
     {
         [PersonalData]
         [Required]

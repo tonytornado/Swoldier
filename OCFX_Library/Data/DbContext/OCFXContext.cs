@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using OCFX.DataModels;
-using System;
 using System.Linq;
 
 namespace OCFX.Areas.Identity.Data
 {
-    public class OCFXContext : IdentityDbContext<OCFXUser, OCFXRole, Guid>
+    public class OCFXContext : IdentityDbContext<OCFXUser>
     {
         public OCFXContext(DbContextOptions<OCFXContext> options)
             : base(options)

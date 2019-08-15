@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OCFX.Areas.Identity.Data;
 using OCFX.DataModels;
 using System;
@@ -7,6 +8,7 @@ using System.Linq;
 
 namespace OCFX_API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class RPGController : ControllerBase

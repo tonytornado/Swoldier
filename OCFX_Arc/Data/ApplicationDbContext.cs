@@ -1,12 +1,16 @@
-﻿using IdentityServer4.EntityFramework.Options;
+﻿using OCFX_Arc.Models;
+using IdentityServer4.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using OCFX.DataModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace OCFX_SPA.Data
+namespace OCFX_Arc.Data
 {
-    public class ApplicationDbContext : ApiAuthorizationDbContext<OCFXUser>
+    public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
     {
         public ApplicationDbContext(
             DbContextOptions options,
