@@ -9,6 +9,8 @@ import ApiAuthorizationRoutes from './components/api-authorization/ApiAuthorizat
 import { ApplicationPaths } from './components/api-authorization/ApiAuthorizationConstants';
 
 import './custom.css'
+import { Exercise } from './areas/Exercises';
+import { Workout } from './areas/Workouts';
 
 export default class App extends Component {
   static displayName = App.name;
@@ -19,7 +21,9 @@ export default class App extends Component {
         <Route exact path='/' component={Home} />
         <Route path='/counter' component={Counter} />
         <AuthorizeRoute path='/fetch-data' component={FetchData} />
-        <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
+        <AuthorizeRoute path='/exercises' component={Exercise} />
+        <AuthorizeRoute path='/workouts' component={Workout} />
+        <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} /> 
       </Layout>
     );
   }

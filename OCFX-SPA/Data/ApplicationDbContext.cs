@@ -1,5 +1,4 @@
-﻿using OCFX_SPA.Models;
-using IdentityServer4.EntityFramework.Options;
+﻿using IdentityServer4.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -15,6 +14,10 @@ namespace OCFX_SPA.Data
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
         }
+
+        public DbSet<Archetype> Archetypes { get; internal set; }
+        public DbSet<Campaign> Campaigns { get; internal set; }
+        public DbSet<Quest> Quests { get; internal set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
