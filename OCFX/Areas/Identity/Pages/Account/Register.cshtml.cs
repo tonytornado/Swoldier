@@ -37,10 +37,12 @@ namespace OCFX.Areas.Identity.Pages.Account
 
         [BindProperty]
         public InputModel Input { get; set; }
-        [BindProperty]
-        public Phone Phoney { get; set; }
-        [BindProperty]
-        public Address Addressing { get; set; }
+
+        // Will be implemented at a later date
+        //[BindProperty]
+        //public Phone Phoney { get; set; }
+        //[BindProperty]
+        //public Address Addressing { get; set; }
         [BindProperty]
         public Profile Profiler { get; set; }
 
@@ -125,50 +127,10 @@ namespace OCFX.Areas.Identity.Pages.Account
                         NeckMeasurement = Profiler.NeckMeasurement = 0,
                         WaistMeasurement = Profiler.WaistMeasurement = 0,
                         HipMeasurement = Profiler.HipMeasurement = 0,
-                        BackStory = Profiler.BackStory,
-                        DriveStory = Profiler.DriveStory,
-                        Goals = Profiler.Goals,
-                        StrengthStat = Profiler.StrengthStat,
-                        DexterityStat = Profiler.DexterityStat,
-                        MotivationStat = Profiler.MotivationStat,
-                        ConstitutionStat = Profiler.ConstitutionStat,
-                        SpeedStat = Profiler.SpeedStat,
-                        ConcentrationStat = Profiler.ConcentrationStat,
-                        FitStyle = await _context.Archetypes.FirstOrDefaultAsync(p => p.Id == Input.ClassId),
-                        Campaign = await _context.Campaigns.FirstOrDefaultAsync(p => p.Id == 1),
-                        Quest = await _context.Quests.FirstOrDefaultAsync(p => p.Id == 1),
-
-                        Phones = new Collection<Phone>(),
-                        Addresses = new Collection<Address>(),
                         Photos = new Collection<Photo>(),
                         Weights = new Collection<WeightMeasurement>()
                     }
                 };
-
-                // Add the phone number
-                if (Phoney == null)
-                {
-                    Phone phone = new Phone
-                    {
-                        AreaCode = Phoney.AreaCode,
-                        PhoneTypeName = Phoney.PhoneTypeName,
-                        PhoneNumber = Phoney.PhoneNumber
-                    };
-                    user.Profile.Phones.Add(phone);
-                }
-
-                // Add the address
-                if (Addressing == null)
-                {
-                    user.Profile.Addresses.Add(new Address
-                    {
-                        AddressTypeName = Addressing.AddressTypeName,
-                        StreetName = Addressing.StreetName,
-                        CityName = Addressing.CityName,
-                        StateName = Addressing.StateName,
-                        ZipCode = Addressing.ZipCode
-                    });
-                }
 
                 // Add the default profile picture
                 Photo FirstProfilePhoto = new Photo
@@ -208,15 +170,6 @@ namespace OCFX.Areas.Identity.Pages.Account
                     {
                         await _userManager.AddToRoleAsync(user, "User");
                     }
-
-                    // Add the newest quest to the quest book and start
-                    _context.QuestLogs.Add(new QuestLog
-                    {
-                        Profile = user.Profile,
-                        Campaign = user.Profile.Campaign,
-                        Quest = user.Profile.Quest,
-                        Completed = false,
-                    });
 
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");

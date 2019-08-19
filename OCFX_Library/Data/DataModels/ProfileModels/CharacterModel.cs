@@ -1,0 +1,79 @@
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace OCFX.DataModels
+{
+    /// <summary>
+    /// The model for a person's character they have created
+    /// </summary>
+    public class CharacterModel
+    {
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        // Starting stats from typical character sheet
+        [Display(Name = "Strength")]
+        [Range(1, 10)]
+        public int StrengthStat { get; set; }
+        [Display(Name = "Speed")]
+        [Range(1, 10)]
+        public int SpeedStat { get; set; }
+        [Display(Name = "Constitution")]
+        [Range(1, 10)]
+        public int ConstitutionStat { get; set; }
+        [Display(Name = "Dexterity")]
+        [Range(1, 10)]
+        public int DexterityStat { get; set; }
+        [Display(Name = "Concentration")]
+        [Range(1, 10)]
+        public int ConcentrationStat { get; set; }
+        [Display(Name = "Motivation")]
+        [Range(1, 10)]
+        public int MotivationStat { get; set; }
+
+        // Character Background
+        [Display(Name = "Background")]
+        public string BackStory { get; set; }
+        [Display(Name = "Drive/Determination")]
+        public string DriveStory { get; set; }
+        [Display(Name = "Goals")]
+        public string Goals { get; set; }
+
+        /// <summary>
+        /// The character's class
+        /// </summary>
+        [ForeignKey("ClassId")]
+        public Archetype FitStyle { get; set; }
+
+        // Link three skills
+        /// <summary>
+        /// Character's first skill
+        /// </summary>
+        [Display(Name = "First Skill")]
+        public Skill PrimarySkill { get; set; }
+
+        /// <summary>
+        /// Character's second skill
+        /// </summary>
+        [Display(Name = "Second Skill")]
+        public Skill SecondarySkill { get; set; }
+        /// <summary>
+        /// Character's third skill
+        /// </summary>
+        [Display(Name = "Third Skill")]
+        public Skill TertiarySKill { get; set; }
+
+
+        // Tie quests to that character
+        public ICollection<Quest> Quests { get; set; }
+        public ICollection<Campaign> Campaign { get; set; }
+
+        // Tie to profile
+        [ForeignKey("ProfileId")]
+        public Profile CharacterProfile { get; set; }
+
+        [NotMapped]
+        public string FullName => $"{FirstName} {LastName}, the {FitStyle.FitType}";
+    }
+}

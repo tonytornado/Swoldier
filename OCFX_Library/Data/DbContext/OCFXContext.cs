@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using OCFX.DataModels;
+using System;
 using System.Linq;
 
 namespace OCFX.Areas.Identity.Data
 {
-    public class OCFXContext : IdentityDbContext<OCFXUser>
+    public class OCFXContext : IdentityDbContext<OCFXUser, OCFXRole, Guid>
     {
         public OCFXContext(DbContextOptions<OCFXContext> options)
             : base(options)
@@ -64,6 +66,7 @@ namespace OCFX.Areas.Identity.Data
         public DbSet<QuestLog> QuestLogs { get; set; }
         public DbSet<BossEncounter> Bosses { get; set; }
         public DbSet<PersonalEncounter> Minions { get; set; }
-
+        public DbSet<Skill> Skills { get; set; }
+        public DbSet<CharacterModel> Characters { get; set; }
     }
 }

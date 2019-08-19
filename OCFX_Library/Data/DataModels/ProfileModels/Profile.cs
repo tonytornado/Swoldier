@@ -54,41 +54,15 @@ namespace OCFX.DataModels
         [Display(Name = "Hips")]
         public int? HipMeasurement { get; set; }
 
-        // Starting stats from typical character sheet
-        [Display(Name = "Strength")]
-        [Range(1, 10)]
-        public int StrengthStat { get; set; }
-        [Display(Name = "Speed")]
-        [Range(1, 10)]
-        public int SpeedStat { get; set; }
-        [Display(Name = "Constitution")]
-        [Range(1, 10)]
-        public int ConstitutionStat { get; set; }
-        [Display(Name = "Dexterity")]
-        [Range(1, 10)]
-        public int DexterityStat { get; set; }
-        [Display(Name = "Concentration")]
-        [Range(1, 10)]
-        public int ConcentrationStat { get; set; }
-        [Display(Name = "Motivation")]
-        [Range(1, 10)]
-        public int MotivationStat { get; set; }
-
-        // Character Background
-        [Display(Name = "Background")]
-        public string BackStory { get; set; }
-        [Display(Name = "Drive/Determination")]
-        public string DriveStory { get; set; }
-        [Display(Name = "Goals")]
-        public string Goals { get; set; }
-
-        // Imports (Create forms for each)
+        /// <summary>
+        /// The profile's class
+        /// </summary>
         [ForeignKey("ClassId")]
         public Archetype FitStyle { get; set; }
 
         // Navigation properties
-        public Collection<Address> Addresses { get; set; }
-        public Collection<Phone> Phones { get; set; }
+        //public Collection<Address> Addresses { get; set; }
+        //public Collection<Phone> Phones { get; set; }
         public Collection<Photo> Photos { get; set; }
         public Collection<WeightMeasurement> Weights { get; set; }
         public Collection<WorkoutSetLog> WorkoutHistory { get; set; }
@@ -98,27 +72,42 @@ namespace OCFX.DataModels
 
         [InverseProperty("Follower")]
         public Collection<Friend> Followers { get; set; }
-
+        
+        /// <summary>
+        /// The profile's received messages
+        /// </summary>
         [InverseProperty("Receiver")]
         public Collection<Shout> ReceivedMessages { get; set; }
 
+        /// <summary>
+        /// A profile's sent messages
+        /// </summary>
         [InverseProperty("Sender")]
         public Collection<Shout> SentMessages { get; set; }
 
+        /// <summary>
+        /// The profile's entries on other walls
+        /// </summary>
         [InverseProperty("Profile")]
         public Collection<Post> Posts { get; set; }
 
+        /// <summary>
+        /// The profile's wall entries on their own wall
+        /// </summary>
         [InverseProperty("Entry")]
         public Collection<Post> Entries { get; set; }
+        
+        /// <summary>
+        /// Characters of a person's profile
+        /// </summary>
+        [InverseProperty("CharacterProfile")]
+        public Collection<CharacterModel> Characters { get; set; }
 
         [InverseProperty("Member")]
         public Membership ClubMemberShip { get; set; }
 
-
-        // Tie to user login, quest, campaign?
+        // Tie to user login
         public OCFXUser FitUser { get; set; }
-        public Quest Quest { get; set; }
-        public Campaign Campaign { get; set; }
 
         /// <summary>
         /// The Gender Attribute <see cref="Enum"/>

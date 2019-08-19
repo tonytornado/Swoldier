@@ -99,15 +99,15 @@ namespace OCFX.DataModels
 	public enum SkillType
     {
         [Display(Name = "Basic")]
-        Basic = 1,
+        Basic,
         [Display(Name = "Intermediate")]
-        Intermediate = 2,
+        Intermediate,
         [Display(Name = "Advanced")]
-        Advanced = 3,
+        Advanced,
         [Display(Name = "Elite")]
-        Elite = 4,
+        Elite,
         [Display(Name = "Legendary")]
-        Legendary = 5
+        Legendary
     }
 
     /// <summary>
@@ -116,22 +116,22 @@ namespace OCFX.DataModels
 	public enum ClassType
     {
         [Display(Name = "Hobbyist")]
-        Hobbyist = 1,
+        Hobbyist,
         [Display(Name = "Runner")]
-        Runner = 2,
+        Runner,
         [Display(Name = "Powerlifter")]
-        Powerlifter = 3,
+        Powerlifter,
         [Display(Name = "Bodybuilder")]
-        Bodybuilder = 4,
+        Bodybuilder,
         [Display(Name = "Crossfitter")]
-        Crossfit = 5,
+        Crossfit,
         [Display(Name = "Olympian")]
-        Olympian = 6,
+        Olympian,
         [Display(Name = "Fighter")]
-        Fighter = 7,
+        Fighter,
         [Display(Name = "Dancer")]
-        Dancer = 8,
+        Dancer,
         [Display(Name = "Yogi")]
-        Yoga = 9
+        Yoga
     }
 }
