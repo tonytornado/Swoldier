@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OCFX_Library", "OCFX_Librar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OCFX_Test", "OCFX Test\OCFX_Test.csproj", "{9B13462A-F491-47D3-BC63-5EA9691F0BB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OCFX-SPA", "OCFX-SPA\OCFX-SPA.csproj", "{BCBF654A-18FB-48DC-83BA-A6129ECC2424}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{9B13462A-F491-47D3-BC63-5EA9691F0BB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B13462A-F491-47D3-BC63-5EA9691F0BB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B13462A-F491-47D3-BC63-5EA9691F0BB4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BCBF654A-18FB-48DC-83BA-A6129ECC2424}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BCBF654A-18FB-48DC-83BA-A6129ECC2424}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BCBF654A-18FB-48DC-83BA-A6129ECC2424}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BCBF654A-18FB-48DC-83BA-A6129ECC2424}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
