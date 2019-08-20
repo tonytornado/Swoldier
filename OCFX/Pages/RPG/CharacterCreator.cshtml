@@ -1,8 +1,89 @@
 ﻿@page
 @model OCFX.Pages.RPG.CharacterCreatorModel
 @{
-    ViewData["Title"] = "CharacterCreator";
+    ViewData["Title"] = "Character Creator";
+    ViewData["BannerTitle"] = ViewData["Title"];
+    ViewData["BannerSubTitle"] = "Alright, nerd. Time to make your avatar";
 }
 
-<h1>CharacterCreator</h1>
+<div id="DnDInfo">
+    <div class="text-center mb-4">
+        <h4>Build Information</h4>
+        <code>Yep, time to get nerdy. Put in some base stats, give yourself a background, grow a beard.</code>
+        <br /><wbr />
+    </div>
+    <div class="form-row" id="StoryInfo">
+        <div class="col-md-6">
+            <div class="form-group form-group-lg">
+                <label asp-for="Input.Class">Select your class</label>
+                <select asp-for="Input.Class" asp-items="Html.GetEnumSelectList<OCFX.DataModels.ClassType>()" class="form-control form-control-lg"></select>
+            </div>
+            <div class="form-group form-group-lg">
+                <label asp-for="Input.Backstory"></label>
+                <textarea asp-for="Input.Backstory" class="form-control form-control-sm" rows="4"></textarea>
+            </div>
+            <div class="form-group form-group-lg">
+                <label asp-for="Input.Drive"></label>
+                <textarea asp-for="Input.Drive" class="form-control form-control-sm" rows="4"></textarea>
+            </div>
+            <div class="form-group form-group-lg">
+                <label asp-for="Input.Goal"></label>
+                <textarea asp-for="Input.Goal" class="form-control form-control-sm" rows="4"></textarea>
+            </div>
+            <div class="form-group form-group-lg">
+                <label asp-for="Input.Avatar"></label>
+                <input asp-for="Input.Avatar" class="form-control form-control-file" />
+            </div>
+        </div>
+        <div>
+            <div class="col-md-6 row" id="BuildInfo">
+                <div class="col-md-6">
+                    <div class="form-group form-group-sm">
+                        <label asp-for="Input.STR"></label>
+                        <input asp-for="Input.STR" id="strengthRegister" class="form-control form-control-lg pointBox" value="0" />
+                        <span asp-validation-for="Input.STR" class="text-danger"></span>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label asp-for="Input.CON"></label>
+                        <input asp-for="Input.CON" id="concentrationRegister" class="form-control form-control-lg pointBox" value="0" />
+                        <span asp-validation-for="Input.CON" class="text-danger"></span>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label asp-for="Input.VIT"></label>
+                        <input asp-for="Input.VIT" id="constitutionRegister" class="form-control form-control-lg pointBox" value="0" />
+                        <span asp-validation-for="Input.VIT" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-group-sm">
+                        <label asp-for="Input.DEX"></label>
+                        <input asp-for="Input.DEX" id="dexterityRegister" class="form-control form-control-lg pointBox" value="0" />
+                        <span asp-validation-for="Input.DEX" class="text-danger"></span>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label asp-for="Input.SPD"></label>
+                        <input asp-for="Input.SPD" id="speedRegister" class="form-control form-control-lg pointBox" value="0" />
+                        <span asp-validation-for="Input.SPD" class="text-danger"></span>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label asp-for="Input.MVN"></label>
+                        <input asp-for="Input.MVN" id="motivationRegister" class="form-control form-control-lg pointBox" value="0" />
+                        <span asp-validation-for="Input.MVN" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center p-3 mx-auto border rounded" id="points">
+                <p>
+                    Points available:
+                    <br />
+                    <span id="point-stock" class="lead">0</span>/30
+                </p>
+            </div>
+        </div>
+    </div>
+    <hr />
+</div>
 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
