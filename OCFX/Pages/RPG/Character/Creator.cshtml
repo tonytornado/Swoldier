@@ -12,7 +12,7 @@
         <code>Yep, time to get nerdy. Put in some base stats, give yourself a background, grow a beard.</code>
         <br /><wbr />
     </div>
-    <div class="form-row" id="StoryInfo">
+    <div class="row" id="StoryInfo">
         <div class="col-md-6">
             <div class="form-group form-group-lg">
                 <label asp-for="Input.Class">Select your class</label>
@@ -30,13 +30,13 @@
                 <label asp-for="Input.Goal"></label>
                 <textarea asp-for="Input.Goal" class="form-control form-control-sm" rows="4"></textarea>
             </div>
-            <div class="form-group form-group-lg">
+            <div class="form-group">
                 <label asp-for="Input.Avatar"></label>
-                <input asp-for="Input.Avatar" class="form-control form-control-file" />
+                <input asp-for="Input.Avatar" class="form-control" />
             </div>
         </div>
-        <div>
-            <div class="col-md-6 row" id="BuildInfo">
+        <div class="col-md-6 ">
+            <div class="row" id="BuildInfo">
                 <div class="col-md-6">
                     <div class="form-group form-group-sm">
                         <label asp-for="Input.STR"></label>
@@ -72,6 +72,18 @@
                     </div>
                 </div>
             </div>
+            <div>
+                Select your skills
+                <div class="form-group form-group-lg">
+                    <select asp-for="Input.Class" asp-items="Model.SkillList" class="form-control form-control-lg"></select>
+                </div>
+                <div class="form-group form-group-lg">
+                    <select asp-for="Input.Class" asp-items="Model.SkillList" class="form-control form-control-lg"></select>
+                </div>
+                <div class="form-group form-group-lg">
+                    <select asp-for="Input.Class" asp-items="Model.SkillList" class="form-control form-control-lg"></select>
+                </div>
+            </div>
             <div class="text-center p-3 mx-auto border rounded" id="points">
                 <p>
                     Points available:
@@ -82,7 +94,7 @@
         </div>
     </div>
     <hr />
-    <button class="btn btn-block" type="submit">Rise from your grave~</button>
+    <button class="btn btn-block btn-outline-dark" type="submit">Rise from your grave!</button>
 </div>
 
 @section Scripts {

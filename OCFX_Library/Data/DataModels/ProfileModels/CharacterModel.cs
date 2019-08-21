@@ -40,6 +40,8 @@ namespace OCFX.DataModels
         public string DriveStory { get; set; }
         [Display(Name = "Goals")]
         public string Goals { get; set; }
+        [Display(Name = "Primary")]
+        public bool MainCharacter { get; set; }
 
         /// <summary>
         /// The character's class
@@ -48,24 +50,8 @@ namespace OCFX.DataModels
         public Archetype FitStyle { get; set; }
 
         // Link three skills
-        /// <summary>
-        /// Character's first skill
-        /// </summary>
-        [Display(Name = "First Skill")]
-        public Skill PrimarySkill { get; set; }
-
-        /// <summary>
-        /// Character's second skill
-        /// </summary>
-        [Display(Name = "Second Skill")]
-        public Skill SecondarySkill { get; set; }
-        /// <summary>
-        /// Character's third skill
-        /// </summary>
-        [Display(Name = "Third Skill")]
-        public Skill TertiarySKill { get; set; }
-
-
+        public ICollection<Skill> SkillList { get; set; }
+        
         // Tie quests to that character
         public ICollection<Quest> Quests { get; set; }
         public ICollection<Campaign> Campaign { get; set; }
@@ -79,6 +65,7 @@ namespace OCFX.DataModels
 
         [NotMapped]
         public string FullName => $"{FirstName} {LastName}, the {FitStyle.FitType}";
+
 
         /// <summary>
         /// Retrieves a Profile Photo from the Photos Nav Property

@@ -1,0 +1,98 @@
+﻿@page "{Id}"
+@model OCFX.Pages.RPG.Character.CharSheetModel
+@{
+    ViewData["Title"] = "Character Sheet";
+    ViewData["BannerTitle"] = ViewData["Title"];
+    ViewData["BannerSubTitle"] = "Check yourself out, man!";
+}
+
+<section>
+    <div class="roundbox-xy">
+        <h2 class="Display-3">@Model.Sheet.FullName</h2>
+        @if (Model.Sheet.MainCharacter == true)
+        {
+            <small class="badge-primary">Main</small>
+        }
+    </div>
+    <div class="row">
+        <div class="roundbox-xy col-md-6">
+            <table class="table table-sm table-bordered text-center">
+                <thead class="thead-light">
+                    <tr><th colspan="6" class="h2 border"><u>Attributes</u></th></tr>
+                    <tr class="lead">
+                        <th title="Strength">STR</th>
+                        <th title="Vitality/Constitution">VIT</th>
+                        <th title="Concentration">CON</th>
+                        <th title="Speed">SPD</th>
+                        <th title="Dexterity">DEX</th>
+                        <th title="Motivation">MVN</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@Model.Sheet.StrengthStat</td>
+                        <td>@Model.Sheet.ConstitutionStat</td>
+                        <td>@Model.Sheet.ConcentrationStat</td>
+                        <td>@Model.Sheet.SpeedStat</td>
+                        <td>@Model.Sheet.DexterityStat</td>
+                        <td>@Model.Sheet.MotivationStat</td>
+                    </tr>
+                    <tr>
+                        <td>+@Model.Sheet.FitStyle.StrengthMod</td>
+                        <td>+@Model.Sheet.FitStyle.ConstitutionMod</td>
+                        <td>+@Model.Sheet.FitStyle.ConcentrationMod</td>
+                        <td>+@Model.Sheet.FitStyle.SpeedMod</td>
+                        <td>+@Model.Sheet.FitStyle.DexterityMod</td>
+                        <td>+@Model.Sheet.FitStyle.MotivationMod</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        @if (!String.IsNullOrEmpty(Model.Sheet.BackStory) && !String.IsNullOrEmpty(Model.Sheet.DriveStory) && !String.IsNullOrEmpty(Model.Sheet.Goals))
+        {
+            <div class="roundbox-xy col-md-6">
+                <h2 class="text-center border-dark">
+                    Character Background
+                </h2>
+                <div class="roundbox-xy">
+                    @if (!String.IsNullOrEmpty(Model.Sheet.BackStory))
+                    {
+                        <div class="">
+                            <h3>Background</h3>
+                            <p>@Model.Sheet.BackStory</p>
+                        </div>
+                    }
+                    @if (!String.IsNullOrEmpty(Model.Sheet.DriveStory))
+                    {
+                        <div class="">
+                            <h3>What drives me?</h3>
+                            <p>@Model.Sheet.DriveStory</p>
+                        </div>
+                    }
+                    @if (!String.IsNullOrEmpty(Model.Sheet.Goals))
+                    {
+                        <div class="">
+                            <h3>Goals</h3>
+                            <p>@Model.Sheet.Goals</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+        <div>
+            <h2>Character Skills</h2>
+            @foreach (var item in Model.Sheet.SkillList)
+            {
+                <h3>@item.Name</h3>
+                <p>@item.Description</p>
+
+                <ul>
+                    <li>Air Cost: @item.AirCost O<sub>2</sub></li>
+                    <li>Type: @item.Style</li>
+                    <li>Target: @item.Target</li>
+                </ul>
+            }
+        </div>
+    </div>
+</section>
