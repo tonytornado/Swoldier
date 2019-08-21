@@ -127,8 +127,9 @@ namespace OCFX.Areas.Identity.Pages.Account
                         NeckMeasurement = Profiler.NeckMeasurement = 0,
                         WaistMeasurement = Profiler.WaistMeasurement = 0,
                         HipMeasurement = Profiler.HipMeasurement = 0,
+                        FitStyle = await _context.Archetypes.SingleOrDefaultAsync(c => c.Id == Input.ClassId),
                         Photos = new Collection<Photo>(),
-                        Weights = new Collection<WeightMeasurement>()
+                        Weights = new Collection<WeightMeasurement>(),
                     }
                 };
 

@@ -24,10 +24,8 @@ namespace OCFX.Pages.FAQ
         {
             ProfileStats = _context.Profiles
                 .Include(p => p.Photos)
-                .Include(p => p.Campaign).ThenInclude(c => c.Nutrition)
-                .Include(c => c.Campaign).ThenInclude(c => c.Quests)
+                .Include(p => p.Characters)
                 .Include(p => p.ClubMemberShip)
-                .Include(p => p.Addresses)
                 .ToList();
 
             AgeAverage = ProfileStats.Average(c => c.Age);

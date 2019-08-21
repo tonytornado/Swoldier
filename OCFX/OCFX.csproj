@@ -29,7 +29,8 @@
 
   <ItemGroup>
     <Folder Include="Areas\Identity\Services\" />
-    <Folder Include="Pages\Campaigns\Dashes\" />
+    <Folder Include="Pages\RPG\Campaigns\Dashes\" />
+    <Folder Include="Pages\RPG\Character\" />
   </ItemGroup>
 
   <ItemGroup>

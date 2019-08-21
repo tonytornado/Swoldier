@@ -31,9 +31,12 @@ namespace OCFX.Pages.RPG
         public List<Archetype> Classes { get; set; }
         public List<Skill> Skills { get; set; }
         public SelectList ClassList { get; set; }
+
         [BindProperty]
         public CreatorModel Input { get; set; }
-        public string StatusMessage { get; private set; }
+
+        [TempData]
+        public string StatusMessage { get; set; }
 
         public class CreatorModel
         {
@@ -51,6 +54,9 @@ namespace OCFX.Pages.RPG
             public int Class { get; set; }
 
             public IFormFile Avatar { get; set; }
+            public int Primary { get; internal set; }
+            public int Secondary { get; internal set; }
+            public int Tertiary { get; internal set; }
         }
 
         public void OnGet()
@@ -70,6 +76,7 @@ namespace OCFX.Pages.RPG
 
             var user = await _userManager.GetUserAsync(User);
 
+            // Create the character using character data
             var Character = new CharacterModel()
             {
                 FirstName = Input.FirstName,
@@ -84,7 +91,10 @@ namespace OCFX.Pages.RPG
                 DriveStory = Input.Drive,
                 Goals = Input.Goal,
                 FitStyle = _context.Archetypes.FirstOrDefault(c => c.Id == Input.Class),
-                CharacterProfile = _context.Profiles.FirstOrDefault(c => c.Id == user.ProfileId)
+                CharacterProfile = _context.Profiles.FirstOrDefault(c => c.Id == user.ProfileId),
+                PrimarySkill = _context.Skills.FirstOrDefault(c => c.Id == Input.Primary),
+                SecondarySkill = _context.Skills.FirstOrDefault(c => c.Id == Input.Secondary),
+                TertiarySKill = _context.Skills.FirstOrDefault(c => c.Id == Input.Tertiary),
             };
 
             Photo avatar = new Photo()
@@ -98,7 +108,7 @@ namespace OCFX.Pages.RPG
 
             // Add the photo for the avatar
             fileName = GetUniqueName(Input.Avatar.FileName);
-            string folderPath = $"images/{avatar.ProfileId}/profilePhoto";
+            string folderPath = $"images/{avatar.ProfileId}/avatarPhoto";
             string upload = Path.Combine(_environment.WebRootPath, folderPath);
             CheckFolderPath(upload);
             string filePath = Path.Combine(upload, fileName);
@@ -107,6 +117,7 @@ namespace OCFX.Pages.RPG
 
             StatusMessage = "Your avatar has been created!";
 
+            // Put into the DB
             _context.Photos.Add(avatar);
             _context.Characters.Add(Character);
             _context.SaveChanges();

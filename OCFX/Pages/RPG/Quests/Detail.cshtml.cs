@@ -34,7 +34,7 @@ namespace OCFX.Pages.Campaigns.Quests
             var user = await _userManager.GetUserAsync(User);
 
             Quest = _context.Quests.SingleOrDefault(q => q.Id == id);
-            QuestBlocker = _context.QuestLogs.SingleOrDefault(q => q.Quest.Id == id && q.Completed == false && q.Profile.Id == user.ProfileId);
+            QuestBlocker = _context.QuestLogs.SingleOrDefault(q => q.Quest.Id == id && q.Completed == false);
             Completed = QuestMethods.CheckCompletedQuests(_context, user.ProfileId);
         }
 

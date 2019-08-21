@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace OCFX.DataModels
 {
@@ -69,11 +70,36 @@ namespace OCFX.DataModels
         public ICollection<Quest> Quests { get; set; }
         public ICollection<Campaign> Campaign { get; set; }
 
+        // Tie photos to the character
+        public ICollection<Photo> Avatars { get; set; }
+
         // Tie to profile
         [ForeignKey("ProfileId")]
         public Profile CharacterProfile { get; set; }
 
         [NotMapped]
         public string FullName => $"{FirstName} {LastName}, the {FitStyle.FitType}";
+
+        /// <summary>
+        /// Retrieves a Profile Photo from the Photos Nav Property
+        /// </summary>
+        /// <param name="Id">Profile ID</param>
+        /// <returns></returns>
+        private Photo GetAvatarPhoto(int? Id)
+        {
+            if (Id != null && Id != 0)
+            {
+                Photo p = Avatars
+                    .OrderByDescending(d => d.DateAdded)
+                    .FirstOrDefault(c =>
+                    {
+                        return c.Type == Photo.PhotoType.Avatar
+                               && c.ProfileId == Id;
+                    });
+                //string j = p.URL;
+                return p;
+            }
+            return null;
+        }
     }
 }

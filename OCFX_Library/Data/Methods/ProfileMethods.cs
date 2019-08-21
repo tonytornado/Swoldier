@@ -32,16 +32,31 @@ namespace OCFX.Data.Methods
                 .Include(p => p.FitStyle)
                 .Include(p => p.ReceivedMessages)
                 .Include(p => p.SentMessages)
-                .Include(p => p.Quest)
-                .Include(p => p.Campaign)
-                    .ThenInclude(p => p.Nutrition)
-                .Include(p => p.Campaign)
+                .Include(p => p.Characters)
                     .ThenInclude(p => p.Quests)
                 .Include(p => p.Weights)
                 .Include(p => p.WorkoutHistory)
                 .SingleOrDefaultAsync(m => m.Id == id);
 
             return Profiler;
+        }
+
+        /// <summary>
+        /// Gets a list of characters from the provided profile ID
+        /// </summary>
+        /// <param name="context">DB Context</param>
+        /// <param name="id">Profile Id</param>
+        /// <returns></returns>
+        public static async Task<List<CharacterModel>> GetCharacterDataAsync(OCFXContext context, int? id)
+        {
+            var Characters = await context.Characters
+               .Include(c => c.Avatars)
+               .Include(c => c.Campaign)
+               .Include(c => c.Quests)
+               .Include(c => c.CharacterProfile)
+               .ToListAsync();
+
+            return Characters;
         }
 
         public static Photo GetProfilePhoto(OCFXContext context, int id)
@@ -76,10 +91,7 @@ namespace OCFX.Data.Methods
                 .Include(p => p.FitStyle)
                 .Include(p => p.ReceivedMessages)
                 .Include(p => p.SentMessages)
-                .Include(p => p.Quest)
-                .Include(p => p.Campaign)
-                    .ThenInclude(p => p.Nutrition)
-                .Include(p => p.Campaign)
+                .Include(p => p.Characters)
                     .ThenInclude(p => p.Quests)
                 .Include(p => p.Weights)
                 .Include(p => p.WorkoutHistory)
@@ -90,9 +102,16 @@ namespace OCFX.Data.Methods
 
         public static async Task<Profile> GetProfileUser(OCFXContext context, int id)
         {
-            Profile Poster = await context.Profiles.SingleOrDefaultAsync(i => i.Id == id);
+            Profile prof = await context.Profiles.SingleOrDefaultAsync(i => i.Id == id);
 
-            return Poster;
+            return prof;
+        }
+
+        public static async Task<CharacterModel> GetCharacterProfile(OCFXContext context, int id)
+        {
+            var chara = await context.Characters.SingleOrDefaultAsync(i => i.Id == id);
+
+            return chara;
         }
 
         /// <summary>

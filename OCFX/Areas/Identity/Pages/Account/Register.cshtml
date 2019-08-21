@@ -68,19 +68,25 @@
                     </div>
                 </div>
                 <div class="col-md">
-                    <div class="form-group">
-                        <label asp-for="Profiler.Height"></label>
-                        <input asp-for="Profiler.Height" class="form-control form-control" size="2" />
-                        <span asp-validation-for="Profiler.Height" class="text-danger"></span>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label asp-for="Profiler.Height"></label>
+                            <input asp-for="Profiler.Height" class="form-control" size="2" />
+                            <span asp-validation-for="Profiler.Height" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col">
+                            <label asp-for="Profiler.Weight"></label>
+                            <input asp-for="Profiler.Weight" class="form-control" size="2" />
+                            <span asp-validation-for="Profiler.Weight" class="text-danger"></span>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="Profiler.Weight"></label>
-                        <input asp-for="Profiler.Weight" class="form-control form-control" size="2" />
-                        <span asp-validation-for="Profiler.Weight" class="text-danger"></span>
+                    <div class="form-group form-group-lg">
+                        <label asp-for="Input.ClassId">Select your class</label>
+                        <select asp-for="Input.ClassId" asp-items="Html.GetEnumSelectList<OCFX.DataModels.ClassType>()" class="form-control"></select>
                     </div>
                     <div class="form-group">
                         <label asp-for="Profiler.Gender">Select your gender</label>
-                        <select asp-for="Profiler.Gender" asp-items="Html.GetEnumSelectList<OCFX.DataModels.Profile.GenderSpectrum>()" class="custom-select"></select>
+                        <select asp-for="Profiler.Gender" asp-items="Html.GetEnumSelectList<OCFX.DataModels.Profile.GenderSpectrum>()" class="form-control"></select>
                         <span class="small">Disclaimer: We attempt to accommodate for any and all who exist; and only ask out of respect to our recommendations and training/nutrition methodology.</span>
                     </div>
                 </div>
