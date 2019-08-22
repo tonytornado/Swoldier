@@ -65,6 +65,8 @@ namespace OCFX.DataModels
 
         [NotMapped]
         public string FullName => $"{FirstName} {LastName}, the {FitStyle.FitType}";
+        [NotMapped]
+        public Photo AvatarPhoto => GetAvatarPhoto(Id);
 
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using OCFX.Areas.Identity.Data;
@@ -10,16 +11,22 @@ namespace OCFX.Pages.RPG.Character
     {
         private readonly OCFXContext _context;
 
+        public CharSheetModel(OCFXContext context)
+        {
+            _context = context ?? throw new ArgumentNullException(nameof(context));
+        }
+
         public CharacterModel Sheet { get; private set; }
 
-        public void OnGet(int Id)
+        public async void OnGet(int Id)
         {
-            Sheet = _context.Characters
+            Sheet = await _context.Characters
                 .Include(p => p.CharacterProfile)
                 .Include(p => p.Campaign)
                 .Include(p => p.Quests)
                 .Include(p => p.SkillList)
-                .SingleOrDefault(c => c.Id == Id);
+                .Include(p => p.FitStyle)
+                .SingleOrDefaultAsync(c => c.Id == Id);
 
         }
     }

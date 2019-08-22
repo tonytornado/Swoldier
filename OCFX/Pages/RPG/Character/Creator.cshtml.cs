@@ -33,8 +33,10 @@ namespace OCFX.Pages.RPG
         public List<Skill> Skills { get; set; }
         public SelectList ClassList { get; set; }
         public SelectList SkillList { get; set; }
+
         [BindProperty]
         public CreatorModel Input { get; set; }
+        public IFormFile Avatar { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -53,11 +55,9 @@ namespace OCFX.Pages.RPG
             public string Drive { get; set; }
             public string Goal { get; set; }
             public int Class { get; set; }
-
-            public IFormFile Avatar { get; set; }
-            public int Primary { get; internal set; }
-            public int Secondary { get; internal set; }
-            public int Tertiary { get; internal set; }
+            public int Primary { get; set; }
+            public int Secondary { get; set; }
+            public int Tertiary { get; set; }
         }
 
         public void OnGet()
@@ -121,26 +121,43 @@ namespace OCFX.Pages.RPG
                     ProfileId = Character.CharacterProfile.Id
                 };
 
-                // Add the photo for the avatar
-                fileName = GetUniqueName(Input.Avatar.FileName);
-                string folderPath = $"images/{avatar.ProfileId}/avatarPhoto";
-                string upload = Path.Combine(_environment.WebRootPath, folderPath);
-                CheckFolderPath(upload);
-                string filePath = Path.Combine(upload, fileName);
-                await Input.Avatar.CopyToAsync(new FileStream(filePath, FileMode.Create));
-                avatar.URL = $"../images/{avatar.ProfileId}/avatarPhoto/{fileName}";
+                if(Avatar != null)
+                {
+                    if (Avatar.ContentType == "image/jpeg" || Avatar.ContentType == "image/png")
+                    {
+                        // Add the photo for the avatar
+                        fileName = GetUniqueName(Avatar.FileName);
+                        string folderPath = $"images/{avatar.ProfileId}/avatarPhoto";
+                        string upload = Path.Combine(_environment.WebRootPath, folderPath);
+                        CheckFolderPath(upload);
+                        string filePath = Path.Combine(upload, fileName);
+                        await Avatar.CopyToAsync(new FileStream(filePath, FileMode.Create));
+                        avatar.URL = $"../images/{avatar.ProfileId}/avatarPhoto/{fileName}";
 
-                StatusMessage = "Your avatar has been created!";
+                        _context.Photos.Add(avatar);
+                        StatusMessage = "Your avatar has been created!";
+                    }
+                    else
+                    {
+                        throw new BadImageFormatException("This doesn't look like an image to us!");
+                    }
+                }
+                
 
                 // Put into the DB
-                _context.Photos.Add(avatar);
                 _context.Characters.Add(Character);
                 _context.SaveChanges();
             }
             catch (Exception t)
             {
                 StatusMessage = $"ERROR: {t.Message}";
-                
+                Classes = _context.Archetypes.ToList();
+                Skills = _context.Skills.ToList();
+
+                ClassList = new SelectList(Classes, "Id", "FitType", null);
+                SkillList = new SelectList(Skills, "Id", "Name", null);
+
+                return Page();
             }
 
             return RedirectToPage("../Dashboard/Index");

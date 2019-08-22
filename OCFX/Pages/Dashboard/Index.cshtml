@@ -31,10 +31,10 @@
         @if (Model.Profiler.Characters.Count > 0)
         {
          <div>
-             <ul>
+             <ul class="list-group">
                  @foreach (var item in Model.Profiler.Characters)
                  {
-                     <li>@item.FullName</li>
+                     <li class="list-group-item"><a asp-page="../RPG/Character/CharSheet" asp-route-Id="@item.Id" class="btn">@item.FirstName @item.LastName</a></li>
                  }
              </ul>
          </div>

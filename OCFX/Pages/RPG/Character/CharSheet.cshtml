@@ -7,15 +7,16 @@
 }
 
 <section>
-    <div class="roundbox-xy">
-        <h2 class="Display-3">@Model.Sheet.FullName</h2>
+    <div class="roundbox-xy text-center">
+        <p class="display-4">@Model.Sheet.FullName</p>
         @if (Model.Sheet.MainCharacter == true)
         {
-            <small class="badge-primary">Main</small>
+            <span class="badge-primary badge ">Main</span>
         }
     </div>
-    <div class="row">
-        <div class="roundbox-xy col-md-6">
+    <br />
+    <div class="row mx-auto">
+        <div class="roundbox-xy col-md-5">
             <table class="table table-sm table-bordered text-center">
                 <thead class="thead-light">
                     <tr><th colspan="6" class="h2 border"><u>Attributes</u></th></tr>
@@ -51,10 +52,10 @@
 
         @if (!String.IsNullOrEmpty(Model.Sheet.BackStory) && !String.IsNullOrEmpty(Model.Sheet.DriveStory) && !String.IsNullOrEmpty(Model.Sheet.Goals))
         {
-            <div class="roundbox-xy col-md-6">
-                <h2 class="text-center border-dark">
-                    Character Background
-                </h2>
+            <div class="roundbox-xy col-md-5">
+                @*<h2 class="text-center border-dark">
+                        Character Background
+                    </h2>*@
                 <div class="roundbox-xy">
                     @if (!String.IsNullOrEmpty(Model.Sheet.BackStory))
                     {
@@ -80,18 +81,29 @@
                 </div>
             </div>
         }
-        <div>
-            <h2>Character Skills</h2>
+    </div>
+    <br />
+    <div class="text-center mx-auto">
+        <h2>Character Skills</h2>
+        <div class="card-deck text-center">
+
             @foreach (var item in Model.Sheet.SkillList)
             {
-                <h3>@item.Name</h3>
-                <p>@item.Description</p>
-
-                <ul>
-                    <li>Air Cost: @item.AirCost O<sub>2</sub></li>
-                    <li>Type: @item.Style</li>
-                    <li>Target: @item.Target</li>
-                </ul>
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">@item.Name</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">@item.Description</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><b>Type:</b> @item.Style</li>
+                        <li class="list-group-item"><b>Target:</b> @item.Target</li>
+                    </ul>
+                    <div class="card-footer">
+                        <small class="text-muted">@item.AirCost O<sub>2</sub></small>
+                    </div>
+                </div>
             }
         </div>
     </div>
