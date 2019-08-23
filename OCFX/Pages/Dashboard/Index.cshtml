@@ -26,20 +26,23 @@
         </div>
     </div>
     <div class="col-md-4 dash_section" id="quest_center">
-        @if (Model.Profiler.Characters != null)
-        {<h3>Character Statuses</h3>
+        <h3>Character Statuses</h3>
+        <hr />
+        @if (Model.Profiler.Characters.Count > 0)
+        {
          <div>
-             <ul>
+             <ul class="list-group">
                  @foreach (var item in Model.Profiler.Characters)
                  {
-                     <li>@item.FullName</li>
+                     <li class="list-group-item"><a asp-page="../RPG/Character/CharSheet" asp-route-Id="@item.Id" class="btn">@item.FirstName @item.LastName</a></li>
                  }
              </ul>
          </div>
         }
         else
         {
-            <div>You have no loaded characters. Care to make one?</div>
+            <div><p>You have no loaded characters. Care to make one?</p>
+        <a asp-page="../RPG/Character/Creator" class="btn btn-block btn-dark">Create a character</a></div>
         }
     </div>
     <div class="col-md-4 dash_section dash_section_right" id="post_center">

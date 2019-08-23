@@ -1,0 +1,110 @@
+﻿@page "{Id}"
+@model OCFX.Pages.RPG.Character.CharSheetModel
+@{
+    ViewData["Title"] = "Character Sheet";
+    ViewData["BannerTitle"] = ViewData["Title"];
+    ViewData["BannerSubTitle"] = "Check yourself out, man!";
+}
+
+<section>
+    <div class="roundbox-xy text-center">
+        <p class="display-4">@Model.Sheet.FullName</p>
+        @if (Model.Sheet.MainCharacter == true)
+        {
+            <span class="badge-primary badge ">Main</span>
+        }
+    </div>
+    <br />
+    <div class="row mx-auto">
+        <div class="roundbox-xy col-md-5">
+            <table class="table table-sm table-bordered text-center">
+                <thead class="thead-light">
+                    <tr><th colspan="6" class="h2 border"><u>Attributes</u></th></tr>
+                    <tr class="lead">
+                        <th title="Strength">STR</th>
+                        <th title="Vitality/Constitution">VIT</th>
+                        <th title="Concentration">CON</th>
+                        <th title="Speed">SPD</th>
+                        <th title="Dexterity">DEX</th>
+                        <th title="Motivation">MVN</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@Model.Sheet.StrengthStat</td>
+                        <td>@Model.Sheet.ConstitutionStat</td>
+                        <td>@Model.Sheet.ConcentrationStat</td>
+                        <td>@Model.Sheet.SpeedStat</td>
+                        <td>@Model.Sheet.DexterityStat</td>
+                        <td>@Model.Sheet.MotivationStat</td>
+                    </tr>
+                    <tr>
+                        <td>+@Model.Sheet.FitStyle.StrengthMod</td>
+                        <td>+@Model.Sheet.FitStyle.ConstitutionMod</td>
+                        <td>+@Model.Sheet.FitStyle.ConcentrationMod</td>
+                        <td>+@Model.Sheet.FitStyle.SpeedMod</td>
+                        <td>+@Model.Sheet.FitStyle.DexterityMod</td>
+                        <td>+@Model.Sheet.FitStyle.MotivationMod</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        @if (!String.IsNullOrEmpty(Model.Sheet.BackStory) && !String.IsNullOrEmpty(Model.Sheet.DriveStory) && !String.IsNullOrEmpty(Model.Sheet.Goals))
+        {
+            <div class="roundbox-xy col-md-5">
+                @*<h2 class="text-center border-dark">
+                        Character Background
+                    </h2>*@
+                <div class="roundbox-xy">
+                    @if (!String.IsNullOrEmpty(Model.Sheet.BackStory))
+                    {
+                        <div class="">
+                            <h3>Background</h3>
+                            <p>@Model.Sheet.BackStory</p>
+                        </div>
+                    }
+                    @if (!String.IsNullOrEmpty(Model.Sheet.DriveStory))
+                    {
+                        <div class="">
+                            <h3>What drives me?</h3>
+                            <p>@Model.Sheet.DriveStory</p>
+                        </div>
+                    }
+                    @if (!String.IsNullOrEmpty(Model.Sheet.Goals))
+                    {
+                        <div class="">
+                            <h3>Goals</h3>
+                            <p>@Model.Sheet.Goals</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+    <br />
+    <div class="text-center mx-auto">
+        <h2>Character Skills</h2>
+        <div class="card-deck text-center">
+
+            @foreach (var item in Model.Sheet.SkillList)
+            {
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">@item.Name</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">@item.Description</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><b>Type:</b> @item.Style</li>
+                        <li class="list-group-item"><b>Target:</b> @item.Target</li>
+                    </ul>
+                    <div class="card-footer">
+                        <small class="text-muted">@item.AirCost O<sub>2</sub></small>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

@@ -12,6 +12,22 @@ namespace OCFX.Data.DataRepo
             AddNerdery(context);
             AddFitness(context);
             AddFaq(context);
+            AddSkills(context);
+        }
+
+        private static void AddSkills(OCFXContext context)
+        {
+            var SkillSet = new Skill[]
+                        {
+                new Skill("Hype Up",10,StyleType.Mental,5,TargetType.Self,EffectType.Hype, "Increases critical hit chance", "Makes you a loud asshole."),
+                new Skill("Pump", 10, StyleType.Physical, 10,TargetType.Self, EffectType.Pump, "It pumps... you up.", "You're good for a while. Don't let it come down."),
+                new Skill("High Volume Pump", 10, StyleType.Physical, 10,TargetType.Self, EffectType.Pump, "It pumps... you up.", "This is a status at the end of a workout. You'll be up for more than a minute; but the crash will be hard along with the DOMS."),
+                        };
+            foreach (var skill in SkillSet)
+            {
+                context.Skills.Add(skill);
+            }
+            context.SaveChanges();
         }
 
         private static void AddNerdery(OCFXContext context)
