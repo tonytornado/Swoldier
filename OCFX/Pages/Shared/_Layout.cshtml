@@ -73,10 +73,11 @@
         {
             @RenderSection("Header", false)
         }
-        <div class="container body-content py-4">
-            @RenderBody()
-            <hr />
-        </div>
+    <div class="container body-content py-4">
+        <partial name="_StatusMessage" model="Model.StatusMessage" />
+        @RenderBody()
+        <hr />
+    </div>
         @RenderSection("Footer", false)
     </main>
     <partial name="_Disclaimer" />
