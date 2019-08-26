@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -10,6 +11,36 @@ namespace OCFX.DataModels
     /// </summary>
     public class CharacterModel
     {
+
+        public CharacterModel()
+        {
+        }
+
+        public CharacterModel(string firstName, string lastName, int STR, int SPD, int VIT, int DEX, int CON, int MVN,
+            string backStory, string driveStory, string goals, Archetype fitStyle, ICollection<Skill> skillList,
+            Profile characterProfile, ICollection<Photo> avatars, ICollection<Campaign> campaign, ICollection<Quest> quests,
+            bool mainCharacter = true)
+        {
+            FirstName = firstName ?? throw new ArgumentNullException(nameof(firstName));
+            LastName = lastName ?? throw new ArgumentNullException(nameof(lastName));
+            StrengthStat = STR;
+            SpeedStat = SPD;
+            ConstitutionStat = VIT;
+            DexterityStat = DEX;
+            ConcentrationStat = CON;
+            MotivationStat = MVN;
+            BackStory = backStory ?? throw new ArgumentNullException(nameof(backStory));
+            DriveStory = driveStory ?? throw new ArgumentNullException(nameof(driveStory));
+            Goals = goals ?? throw new ArgumentNullException(nameof(goals));
+            FitStyle = fitStyle ?? throw new ArgumentNullException(nameof(fitStyle));
+            SkillList = skillList ?? throw new ArgumentNullException(nameof(skillList));
+            CharacterProfile = characterProfile ?? throw new ArgumentNullException(nameof(characterProfile));
+            Campaign = campaign ?? throw new ArgumentNullException(nameof(campaign));
+            Quests = quests ?? throw new ArgumentNullException(nameof(quests));
+            MainCharacter = mainCharacter;
+            Avatars = avatars ?? throw new ArgumentNullException(nameof(avatars));
+        }
+
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -51,7 +82,7 @@ namespace OCFX.DataModels
 
         // Link three skills
         public ICollection<Skill> SkillList { get; set; }
-        
+
         // Tie quests to that character
         public ICollection<Quest> Quests { get; set; }
         public ICollection<Campaign> Campaign { get; set; }
@@ -76,19 +107,19 @@ namespace OCFX.DataModels
         /// <returns></returns>
         private Photo GetAvatarPhoto(int? Id)
         {
-            if (Id != null && Id != 0)
+            if (Id == null || Id == 0)
             {
-                Photo p = Avatars
-                    .OrderByDescending(d => d.DateAdded)
-                    .FirstOrDefault(c =>
-                    {
-                        return c.Type == Photo.PhotoType.Avatar
-                               && c.ProfileId == Id;
-                    });
-                //string j = p.URL;
-                return p;
+                return null;
             }
-            return null;
+            Photo p = Avatars
+                .OrderByDescending(d => d.DateAdded)
+                .FirstOrDefault(c =>
+                {
+                    return c.Type == Photo.PhotoType.Avatar
+                           && c.ProfileId == Id;
+                });
+            //string j = p.URL;
+            return p;
         }
     }
 }
