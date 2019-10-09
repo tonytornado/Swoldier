@@ -15,10 +15,10 @@ namespace OCFX.Pages.Dashboard
     public class AddWeightModel : PageModel
     {
         private readonly OCFXContext _context;
-        private readonly IHostingEnvironment _environment;
+        private readonly IWebHostEnvironment _environment;
         private readonly UserManager<OCFXUser> _userManager;
 
-        public AddWeightModel(OCFXContext context, IHostingEnvironment environment, UserManager<OCFXUser> userManager)
+        public AddWeightModel(OCFXContext context, IWebHostEnvironment environment, UserManager<OCFXUser> userManager)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
             _environment = environment ?? throw new ArgumentNullException(nameof(environment));

@@ -19,10 +19,10 @@ namespace OCFX.Pages.RPG
     {
         private readonly OCFXContext _context;
         private readonly UserManager<OCFXUser> _userManager;
-        private readonly IHostingEnvironment _environment;
+        private readonly IWebHostEnvironment _environment;
         private string fileName;
 
-        public CharacterCreatorModel(OCFXContext context, UserManager<OCFXUser> userManager, IHostingEnvironment environment)
+        public CharacterCreatorModel(OCFXContext context, UserManager<OCFXUser> userManager, IWebHostEnvironment environment)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
