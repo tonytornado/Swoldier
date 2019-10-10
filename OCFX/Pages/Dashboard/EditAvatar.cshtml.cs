@@ -16,11 +16,11 @@ namespace OCFX.Pages.Profiles
     public class EditAvatarModel : PageModel
     {
         private readonly OCFXContext _context;
-        private readonly IHostingEnvironment _environment;
+        private readonly IWebHostEnvironment _environment;
         private string fileName;
         private readonly UserManager<OCFXUser> _userManager;
 
-        public EditAvatarModel(OCFXContext context, IHostingEnvironment environment, UserManager<OCFXUser> userManager)
+        public EditAvatarModel(OCFXContext context, IWebHostEnvironment environment, UserManager<OCFXUser> userManager)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
             _environment = environment ?? throw new ArgumentNullException(nameof(environment));

@@ -17,7 +17,7 @@ namespace OCFX.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<OCFXUser> _userManager;
         private readonly SignInManager<OCFXUser> _signInManager;
         private readonly IEmailSender _emailSender;
-        private OCFXContext _context;
+        private readonly OCFXContext _context;
 
         public IndexModel(
             OCFXContext context,

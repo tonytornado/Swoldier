@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace OCFX
 {
@@ -36,12 +37,11 @@ namespace OCFX
                     options.Conventions.AuthorizeFolder("/Clubs");
                     options.Conventions.AuthorizeFolder("/Dashboard");
                     options.Conventions.AuthorizeAreaFolder("Identity", "/Manage");
-                })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
