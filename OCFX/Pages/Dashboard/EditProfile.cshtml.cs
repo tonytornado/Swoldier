@@ -35,7 +35,9 @@ namespace OCFX.Pages.Profiles
             Player = await _userManager.GetUserAsync(User);
 
             Profile = await _context.Profiles
-                .Include(p => p.FitStyle).FirstOrDefaultAsync(m => m.Id == Player.ProfileId);
+                .Include(p => p.Photos)
+                .Include(p => p.FitStyle)
+                .FirstOrDefaultAsync(m => m.Id == Player.ProfileId);
 
             if (Profile == null)
             {
