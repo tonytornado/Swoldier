@@ -189,7 +189,7 @@ namespace OCFX.DataModels
         /// </summary>
         /// <param name="DOB"></param>
         /// <returns></returns>
-        private int GetAge(DateTime DOB)
+        static int GetAge(DateTime DOB)
         {
             int age = Convert.ToInt32((DateTime.Now - DOB).TotalDays / 365);
             return age;

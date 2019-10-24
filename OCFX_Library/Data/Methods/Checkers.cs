@@ -18,15 +18,16 @@ namespace OCFX.Data.Methods
         /// <returns></returns>
         public static bool IsImage(this IFormFile postedFile)
         {
+            string h = postedFile.ContentType.ToLower();
             //-------------------------------------------
             //  Check the image mime types
             //-------------------------------------------
-            if (postedFile.ContentType.ToLower() != "image/jpg" &&
-                        postedFile.ContentType.ToLower() != "image/jpeg" &&
-                        postedFile.ContentType.ToLower() != "image/pjpeg" &&
-                        postedFile.ContentType.ToLower() != "image/gif" &&
-                        postedFile.ContentType.ToLower() != "image/x-png" &&
-                        postedFile.ContentType.ToLower() != "image/png")
+            if (h != "image/jpg" &&
+                        h != "image/jpeg" &&
+                        h != "image/pjpeg" &&
+                        h != "image/gif" &&
+                        h != "image/x-png" &&
+                        h != "image/png")
             {
                 return false;
             }
@@ -34,10 +35,13 @@ namespace OCFX.Data.Methods
             //-------------------------------------------
             //  Check the image extension
             //-------------------------------------------
-            if (Path.GetExtension(postedFile.FileName).ToLower() != ".jpg"
-                && Path.GetExtension(postedFile.FileName).ToLower() != ".png"
-                && Path.GetExtension(postedFile.FileName).ToLower() != ".gif"
-                && Path.GetExtension(postedFile.FileName).ToLower() != ".jpeg")
+            string i = Path.GetExtension(postedFile.FileName)
+                           .ToLower();
+
+            if (i != ".jpg"
+                && i != ".png"
+                && i != ".gif"
+                && i != ".jpeg")
             {
                 return false;
             }
@@ -82,24 +86,23 @@ namespace OCFX.Data.Methods
         /// <summary>
         /// Uploads an image to a designated folder on the server
         /// </summary>
-        /// <param name="_environment">The Hosting Environment</param>
+        /// <param name="environment">The Hosting Environment</param>
         /// <param name="Image">IFormFile Image</param>
         /// <param name="PhotoType">An instance of a Photo type object</param>
         /// <param name="Id">An ID</param>
         /// <param name="PhotoFolder">Name of the folder</param>
         /// <param name="Caption">Optional caption for the photo</param>
-        public static void UploadImageToFolder(
-            IHostingEnvironment _environment,
-            IFormFile Image,
-            Photo PhotoType,
-            int Id,
-            string PhotoFolder,
-            string Caption = "")
+        public static void UploadImageToFolder(IHostingEnvironment environment,
+                                               IFormFile Image,
+                                               Photo PhotoType,
+                                               int Id,
+                                               string PhotoFolder,
+                                               string Caption = "")
         {
             // Create the filename and folder path
             string fileName = GetUniqueName(Image.FileName);
             string folderPath = $"images/{Id}/{PhotoFolder}";
-            string upload = Path.Combine(_environment.WebRootPath, folderPath);
+            string upload = Path.Combine(environment.WebRootPath, folderPath);
 
             // Check if the folder already exists
             CheckFolderPath(upload);

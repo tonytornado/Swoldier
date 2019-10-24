@@ -15,10 +15,10 @@ namespace OCFX.Pages.Dashboard
     public class AddWeightModel : PageModel
     {
         private readonly OCFXContext _context;
-        private readonly IWebHostEnvironment _environment;
+        private readonly IHostingEnvironment _environment;
         private readonly UserManager<OCFXUser> _userManager;
 
-        public AddWeightModel(OCFXContext context, IWebHostEnvironment environment, UserManager<OCFXUser> userManager)
+        public AddWeightModel(OCFXContext context, IHostingEnvironment environment, UserManager<OCFXUser> userManager)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
             _environment = environment ?? throw new ArgumentNullException(nameof(environment));
@@ -35,7 +35,7 @@ namespace OCFX.Pages.Dashboard
 
         public async void OnGetAsync()
         {
-            Player = await _userManager.GetUserAsync(User);
+            Player = await _userManager.GetUserAsync(User).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace OCFX.Pages.Dashboard
                 }
             }
             _context.Photos.Add(ProgressPhoto);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync().ConfigureAwait(true);
 
             WeightMeasurement Weight = new WeightMeasurement
             {
@@ -81,7 +81,7 @@ namespace OCFX.Pages.Dashboard
             };
             _context.Weights.Add(Weight);
             Weight.Profile.Weight = (int)Weight.Weight;
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync().ConfigureAwait(true);
 
             Post Post = new Post
             {
@@ -91,7 +91,7 @@ namespace OCFX.Pages.Dashboard
                 Text = $"{Weight.Profile.FirstName} now weighs {Weight.Weight}!",
             };
             _context.Posts.Add(Post);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync().ConfigureAwait(true);
 
             
 

@@ -9,6 +9,11 @@ namespace OCFX.Data.DataRepo
     {
         public static void Initialize(OCFXContext context)
         {
+            if (context is null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             AddNerdery(context);
             AddFitness(context);
             AddFaq(context);
