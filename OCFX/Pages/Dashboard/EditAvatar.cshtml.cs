@@ -38,12 +38,12 @@ namespace OCFX.Pages.Profiles
 
         public async Task<IActionResult> OnGetAsync()
         {
-            Player = await _userManager.GetUserAsync(User);
+            Player = await _userManager.GetUserAsync(User).ConfigureAwait(false);
 
             Photo = await _context.Photos
                 .Where(p => p.Type == Photo.PhotoType.Profile)
                 .OrderByDescending(d => d.DateAdded)
-                .FirstOrDefaultAsync(p => p.ProfileId == Player.ProfileId);
+                .FirstOrDefaultAsync(p => p.ProfileId == Player.ProfileId).ConfigureAwait(false);
 
             if (Photo.URL == "../images/default.jpg")
             {
@@ -61,12 +61,12 @@ namespace OCFX.Pages.Profiles
             if (!ModelState.IsValid)
             {
                 StatusMessage = "Error: Something's wrong! We can't change your picture!";
-                Player = await _userManager.GetUserAsync(User);
+                Player = await _userManager.GetUserAsync(User).ConfigureAwait(false);
 
                 Photo = await _context.Photos
                     .Where(p => p.Type == Photo.PhotoType.Profile)
                     .OrderByDescending(d => d.DateAdded)
-                    .FirstOrDefaultAsync(p => p.ProfileId == Player.ProfileId);
+                    .FirstOrDefaultAsync(p => p.ProfileId == Player.ProfileId).ConfigureAwait(false);
                 return Page();
             }
 
@@ -84,11 +84,11 @@ namespace OCFX.Pages.Profiles
                 if (Image.ContentType != "image/jpeg" && Image.ContentType != "image/png")
                 {
                     StatusMessage = "Error: That doesn't look like a photo file to us!";
-                    Player = await _userManager.GetUserAsync(User);
+                    Player = await _userManager.GetUserAsync(User).ConfigureAwait(false);
                     Photo = await _context.Photos
                         .Where(p => p.Type == Photo.PhotoType.Profile)
                         .OrderByDescending(d => d.DateAdded)
-                        .FirstOrDefaultAsync(p => p.ProfileId == Player.ProfileId);
+                        .FirstOrDefaultAsync(p => p.ProfileId == Player.ProfileId).ConfigureAwait(false);
                     return Page();
                 }
                 else
@@ -98,7 +98,9 @@ namespace OCFX.Pages.Profiles
                     string upload = Path.Combine(_environment.WebRootPath, folderPath);
                     CheckFolderPath(upload);
                     string filePath = Path.Combine(upload, fileName);
-                    await Image.CopyToAsync(new FileStream(filePath, FileMode.Create));
+                    await Image.CopyToAsync(new FileStream(
+                        path: filePath,
+                        mode: FileMode.Create)).ConfigureAwait(false);
                     photograph.URL = $"../images/{Photo.ProfileId}/profilePhoto/{fileName}";
                     photograph.Caption = Photo.Caption;
 
@@ -107,7 +109,7 @@ namespace OCFX.Pages.Profiles
                 }
             }
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync().ConfigureAwait(false);
             return RedirectToPage("./Index", new { id = photograph.ProfileId });
 
         }
@@ -116,7 +118,7 @@ namespace OCFX.Pages.Profiles
         /// Checks for folder on the server; and creates it if necessary
         /// </summary>
         /// <param name="v">The folder path</param>
-        private void CheckFolderPath(string v)
+        private static void CheckFolderPath(string v)
         {
             if (!Directory.Exists(v))
             {
@@ -129,7 +131,7 @@ namespace OCFX.Pages.Profiles
         /// </summary>
         /// <param name="fileName">A filename string</param>
         /// <returns></returns>
-        private string GetUniqueName(string fileName)
+        private static string GetUniqueName(string fileName)
         {
             fileName = Path.GetFileName(fileName);
             return $"{Path.GetFileNameWithoutExtension(fileName)}_{Guid.NewGuid().ToString().Substring(0, 6)}{Path.GetExtension(fileName)}";

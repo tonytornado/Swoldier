@@ -15,7 +15,7 @@ using OCFX.DataModels;
 
 namespace OCFX.Pages.RPG
 {
-    public class CharacterCreatorModel : PageModel
+    public partial class CharacterCreatorModel : PageModel
     {
         private readonly OCFXContext _context;
         private readonly UserManager<OCFXUser> _userManager;
@@ -40,25 +40,6 @@ namespace OCFX.Pages.RPG
 
         [TempData]
         public string StatusMessage { get; set; }
-
-        public class CreatorModel
-        {
-            public string FirstName { get; set; }
-            public string LastName { get; set; }
-            public int STR { get; set; }
-            public int DEX { get; set; }
-            public int CON { get; set; }
-            public int VIT { get; set; }
-            public int SPD { get; set; }
-            public int MVN { get; set; }
-            public string Backstory { get; set; }
-            public string Drive { get; set; }
-            public string Goal { get; set; }
-            public int Class { get; set; }
-            public int Primary { get; set; }
-            public int Secondary { get; set; }
-            public int Tertiary { get; set; }
-        }
 
         public void OnGet()
         {
@@ -113,10 +94,11 @@ namespace OCFX.Pages.RPG
                     }
                 };
 
+                const string simpleCaption = "My avatar photo";
                 Photo avatar = new Photo()
                 {
                     Type = Photo.PhotoType.Avatar,
-                    Caption = "My avatar photo",
+                    Caption = simpleCaption,
                     DateAdded = DateTime.Now,
                     ProfileId = Character.CharacterProfile.Id
                 };
@@ -131,7 +113,7 @@ namespace OCFX.Pages.RPG
                         string upload = Path.Combine(_environment.WebRootPath, folderPath);
                         CheckFolderPath(upload);
                         string filePath = Path.Combine(upload, fileName);
-                        await Avatar.CopyToAsync(new FileStream(filePath, FileMode.Create));
+                        await Avatar.CopyToAsync(new FileStream(filePath, FileMode.Create)).ConfigureAwait(false);
                         avatar.URL = $"../images/{avatar.ProfileId}/avatarPhoto/{fileName}";
 
                         _context.Photos.Add(avatar);
@@ -139,7 +121,8 @@ namespace OCFX.Pages.RPG
                     }
                     else
                     {
-                        throw new BadImageFormatException("This doesn't look like an image to us!");
+                        const string errorMess = "This doesn't look like an image to us!";
+                        throw new BadImageFormatException(errorMess);
                     }
                 }
                 
@@ -160,7 +143,7 @@ namespace OCFX.Pages.RPG
                 return Page();
             }
 
-            return RedirectToPage("../Dashboard/Index");
+            return RedirectToPage("././Dashboard/Index");
         }
 
         /// <summary>
@@ -189,7 +172,7 @@ namespace OCFX.Pages.RPG
         /// Checks for folder on the server; and creates it if necessary
         /// </summary>
         /// <param name="v">The folder path</param>
-        private void CheckFolderPath(string v)
+        private static void CheckFolderPath(string v)
         {
             if (!Directory.Exists(v))
             {
@@ -202,7 +185,7 @@ namespace OCFX.Pages.RPG
         /// </summary>
         /// <param name="fileName">A filename string</param>
         /// <returns></returns>
-        private string GetUniqueName(string fileName)
+        private static string GetUniqueName(string fileName)
         {
             fileName = Path.GetFileName(fileName);
             return $"{Path.GetFileNameWithoutExtension(fileName)}_{Guid.NewGuid().ToString().Substring(0, 6)}{Path.GetExtension(fileName)}";

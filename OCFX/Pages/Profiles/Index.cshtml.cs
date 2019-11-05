@@ -74,7 +74,7 @@ namespace OCFX.Pages.Profiles
 
             // See if a person can be added
             Clops = Friender
-                .Where(c => c.ActionUserId == Player.ProfileId 
+                .Where(c => c.ActionUserId == Player.ProfileId
                 && c.FriendId == Profiler.Id
                 && c.ProfileId == Player.ProfileId
                 )
@@ -95,7 +95,7 @@ namespace OCFX.Pages.Profiles
             }
 
             // Get the user ID of who is posting
-            Player = await _userManager.GetUserAsync(User);
+            Player = await _userManager.GetUserAsync(User).ConfigureAwait(false);
 
             Post post = new Post()
             {
@@ -124,7 +124,7 @@ namespace OCFX.Pages.Profiles
             }
 
             // Get the user ID of who is posting
-            Player = await _userManager.GetUserAsync(User);
+            Player = await _userManager.GetUserAsync(User).ConfigureAwait(false);
 
             Comment comment = new Comment()
             {
@@ -154,9 +154,9 @@ namespace OCFX.Pages.Profiles
             }
 
             // Get the user ID of who is posting
-            Player = await _userManager.GetUserAsync(User);
+            Player = await _userManager.GetUserAsync(User).ConfigureAwait(false);
 
-            var reply = new Reply()
+            Reply reply = new Reply()
             {
                 DatePosted = DateTime.Now,
                 EntryId = CommentNote.ProfileId,
@@ -188,7 +188,7 @@ namespace OCFX.Pages.Profiles
             {
                 StatusMessage = $"ERROR: {t.Message}";
             }
-                        
+
             return RedirectToPage("/Dashboard/Index", new { friend });
         }
 
@@ -199,15 +199,15 @@ namespace OCFX.Pages.Profiles
         /// <returns></returns>
         public async Task<IActionResult> OnPostSendMailAsync(int id)
         {
-            Player = await _userManager.GetUserAsync(User);
-            Profiler = await ProfileMethods.GetProfileAsync(_context, id);
+            Player = await _userManager.GetUserAsync(User).ConfigureAwait(false);
+            Profiler = await ProfileMethods.GetProfileAsync(_context, id).ConfigureAwait(false);
 
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            var mail = new Shout()
+            Shout mail = new Shout()
             {
                 Identifier = Guid.NewGuid(),
                 ChainIdentifier = Guid.NewGuid() + "" + Player.Id,
@@ -221,7 +221,7 @@ namespace OCFX.Pages.Profiles
             };
 
             _context.Messages.Add(mail);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync().ConfigureAwait(false);
 
             StatusMessage = "Message Sent";
 

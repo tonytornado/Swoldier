@@ -44,7 +44,7 @@ namespace OCFX.Pages.Dashboard
             Task<OCFXUser> user = _userManager.GetUserAsync(User);
 
             // Get the profile and profile photo
-            Profiler = await ProfileMethods.GetProfileAsync(_context, user.Result.ProfileId);
+            Profiler = await ProfileMethods.GetProfileAsync(_context, user.Result.ProfileId).ConfigureAwait(false);
 
             // Get the completed quests
             CompletedQuests = QuestMethods.CheckCompletedQuests(_context, Profiler.Id);
@@ -67,7 +67,8 @@ namespace OCFX.Pages.Dashboard
         {
             if (weights == null)
             {
-                throw new ArgumentNullException("This user has no weight... how??");
+                const string errorMess = "This user has no weight... how??";
+                throw new ArgumentNullException(errorMess);
             }
 
             double change;
@@ -89,7 +90,7 @@ namespace OCFX.Pages.Dashboard
         /// <param name="height"></param>
         /// <param name="age"></param>
         /// <returns></returns>
-        private double CalorieTasker(int weight, int height, int age)
+        private static double CalorieTasker(int weight, int height, int age)
         {
             double weightc = weight / 2.2;
             double heightc = height * 2.54;
