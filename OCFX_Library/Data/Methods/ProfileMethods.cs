@@ -18,6 +18,11 @@ namespace OCFX.Data.Methods
         /// <returns></returns>
         public static async Task<Profile> GetProfileAsync(OCFXContext context, int? id)
         {
+            if (context is null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             Profile Profiler = await context.Profiles
                 .Include(p => p.Posts)
                     .ThenInclude(p => p.Comments)
@@ -49,6 +54,11 @@ namespace OCFX.Data.Methods
         /// <returns></returns>
         public static async Task<List<CharacterModel>> GetCharacterDataAsync(OCFXContext context, int? id)
         {
+            if (context is null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             var Characters = await context.Characters
                .Include(c => c.Avatars)
                .Include(c => c.Campaign)
@@ -61,6 +71,11 @@ namespace OCFX.Data.Methods
 
         public static Photo GetProfilePhoto(OCFXContext context, int id)
         {
+            if (context is null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             var photo = context.Photos
                 .OrderByDescending(d => d.DateAdded)
                 .FirstOrDefault(c => c.Type == Photo.PhotoType.Profile
@@ -77,6 +92,11 @@ namespace OCFX.Data.Methods
         /// <returns></returns>
         public static Profile GetProfile(OCFXContext context, int? id)
         {
+            if (context is null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             Profile Profiler = context.Profiles
                 .Include(p => p.Posts)
                     .ThenInclude(p => p.Comments)

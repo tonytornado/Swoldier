@@ -12,6 +12,11 @@ namespace OCFX.Areas.Identity
     {
         public void Configure(IWebHostBuilder builder)
         {
+            if (builder is null)
+            {
+                throw new System.ArgumentNullException(nameof(builder));
+            }
+
             builder.ConfigureServices((context, services) =>
             {
                 services.AddDbContext<OCFXContext>(options =>

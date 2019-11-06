@@ -63,12 +63,11 @@ namespace OCFX.Pages.Dashboard
         /// </summary>
         /// <param name="weights"></param>
         /// <returns></returns>
-        private double ShowWeightChange(Collection<WeightMeasurement> weights)
+        private static double ShowWeightChange(Collection<WeightMeasurement> weights)
         {
             if (weights == null)
             {
-                const string errorMess = "This user has no weight... how??";
-                throw new ArgumentNullException(errorMess);
+                throw new ArgumentNullException("This user has no weight... how??");
             }
 
             double change;

@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OCFX", "OCFX\OCFX.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OCFX_Library", "OCFX_Library\OCFX_Library.csproj", "{9B87B948-CAAF-48CB-BF7E-0B1444B9E39E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OCFX_Test", "OCFX Test\OCFX_Test.csproj", "{9B13462A-F491-47D3-BC63-5EA9691F0BB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OCFXTest", "OCFX Test\OCFXTest.csproj", "{9B13462A-F491-47D3-BC63-5EA9691F0BB4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

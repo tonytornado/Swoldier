@@ -7,6 +7,7 @@ using OCFX.Areas.Identity.Data;
 using OCFX.Data.Methods;
 using OCFX.DataModels;
 using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,10 +16,12 @@ namespace OCFX.Pages.Dashboard
     public class AddWeightModel : PageModel
     {
         private readonly OCFXContext _context;
-        private readonly IHostingEnvironment _environment;
+        private readonly IWebHostEnvironment _environment;
         private readonly UserManager<OCFXUser> _userManager;
 
-        public AddWeightModel(OCFXContext context, IHostingEnvironment environment, UserManager<OCFXUser> userManager)
+        public AddWeightModel(OCFXContext context,
+                              IWebHostEnvironment environment,
+                              UserManager<OCFXUser> userManager)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
             _environment = environment ?? throw new ArgumentNullException(nameof(environment));
@@ -66,7 +69,12 @@ namespace OCFX.Pages.Dashboard
                 }
                 else
                 {
-                    ImageFileManagement.UploadImageToFolder(_environment, Image, ProgressPhoto, Id, "progressPhoto", ProgressPhoto.Caption);
+                    UploadImageToFolder(_environment,
+                        Image,
+                        ProgressPhoto,
+                        Id,
+                        "progressPhoto",
+                        ProgressPhoto.Caption);
                 }
             }
             _context.Photos.Add(ProgressPhoto);
@@ -97,6 +105,36 @@ namespace OCFX.Pages.Dashboard
 
             StatusMessage = "New weight added!";
             return Redirect("./Index");
+        }
+
+        /// <summary>
+        /// Uploads an image to a designated folder on the server
+        /// </summary>
+        /// <param name="environment">The Hosting Environment</param>
+        /// <param name="Image">IFormFile Image</param>
+        /// <param name="PhotoType">An instance of a Photo type object</param>
+        /// <param name="Id">An ID</param>
+        /// <param name="PhotoFolder">Name of the folder</param>
+        /// <param name="Caption">Optional caption for the photo</param>
+        private static void UploadImageToFolder(IWebHostEnvironment environment, IFormFile Image, Photo PhotoType, int Id, string PhotoFolder, string Caption)
+        {
+            if (environment is null)
+                {
+                    throw new ArgumentNullException(nameof(environment));
+                }
+                // Create the filename and folder path
+                string fileName = ImageFileManagement.GetUniqueName(Image.FileName);
+                string folderPath = $"images/{Id}/{PhotoFolder}";
+                string upload = Path.Combine(environment.WebRootPath, folderPath);
+
+                // Check if the folder already exists
+                ImageFileManagement.CheckFolderPath(upload);
+                string filePath = Path.Combine(upload, fileName);
+
+                // Get ready to upload and add some things.
+                Image.CopyToAsync(new FileStream(filePath, FileMode.Create));
+                PhotoType.URL = $"../images/{Id}/{PhotoFolder}/{fileName}";
+                PhotoType.Caption = Caption;
         }
 
         public class InputModel

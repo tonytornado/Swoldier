@@ -32,8 +32,13 @@ namespace OCFX.Pages.Fitness
             FullTime = Stopwatch(History);
         }
 
-        private int Stopwatch(List<WorkoutSetLog> X)
+        private static int Stopwatch(List<WorkoutSetLog> X)
         {
+            if (X is null)
+            {
+                throw new ArgumentNullException(nameof(X));
+            }
+
             int FullTime = 0;
             for (int i = 0; i < X.Count; i++)
             {

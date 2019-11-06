@@ -2,7 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OCFX.DataModels;
 using System;
 
-namespace OCFX_Test
+namespace OCFXTest
 {
     [TestClass]
     public class ProfileTests

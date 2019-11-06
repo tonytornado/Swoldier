@@ -154,9 +154,9 @@ namespace OCFX.Areas.Identity.Pages.Account.Manage
                 }
             }
 
-            await _userManager.UpdateAsync(user);
+            await _userManager.UpdateAsync(user).ConfigureAwait(false);
             _context.SaveChanges();
-            await _signInManager.RefreshSignInAsync(user);
+            await _signInManager.RefreshSignInAsync(user).ConfigureAwait(false);
             StatusMessage = NameMessage ?? "Your profile has been updated";
             return RedirectToPage();
         }

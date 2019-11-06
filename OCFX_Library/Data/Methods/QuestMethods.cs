@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace OCFX.Data.Methods
 {
-    public class QuestMethods
+    public static class QuestMethods
     {
         /// <summary>
         /// Checks the completed quest log for all the quests a user has completed.
@@ -17,6 +17,11 @@ namespace OCFX.Data.Methods
         /// <returns></returns>
         public static List<int> CheckCompletedQuests(OCFXContext context, int UserId)
         {
+            if (context is null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             int QuestGoer = UserId;
             IQueryable<int> ops = from q in context.Quests
                                   join ql in context.QuestLogs on q.Id equals ql.Quest.Id
@@ -36,6 +41,11 @@ namespace OCFX.Data.Methods
         /// <param name="UserId">User's Id</param>
         public static void JoinQuest(OCFXContext context, int QuestId, int UserId)
         {
+            if (context is null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             int QuestGoer = UserId;
             Quest quest = context.Quests.SingleOrDefault(q => q.Id == QuestId);
 
@@ -62,6 +72,11 @@ namespace OCFX.Data.Methods
         /// <param name="UserId">User's Id</param>
         public static void CompleteQuest(OCFXContext context, int QuestId, int UserId)
         {
+            if (context is null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             int QuestGoer = UserId;
             QuestLog CompletedQuest = context.QuestLogs.SingleOrDefault(q => q.Quest.Id == QuestId && q.Character.Id == QuestGoer);
 
@@ -90,6 +105,11 @@ namespace OCFX.Data.Methods
         /// <returns>Boolean</returns>
         private static bool CheckForCampaign(OCFXContext context, int x, int y)
         {
+            if (context is null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             CharacterModel player = context.Characters.SingleOrDefault(p => p.Id == x);
             Quest quest = context.Quests.SingleOrDefault(p => p.Id == y);
             Campaign campaign = context.Campaigns.FirstOrDefault(p => p.Quests.Contains(quest));

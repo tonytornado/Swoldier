@@ -10,12 +10,10 @@ namespace OCFX.Pages.FAQ
     {
         private readonly OCFXContext context;
 
-        public IndexModel(OCFXContext _context)
-        {
-            context = _context;
-        }
+        public IndexModel(OCFXContext _context) => context = _context ?? throw new System.ArgumentNullException(nameof(_context));
 
         public string Message { get; set; }
+
         public HashSet<Facts> Faq;
         public List<IGrouping<SectionName, Facts>> FaqCategory { get; private set; }
 

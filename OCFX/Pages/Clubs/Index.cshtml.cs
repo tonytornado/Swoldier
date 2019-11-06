@@ -5,6 +5,7 @@ using OCFX.Data.DataModels;
 using OCFX.DataModels;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace OCFX.Pages.Clubs
 {
@@ -21,7 +22,7 @@ namespace OCFX.Pages.Clubs
         public IQueryable<Gym> ClubListing { get; private set; }
         public PaginatedList<Gym> Gyms { get; private set; }
 
-        public async System.Threading.Tasks.Task OnGetAsync(string searchString, int? pageIndex)
+        public async Task OnGetAsync(string searchString, int? pageIndex)
         {
             ClubListing = from s in _context.Gyms select s;
 
@@ -34,9 +35,9 @@ namespace OCFX.Pages.Clubs
                 CurrentSearch = true;
             }
 
-            if (!String.IsNullOrEmpty(searchString))
+            if (!string.IsNullOrEmpty(searchString))
             {
-                ClubListing = ClubListing.Where(s => s.Title.Contains(searchString));
+                ClubListing = ClubListing.Where(s => s.Title.Contains(searchString, StringComparison.OrdinalIgnoreCase));
             }
 
             int pageSize = 5;
