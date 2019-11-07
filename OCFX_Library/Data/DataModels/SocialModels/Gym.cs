@@ -40,17 +40,17 @@ namespace OCFX.DataModels
         /// <summary>
         /// List of the club's amenities and equipment
         /// </summary>
-        public ICollection<GymRelation> Amenities { get; set; }
+        public ICollection<GymRelation> Amenities { get; set; } = new HashSet<GymRelation>();
 
         /// <summary>
         /// List of the club's members
         /// </summary>
-		public ICollection<Membership> Members { get; set; }
+		public ICollection<Membership> Members { get; set; } = new HashSet<Membership>();
 
         /// <summary>
         /// Events
         /// </summary>
-        public ICollection<Session> Meetings { get; set; }
+        public ICollection<Session> Meetings { get; set; } = new HashSet<Session>();
     }
 
     /// <summary>

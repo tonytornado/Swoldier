@@ -20,7 +20,7 @@ namespace OCFX.Pages.Clubs
 
         public bool CurrentSearch { get; set; }
         public IQueryable<Gym> ClubListing { get; private set; }
-        public PaginatedListCollection<Gym> Gyms { get; private set; }
+        public PaginatedList<Gym> Gyms { get; private set; }
 
         public async Task OnGetAsync(string searchString, int? pageIndex)
         {
@@ -41,7 +41,7 @@ namespace OCFX.Pages.Clubs
             }
 
             int pageSize = 5;
-            Gyms = await PaginatedListCollection<Gym>.CreateAsync(ClubListing.AsNoTracking(), pageIndex ?? 1, pageSize);
+            Gyms = await PaginatedList<Gym>.CreateAsync(ClubListing.AsNoTracking(), pageIndex ?? 1, pageSize);
         }
     }
 }
