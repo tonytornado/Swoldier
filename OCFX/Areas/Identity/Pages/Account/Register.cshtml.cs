@@ -44,7 +44,7 @@ namespace OCFX.Areas.Identity.Pages.Account
         //[BindProperty]
         //public Address Addressing { get; set; }
         [BindProperty]
-        public Profile Profiler { get; set; }
+        public ProfileSheet Profiler { get; set; }
 
         public string ReturnUrl { get; set; }
 
@@ -107,7 +107,7 @@ namespace OCFX.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                // Create a user profile
+                // Create a user ProfileSheet
                 OCFXUser user = new OCFXUser
                 {
                     FirstName = Input.FirstName,
@@ -116,7 +116,7 @@ namespace OCFX.Areas.Identity.Pages.Account
                     Email = Input.Email,
                     DOB = Input.DOB,
                     NameChangedDate = DateTime.Now,
-                    Profile = new Profile
+                    Profile = new ProfileSheet
                     {
                         FirstName = Input.FirstName,
                         LastName = Input.LastName,
@@ -133,7 +133,7 @@ namespace OCFX.Areas.Identity.Pages.Account
                     }
                 };
 
-                // Add the default profile picture
+                // Add the default ProfileSheet picture
                 Photo FirstProfilePhoto = new Photo
                 {
                     DateAdded = DateTime.Now,

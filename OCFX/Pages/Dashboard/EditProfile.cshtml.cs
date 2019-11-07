@@ -25,7 +25,7 @@ namespace OCFX.Pages.Profiles
         public OCFXUser Player { get; private set; }
 
         [BindProperty]
-        public Profile Profile { get; set; }
+        public ProfileSheet Profile { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }

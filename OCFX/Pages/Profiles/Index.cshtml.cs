@@ -24,10 +24,10 @@ namespace OCFX.Pages.Profiles
         }
 
         public OCFXUser Player { get; set; }
-        public Profile Profiler { get; set; }
+        public ProfileSheet Profiler { get; set; }
         public List<Friend> Friender { get; set; }
         public List<Friend> Requests { get; set; }
-        public List<Profile> RelatedFolkList { get; set; }
+        public List<ProfileSheet> RelatedFolkList { get; set; }
 
         public bool Clops { get; set; }
 

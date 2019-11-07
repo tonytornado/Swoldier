@@ -36,7 +36,7 @@ namespace OCFX.Data.Methods
                 Date = DateTime.Now,
                 OldValue = oldValue,
                 NewValue = "N/A",
-                ThingType = nameof(Profile),
+                ThingType = nameof(ProfileSheet),
                 Deleted = 'Y'
             };
             context.Histories.Add(HistoryItem);

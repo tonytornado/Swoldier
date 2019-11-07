@@ -25,7 +25,7 @@ namespace OCFX.Pages.Dashboard
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public Profile Profiler { get; private set; }
+        public ProfileSheet Profiler { get; private set; }
         public Photo ProfilePhoto { get; private set; }
         public List<int> CompletedQuests { get; private set; }
 

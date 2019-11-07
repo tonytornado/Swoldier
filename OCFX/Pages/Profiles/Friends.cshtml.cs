@@ -23,7 +23,7 @@ namespace OCFX.Pages.Profiles
             _userManager = userManager;
         }
 
-        public Profile Profiler { get; private set; }
+        public ProfileSheet Profiler { get; private set; }
         public List<Friend> Friends { get; private set; }
 
         public async Task OnGetAsync()

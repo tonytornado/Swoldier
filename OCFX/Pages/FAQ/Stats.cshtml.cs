@@ -17,7 +17,7 @@ namespace OCFX.Pages.FAQ
             _context = context;
         }
 
-        public List<Profile> ProfileStats { get; private set; }
+        public List<ProfileSheet> ProfileStats { get; private set; }
         public double AgeAverage { get; private set; }
 
         public void OnGet()

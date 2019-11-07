@@ -10,7 +10,7 @@ namespace OCFXTest
         [TestMethod]
         public void SimpleProfileTest()
         {
-            Profile result = new Profile
+            ProfileSheet result = new ProfileSheet
             {
                 Id = 1,
                 FirstName = "Tony",
@@ -23,7 +23,7 @@ namespace OCFXTest
         [TestMethod]
         public void AgeTest()
         {
-            Profile result = new Profile
+            ProfileSheet result = new ProfileSheet
             {
                 DOB = new DateTime(1984, 5, 18)
             };
