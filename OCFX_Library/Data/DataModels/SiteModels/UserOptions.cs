@@ -1,15 +1,11 @@
-﻿using OCFX.DataModels;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace OCFX.DataModels.SiteModels
 {
     /// <summary>
     /// Sitewide options for the user to change
     /// </summary>
-    public class Options
+    public class UserOptions
     {
         [Key]
         public int Id { get; set; }
@@ -29,7 +25,7 @@ namespace OCFX.DataModels.SiteModels
         [Display(Name = "Measurement Units")]
         public Conversion MeasurementUnits { get; set; }
 
-        public Profile UserProfile { get; set; }
+        public ProfileSheet UserProfile { get; set; }
 
         /// <summary>
         /// Represents a measurement system conversion. 

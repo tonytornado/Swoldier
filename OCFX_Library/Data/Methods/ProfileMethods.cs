@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OCFX.Data.Methods
 {
-    public class ProfileMethods
+    public static class ProfileMethods
     {
         /// <summary>
         /// Gets a user profile with the provided user id
@@ -16,14 +16,14 @@ namespace OCFX.Data.Methods
         /// <param name="context">Associated DBContext</param>
         /// <param name="id">The User Id</param>
         /// <returns></returns>
-        public static async Task<Profile> GetProfileAsync(OCFXContext context, int? id)
+        public static async Task<ProfileSheet> GetProfileAsync(OCFXContext context, int? id)
         {
             if (context is null)
             {
                 throw new ArgumentNullException(nameof(context));
             }
 
-            Profile Profiler = await context.Profiles
+            ProfileSheet Profiler = await context.Profiles
                 .Include(p => p.Posts)
                     .ThenInclude(p => p.Comments)
                         .ThenInclude(p => p.Replies)
@@ -59,11 +59,17 @@ namespace OCFX.Data.Methods
                 throw new ArgumentNullException(nameof(context));
             }
 
+            if (id is null)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+
             var Characters = await context.Characters
                .Include(c => c.Avatars)
                .Include(c => c.Campaign)
                .Include(c => c.Quests)
                .Include(c => c.CharacterProfile)
+               .Where(i => i.CharacterProfile.Id == id)
                .ToListAsync();
 
             return Characters;
@@ -90,14 +96,14 @@ namespace OCFX.Data.Methods
         /// <param name="context"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static Profile GetProfile(OCFXContext context, int? id)
+        public static ProfileSheet GetProfile(OCFXContext context, int? id)
         {
             if (context is null)
             {
                 throw new ArgumentNullException(nameof(context));
             }
 
-            Profile Profiler = context.Profiles
+            ProfileSheet Profiler = context.Profiles
                 .Include(p => p.Posts)
                     .ThenInclude(p => p.Comments)
                         .ThenInclude(p => p.Replies)
@@ -120,15 +126,25 @@ namespace OCFX.Data.Methods
             return Profiler;
         }
 
-        public static async Task<Profile> GetProfileUser(OCFXContext context, int id)
+        public static async Task<ProfileSheet> GetProfileUser(OCFXContext context, int id)
         {
-            Profile prof = await context.Profiles.SingleOrDefaultAsync(i => i.Id == id);
+            if (context is null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            ProfileSheet prof = await context.Profiles.SingleOrDefaultAsync(i => i.Id == id);
 
             return prof;
         }
 
         public static async Task<CharacterModel> GetCharacterProfile(OCFXContext context, int id)
         {
+            if (context is null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             var chara = await context.Characters.SingleOrDefaultAsync(i => i.Id == id);
 
             return chara;
@@ -143,9 +159,14 @@ namespace OCFX.Data.Methods
         /// <param name="waist">Waist Circumference in inches</param>
         /// <param name="hip">Hip Circumference in inches</param>
         /// <returns>double</returns>
-        public static double BodyFat(Profile profile, int height, int weight, int? neck, int? waist, int? hip)
+        public static double BodyFat(ProfileSheet profile, int height, int weight, int? neck, int? waist, int? hip)
         {
-            Profile Profiler = profile;
+            if (profile is null)
+            {
+                throw new ArgumentNullException(nameof(profile));
+            }
+
+            ProfileSheet Profiler = profile;
 
             double percentage = 0.0;
 
@@ -160,9 +181,9 @@ namespace OCFX.Data.Methods
             }
 
             // Check bone structures
-            if (Profiler.Gender == Profile.GenderSpectrum.CisMale ||
-                Profiler.Gender == Profile.GenderSpectrum.TransFemale ||
-                Profiler.Gender == Profile.GenderSpectrum.NotDisclosed)
+            if (Profiler.Gender == ProfileSheet.GenderSpectrum.CisMale ||
+                Profiler.Gender == ProfileSheet.GenderSpectrum.TransFemale ||
+                Profiler.Gender == ProfileSheet.GenderSpectrum.NotDisclosed)
             //{
             //    double f1 = (weight * 1.082) + 94.42;
             //    double? f2 = waist * 4.15;
@@ -177,8 +198,8 @@ namespace OCFX.Data.Methods
                 percentage = (f1 / f2) - f3;
             }
 
-            if (Profiler.Gender == Profile.GenderSpectrum.CisFemale ||
-                Profiler.Gender == Profile.GenderSpectrum.TransMale)
+            if (Profiler.Gender == ProfileSheet.GenderSpectrum.CisFemale ||
+                Profiler.Gender == ProfileSheet.GenderSpectrum.TransMale)
             {
                 double f1 = (weight * 0.732) + 8.987;
                 double f2 = 6 / 3.140;

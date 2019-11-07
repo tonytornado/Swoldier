@@ -7,9 +7,9 @@ using System.Linq;
 
 namespace OCFX.DataModels
 {
-    public class Profile
+    public class ProfileSheet
     {
-        public Profile()
+        public ProfileSheet()
         {
         }
 
@@ -221,9 +221,9 @@ namespace OCFX.DataModels
             }
 
             // Check bone structures
-            if (Gender == Profile.GenderSpectrum.CisMale ||
-                Gender == Profile.GenderSpectrum.TransFemale ||
-                Gender == Profile.GenderSpectrum.NotDisclosed)
+            if (Gender == ProfileSheet.GenderSpectrum.CisMale ||
+                Gender == ProfileSheet.GenderSpectrum.TransFemale ||
+                Gender == ProfileSheet.GenderSpectrum.NotDisclosed)
             //{
             //    double f1 = (weight * 1.082) + 94.42;
             //    double? f2 = waist * 4.15;
@@ -238,8 +238,8 @@ namespace OCFX.DataModels
                 percentage = (f1 / f2) - f3;
             }
 
-            if (Gender == Profile.GenderSpectrum.CisFemale ||
-                Gender == Profile.GenderSpectrum.TransMale)
+            if (Gender == ProfileSheet.GenderSpectrum.CisFemale ||
+                Gender == ProfileSheet.GenderSpectrum.TransMale)
             {
                 double f1 = (weightConversion * 0.732) + 8.987;
                 double f2 = 6 / 3.140;

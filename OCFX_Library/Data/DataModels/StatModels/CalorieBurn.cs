@@ -16,7 +16,7 @@ namespace OCFX.DataModels
         /// <param name="activity"></param>
         /// <param name="time"></param>
         /// <param name="profile"></param>
-        public CaloriesBurned(int calorieCount, string activity, int time, Profile profile)
+        public CaloriesBurned(int calorieCount, string activity, int time, ProfileSheet profile)
         {
             CalorieCount = calorieCount;
             Activity = activity ?? throw new ArgumentNullException(nameof(activity),"Invalid activity");
@@ -30,7 +30,7 @@ namespace OCFX.DataModels
         /// <param name="activity"></param>
         /// <param name="time"></param>
         /// <param name="profile"></param>
-        public CaloriesBurned(string activity, int time, Profile profile)
+        public CaloriesBurned(string activity, int time, ProfileSheet profile)
         {
             Activity = activity ?? throw new ArgumentNullException(nameof(activity), "Invalid activity");
             Time = time;
@@ -48,7 +48,7 @@ namespace OCFX.DataModels
         public int Time { get; set; }
 
         [ForeignKey("ProfileId")]
-        public Profile Profile { get; set; }
+        public ProfileSheet Profile { get; set; }
     }
 
     /// <summary>
@@ -71,7 +71,7 @@ namespace OCFX.DataModels
         /// <param name="weight"></param>
         /// <param name="progressPhoto"></param>
         /// <param name="profile"></param>
-        public WeightMeasurement(DateTime date, double weight, Photo progressPhoto, Profile profile)
+        public WeightMeasurement(DateTime date, double weight, Photo progressPhoto, ProfileSheet profile)
         {
             Date = date;
             Weight = weight;
@@ -100,7 +100,7 @@ namespace OCFX.DataModels
         /// The profile ID of the user making the change.
         /// </summary>
         [ForeignKey("ProfileId")]
-        public Profile Profile { get; set; }
+        public ProfileSheet Profile { get; set; }
     }
 
     /// <summary>
@@ -112,7 +112,7 @@ namespace OCFX.DataModels
         {
         }
 
-        public ExerciseLog(Profile profile, Exercise exercise, int set, int reps)
+        public ExerciseLog(ProfileSheet profile, Exercise exercise, int set, int reps)
         {
             Profile = profile ?? throw new ArgumentNullException(nameof(profile));
             Exercise = exercise ?? throw new ArgumentNullException(nameof(exercise));
@@ -124,7 +124,7 @@ namespace OCFX.DataModels
         /// <summary>
         /// Associated Profile
         /// </summary>
-        public Profile Profile { get; set; }
+        public ProfileSheet Profile { get; set; }
         /// <summary>
         /// Associated Exercise being logged
         /// </summary>
@@ -150,7 +150,7 @@ namespace OCFX.DataModels
     {
         public int Id { get; set; }
         public Workout Workout { get; set; }
-        public Profile Profile { get; set; }
+        public ProfileSheet Profile { get; set; }
         public DateTime Date { get; set; }
         public string Notes { get; set; }
         public int Duration { get; set; }

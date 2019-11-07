@@ -30,12 +30,12 @@ namespace OCFX.DataModels
         [Key]
         public int ProfileId { get; set; }
         [ForeignKey("ProfileId")]
-        public Profile Following { get; set; }
+        public ProfileSheet Following { get; set; }
 
         [Key]
         public int FriendId { get; set; }
         [ForeignKey("FriendId")]
-        public Profile Follower { get; set; }
+        public ProfileSheet Follower { get; set; }
 
         [Display(Name = "Confirm Friends")]
         public Confirmer FriendshipConfirmer { get; set; }

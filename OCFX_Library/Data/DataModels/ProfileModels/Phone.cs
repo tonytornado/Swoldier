@@ -19,7 +19,7 @@ namespace OCFX.DataModels
         public Phone(PhoneType phoneTypeName,
                      int areaCode,
                      int phoneNumber,
-                     Profile profile)
+                     ProfileSheet profile)
         {
             PhoneTypeName = phoneTypeName;
             AreaCode = areaCode;
@@ -41,7 +41,7 @@ namespace OCFX.DataModels
         [DataType(DataType.PhoneNumber)]
         public int PhoneNumber { get; set; }
 
-        public Profile Profile { get; set; }
+        public ProfileSheet Profile { get; set; }
 
         public string FullNumber => $"({AreaCode}) {PhoneNumber}";
     }

@@ -19,7 +19,7 @@ namespace OCFX.DataModels
         [Display(Name = "Gym Title")]
         public string Title { get; set; }
         [Display(Name = "Gym Leader")]
-        public Profile Leader { get; set; }
+        public ProfileSheet Leader { get; set; }
         [Required]
         [Display(Name = "Gym Details")]
         public string Description { get; set; }

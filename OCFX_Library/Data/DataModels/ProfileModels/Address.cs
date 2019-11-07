@@ -10,7 +10,7 @@ namespace OCFX.DataModels
         {
         }
 
-        public Address(AddressType addressTypeName, string streetName, string cityName, string stateName, int zipCode, Profile profile)
+        public Address(AddressType addressTypeName, string streetName, string cityName, string stateName, int zipCode, ProfileSheet profile)
         {
             AddressTypeName = addressTypeName;
             StreetName = streetName ?? throw new ArgumentNullException(nameof(streetName), "Street is invalid");
@@ -39,7 +39,7 @@ namespace OCFX.DataModels
         [NotMapped]
         public string AddressLine2 => $"{CityName}, {StateName} {ZipCode}";
 
-        public Profile Profile { get; set; }
+        public ProfileSheet Profile { get; set; }
     }
 
     public enum AddressType

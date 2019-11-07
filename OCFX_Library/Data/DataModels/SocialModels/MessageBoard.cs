@@ -21,7 +21,7 @@ namespace OCFX.DataModels
         [Display(Name = "Profile")]
         public int ProfileId { get; set; }
         [ForeignKey("ProfileId")]
-        public Profile Profile { get; set; }
+        public ProfileSheet Profile { get; set; }
 
         [Display(Name = "Club Message Board")]
         public int BoardId { get; set; }

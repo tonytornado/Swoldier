@@ -15,6 +15,11 @@ namespace OCFX.Areas.Identity.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            if (builder is null)
+            {
+                throw new ArgumentNullException(nameof(builder));
+            }
+
             base.OnModelCreating(builder);
             builder.Entity<Friend>().HasKey(c => new { c.ProfileId, c.FriendId });
 
@@ -39,7 +44,7 @@ namespace OCFX.Areas.Identity.Data
         // Profile DB
         //public DbSet<Phone> Phones { get; set; }
         //public DbSet<Address> Addresses { get; set; }
-        public DbSet<Profile> Profiles { get; set; }
+        public DbSet<ProfileSheet> Profiles { get; set; }
         public DbSet<Photo> Photos { get; set; }
 
         // Fitness DB

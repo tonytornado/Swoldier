@@ -20,6 +20,10 @@ namespace OCFX.Data.Methods
         public static List<Friend> GetFriendList(OCFXContext _context,
                                          int UserId )
         {
+            if (_context is null)
+            {
+                throw new ArgumentNullException(nameof(_context));
+            }
             // Get ALL the friends!
             List<Friend> friend = _context.Friends
                             .Where(b => b.Follower.FitUser.ProfileId == UserId && b.FriendshipConfirmer == Friend.Confirmer.Confirmed)
@@ -44,6 +48,11 @@ namespace OCFX.Data.Methods
         /// <returns>List</returns>
         public static async Task<List<Friend>> GetFriendRequestsAsync(OCFXContext _context, int UserId)
         {
+            if (_context is null)
+            {
+                throw new ArgumentNullException(nameof(_context));
+            }
+
             List<Friend> friendRequests = await _context.Friends
                             .Where(c => c.ActionUserId != UserId && c.Follower.FitUser.ProfileId == UserId)
                             .Include(f => f.Following)
@@ -60,6 +69,10 @@ namespace OCFX.Data.Methods
         /// <param name="catcher">User id for the receiver</param>
         public static void AddFriend(OCFXContext _context, int pitcher, int catcher)
         {
+            if (_context is null)
+            {
+                throw new ArgumentNullException(nameof(_context));
+            }
             // Make sure the friend request isn't already happening
             CheckFriend(_context, pitcher, catcher);
 
@@ -84,6 +97,11 @@ namespace OCFX.Data.Methods
         /// <param name="catcher"></param>
         private static void CheckFriend(OCFXContext _context, int pitcher, int catcher)
         {
+            if (_context is null)
+            {
+                throw new ArgumentNullException(nameof(_context));
+            }
+
             var check = _context.Friends.FirstOrDefault(c => c.ProfileId == pitcher && c.FriendId == catcher);
             if (check == (default) || check == null)
             {
@@ -100,6 +118,11 @@ namespace OCFX.Data.Methods
         /// <param name="catcher">User id for the receiver</param>
         public static void AcceptFriend(OCFXContext _context, int pitcher, int catcher)
         {
+            if (_context is null)
+            {
+                throw new ArgumentNullException(nameof(_context));
+            }
+
             Friend requestCheck = _context.Friends.SingleOrDefault(f => f.Following.Id == catcher && f.Follower.Id == pitcher && f.ActionUserId == catcher);
 
             // See if there's another user already trying to request a connection
@@ -133,6 +156,11 @@ namespace OCFX.Data.Methods
         /// <param name="catcher">The receiver</param>
         public static void RemoveFriend(OCFXContext _context, int pitcher, int catcher)
         {
+            if (_context is null)
+            {
+                throw new ArgumentNullException(nameof(_context));
+            }
+
             Friend query = _context.Friends.SingleOrDefault(f => f.Following.Id == pitcher && f.Follower.Id == catcher && f.ActionUserId == pitcher);
             Friend associateQuery = _context.Friends.SingleOrDefault(f => f.Following.Id == catcher && f.Follower.Id == pitcher && f.ActionUserId == catcher);
 
@@ -149,6 +177,11 @@ namespace OCFX.Data.Methods
         /// <param name="catcher">User id for the receiver</param>
         public static void BlockFriend(OCFXContext _context, int pitcher, int catcher)
         {
+            if (_context is null)
+            {
+                throw new ArgumentNullException(nameof(_context));
+            }
+
             Friend query = _context.Friends.SingleOrDefault(f => f.Following.Id == pitcher && f.Follower.Id == catcher);
 
             if (query != null)

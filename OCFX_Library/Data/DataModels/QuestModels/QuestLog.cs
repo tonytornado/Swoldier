@@ -13,7 +13,7 @@ namespace OCFX.DataModels
         {
         }
 
-        public QuestLog(int questId, bool completed, Campaign campaign, CharacterModel character, Quest quest)
+        public QuestLog(bool completed, Campaign campaign, CharacterModel character, Quest quest)
         {
             Completed = completed;
             Campaign = campaign ?? throw new ArgumentNullException(nameof(campaign));

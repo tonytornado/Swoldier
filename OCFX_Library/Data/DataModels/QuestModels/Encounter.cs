@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -31,7 +32,7 @@ namespace OCFX.DataModels
         /// <summary>
         /// The NPC's skill set
         /// </summary>
-        public Skill[] SkillSet { get; set; }
+        public ICollection<Skill> SkillSet { get; set; } = new HashSet<Skill>();
     }
 
     /// <summary>

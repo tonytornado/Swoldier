@@ -18,7 +18,7 @@ namespace OCFX.DataModels
 
         public CharacterModel(string firstName, string lastName, int STR, int SPD, int VIT, int DEX, int CON, int MVN,
             string backStory, string driveStory, string goals, Archetype fitStyle, ICollection<Skill> skillList,
-            Profile characterProfile, ICollection<Photo> avatars, ICollection<Campaign> campaign, ICollection<Quest> quests,
+            ProfileSheet characterProfile, ICollection<Photo> avatars, ICollection<Campaign> campaign, ICollection<Quest> quests,
             bool mainCharacter = true)
         {
             FirstName = firstName ?? throw new ArgumentNullException(nameof(firstName));
@@ -92,7 +92,7 @@ namespace OCFX.DataModels
 
         // Tie to profile
         [ForeignKey("ProfileId")]
-        public Profile CharacterProfile { get; set; }
+        public ProfileSheet CharacterProfile { get; set; }
 
         [NotMapped]
         public string FullName => $"{FirstName} {LastName}, the {FitStyle.FitType}";

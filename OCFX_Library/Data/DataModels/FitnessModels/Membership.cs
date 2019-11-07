@@ -17,7 +17,7 @@ namespace OCFX.DataModels
         /// <param name="joinDate"></param>
         /// <param name="member"></param>
         /// <param name="club"></param>
-        public Membership(MembershipType status, DateTime joinDate, Profile member, Gym club)
+        public Membership(MembershipType status, DateTime joinDate, ProfileSheet member, Gym club)
         {
             Status = status;
             JoinDate = joinDate;
@@ -35,7 +35,7 @@ namespace OCFX.DataModels
 
         [Display(Name = "Member Profile")]
         [ForeignKey("MemberId")]
-        public Profile Member { get; set; }
+        public ProfileSheet Member { get; set; }
 
         [Display(Name = "Club Membership")]
         [ForeignKey("ClubId")]
