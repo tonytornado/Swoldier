@@ -68,10 +68,10 @@ namespace OCFX.DataModels
         public Collection<WorkoutSetLog> WorkoutHistory { get; set; }
 
         [InverseProperty("Following")]
-        public Collection<Friend> Following { get; set; }
+        public Collection<FriendSheet> Following { get; set; }
 
         [InverseProperty("Follower")]
-        public Collection<Friend> Followers { get; set; }
+        public Collection<FriendSheet> Followers { get; set; }
         
         /// <summary>
         /// The profile's received messages

@@ -21,7 +21,7 @@ namespace OCFX.Areas.Identity.Data
             }
 
             base.OnModelCreating(builder);
-            builder.Entity<Friend>().HasKey(c => new { c.ProfileId, c.FriendId });
+            builder.Entity<FriendSheet>().HasKey(c => new { c.ProfileId, c.FriendId });
 
             foreach (var relationship in builder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
@@ -34,7 +34,7 @@ namespace OCFX.Areas.Identity.Data
         //public DbSet<Options> Options { get; set; }
 
         // Social DB 
-        public DbSet<Friend> Friends { get; set; }
+        public DbSet<FriendSheet> Friends { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Reply> Replies { get; set; }

@@ -5,7 +5,7 @@ using System;
 
 namespace OCFX.Data.Methods
 {
-    public class HistoryMethods
+    public static class HistoryMethods
     {
         /// <summary>
         /// Method for changes of several types
@@ -16,6 +16,11 @@ namespace OCFX.Data.Methods
         /// <param name="type">Type of change</param>
         public static void GenericHistory(HistoryContext context, string oldValue, string newValue, Type type)
         {
+            if (context is null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             var HistoryItem = new History { 
                 Date = DateTime.Now,
                 OldValue = oldValue,
@@ -31,6 +36,11 @@ namespace OCFX.Data.Methods
         // Method for deleting accounts
         public static void DeletedProfileHistory(HistoryContext context, string oldValue)
         {
+            if (context is null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
             var HistoryItem = new History
             {
                 Date = DateTime.Now,

@@ -24,7 +24,7 @@ namespace OCFX.Pages.Profiles
         }
 
         public ProfileSheet Profiler { get; private set; }
-        public List<Friend> Friends { get; private set; }
+        public List<FriendSheet> Friends { get; private set; }
 
         public async Task OnGetAsync()
         {
