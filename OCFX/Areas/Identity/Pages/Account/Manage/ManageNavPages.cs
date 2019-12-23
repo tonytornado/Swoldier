@@ -35,6 +35,11 @@ namespace OCFX.Areas.Identity.Pages.Account.Manage
 
         public static string PageNavClass(ViewContext viewContext, string page)
         {
+            if (viewContext is null)
+            {
+                throw new ArgumentNullException(nameof(viewContext));
+            }
+
             var activePage = viewContext.ViewData["ActivePage"] as string
                 ?? System.IO.Path.GetFileNameWithoutExtension(viewContext.ActionDescriptor.DisplayName);
             return string.Equals(activePage, page, StringComparison.OrdinalIgnoreCase) ? "active" : null;

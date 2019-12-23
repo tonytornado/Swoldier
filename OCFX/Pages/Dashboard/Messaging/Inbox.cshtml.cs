@@ -23,7 +23,7 @@ namespace OCFX.Pages.Dashboard.Messaging
         }
 
         public OCFXUser MailboxOwner { get; private set; }
-        public Profile MailboxProfile { get; private set; }
+        public ProfileSheet MailboxProfile { get; private set; }
         public Shout IMessage { get; private set; }
         public List<Shout> MailReceived { get; private set; }
 

@@ -34,6 +34,6 @@ namespace OCFX.DataModels
         public DateTime NameChangedDate { get; set; }
 
         public int ProfileId { get; set; }
-        public Profile Profile { get; set; }
+        public ProfileSheet Profile { get; set; }
     }
 }

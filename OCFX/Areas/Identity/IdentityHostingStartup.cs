@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OCFX.Areas.Identity.Data;
 using OCFX.DataModels;
@@ -13,6 +12,11 @@ namespace OCFX.Areas.Identity
     {
         public void Configure(IWebHostBuilder builder)
         {
+            if (builder is null)
+            {
+                throw new System.ArgumentNullException(nameof(builder));
+            }
+
             builder.ConfigureServices((context, services) =>
             {
                 services.AddDbContext<OCFXContext>(options =>

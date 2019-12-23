@@ -1,0 +1,82 @@
+﻿@page
+@model OCFX.Pages.Campaigns.CampaignCreatorModel
+@{
+    ViewData["Title"] = "Campaign Creation";
+    ViewData["BannerTitle"] = "Campaign Constructor";
+    ViewData["BannerSubTitle"] = "Think you got what it takes to make a campaign? Let's see what you got, Coach.";
+}
+
+<div class="contaier-fluid">
+    <h3>
+        Step 1 - The Name
+    </h3>
+    <p>You must come up with a pretty damn good name for this adventure.</p>
+    <div class="form-group">
+        <label asp-for="Creator.Name"></label>
+        <input asp-for="Creator.Name" class="form-control form-control-lg" />
+    </div>
+</div>
+<div class="contaier-fluid">
+    <h3>
+        Step 2 - The Story
+    </h3>
+    <p>Get creative. Everyone is counting on you, bro.</p>
+    <div class="form-group">
+        <label asp-for="Creator.Story"></label>
+        <input asp-for="Creator.Story" class="form-control form-control-lg" />
+    </div>
+</div>
+<div class="contaier-fluid">
+    <h3>
+        Step 2 - The Story
+    </h3>
+    <p>Get creative. Everyone is counting on you, bro.</p>
+    <div class="form-group">
+        <label asp-for="Creator.Story"></label>
+        <textarea asp-for="Creator.Story" class="form-control form-control-lg"></textarea>
+    </div>
+</div>
+<div class="contaier-fluid">
+    <h3>
+        Step 2.5 - The Little Details
+    </h3>
+    <p>The little things matter.</p>
+    <div class="form-group">
+        <label asp-for="Creator.Details"></label>
+        <textarea asp-for="Creator.Details" class="form-control form-control-lg" ></textarea>
+    </div>
+</div>
+<div class="container-fluid">
+    <h3>
+        Step 3 - The Setting
+    </h3>
+    <p>We've got some settings already prepped for you and your bros.</p>
+    <select @*asp-for=""
+                asp-items=""*@
+            class="form-control">
+        <option value="0"></option>
+    </select>
+</div>
+<div>
+    <h3>
+        Step 4 - The Big Bad
+    </h3>
+    <p>Every story needs a big bad person to beat up in the end. Who will it be?</p><hr />
+    <label @*asp-for=""*@></label>
+    <select @*asp-for="" asp-items=""*@></select>
+</div>
+<div class="contaier-fluid">
+    <h3>
+        Step 4.5 - The Minions
+    </h3>
+    <p>A big bad needs underlings. Who will it be?</p><hr />
+    <label @*asp-for=""*@></label>
+    <select @*asp-for="" asp-items=""*@></select>
+</div>
+<div class="contaier-fluid">
+    <h3>
+        Step 5 - The NPC's
+    </h3>
+    <p>If you're going to have a world, you're gonna need some NPC's. They hand out things like free samples to quests and such. They might even progress the story or something. I don't know. I'm just the god programmer here.</p><hr />
+
+</div>

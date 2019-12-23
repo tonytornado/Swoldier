@@ -6,7 +6,7 @@ namespace OCFX.DataModels
 {
     public class HistorySection
     {
-        public HistorySection(string historyAction, string historyDescription, Profile profile)
+        public HistorySection(string historyAction, string historyDescription, ProfileSheet profile)
         {
             HistoryAction = historyAction ?? throw new ArgumentNullException(nameof(historyAction), "What happened and why can't I see it??");
             HistoryDescription = historyDescription ?? throw new ArgumentNullException(nameof(historyDescription), "Description Needed");
@@ -26,7 +26,7 @@ namespace OCFX.DataModels
 
         [Display(Name = "Profile")]
         [ForeignKey("ProfileId")]
-        public Profile Profile { get; set; }
+        public ProfileSheet Profile { get; set; }
 
 
     }

@@ -43,7 +43,7 @@
                 else
                 {
                     <li class="nav-item">
-                        <a asp-page="/Campaigns/Index" class="nav-link">Campaigns</a>
+                        <a asp-page="/RPG/Campaigns/Index" class="nav-link">Campaigns</a>
                     </li>
                     <li class="nav-item">
                         <a asp-page="/Clubs/Index" class="nav-link">Clubs</a>
@@ -73,10 +73,10 @@
         {
             @RenderSection("Header", false)
         }
-        <div class="container body-content py-4">
-            @RenderBody()
-            <hr />
-        </div>
+    <div class="container body-content py-4">
+        @RenderBody()
+        <hr />
+    </div>
         @RenderSection("Footer", false)
     </main>
     <partial name="_Disclaimer" />

@@ -15,8 +15,13 @@ namespace OCFX.Areas.Identity.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            if (builder is null)
+            {
+                throw new ArgumentNullException(nameof(builder));
+            }
+
             base.OnModelCreating(builder);
-            builder.Entity<Friend>().HasKey(c => new { c.ProfileId, c.FriendId });
+            builder.Entity<FriendSheet>().HasKey(c => new { c.ProfileId, c.FriendId });
 
             foreach (var relationship in builder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
@@ -29,7 +34,7 @@ namespace OCFX.Areas.Identity.Data
         //public DbSet<Options> Options { get; set; }
 
         // Social DB 
-        public DbSet<Friend> Friends { get; set; }
+        public DbSet<FriendSheet> Friends { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Reply> Replies { get; set; }
@@ -39,7 +44,7 @@ namespace OCFX.Areas.Identity.Data
         // Profile DB
         //public DbSet<Phone> Phones { get; set; }
         //public DbSet<Address> Addresses { get; set; }
-        public DbSet<Profile> Profiles { get; set; }
+        public DbSet<ProfileSheet> Profiles { get; set; }
         public DbSet<Photo> Photos { get; set; }
 
         // Fitness DB
@@ -65,6 +70,7 @@ namespace OCFX.Areas.Identity.Data
         public DbSet<QuestLog> QuestLogs { get; set; }
         public DbSet<BossEncounter> Bosses { get; set; }
         public DbSet<PersonalEncounter> Minions { get; set; }
-
+        public DbSet<Skill> Skills { get; set; }
+        public DbSet<CharacterModel> Characters { get; set; }
     }
 }

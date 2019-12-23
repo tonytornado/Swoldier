@@ -1,6 +1,5 @@
 ﻿@page "{id}"
 @model OCFX.Pages.Profiles.IndexModel
-
 @{
     ViewData["Title"] = "Profile for " + Model.Profiler.FullName;
     ViewData["BannerTitle"] = Model.Profiler.FullName;
@@ -52,7 +51,7 @@
 </section>
 
 <section id="friends_section">
-    @if (Model.Requests.Where(f => f.FriendshipConfirmer == DataModels.Friend.Confirmer.Pending).ToList().Count > 0 && Model.Profiler.Id == Model.Player.ProfileId)
+    @if (Model.Requests.Where(f => f.FriendshipConfirmer == DataModels.FriendSheet.Confirmer.Pending).ToList().Count > 0 && Model.Profiler.Id == Model.Player.ProfileId)
     {
         <div class="alert alert-dark alert-dismissable fade show" role="alert">
             <a asp-page="./Friends">You have new friend requests!</a>
@@ -132,98 +131,6 @@
                     </div>
                 }
             </div>
-        </section>
-        <section id="story_section" class="col-lg-6 col-xl-12 text-sm-center">
-            <div id="character_stats">
-                @*<h2 class="text-center border">Character</h2>*@
-                <table class="table table-sm table-bordered text-center">
-                    <thead class="thead-light">
-                        <tr><th colspan="6" class="h2 border"><u>Attributes</u></th></tr>
-                        <tr class="lead">
-                            <th>STR</th>
-                            <th>VIT</th>
-                            <th>CON</th>
-                            <th>AGI</th>
-                            <th>DEX</th>
-                            <th>MOT</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>@Model.Profiler.StrengthStat</td>
-                            <td>@Model.Profiler.ConstitutionStat</td>
-                            <td>@Model.Profiler.ConcentrationStat</td>
-                            <td>@Model.Profiler.SpeedStat</td>
-                            <td>@Model.Profiler.DexterityStat</td>
-                            <td>@Model.Profiler.MotivationStat</td>
-                        </tr>
-                        <tr>
-                            <td>+@Model.Profiler.FitStyle.StrengthMod</td>
-                            <td>+@Model.Profiler.FitStyle.ConstitutionMod</td>
-                            <td>+@Model.Profiler.FitStyle.ConcentrationMod</td>
-                            <td>+@Model.Profiler.FitStyle.SpeedMod</td>
-                            <td>+@Model.Profiler.FitStyle.DexterityMod</td>
-                            <td>+@Model.Profiler.FitStyle.MotivationMod</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            @if (Model.Profiler.Campaign != null)
-            {
-                <div id="campaign_stats">
-                    @*<h2 class="text-center border">Campaign</h2>*@
-                    <table class="table table-sm table-bordered text-center">
-                        <thead class="thead-light">
-                            <tr><th colspan="3" class="h2 border"><u>Campaign</u></th></tr>
-                            <tr class="lead">
-                                <th>Campaign</th>
-                                <th>Diet</th>
-                                <th>Quests</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <a asp-page="/Campaigns/Details" asp-route-id="@Model.Profiler.Campaign.Id">@Model.Profiler.Campaign.Name</a>
-                                </td>
-                                <td>@Model.Profiler.Campaign.Nutrition.DietName</td>
-                                <td>@Model.Profiler.Campaign.Quests.Count</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            }
-
-            @if (!String.IsNullOrEmpty(Model.Profiler.BackStory) && !String.IsNullOrEmpty(Model.Profiler.DriveStory) && !String.IsNullOrEmpty(Model.Profiler.Goals))
-            {
-                <h2 class="text-center border-dark">
-                    Character Background
-                </h2>
-                <div class="roundbox-xy">
-                    @if (!String.IsNullOrEmpty(Model.Profiler.BackStory))
-                    {
-                        <div class="">
-                            <h3>Background</h3>
-                            <p>@Model.Profiler.BackStory</p>
-                        </div>
-                    }
-                    @if (!String.IsNullOrEmpty(Model.Profiler.DriveStory))
-                    {
-                        <div class="">
-                            <h3>What drives me?</h3>
-                            <p>@Model.Profiler.DriveStory</p>
-                        </div>
-                    }
-                    @if (!String.IsNullOrEmpty(Model.Profiler.Goals))
-                    {
-                        <div class="">
-                            <h3>Goals</h3>
-                            <p>@Model.Profiler.Goals</p>
-                        </div>
-                    }
-
-                </div>
-            }
         </section>
     </div>
     <section id="feed_section" class="col-xl-6">

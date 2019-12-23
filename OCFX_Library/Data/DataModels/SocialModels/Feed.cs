@@ -21,7 +21,7 @@ namespace OCFX.DataModels
         [Display(Name = "Profile")]
         public int ProfileId { get; set; }
         [ForeignKey("ProfileId")]
-        public Profile Profile { get; set; }
+        public ProfileSheet Profile { get; set; }
 
 
     }
@@ -33,7 +33,7 @@ namespace OCFX.DataModels
         [Display(Name = "Entry")]
         public int EntryId { get; set; }
         [ForeignKey("EntryId")]
-        public Profile Entry { get; set; }
+        public ProfileSheet Entry { get; set; }
 
         public List<Comment> Comments { get; set; }
     }
@@ -46,7 +46,7 @@ namespace OCFX.DataModels
         [Display(Name = "Entry")]
         public int EntryId { get; set; }
         [ForeignKey("EntryId")]
-        public Profile Entry { get; set; }
+        public ProfileSheet Entry { get; set; }
 
         [Display(Name = "Post ID")]
         public int PostId { get; set; }
@@ -64,7 +64,7 @@ namespace OCFX.DataModels
         [Display(Name = "Entry")]
         public int EntryId { get; set; }
         [ForeignKey("EntryId")]
-        public Profile Entry { get; set; }
+        public ProfileSheet Entry { get; set; }
 
         [Display(Name = "Comment ID")]
         public int CommentId { get; set; }

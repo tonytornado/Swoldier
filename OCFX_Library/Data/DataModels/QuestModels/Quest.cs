@@ -37,7 +37,7 @@ namespace OCFX.DataModels
         public string QuestStory { get; set; }
 
         // Folks that are on this quest
-        public List<Profile> CurrentPlayers { get; set; }
+        public List<ProfileSheet> CurrentPlayers { get; set; }
 
         // Encounters on this quest
         public List<Encounter> Encounters { get; set; }

@@ -7,9 +7,9 @@ using System.Linq;
 
 namespace OCFX.DataModels
 {
-    public class Profile
+    public class ProfileSheet
     {
-        public Profile()
+        public ProfileSheet()
         {
         }
 
@@ -54,71 +54,60 @@ namespace OCFX.DataModels
         [Display(Name = "Hips")]
         public int? HipMeasurement { get; set; }
 
-        // Starting stats from typical character sheet
-        [Display(Name = "Strength")]
-        [Range(1, 10)]
-        public int StrengthStat { get; set; }
-        [Display(Name = "Speed")]
-        [Range(1, 10)]
-        public int SpeedStat { get; set; }
-        [Display(Name = "Constitution")]
-        [Range(1, 10)]
-        public int ConstitutionStat { get; set; }
-        [Display(Name = "Dexterity")]
-        [Range(1, 10)]
-        public int DexterityStat { get; set; }
-        [Display(Name = "Concentration")]
-        [Range(1, 10)]
-        public int ConcentrationStat { get; set; }
-        [Display(Name = "Motivation")]
-        [Range(1, 10)]
-        public int MotivationStat { get; set; }
-
-        // Character Background
-        [Display(Name = "Background")]
-        public string BackStory { get; set; }
-        [Display(Name = "Drive/Determination")]
-        public string DriveStory { get; set; }
-        [Display(Name = "Goals")]
-        public string Goals { get; set; }
-
-        // Imports (Create forms for each)
+        /// <summary>
+        /// The profile's class
+        /// </summary>
         [ForeignKey("ClassId")]
         public Archetype FitStyle { get; set; }
 
         // Navigation properties
-        public Collection<Address> Addresses { get; set; }
-        public Collection<Phone> Phones { get; set; }
+        //public Collection<Address> Addresses { get; set; }
+        //public Collection<Phone> Phones { get; set; }
         public Collection<Photo> Photos { get; set; }
         public Collection<WeightMeasurement> Weights { get; set; }
         public Collection<WorkoutSetLog> WorkoutHistory { get; set; }
 
         [InverseProperty("Following")]
-        public Collection<Friend> Following { get; set; }
+        public Collection<FriendSheet> Following { get; set; }
 
         [InverseProperty("Follower")]
-        public Collection<Friend> Followers { get; set; }
-
+        public Collection<FriendSheet> Followers { get; set; }
+        
+        /// <summary>
+        /// The profile's received messages
+        /// </summary>
         [InverseProperty("Receiver")]
         public Collection<Shout> ReceivedMessages { get; set; }
 
+        /// <summary>
+        /// A profile's sent messages
+        /// </summary>
         [InverseProperty("Sender")]
         public Collection<Shout> SentMessages { get; set; }
 
+        /// <summary>
+        /// The profile's entries on other walls
+        /// </summary>
         [InverseProperty("Profile")]
         public Collection<Post> Posts { get; set; }
 
+        /// <summary>
+        /// The profile's wall entries on their own wall
+        /// </summary>
         [InverseProperty("Entry")]
         public Collection<Post> Entries { get; set; }
+        
+        /// <summary>
+        /// Characters of a person's profile
+        /// </summary>
+        [InverseProperty("CharacterProfile")]
+        public Collection<CharacterModel> Characters { get; set; }
 
         [InverseProperty("Member")]
         public Membership ClubMemberShip { get; set; }
 
-
-        // Tie to user login, quest, campaign?
+        // Tie to user login
         public OCFXUser FitUser { get; set; }
-        public Quest Quest { get; set; }
-        public Campaign Campaign { get; set; }
 
         /// <summary>
         /// The Gender Attribute <see cref="Enum"/>
@@ -200,7 +189,7 @@ namespace OCFX.DataModels
         /// </summary>
         /// <param name="DOB"></param>
         /// <returns></returns>
-        private int GetAge(DateTime DOB)
+        static int GetAge(DateTime DOB)
         {
             int age = Convert.ToInt32((DateTime.Now - DOB).TotalDays / 365);
             return age;
@@ -232,9 +221,9 @@ namespace OCFX.DataModels
             }
 
             // Check bone structures
-            if (Gender == Profile.GenderSpectrum.CisMale ||
-                Gender == Profile.GenderSpectrum.TransFemale ||
-                Gender == Profile.GenderSpectrum.NotDisclosed)
+            if (Gender == ProfileSheet.GenderSpectrum.CisMale ||
+                Gender == ProfileSheet.GenderSpectrum.TransFemale ||
+                Gender == ProfileSheet.GenderSpectrum.NotDisclosed)
             //{
             //    double f1 = (weight * 1.082) + 94.42;
             //    double? f2 = waist * 4.15;
@@ -249,8 +238,8 @@ namespace OCFX.DataModels
                 percentage = (f1 / f2) - f3;
             }
 
-            if (Gender == Profile.GenderSpectrum.CisFemale ||
-                Gender == Profile.GenderSpectrum.TransMale)
+            if (Gender == ProfileSheet.GenderSpectrum.CisFemale ||
+                Gender == ProfileSheet.GenderSpectrum.TransMale)
             {
                 double f1 = (weightConversion * 0.732) + 8.987;
                 double f2 = 6 / 3.140;

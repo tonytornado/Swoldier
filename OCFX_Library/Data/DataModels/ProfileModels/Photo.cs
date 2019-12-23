@@ -23,7 +23,8 @@ namespace OCFX.DataModels
             Profile,
             Progress,
             Action,
-            Other
+            Other,
+            Avatar
         }
     }
 

@@ -2,7 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OCFX.DataModels;
 using System;
 
-namespace OCFX_Test
+namespace OCFXTest
 {
     [TestClass]
     public class ProfileTests
@@ -10,7 +10,7 @@ namespace OCFX_Test
         [TestMethod]
         public void SimpleProfileTest()
         {
-            Profile result = new Profile
+            ProfileSheet result = new ProfileSheet
             {
                 Id = 1,
                 FirstName = "Tony",
@@ -23,7 +23,7 @@ namespace OCFX_Test
         [TestMethod]
         public void AgeTest()
         {
-            Profile result = new Profile
+            ProfileSheet result = new ProfileSheet
             {
                 DOB = new DateTime(1984, 5, 18)
             };

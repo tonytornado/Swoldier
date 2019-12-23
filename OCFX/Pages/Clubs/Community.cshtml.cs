@@ -39,14 +39,14 @@ namespace OCFX.Pages.Clubs
 
         public async Task OnGetAsync(int id)
         {
-            Visitor = await _userManager.GetUserAsync(User);
+            Visitor = await _userManager.GetUserAsync(User).ConfigureAwait(false);
 
             // Get the gym
-            EquipmentDetail = await _context.RelativeGyms.Include(g => g.Equipment).Where(g => g.GymId == id).ToListAsync();
+            EquipmentDetail = await _context.RelativeGyms.Include(g => g.Equipment).Where(g => g.GymId == id).ToListAsync().ConfigureAwait(false);
             GymDetail = await _context.Gyms
                     .Include(g => g.Meetings)
                     .Include(g => g.Members)
-                .FirstOrDefaultAsync(g => g.Id == id);
+                .FirstOrDefaultAsync(g => g.Id == id).ConfigureAwait(false);
             GymMembers = _context.Memberships
                 .Include(m => m.Member)
                     .ThenInclude(m => m.FitStyle)
@@ -58,7 +58,7 @@ namespace OCFX.Pages.Clubs
             Subscription = await _context.Memberships
                 .SingleOrDefaultAsync(i => i.Member.Id == Visitor.ProfileId &&
                 i.Status != Membership.MembershipType.Banned &&
-                i.Club.Id == id);
+                i.Club.Id == id).ConfigureAwait(false);
 
             // Get the count of members in the club
             MemberCount = GymMembers != null ? GymMembers
@@ -83,9 +83,9 @@ namespace OCFX.Pages.Clubs
         public async Task<IActionResult> OnPostClubSignUpAsync(int id)
         {
             // Set up variables for visitor and gym.
-            Visitor = await _userManager.GetUserAsync(User);
-            Gym gymSub = await _context.Gyms.SingleOrDefaultAsync(i => i.Id == id);
-            Profile pro = await _context.Profiles.SingleOrDefaultAsync(i => i.Id == Visitor.ProfileId);
+            Visitor = await _userManager.GetUserAsync(User).ConfigureAwait(false);
+            Gym gymSub = await _context.Gyms.SingleOrDefaultAsync(i => i.Id == id).ConfigureAwait(false);
+            ProfileSheet pro = await _context.Profiles.SingleOrDefaultAsync(i => i.Id == Visitor.ProfileId).ConfigureAwait(false);
 
             // Set the current gym using EF
             var member = new Membership()
@@ -112,12 +112,12 @@ namespace OCFX.Pages.Clubs
         public async Task<IActionResult> OnPostClubRemoveAsync(int id)
         {
             // Set up variables for visitor and gym.
-            Visitor = await _userManager.GetUserAsync(User);
-            Gym gymSub = await _context.Gyms.SingleOrDefaultAsync(i => i.Id == id);
-            Profile pro = await _context.Profiles.SingleOrDefaultAsync(i => i.Id == Visitor.ProfileId);
+            Visitor = await _userManager.GetUserAsync(User).ConfigureAwait(false);
+            Gym gymSub = await _context.Gyms.SingleOrDefaultAsync(i => i.Id == id).ConfigureAwait(false);
+            ProfileSheet pro = await _context.Profiles.SingleOrDefaultAsync(i => i.Id == Visitor.ProfileId).ConfigureAwait(false);
 
             // Set current gym to NULL
-            Membership member = await _context.Memberships.SingleOrDefaultAsync(u => u.Club == gymSub && u.Member == pro);
+            Membership member = await _context.Memberships.SingleOrDefaultAsync(u => u.Club == gymSub && u.Member == pro).ConfigureAwait(false);
 
             _context.Memberships.Remove(member);
             _context.SaveChanges();
@@ -135,12 +135,12 @@ namespace OCFX.Pages.Clubs
         /// <returns></returns>
         public async Task<IActionResult> OnPostAcceptSubmissionAsync(int memberId, int gymId)
         {
-            Gym gymSub = await _context.Gyms.SingleOrDefaultAsync(i => i.Id == gymId);
-            Profile pro = await _context.Profiles.SingleOrDefaultAsync(i => i.Id == memberId);
+            Gym gymSub = await _context.Gyms.SingleOrDefaultAsync(i => i.Id == gymId).ConfigureAwait(false);
+            ProfileSheet pro = await _context.Profiles.SingleOrDefaultAsync(i => i.Id == memberId).ConfigureAwait(false);
 
-            Membership member = await _context.Memberships.SingleOrDefaultAsync(u => u.Club == gymSub && u.Member == pro);
+            Membership member = await _context.Memberships.SingleOrDefaultAsync(u => u.Club == gymSub && u.Member == pro).ConfigureAwait(false);
             member.Status = Membership.MembershipType.Member;
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync().ConfigureAwait(false);
 
             StatusMessage = "Member has been confirmed! Better hope they aren't trouble.";
 
@@ -155,12 +155,12 @@ namespace OCFX.Pages.Clubs
         /// <returns></returns>
         public async Task<IActionResult> OnPostDenySubmissionAsync(int memberId, int gymId)
         {
-            Gym gymSub = await _context.Gyms.SingleOrDefaultAsync(i => i.Id == gymId);
-            Profile pro = await _context.Profiles.SingleOrDefaultAsync(i => i.Id == memberId);
+            Gym gymSub = await _context.Gyms.SingleOrDefaultAsync(i => i.Id == gymId).ConfigureAwait(false);
+            ProfileSheet pro = await _context.Profiles.SingleOrDefaultAsync(i => i.Id == memberId).ConfigureAwait(false);
 
-            Membership member = await _context.Memberships.SingleOrDefaultAsync(u => u.Club == gymSub && u.Member == pro);
+            Membership member = await _context.Memberships.SingleOrDefaultAsync(u => u.Club == gymSub && u.Member == pro).ConfigureAwait(false);
             _context.Memberships.Remove(member);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync().ConfigureAwait(false);
 
             StatusMessage = "Membership denied! That'll show them.";
 
@@ -175,12 +175,12 @@ namespace OCFX.Pages.Clubs
         /// <returns></returns>
         public async Task<IActionResult> OnPostBanMemberAsync(int memberId, int gymId)
         {
-            Gym gymSub = await _context.Gyms.SingleOrDefaultAsync(i => i.Id == gymId);
-            Profile pro = await _context.Profiles.SingleOrDefaultAsync(i => i.Id == memberId);
+            Gym gymSub = await _context.Gyms.SingleOrDefaultAsync(i => i.Id == gymId).ConfigureAwait(false);
+            ProfileSheet pro = await _context.Profiles.SingleOrDefaultAsync(i => i.Id == memberId).ConfigureAwait(false);
 
-            Membership member = await _context.Memberships.SingleOrDefaultAsync(u => u.Club == gymSub && u.Member == pro);
+            Membership member = await _context.Memberships.SingleOrDefaultAsync(u => u.Club == gymSub && u.Member == pro).ConfigureAwait(false);
             member.Status = Membership.MembershipType.Banned;
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync().ConfigureAwait(false);
 
             StatusMessage = "Member has been banned.";
 
@@ -195,12 +195,12 @@ namespace OCFX.Pages.Clubs
         /// <returns></returns>
         public async Task<IActionResult> OnPostPromoteMemberAsync(int memberId, int gymId)
         {
-            Gym gymSub = await _context.Gyms.SingleOrDefaultAsync(i => i.Id == gymId);
-            Profile pro = await _context.Profiles.SingleOrDefaultAsync(i => i.Id == memberId);
+            Gym gymSub = await _context.Gyms.SingleOrDefaultAsync(i => i.Id == gymId).ConfigureAwait(false);
+            ProfileSheet pro = await _context.Profiles.SingleOrDefaultAsync(i => i.Id == memberId).ConfigureAwait(false);
 
-            Membership member = await _context.Memberships.SingleOrDefaultAsync(u => u.Club == gymSub && u.Member == pro);
+            Membership member = await _context.Memberships.SingleOrDefaultAsync(u => u.Club == gymSub && u.Member == pro).ConfigureAwait(false);
             member.Status = Membership.MembershipType.Mentor;
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync().ConfigureAwait(false);
 
             StatusMessage = "Member has been promoted!";
 

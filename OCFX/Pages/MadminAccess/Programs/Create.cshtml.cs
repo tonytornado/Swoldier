@@ -57,7 +57,7 @@ namespace OCFX.Pages.MadminAccess.Programs
                     Counter++;
                     var clod = new WorkoutProgram
                     {
-                        ExerciseId = int.Parse(exercise),
+                        ExerciseId = int.Parse(exercise, System.Globalization.NumberStyles.Any),
                         WorkoutId = WorkoutProgram.WorkoutId,
                         //CampaignId = int.Parse(CampaignList.DataValueField),
                         Sets = WorkoutProgram.Sets,

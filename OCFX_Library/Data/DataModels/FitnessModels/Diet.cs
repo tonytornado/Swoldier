@@ -28,7 +28,7 @@ namespace OCFX.DataModels
         {
             if(carbohydrates + protein + fats != 100)
             {
-                throw new ArgumentOutOfRangeException("Macronutrients", "Total macronutrient percentages must equal 100.");
+                throw new ArithmeticException("Macronutrients");
             }
 
             DietName = dietName ?? throw new ArgumentNullException(nameof(dietName));

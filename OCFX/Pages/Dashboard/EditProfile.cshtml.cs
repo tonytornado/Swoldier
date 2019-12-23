@@ -25,7 +25,7 @@ namespace OCFX.Pages.Profiles
         public OCFXUser Player { get; private set; }
 
         [BindProperty]
-        public Profile Profile { get; set; }
+        public ProfileSheet Profile { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -35,7 +35,9 @@ namespace OCFX.Pages.Profiles
             Player = await _userManager.GetUserAsync(User);
 
             Profile = await _context.Profiles
-                .Include(p => p.FitStyle).FirstOrDefaultAsync(m => m.Id == Player.ProfileId);
+                .Include(p => p.Photos)
+                .Include(p => p.FitStyle)
+                .FirstOrDefaultAsync(m => m.Id == Player.ProfileId);
 
             if (Profile == null)
             {

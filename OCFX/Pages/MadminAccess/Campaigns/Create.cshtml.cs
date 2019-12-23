@@ -18,6 +18,11 @@ namespace OCFX.Pages.MadminAccess.Campaigns
 
         public void PopulateProgramList(OCFXContext _context, object selectedProgram = null)
         {
+            if (_context is null)
+            {
+                throw new System.ArgumentNullException(nameof(_context));
+            }
+
             var AlistQuery = from d in _context.Workouts
                              orderby d.Title
                              select d;
@@ -27,6 +32,11 @@ namespace OCFX.Pages.MadminAccess.Campaigns
 
         public void PopulateDietList(OCFXContext _context, object selectedDiet = null)
         {
+            if (_context is null)
+            {
+                throw new System.ArgumentNullException(nameof(_context));
+            }
+
             var BlistQuery = from d in _context.Diets
                              orderby d.DietName
                              select d;

@@ -31,10 +31,10 @@ namespace OCFX.DataModels
         public MessageStatus Status { get; set; }
 
         [ForeignKey("SenderId")]
-        public virtual Profile Sender { get; set; }
+        public virtual ProfileSheet Sender { get; set; }
 
         [ForeignKey("ReceiverId")]
-        public virtual Profile Receiver { get; set; }
+        public virtual ProfileSheet Receiver { get; set; }
 
         public enum MessageStatus
         {

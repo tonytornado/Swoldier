@@ -4,7 +4,7 @@ namespace OCFX.Pages
 {
     public class PrivacyModel : PageModel
     {
-        public void OnGet()
+        public static void OnGet()
         {
         }
     }

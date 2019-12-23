@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OCFX.DataModels
 {
-    public class Friend
+    public class FriendSheet
     {
-        public Friend()
+        public FriendSheet()
         {
         }
 
@@ -18,7 +18,7 @@ namespace OCFX.DataModels
         /// <param name="friendId">The friend/connection's profile Id</param>
         /// <param name="friendshipConfirmer">Enum for the Status type</param>
         /// <param name="friendshipStart">Start date for the friendship</param>
-        public Friend(int actionUserId, int userProfileId, int friendId, Confirmer friendshipConfirmer, DateTime? friendshipStart)
+        public FriendSheet(int actionUserId, int userProfileId, int friendId, Confirmer friendshipConfirmer, DateTime? friendshipStart)
         {
             ProfileId = userProfileId;
             FriendId = friendId;
@@ -30,12 +30,12 @@ namespace OCFX.DataModels
         [Key]
         public int ProfileId { get; set; }
         [ForeignKey("ProfileId")]
-        public Profile Following { get; set; }
+        public ProfileSheet Following { get; set; }
 
         [Key]
         public int FriendId { get; set; }
         [ForeignKey("FriendId")]
-        public Profile Follower { get; set; }
+        public ProfileSheet Follower { get; set; }
 
         [Display(Name = "Confirm Friends")]
         public Confirmer FriendshipConfirmer { get; set; }

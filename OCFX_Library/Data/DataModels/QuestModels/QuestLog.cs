@@ -13,11 +13,11 @@ namespace OCFX.DataModels
         {
         }
 
-        public QuestLog(int questId, bool completed, Campaign campaign, Profile profile, Quest quest)
+        public QuestLog(bool completed, Campaign campaign, CharacterModel character, Quest quest)
         {
             Completed = completed;
             Campaign = campaign ?? throw new ArgumentNullException(nameof(campaign));
-            Profile = profile ?? throw new ArgumentNullException(nameof(profile));
+            Character = character ?? throw new ArgumentNullException(nameof(character));
             Quest = quest ?? throw new ArgumentNullException(nameof(quest));
         }
 
@@ -27,8 +27,8 @@ namespace OCFX.DataModels
         public bool Completed { get; set; }
         [ForeignKey("CampaignId")]
         public Campaign Campaign { get; set; }
-        [ForeignKey("ProfileId")]
-        public Profile Profile { get; set; }
+        [ForeignKey("CharacterId")]
+        public CharacterModel Character { get; set; }
         [ForeignKey("QuestId")]
         public Quest Quest { get; set; }
     }
