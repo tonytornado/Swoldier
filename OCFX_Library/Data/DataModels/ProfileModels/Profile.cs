@@ -233,7 +233,8 @@ namespace OCFX.DataModels
             //}
             {
                 double f1 = 495.0;
-                double f2 = 1.0324 - (0.19077 * Math.Log10(Convert.ToDouble(waist - neck))) + (0.15456 * Math.Log10(heightConversion));
+                double f2 = 1.0324 - (0.19077
+                                      * Math.Log10(Convert.ToDouble(waist - neck))) + (0.15456 * Math.Log10(heightConversion));
                 double f3 = 450.0;
                 percentage = (f1 / f2) - f3;
             }
@@ -248,7 +249,7 @@ namespace OCFX.DataModels
                 double f5 = 9 * 0.434;
                 double? lbm = f1 + f2 - f3 - f4 + f5;
                 double? bfw = weightConversion - lbm;
-                percentage = Convert.ToDouble((bfw / weight) * 100);
+                percentage = Convert.ToDouble(bfw / weight * 100);
             }
 
             return percentage;

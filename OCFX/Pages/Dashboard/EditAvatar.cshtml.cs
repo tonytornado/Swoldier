@@ -116,7 +116,7 @@ namespace OCFX.Pages.Profiles
         /// Checks for folder on the server; and creates it if necessary
         /// </summary>
         /// <param name="v">The folder path</param>
-        private void CheckFolderPath(string v)
+        private static void CheckFolderPath(string v)
         {
             if (!Directory.Exists(v))
             {
@@ -129,7 +129,7 @@ namespace OCFX.Pages.Profiles
         /// </summary>
         /// <param name="fileName">A filename string</param>
         /// <returns></returns>
-        private string GetUniqueName(string fileName)
+        private static string GetUniqueName(string fileName)
         {
             fileName = Path.GetFileName(fileName);
             return $"{Path.GetFileNameWithoutExtension(fileName)}_{Guid.NewGuid().ToString().Substring(0, 6)}{Path.GetExtension(fileName)}";
