@@ -46,7 +46,7 @@ namespace OCFX.Areas.Identity.Pages.Account
         [BindProperty]
         public Profile Profiler { get; set; }
 
-        public Uri ReturnUrl { get; set; }
+        public string ReturnUrl { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -92,7 +92,7 @@ namespace OCFX.Areas.Identity.Pages.Account
             public int ClassId { get; set; }
         }
 
-        public void OnGet(Uri returnUrl = null)
+        public void OnGet(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
         }
@@ -102,7 +102,7 @@ namespace OCFX.Areas.Identity.Pages.Account
         /// </summary>
         /// <param name="returnUrl"></param>
         /// <returns></returns>
-        public async Task<IActionResult> OnPostAsync(Uri returnUrl = null)
+        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
