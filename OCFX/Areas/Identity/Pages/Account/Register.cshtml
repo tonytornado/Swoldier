@@ -18,22 +18,22 @@
             </div>
             <div id="LoginInfo">
                 <div class="form-group">
-                    <label asp-for="Input.Email" class="col-form-label-sm"></label>
-                    <input asp-for="Input.Email" class="form-control" />
+                    @*<label asp-for="Input.Email" class="col-form-label-sm"></label>*@
+                    <input asp-for="Input.Email" class="form-control" placeholder="E-Mail" />
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-sm">
-                        <label asp-for="Input.Password"></label>
-                        <input asp-for="Input.Password" class="form-control" autocomplete="new-password" />
+                        @*<label asp-for="Input.Password"></label>*@
+                        <input asp-for="Input.Password" class="form-control" autocomplete="new-password" placeholder="Password"/>
                         <small class="form-text text-muted">
                             Passwords should be at least 8 characters (letters &amp; numbers), contain 1 special character, and not contains spaces or emoji. Sorry. No one needs an emoji in a password.
                         </small>
                         <span asp-validation-for="Input.Password" class="text-danger"></span>
                     </div>
                     <div class="form-group col-sm">
-                        <label asp-for="Input.ConfirmPassword"></label>
-                        <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" />
+                        @*<label asp-for="Input.ConfirmPassword"></label>*@
+                        <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" placeholder="Password Again" />
                         <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                     </div>
                 </div>
@@ -48,17 +48,17 @@
                 <div class="col-md">
                     <div class="form-group">
                         <label asp-for="Input.FirstName"></label>
-                        <input asp-for="Input.FirstName" class="form-control" />
+                        <input asp-for="Input.FirstName" class="form-control" placeholder="First Name" />
                         <span asp-validation-for="Input.FirstName" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Input.LastName"></label>
-                        <input asp-for="Input.LastName" class="form-control" />
+                        <input asp-for="Input.LastName" class="form-control" placeholder="Last Name"/>
                         <span asp-validation-for="Input.LastName" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Input.DOB"></label>
-                        <input asp-for="Input.DOB" class="form-control" />
+                        <input asp-for="Input.DOB" class="form-control" placeholder="@DateTime.Now" />
                         <span asp-validation-for="Input.DOB" class="text-danger"></span>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
                         </div>
                     </div>
                     <div class="form-group form-group-lg">
-                        <label asp-for="Input.ClassId">Select your class</label>
+                        <label asp-for="Input.ClassId">Choose your ideal type</label>
                         <select asp-for="Input.ClassId" asp-items="Html.GetEnumSelectList<OCFX.DataModels.ClassType>()" class="form-control"></select>
                     </div>
                     <div class="form-group">

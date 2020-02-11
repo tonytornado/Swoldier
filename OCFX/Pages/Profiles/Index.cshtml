@@ -221,26 +221,6 @@
     </section>
 </section>
 
-@if (Model.RelatedFolkList.Where(m => m.Id != Model.Profiler.Id).ToList().Count > 0)
-{
-    <hr />
-    <section id="other_folks" class="text-center">
-
-        <h4>Some Other @Html.DisplayFor(model => model.Profiler.FitStyle.FitType) types:</h4>
-        <div>
-            @foreach (var item in Model.RelatedFolkList)
-            {
-                if (item.Id != Model.Profiler.Id)
-                {
-                    <h5>
-                        <a asp-page="./Index" asp-route-id="@item.Id">@item.FirstName @item.LastName</a>
-                        <small> [@item.FitStyle.SkillMod]</small>
-                    </h5>
-                }
-            }
-        </div>
-    </section>
-}
 @if (Model.Player != null)
 {
     @if (Model.Profiler.Id == Model.Player.ProfileId)

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OCFX.DataModels
@@ -13,34 +14,6 @@ namespace OCFX.DataModels
         /// </summary>
         public Archetype()
         {
-        }
-
-        /// <summary>
-        /// Six aspect implementation
-        /// </summary>
-        /// <param name="fitType"></param>
-        /// <param name="strengthMod"></param>
-        /// <param name="speedMod"></param>
-        /// <param name="constitutionMod"></param>
-        /// <param name="dexterityMod"></param>
-        /// <param name="concentrationMod"></param>
-        /// <param name="motivationMod"></param>
-        public Archetype(ClassType fitType,
-                         int strengthMod,
-                         int speedMod,
-                         int constitutionMod,
-                         int dexterityMod,
-                         int concentrationMod,
-                         int motivationMod)
-        {
-            FitType = fitType;
-            StrengthMod = strengthMod;
-            SpeedMod = speedMod;
-            ConstitutionMod = constitutionMod;
-            DexterityMod = dexterityMod;
-            ConcentrationMod = concentrationMod;
-            MotivationMod = motivationMod;
-            SkillMod = SkillType.Basic;
         }
 
         [Key]
@@ -90,48 +63,6 @@ namespace OCFX.DataModels
         public string Weakness { get; set; }
 
         [Display(Name = "Available Skill Set")]
-        public Skill[] SkillSet { get; set; }
-    }
-
-    /// <summary>
-    /// Levels of skill for a certain set. Adds small boosts after some time.
-    /// </summary>
-	public enum SkillType
-    {
-        [Display(Name = "Basic")]
-        Basic,
-        [Display(Name = "Intermediate")]
-        Intermediate,
-        [Display(Name = "Advanced")]
-        Advanced,
-        [Display(Name = "Elite")]
-        Elite,
-        [Display(Name = "Legendary")]
-        Legendary
-    }
-
-    /// <summary>
-    /// The different class types, each with their own set of stat boosts.
-    /// </summary>
-	public enum ClassType
-    {
-        [Display(Name = "Hobbyist")]
-        Hobbyist,
-        [Display(Name = "Runner")]
-        Runner,
-        [Display(Name = "Powerlifter")]
-        Powerlifter,
-        [Display(Name = "Bodybuilder")]
-        Bodybuilder,
-        [Display(Name = "Crossfitter")]
-        Crossfit,
-        [Display(Name = "Olympian")]
-        Olympian,
-        [Display(Name = "Fighter")]
-        Fighter,
-        [Display(Name = "Dancer")]
-        Dancer,
-        [Display(Name = "Yogi")]
-        Yoga
+        public ICollection<Skill> SkillSet { get; set; }
     }
 }

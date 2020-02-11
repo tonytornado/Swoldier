@@ -27,7 +27,7 @@ namespace OCFX.Pages.Profiles
         public Profile Profiler { get; set; }
         public List<Friend> Friender { get; set; }
         public List<Friend> Requests { get; set; }
-        public List<Profile> RelatedFolkList { get; set; }
+        //public List<Profile> RelatedFolkList { get; set; }
 
         public bool Clops { get; set; }
 
@@ -68,11 +68,9 @@ namespace OCFX.Pages.Profiles
             Requests = await FriendlyMethods.GetFriendRequestsAsync(_context, Profiler.Id).ConfigureAwait(false);
 
             // Loads any related users through their fitness profile and skill mods
-            List<Profile> relationList = await _context.Profiles
-                .Where(p => p.FitStyle.FitType == Profiler.FitStyle.FitType)
-                .ToListAsync();
+            //var relationList = await _context.Profiles.Where(p => p.FitStyle.FitType == Profiler.FitStyle.FitType).ToListAsync();
 
-            RelatedFolkList = relationList;
+            //RelatedFolkList = relationList;
 
             // See if a person can be added
             Clops = Friender
