@@ -160,7 +160,7 @@ namespace OCFX.Pages.RPG
                 return Page();
             }
 
-            return RedirectToPage("../Dashboard/Index");
+            return RedirectToPage("../../Dashboard/Index");
         }
 
         /// <summary>

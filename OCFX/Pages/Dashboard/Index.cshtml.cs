@@ -63,23 +63,22 @@ namespace OCFX.Pages.Dashboard
         /// </summary>
         /// <param name="weights"></param>
         /// <returns></returns>
-        private double ShowWeightChange(Collection<WeightMeasurement> weights)
+        private static double ShowWeightChange(Collection<WeightMeasurement> weights)
         {
-            if (weights == null)
+            if (weights != null)
             {
-                throw new ArgumentNullException("This user has no weight... how??");
+                double change;
+
+                double FirstWeight = weights.First().Weight;
+                double SecondWeight = weights.Last().Weight;
+
+                change = FirstWeight == SecondWeight
+                    ? 0.0
+                    : SecondWeight - FirstWeight;
+
+                return change;
             }
-
-            double change;
-            
-            double FirstWeight = weights.First().Weight;
-            double SecondWeight = weights.Last().Weight;
-
-            change = FirstWeight == SecondWeight 
-                ? 0.0 
-                : SecondWeight - FirstWeight;
-
-            return change;
+            throw new ArgumentNullException("This user has no weight... how??");
         }
 
         /// <summary>
@@ -89,11 +88,9 @@ namespace OCFX.Pages.Dashboard
         /// <param name="height"></param>
         /// <param name="age"></param>
         /// <returns></returns>
-        private double CalorieTasker(int weight, int height, int age)
+        private static double CalorieTasker(int weight, int height, int age)
         {
-            double weightc = weight / 2.2;
-            double heightc = height * 2.54;
-            double value = (10 * weightc) + (6.25 * heightc) - (5 * age) + 5;
+            var value = (10 * (weight / 2.2)) + (6.25 * (height * 2.54)) - (5 * age) + 5;
 
             return Math.Round(value, 0);
         }

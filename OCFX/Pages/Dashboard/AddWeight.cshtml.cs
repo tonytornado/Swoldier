@@ -66,7 +66,7 @@ namespace OCFX.Pages.Dashboard
                 }
                 else
                 {
-                    ImageFileManagement.UploadImageToFolder(_environment, Image, ProgressPhoto, Id, "progressPhoto", ProgressPhoto.Caption);
+                    await ImageFileManagement.UploadImageToFolderAsync(_environment, Image, ProgressPhoto, Id, "progressPhoto", ProgressPhoto.Caption);
                 }
             }
             _context.Photos.Add(ProgressPhoto);

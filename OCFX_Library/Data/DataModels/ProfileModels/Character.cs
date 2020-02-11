@@ -95,7 +95,7 @@ namespace OCFX.DataModels
         public Profile CharacterProfile { get; set; }
 
         [NotMapped]
-        public string FullName => $"{FirstName} {LastName}, the {FitStyle.FitType}";
+        public string FullName => $"{FirstName} {LastName}";
         [NotMapped]
         public Photo AvatarPhoto => GetAvatarPhoto(Id);
 
