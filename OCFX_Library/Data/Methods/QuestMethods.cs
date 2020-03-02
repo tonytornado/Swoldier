@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using OCFX.Areas.Identity.Data;
-using OCFX.DataModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using OCFX.Areas.Identity.Data;
+using OCFX.DataModels;
 
 namespace OCFX.Data.Methods
 {
@@ -13,21 +13,20 @@ namespace OCFX.Data.Methods
         /// Checks the completed quest log for all the quests a user has completed.
         /// </summary>
         /// <param name="context"></param>
-        /// <param name="UserId"></param>
+        /// <param name="userId"></param>
         /// <returns></returns>
-        public static List<int> CheckCompletedQuests(OCFXContext context, int UserId)
+        public static List<int> CheckCompletedQuests(OCFXContext context, int userId)
         {
             if (context is null)
             {
                 throw new ArgumentNullException(nameof(context));
             }
 
-            int QuestGoer = UserId;
-            IQueryable<int> ops = from q in context.Quests
-                                  join ql in context.QuestLogs on q.Id equals ql.Quest.Id
-                                  where ql.Character.Id == UserId
-                                  where ql.Completed == true
-                                  select ql.Quest.Id;
+            var ops = from q in context.Quests
+                join ql in context.QuestLogs on q.Id equals ql.Quest.Id
+                where ql.Character.Id == userId
+                where ql.Completed == true
+                select ql.Quest.Id;
 
             return ops.ToList();
         }
@@ -37,30 +36,33 @@ namespace OCFX.Data.Methods
         /// A quest must be a part of a campaign; but can also be a part of a sidequest.
         /// </summary>
         /// <param name="context"></param>
-        /// <param name="QuestId">Quest's Id</param>
-        /// <param name="UserId">User's Id</param>
-        public static void JoinQuest(OCFXContext context, int QuestId, int UserId)
+        /// <param name="questId">Quest's Id</param>
+        /// <param name="userId">User's Id</param>
+        public static void JoinQuest(OCFXContext context, int questId, int userId)
         {
             if (context is null)
             {
                 throw new ArgumentNullException(nameof(context));
             }
 
-            int QuestGoer = UserId;
-            Quest quest = context.Quests.SingleOrDefault(q => q.Id == QuestId);
+            Quest quest = context.Quests.SingleOrDefault(q => q.Id == questId);
 
             // Create the new quest log
-            QuestLog challenger = new QuestLog()
+            if (quest != null)
             {
-                Character = context.Characters.SingleOrDefault(c => c.Id == UserId),
-                Quest = quest,
-                Completed = false,
-                Campaign = quest.Campaign
-            };
-            context.QuestLogs.Add(challenger);
+                QuestLog challenger = new QuestLog()
+                {
+                    Character = context.Characters.SingleOrDefault(c => c.Id == userId),
+                    Quest = quest,
+                    Completed = false,
+                    Campaign = quest.Campaign
+                };
+                context.QuestLogs.Add(challenger);
+            }
+
             context.SaveChanges();
 
-            var chara = context.Characters.Include(q => q.Quests).SingleOrDefault(p => p.Id == UserId);
+            var chara = context.Characters.Include(q => q.Quests).SingleOrDefault(p => p.Id == userId);
             context.SaveChanges();
         }
 
@@ -68,58 +70,58 @@ namespace OCFX.Data.Methods
         /// Completes a quest provided they meet certain conditions.
         /// </summary>
         /// <param name="context"></param>
-        /// <param name="QuestId">Quest's Id</param>
-        /// <param name="UserId">User's Id</param>
-        public static void CompleteQuest(OCFXContext context, int QuestId, int UserId)
+        /// <param name="questId">Quest's Id</param>
+        /// <param name="userId">User's Id</param>
+        public static void CompleteQuest(OCFXContext context, int questId, int userId)
         {
             if (context is null)
             {
                 throw new ArgumentNullException(nameof(context));
             }
 
-            int QuestGoer = UserId;
-            QuestLog CompletedQuest = context.QuestLogs.SingleOrDefault(q => q.Quest.Id == QuestId && q.Character.Id == QuestGoer);
+            int questGoer = userId;
+            QuestLog completedQuest =
+                context.QuestLogs.SingleOrDefault(q => q.Quest.Id == questId && q.Character.Id == questGoer);
 
             // Check if the quest is actually part of the campaign
-            bool QuestCheck = CheckForCampaign(context, QuestGoer, CompletedQuest.Campaign.Id);
-            if (QuestCheck != true)
-            {
-                throw new Exception("Yeah, they didn't complete the quest, fall back.");
-            }
+            // bool questCheck = completedQuest != null &&
+                              // CheckForCampaign(context, questGoer, completedQuest.Campaign.Id);
+            // if (questCheck != true)
+            // {
+                // throw new Exception("Yeah, they didn't complete the quest, fall back.");
+            // }
 
             // Set the quest as complete.
-            CompletedQuest.Completed = true;
+            if (completedQuest != null) completedQuest.Completed = true;
             context.SaveChanges();
 
-            CharacterModel completionist = context.Characters.Include(q => q.Quests).SingleOrDefault(q => q.Id == UserId);
-            completionist.Quests = null;
+            CharacterModel completionist =
+                context.Characters.Include(q => q.Quests).SingleOrDefault(q => q.Id == userId);
+            if (completionist != null) completionist.Quests = null;
             context.SaveChanges();
         }
 
-        /// <summary>
-        /// Makes a quick check for the right campaign to prevent cheating. This is an ANTI-CHEAT measure.
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns>Boolean</returns>
-        private static bool CheckForCampaign(OCFXContext context, int x, int y)
-        {
-            if (context is null)
-            {
-                throw new ArgumentNullException(nameof(context));
-            }
-
-            CharacterModel player = context.Characters.SingleOrDefault(p => p.Id == x);
-            Quest quest = context.Quests.SingleOrDefault(p => p.Id == y);
-            Campaign campaign = context.Campaigns.FirstOrDefault(p => p.Quests.Contains(quest));
-
-            if (campaign != player.Campaign)
-            {
-                throw new Exception("This is bogus. You didn't complete anything.");
-            }
-
-            return true;
-        }
+        // /// <summary>
+        // /// Makes a quick check for the right campaign to prevent cheating. This is an ANTI-CHEAT measure.
+        // /// </summary>
+        // /// <param name="context"></param>
+        // /// <param name="x"></param>
+        // /// <param name="y"></param>
+        // /// <returns>Boolean</returns>
+        // private static bool CheckForCampaign(OCFXContext context, int x, int y)
+        // {
+        //     if (context is null)
+        //     {
+        //         throw new ArgumentNullException(nameof(context));
+        //     }
+        //
+        //     CharacterModel player = context.Characters.SingleOrDefault(p => p.Id == x);
+        //     Quest quest = context.Quests.SingleOrDefault(p => p.Id == y);
+        //     Campaign campaign = context.Campaigns.FirstOrDefault(p => p.Quests.Contains(quest));
+        //
+        //     
+        //
+        //     return true;
+        // }
     }
 }

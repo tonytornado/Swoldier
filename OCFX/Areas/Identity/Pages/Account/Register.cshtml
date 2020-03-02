@@ -2,14 +2,14 @@
 @model RegisterModel
 
 @{
-    ViewData["Title"] = "Questionaire";
-    ViewData["BannerTitle"] = "Questionaire";
+    ViewData["Title"] = "Questionnaire";
+    ViewData["BannerTitle"] = "Questionnaire";
     ViewData["BannerSubtitle"] = "This will help us get a feel for what you're thinking of doing.";
 }
 
 <partial name="_StatusMessage" model="Model.StatusMessage" />
 <div class="col-lg-10 mx-auto">
-    <form asp-route-returnUrl="@Model.ReturnUrl" method="post" class="py-4">
+    <form asp-route-returnUrl="@Model?.ReturnUrl" class="py-4" method="post">
         <div id="standard_section">
             <div class="text-center mb-4">
                 <h4>User Information</h4>
@@ -76,12 +76,12 @@
                         </div>
                     </div>
                     <div class="form-group form-group-lg">
-                        <label asp-for="Input.ClassId">Select your class</label>
-                        <select asp-for="Input.ClassId" asp-items="Html.GetEnumSelectList<OCFX.DataModels.ClassType>()" class="form-control"></select>
+                        <label asp-for="Profiler.FitStyle.FitType">Select your class</label>
+                        <select asp-for="Profiler.FitStyle.FitType" asp-items="Html.GetEnumSelectList<DataModels.ClassType>()" class="form-control"></select>
                     </div>
                     <div class="form-group">
                         <label asp-for="Profiler.Gender">Select your gender</label>
-                        <select asp-for="Profiler.Gender" asp-items="Html.GetEnumSelectList<OCFX.DataModels.ProfileSheet.GenderSpectrum>()" class="form-control"></select>
+                        <select asp-for="Profiler.Gender" asp-items="Html.GetEnumSelectList<DataModels.ProfileSheet.GenderSpectrum>()" class="form-control"></select>
                         <span class="small">Disclaimer: We attempt to accommodate for any and all who exist; and only ask out of respect to our recommendations and training/nutrition methodology.</span>
                     </div>
                 </div>

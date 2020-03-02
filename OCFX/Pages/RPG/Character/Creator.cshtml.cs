@@ -114,7 +114,7 @@ namespace OCFX.Pages.RPG
                         CheckFolderPath(upload);
                         string filePath = Path.Combine(upload, fileName);
                         await Avatar.CopyToAsync(new FileStream(filePath, FileMode.Create)).ConfigureAwait(false);
-                        avatar.URL = $"../images/{avatar.ProfileId}/avatarPhoto/{fileName}";
+                        avatar.Url = $"../images/{avatar.ProfileId}/avatarPhoto/{fileName}";
 
                         _context.Photos.Add(avatar);
                         StatusMessage = "Your avatar has been created!";

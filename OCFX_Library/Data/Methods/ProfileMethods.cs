@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using OCFX.Areas.Identity.Data;
-using OCFX.DataModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using OCFX.Areas.Identity.Data;
+using OCFX.DataModels;
 
 namespace OCFX.Data.Methods
 {
@@ -23,7 +24,7 @@ namespace OCFX.Data.Methods
                 throw new ArgumentNullException(nameof(context));
             }
 
-            ProfileSheet Profiler = await context.Profiles
+            ProfileSheet profiler = await context.Profiles
                 .Include(p => p.Posts)
                     .ThenInclude(p => p.Comments)
                         .ThenInclude(p => p.Replies)
@@ -43,7 +44,7 @@ namespace OCFX.Data.Methods
                 .Include(p => p.WorkoutHistory)
                 .SingleOrDefaultAsync(m => m.Id == id);
 
-            return Profiler;
+            return profiler;
         }
 
         /// <summary>
@@ -64,7 +65,7 @@ namespace OCFX.Data.Methods
                 throw new ArgumentNullException(nameof(id));
             }
 
-            var Characters = await context.Characters
+            var characters = await context.Characters
                .Include(c => c.Avatars)
                .Include(c => c.Campaign)
                .Include(c => c.Quests)
@@ -72,7 +73,7 @@ namespace OCFX.Data.Methods
                .Where(i => i.CharacterProfile.Id == id)
                .ToListAsync();
 
-            return Characters;
+            return characters;
         }
 
         public static Photo GetProfilePhoto(OCFXContext context, int id)
@@ -103,7 +104,7 @@ namespace OCFX.Data.Methods
                 throw new ArgumentNullException(nameof(context));
             }
 
-            ProfileSheet Profiler = context.Profiles
+            ProfileSheet profiler = context.Profiles
                 .Include(p => p.Posts)
                     .ThenInclude(p => p.Comments)
                         .ThenInclude(p => p.Replies)
@@ -123,7 +124,7 @@ namespace OCFX.Data.Methods
                 .Include(p => p.WorkoutHistory)
                 .SingleOrDefault(m => m.Id == id);
 
-            return Profiler;
+            return profiler;
         }
 
         public static async Task<ProfileSheet> GetProfileUser(OCFXContext context, int id)
@@ -153,6 +154,7 @@ namespace OCFX.Data.Methods
         /// <summary>
         /// Calculate the body fat percentage of the profile
         /// </summary>
+        /// <param name="profile"></param>
         /// <param name="height">Height in cm</param>
         /// <param name="weight">Weight in lbs.</param>
         /// <param name="neck">Neck Length in inches</param>
@@ -166,7 +168,7 @@ namespace OCFX.Data.Methods
                 throw new ArgumentNullException(nameof(profile));
             }
 
-            ProfileSheet Profiler = profile;
+            ProfileSheet profiler = profile;
 
             double percentage = 0.0;
 
@@ -181,9 +183,9 @@ namespace OCFX.Data.Methods
             }
 
             // Check bone structures
-            if (Profiler.Gender == ProfileSheet.GenderSpectrum.CisMale ||
-                Profiler.Gender == ProfileSheet.GenderSpectrum.TransFemale ||
-                Profiler.Gender == ProfileSheet.GenderSpectrum.NotDisclosed)
+            if (profiler.Gender == ProfileSheet.GenderSpectrum.CisMale ||
+                profiler.Gender == ProfileSheet.GenderSpectrum.TransFemale ||
+                profiler.Gender == ProfileSheet.GenderSpectrum.NotDisclosed)
             //{
             //    double f1 = (weight * 1.082) + 94.42;
             //    double? f2 = waist * 4.15;
@@ -192,20 +194,20 @@ namespace OCFX.Data.Methods
             //    percentage = Convert.ToDouble((bfw / weight) * 100);
             //}
             {
-                double f1 = 495.0;
+                const double f1 = 495.0;
                 double f2 = 1.0324 - (0.19077 * Math.Log10(Convert.ToDouble(waist - neck))) + (0.15456 * Math.Log10(height));
-                double f3 = 450.0;
+                const double f3 = 450.0;
                 percentage = (f1 / f2) - f3;
             }
 
-            if (Profiler.Gender == ProfileSheet.GenderSpectrum.CisFemale ||
-                Profiler.Gender == ProfileSheet.GenderSpectrum.TransMale)
+            if (profiler.Gender != ProfileSheet.GenderSpectrum.CisFemale &&
+                profiler.Gender != ProfileSheet.GenderSpectrum.TransMale) return percentage;
             {
                 double f1 = (weight * 0.732) + 8.987;
-                double f2 = 6 / 3.140;
+                const double f2 = 6 / 3.140;
                 double? f3 = waist * 0.157;
                 double? f4 = hip * 0.249;
-                double f5 = 9 * 0.434;
+                const double f5 = 9 * 0.434;
                 double? lbm = f1 + f2 - f3 - f4 + f5;
                 double? bfw = weight - lbm;
                 percentage = Convert.ToDouble((bfw / weight) * 100);
@@ -216,44 +218,44 @@ namespace OCFX.Data.Methods
 
         public static Dictionary<int, string> Consultation(double bodyFat, double weight, double height)
         {
-            string Advice = "";
-            string WeightClass = "";
-            double BMI = Math.Round((weight * 703) / Math.Pow(height, 2), 2);
-            double BodyFatLeft = Math.Round(bodyFat);
+            string advice = "";
+            string weightClass = "";
+            double bmi = Math.Round((weight * 703) / Math.Pow(height, 2), 2);
+            double bodyFatLeft = Math.Round(bodyFat);
 
-            if (BMI > 30)
+            if (bmi > 30)
             {
-                WeightClass = "Obese";
-                Advice = "This is generally considered obese. " +
+                weightClass = "Obese";
+                advice = "This is generally considered obese. " +
                     "Variations of this depends on whether or not your body fat percentage is above or below 20% which is the general average for most males and females. " +
                     "Best course of action if body fat percentage is above 20% is to decrease calorie intake and increase exercise/movement.";
             }
-            if (29.9 > BMI && BMI > 25.0)
+            if (29.9 > bmi && bmi > 25.0)
             {
-                WeightClass = "Overweight";
-                Advice = "This is generally considered overweight. " +
+                weightClass = "Overweight";
+                advice = "This is generally considered overweight. " +
                     "Generally the advice here is decreased calorie intake and increased physical activity.";
             }
-            if (24.9 > BMI && BMI > 18.5)
+            if (24.9 > bmi && bmi > 18.5)
             {
-                WeightClass = "Normal";
-                Advice = "This is generally considered good. " +
+                weightClass = "Normal";
+                advice = "This is generally considered good. " +
                     "Generally the advice here is decreased calorie intake and increased physical activity.";
             }
-            if (BMI < 18.4)
+            if (bmi < 18.4)
             {
-                WeightClass = "Underweight";
-                Advice = "This is generally considered underweight. " +
+                weightClass = "Underweight";
+                advice = "This is generally considered underweight. " +
                     "Generally the advice here is increased calorie intake. " +
                     "With increased physical activity, a caloric surplus is necessary for muscle growth.";
             }
 
             var thing = new Dictionary<int, string>
             {
-                { 1, WeightClass },
-                { 2, Advice },
-                { 3, BMI.ToString() },
-                { 4, BodyFatLeft.ToString() }
+                { 1, weightClass },
+                { 2, advice },
+                { 3, bmi.ToString(CultureInfo.CurrentCulture) },
+                { 4, bodyFatLeft.ToString(CultureInfo.CurrentCulture) }
             };
             return thing;
         }

@@ -9,6 +9,7 @@ using OCFX.DataModels;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
@@ -94,98 +95,105 @@ namespace OCFX.Areas.Identity.Pages.Account
 
         public void OnGet(string returnUrl = null)
         {
+            // Debug.Assert(returnUrl != null, nameof(returnUrl) + " != null");
             ReturnUrl = returnUrl;
         }
 
         /// <summary>
         /// Posts the form
         /// </summary>
-        /// <param name="returnUrl"></param>
+        /// <param name="returnUrl">The Return URL</param>
         /// <returns></returns>
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl = returnUrl ?? Url.Content("~/");
-            if (ModelState.IsValid)
+            returnUrl ??= Url.Content("~/");
+            if (!ModelState.IsValid)
             {
-                // Create a user ProfileSheet
-                OCFXUser user = new OCFXUser
+                StatusMessage = $"Errors found: {ModelState.ErrorCount}";
+                return Page();
+            }
+            
+            OCFXUser user;
+            user = new OCFXUser
+            {
+                FirstName = Input.FirstName,
+                LastName = Input.LastName,
+                UserName = Input.Email,
+                Email = Input.Email,
+                DOB = Input.DOB,
+                NameChangedDate = DateTime.Now,
+                Profile = new ProfileSheet
                 {
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
-                    UserName = Input.Email,
-                    Email = Input.Email,
-                    DOB = Input.DOB,
-                    NameChangedDate = DateTime.Now,
-                    Profile = new ProfileSheet
-                    {
-                        FirstName = Input.FirstName,
-                        LastName = Input.LastName,
-                        DOB = Input.DOB,
-                        Gender = Profiler.Gender,
-                        Weight = Profiler.Weight,
-                        Height = Profiler.Height,
-                        NeckMeasurement = Profiler.NeckMeasurement = 0,
-                        WaistMeasurement = Profiler.WaistMeasurement = 0,
-                        HipMeasurement = Profiler.HipMeasurement = 0,
-                        FitStyle = await _context.Archetypes.SingleOrDefaultAsync(c => c.Id == Input.ClassId),
-                        Photos = new Collection<Photo>(),
-                        Weights = new Collection<WeightMeasurement>(),
-                    }
-                };
-
-                // Add the default ProfileSheet picture
-                Photo FirstProfilePhoto = new Photo
-                {
-                    DateAdded = DateTime.Now,
-                    URL = "../images/default.jpg",
-                    Caption = "Default Look",
-                    Type = Photo.PhotoType.Profile
-                };
-                user.Profile.Photos.Add(FirstProfilePhoto);
-
-                // Add the first weight
-                WeightMeasurement FirstWeight = new WeightMeasurement
-                {
-                    Date = DateTime.Now,
+                    Dob = Input.DOB,
+                    Gender = Profiler.Gender,
                     Weight = Profiler.Weight,
-                    ProgressPhoto = FirstProfilePhoto
-                };
-                user.Profile.Weights.Add(FirstWeight);
-
-                IdentityResult result = await _userManager.CreateAsync(user, Input.Password);
-                if (result.Succeeded)
-                {
-                    _logger.LogInformation("User created a new account with password.");
-
-                    string code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    string callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { userId = user.Id, code },
-                        protocol: Request.Scheme);
-                    if (user.ProfileId == 1)
-                    {
-                        await _userManager.AddToRoleAsync(user, "Administrator");
-                    }
-                    else
-                    {
-                        await _userManager.AddToRoleAsync(user, "User");
-                    }
-
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return LocalRedirect(returnUrl);
+                    Height = Profiler.Height,
+                    NeckMeasurement = Profiler.NeckMeasurement = 0,
+                    WaistMeasurement = Profiler.WaistMeasurement = 0,
+                    HipMeasurement = Profiler.HipMeasurement = 0,
+                    FitStyle = await _context.Archetypes.SingleOrDefaultAsync(c => c.Id == Input.ClassId),
+                    Photos = new Collection<Photo>(),
+                    Weights = new Collection<WeightMeasurement>(),
                 }
-                foreach (IdentityError error in result.Errors)
+            };
+
+            // Add the default ProfileSheet picture
+            Photo firstProfilePhoto = new Photo
+            {
+                DateAdded = DateTime.Now,
+                Url = "../images/default.jpg",
+                Caption = "Default Look",
+                Type = Photo.PhotoType.Profile
+            };
+            user.Profile.Photos.Add(firstProfilePhoto);
+
+            // Add the first weight
+            WeightMeasurement firstWeight = new WeightMeasurement
+            {
+                Date = DateTime.Now,
+                Weight = Profiler.Weight,
+                ProgressPhoto = firstProfilePhoto
+            };
+            user.Profile.Weights.Add(firstWeight);
+
+            IdentityResult result = await _userManager.CreateAsync(user, Input.Password);
+            if (result.Succeeded)
+            {
+                _logger.LogInformation("User created a new account with password.");
+
+                string code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                string callbackUrl = Url.Page(
+                    "/Account/ConfirmEmail",
+                    pageHandler: null,
+                    values: new {userId = user.Id, code},
+                    protocol: Request.Scheme);
+                if (user.ProfileId == 1)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    await _userManager.AddToRoleAsync(user, "Administrator");
                 }
+                else
+                {
+                    await _userManager.AddToRoleAsync(user, "User");
+                }
+
+                await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                await _signInManager.SignInAsync(user, isPersistent: false);
+                return LocalRedirect(returnUrl);
+            }
+
+            foreach (IdentityError error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
             }
 
             // If we got this far, something failed, redisplay form
             return Page();
+
+            // Create a user ProfileSheet
         }
     }
 }

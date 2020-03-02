@@ -10,7 +10,7 @@
     <div class="col-md-4 dash_section dash_section_left" id="profile_center">
         <h3 class="align-text-bottom">@Model.Profiler.FullName</h3>
         <hr />
-        <img src="@Model.Profiler.ProfilePhoto.URL" alt="@Model.Profiler.ProfilePhoto.Caption" class="rounded border-secondary mw-100" />
+        <img alt="@Model.Profiler.ProfilePhoto.Caption" class="rounded border-secondary mw-100" src="@Model.Profiler.ProfilePhoto.Url" />
         <hr />
         <div class="btn-group-vertical btn-group-toggle btn-block btn-group-sm">
             <div class="btn-group btn-group-sm">
@@ -28,21 +28,25 @@
     <div class="col-md-4 dash_section" id="quest_center">
         <h3>Character Statuses</h3>
         <hr />
-        @if (Model.Profiler.Characters.Count > 0)
+        @if (Model.Profiler.Characters.Count <= 0)
         {
-         <div>
-             <ul class="list-group">
-                 @foreach (var item in Model.Profiler.Characters)
-                 {
-                     <li class="list-group-item"><a asp-page="../RPG/Character/CharSheet" asp-route-Id="@item.Id" class="btn">@item.FirstName @item.LastName</a></li>
-                 }
-             </ul>
-         </div>
+            <div>
+                <p>You have no loaded characters. Care to make one?</p>
+                <a asp-page="../RPG/Character/Creator" class="btn btn-block btn-dark">Create a character</a>
+            </div>
         }
         else
         {
-            <div><p>You have no loaded characters. Care to make one?</p>
-        <a asp-page="../RPG/Character/Creator" class="btn btn-block btn-dark">Create a character</a></div>
+            <div>
+                <ul class="list-group">
+                    @foreach (var item in Model.Profiler.Characters)
+                    {
+                        <li class="list-group-item">
+                            <a asp-page="../RPG/Character/CharSheet" asp-route-Id="@item.Id" class="btn">@item.FirstName @item.LastName</a>
+                        </li>
+                    }
+                </ul>
+            </div>
         }
     </div>
     <div class="col-md-4 dash_section dash_section_right" id="post_center">

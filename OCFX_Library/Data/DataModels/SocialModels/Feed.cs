@@ -35,7 +35,7 @@ namespace OCFX.DataModels
         [ForeignKey("EntryId")]
         public ProfileSheet Entry { get; set; }
 
-        public List<Comment> Comments { get; set; }
+        public List<Comment> Comments { get; set; } = new List<Comment>();
     }
 
     /// <summary>
@@ -53,7 +53,7 @@ namespace OCFX.DataModels
         [ForeignKey("PostId")]
         public Post Post { get; set; }
 
-        public List<Reply> Replies { get; set; }
+        public List<Reply> Replies { get; set; } = new List<Reply>();
     }
 
     /// <summary>

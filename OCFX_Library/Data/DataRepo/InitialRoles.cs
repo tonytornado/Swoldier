@@ -8,31 +8,29 @@ using System.Threading.Tasks;
 
 namespace OCFX.Data.DataRepo
 {
-    public class InitialRoles
+    public static class InitialRoles
     {
-        public static async Task CreateRoles(IServiceProvider serviceProvider, IConfiguration Configuration)
+        public static async Task CreateRoles(IServiceProvider serviceProvider, IConfiguration configuration)
         {
-            if (Configuration == null)
+            if (configuration == null)
             {
-                throw new ArgumentNullException(nameof(Configuration));
+                throw new ArgumentNullException(nameof(configuration));
             }
 
-            RoleManager<OCFXRole> _roleManager = serviceProvider.GetRequiredService<RoleManager<OCFXRole>>();
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<OCFXRole>>();
             serviceProvider.GetRequiredService<UserManager<OCFXUser>>();
-            string[] RoleNames = { "Administrator", "Coach", "User" };
+            string[] roleNames = {"Administrator", "Coach", "User"};
 
-            foreach (string rolename in RoleNames)
+            foreach (var roleName in roleNames)
             {
-                bool x = await _roleManager.RoleExistsAsync(rolename);
-                if (!x)
+                var x = await roleManager.RoleExistsAsync(roleName);
+                if (x) continue;
+                var role = new OCFXRole
                 {
-                    OCFXRole role = new OCFXRole
-                    {
-                        Name = rolename,
-                        Description = "Default Role"
-                    };
-                    await _roleManager.CreateAsync(role);
-                }
+                    Name = roleName,
+                    Description = "Default Role"
+                };
+                await roleManager.CreateAsync(role);
             }
         }
     }

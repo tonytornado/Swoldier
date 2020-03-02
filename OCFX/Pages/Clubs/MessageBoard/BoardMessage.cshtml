@@ -13,7 +13,7 @@
     <div class="roundbox-xy my-3">
         <div class="row">
             <div class="col-auto">
-                <img src="../@Model.InitialBoardPost.Profile.ProfilePhoto.URL" alt="Alternate Text" class="club_avatar" />
+                <img src="../@Model.InitialBoardPost.Profile.ProfilePhoto.Url" alt="Alternate Text" class="club_avatar" />
                 <br />
                 <small>@string.Format("{0} {1}.", Model.InitialBoardPost.Profile.FirstName, Model.InitialBoardPost.Profile.LastName.Substring(0,1))</small>
             </div>
@@ -34,7 +34,7 @@
                 <li class="list-group-item list-group-item-dark">
                     <div class="row">
                         <div class="col-auto">
-                            <img src="../@item.Profile.ProfilePhoto.URL" alt="Alternate Text" class="club_avatar" />
+                            <img src="../@item.Profile.ProfilePhoto.Url" alt="Alternate Text" class="club_avatar" />
                             <br />
                             <small>@string.Format("{0} {1}.", item.Profile.FirstName, item.Profile.LastName.Substring(0,1))</small>
                         </div>

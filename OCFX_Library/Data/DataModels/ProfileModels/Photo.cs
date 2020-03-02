@@ -8,7 +8,7 @@ namespace OCFX.DataModels
     {
         public int Id { get; set; }
         [Display(Name = "URL")]
-        public string URL { get; set; }
+        public string Url { get; set; }
         [Display(Name = "Caption")]
         public string Caption { get; set; }
         [Display(Name = "Type")]

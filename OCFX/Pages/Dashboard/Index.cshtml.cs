@@ -19,20 +19,20 @@ namespace OCFX.Pages.Dashboard
         private readonly UserManager<OCFXUser> _userManager;
         private readonly OCFXContext _context;
 
-        public DashboardModel(UserManager<OCFXUser> userManager, OCFXContext context)
+        public DashboardModel(UserManager<OCFXUser> userManager, OCFXContext context, string userTitle)
         {
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
             _context = context ?? throw new ArgumentNullException(nameof(context));
+            UserTitle = userTitle;
         }
 
         public ProfileSheet Profiler { get; private set; }
-        public Photo ProfilePhoto { get; private set; }
-        public List<int> CompletedQuests { get; private set; }
+        public List<int> CompletedQuests { get;  set; }
 
-        public string UserTitle { get; private set; }
+        public string UserTitle { get; }
         public Dictionary<int, string> Ad { get; private set; }
         public double CalorieBurn { get; private set; }
-        public double WeightChange { get; set; }
+        public double WeightChange { get; private set; }
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -41,16 +41,16 @@ namespace OCFX.Pages.Dashboard
         public async Task OnGetAsync()
         {
             // Get the logged-in user information
-            Task<OCFXUser> user = _userManager.GetUserAsync(User);
+            var user = await _userManager.GetUserAsync(User);
 
             // Get the profile and profile photo
-            Profiler = await ProfileMethods.GetProfileAsync(_context, user.Result.ProfileId).ConfigureAwait(false);
+            Profiler = await ProfileMethods.GetProfileAsync(_context, user.ProfileId);
 
             // Get the completed quests
             CompletedQuests = QuestMethods.CheckCompletedQuests(_context, Profiler.Id);
 
             // Get advice!
-            double bodyFat = Math.Round(ProfileMethods.BodyFat(Profiler, Profiler.Height, Profiler.Weight, Profiler.NeckMeasurement, Profiler.WaistMeasurement, Profiler.HipMeasurement), 1);
+            var bodyFat = Math.Round(ProfileMethods.BodyFat(Profiler, Profiler.Height, Profiler.Weight, Profiler.NeckMeasurement, Profiler.WaistMeasurement, Profiler.HipMeasurement), 1);
             Ad = ProfileMethods.Consultation(bodyFat, Profiler.Weight, Profiler.Height);
             CalorieBurn = CalorieTasker(Profiler.Weight, Profiler.Height, Profiler.Age);
 
@@ -70,14 +70,10 @@ namespace OCFX.Pages.Dashboard
                 throw new ArgumentNullException("This user has no weight... how??");
             }
 
-            double change;
-            
-            double FirstWeight = weights.First().Weight;
-            double SecondWeight = weights.Last().Weight;
+            double firstWeight = weights.First().Weight;
+            double secondWeight = weights.Last().Weight;
 
-            change = FirstWeight == SecondWeight 
-                ? 0.0 
-                : SecondWeight - FirstWeight;
+            var change = firstWeight == secondWeight ? 0.0 : secondWeight - firstWeight;
 
             return change;
         }
@@ -91,9 +87,9 @@ namespace OCFX.Pages.Dashboard
         /// <returns></returns>
         private static double CalorieTasker(int weight, int height, int age)
         {
-            double weightc = weight / 2.2;
-            double heightc = height * 2.54;
-            double value = (10 * weightc) + (6.25 * heightc) - (5 * age) + 5;
+            var weightc = weight / 2.2;
+            var heightc = height * 2.54;
+            var value = (10 * weightc) + (6.25 * heightc) - (5 * age) + 5;
 
             return Math.Round(value, 0);
         }

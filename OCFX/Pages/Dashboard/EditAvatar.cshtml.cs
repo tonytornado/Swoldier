@@ -45,7 +45,7 @@ namespace OCFX.Pages.Profiles
                 .OrderByDescending(d => d.DateAdded)
                 .FirstOrDefaultAsync(p => p.ProfileId == Player.ProfileId).ConfigureAwait(false);
 
-            if (Photo.URL == "../images/default.jpg")
+            if (Photo.Url == $"../images/default.jpg")
             {
                 StatusMessage = "Let's try on a new face! Enter a litle bit of information so we can get rid of that Beerus photo. It looks weird, okay?";
                 Photo.ProfileId = Player.ProfileId;
@@ -101,7 +101,7 @@ namespace OCFX.Pages.Profiles
                     await Image.CopyToAsync(new FileStream(
                         path: filePath,
                         mode: FileMode.Create)).ConfigureAwait(false);
-                    photograph.URL = $"../images/{Photo.ProfileId}/profilePhoto/{fileName}";
+                    photograph.Url = $"../images/{Photo.ProfileId}/profilePhoto/{fileName}";
                     photograph.Caption = Photo.Caption;
 
                     _context.Photos.Add(photograph);

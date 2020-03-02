@@ -23,7 +23,7 @@ namespace OCFX.Pages.Clubs
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
         }
 
-        public OCFXUser BoardViewingMember { get; private set; }
+        private OCFXUser BoardViewingMember { get; set; }
         public List<MessageBoardPost> BoardPosts { get; private set; }
         public int? BoardId { get; private set; }
 
@@ -44,8 +44,8 @@ namespace OCFX.Pages.Clubs
             BoardViewingMember = await _userManager.GetUserAsync(User);
 
             BoardPosts = await _context.MessageBoardPosts
-                .Include(P => P.Profile)
-                    .ThenInclude(P => P.Photos)
+                .Include(p => p.Profile)
+                    .ThenInclude(p => p.Photos)
                 .Include(c => c.MessageBoardComments)
                 .Where(c => c.Board.Id == id).ToListAsync();
 

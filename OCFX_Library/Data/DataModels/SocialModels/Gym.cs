@@ -69,7 +69,7 @@ namespace OCFX.DataModels
         /// <summary>
         /// Where the equipment is located
         /// </summary>
-        public ICollection<GymRelation> Gyms { get; set; }
+        public ICollection<GymRelation> Gyms { get; set; } = new List<GymRelation>();
     }
 
     /// <summary>

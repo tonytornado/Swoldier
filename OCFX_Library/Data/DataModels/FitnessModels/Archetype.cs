@@ -8,13 +8,11 @@ namespace OCFX.DataModels
     /// </summary>
     public class Archetype
     {
-        /// <summary>
-        /// Simple implementation
-        /// </summary>
+
         public Archetype()
         {
         }
-
+        
         /// <summary>
         /// Six aspect implementation
         /// </summary>

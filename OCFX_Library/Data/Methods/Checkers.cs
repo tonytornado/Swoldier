@@ -9,7 +9,7 @@ namespace OCFX.Data.Methods
 
     public static class Checkers
     {
-        public const int ImageMinimumBytes = 512;
+        private const int ImageMinimumBytes = 512;
 
         /// <summary>
         /// Inspects a file to see if it is an image or not.

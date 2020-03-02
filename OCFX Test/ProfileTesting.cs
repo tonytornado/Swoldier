@@ -25,7 +25,7 @@ namespace OCFXTest
         {
             ProfileSheet result = new ProfileSheet
             {
-                DOB = new DateTime(1984, 5, 18)
+                Dob = new DateTime(1984, 5, 18)
             };
 
             var age = result.Age;

@@ -25,10 +25,10 @@
                 }
             }
         </div>
-        @if (Model.Profiler.ProfilePhotoUrl != "")
+        @if (Model.Profiler.ProfilePhoto.Url != "")
         {
             <div class="col-md" id="photo_section">
-                <img src="@Model.Profiler.ProfilePhotoUrl" alt="@Model.Profiler.ProfilePhoto.Caption" title="@Model.Profiler.ProfilePhoto.Caption" class="profile_avatar" />
+                <img src="@Model.Profiler.ProfilePhoto.Url" alt="@Model.Profiler.ProfilePhoto.Caption" title="@Model.Profiler.ProfilePhoto.Caption" class="profile_avatar" />
                 <br />
                 @if (Model.Player != null)
                 {
@@ -41,7 +41,7 @@
         }
         else
         {
-            @if (Model.Profiler.Id == Model.Player.ProfileId)
+            @if (Model.Player != null && Model.Profiler.Id == Model.Player.ProfileId)
             {
                 <a asp-page="/Dashboard/EditAvatar" asp-route-id="@Model.Profiler.Id" class="page-link btn btn-block btn-dark">Add Photo</a>
             }
@@ -67,7 +67,7 @@
             @foreach (var friend in Model.Friender)
             {
                 <div class="shadowbox-xy">
-                    <img width="50" height="50" src="@friend.Following.ProfilePhotoUrl" alt="@friend.Following.FirstName's photo." />
+                    <img width="50" height="50" src="@friend.Following.ProfilePhoto.Url" alt="@friend.Following.FirstName's photo." />
                     <small>
                         <a asp-page="./Index" asp-route-id="@friend.Following.Id">@friend.Following.FullName</a>
                         @if (friend.Following.Id != friend.Follower.Id && User.IsInRole("Member"))

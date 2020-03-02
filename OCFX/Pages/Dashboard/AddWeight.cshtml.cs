@@ -57,7 +57,7 @@ namespace OCFX.Pages.Dashboard
 
             if (Image == null)
             {
-                ProgressPhoto.URL = "../images/default.jpg";
+                ProgressPhoto.Url = "../images/default.jpg";
                 ProgressPhoto.Caption = "No Photo Data";
             }
             else
@@ -133,7 +133,7 @@ namespace OCFX.Pages.Dashboard
 
                 // Get ready to upload and add some things.
                 Image.CopyToAsync(new FileStream(filePath, FileMode.Create));
-                PhotoType.URL = $"../images/{Id}/{PhotoFolder}/{fileName}";
+                PhotoType.Url = $"../images/{Id}/{PhotoFolder}/{fileName}";
                 PhotoType.Caption = Caption;
         }
 

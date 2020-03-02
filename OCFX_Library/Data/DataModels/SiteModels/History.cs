@@ -34,8 +34,8 @@ namespace OCFX.Data.HistoryModels
         public History(Array oldValue, Array newValue, Type type)
         {
             Date = DateTime.Now;
-            OldValue = String.Join(", ", oldValue);
-            NewValue = String.Join(", ", newValue); 
+            OldValue = string.Join(", ", oldValue);
+            NewValue = string.Join(", ", newValue); 
             Deleted = 'N';
             ThingType = nameof(type);
         }

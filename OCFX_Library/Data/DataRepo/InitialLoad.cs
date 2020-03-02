@@ -1,7 +1,7 @@
-﻿using OCFX.Areas.Identity.Data;
-using OCFX.DataModels;
-using System;
+﻿using System;
 using System.Linq;
+using OCFX.Areas.Identity.Data;
+using OCFX.DataModels;
 
 namespace OCFX.Data.DataRepo
 {
@@ -22,13 +22,13 @@ namespace OCFX.Data.DataRepo
 
         private static void AddSkills(OCFXContext context)
         {
-            var SkillSet = new Skill[]
+            var skillSet = new[]
                         {
                 new Skill("Hype Up",10,StyleType.Mental,5,TargetType.Self,EffectType.Hype, "Increases critical hit chance", "Makes you a loud asshole."),
                 new Skill("Pump", 10, StyleType.Physical, 10,TargetType.Self, EffectType.Pump, "It pumps... you up.", "You're good for a while. Don't let it come down."),
-                new Skill("High Volume Pump", 10, StyleType.Physical, 10,TargetType.Self, EffectType.Pump, "It pumps... you up.", "This is a status at the end of a workout. You'll be up for more than a minute; but the crash will be hard along with the DOMS."),
+                new Skill("High Volume Pump", 10, StyleType.Physical, 10,TargetType.Self, EffectType.Pump, "It pumps... you up.", "This is a status at the end of a workout. You'll be up for more than a minute; but the crash will be hard along with the DOMS.")
                         };
-            foreach (var skill in SkillSet)
+            foreach (var skill in skillSet)
             {
                 context.Skills.Add(skill);
             }
@@ -40,8 +40,7 @@ namespace OCFX.Data.DataRepo
             // Archetype/Classes
             if (!context.Archetypes.Any())
             {
-                Archetype[] classes = new Archetype[]
-                {
+                Archetype[] classes = {
                 new Archetype {SkillMod = SkillType.Basic, FitType = ClassType.Hobbyist, StrengthMod = 0, DexterityMod = 0, ConcentrationMod = 0, MotivationMod = 0, ConstitutionMod = 0, SpeedMod = 0,
                     Background = "They have no idea what they're doing and that's okay.",
                     Weakness = "None",
@@ -57,7 +56,7 @@ namespace OCFX.Data.DataRepo
                 new Archetype {SkillMod = SkillType.Basic, FitType = ClassType.Bodybuilder, StrengthMod = 3, DexterityMod = 1, MotivationMod = 2, ConcentrationMod = 1, ConstitutionMod = 2, SpeedMod = 1,
                     Background = "We're going to PUMP you UP.",
                     Weakness = "Speed",
-                    Strengths = "Stregnth and Constitution"},
+                    Strengths = "Strength and Constitution"},
                 new Archetype {SkillMod = SkillType.Basic, FitType = ClassType.Crossfit, StrengthMod = 2, DexterityMod = 1, MotivationMod = 3, ConcentrationMod = 1, ConstitutionMod = 1, SpeedMod = 1,
                     Background = "Did this person ever tell you about Crossfit? Well...",
                     Weakness = "Concentration",
@@ -89,11 +88,10 @@ namespace OCFX.Data.DataRepo
                 //Diets
                 if (!context.Diets.Any())
                 {
-                    Diet[] diets = new Diet[]
-                    {
+                    Diet[] diets = {
                         new Diet { DietName = "Mediterrean", Carbohydrates = 40, Protein = 40,  Fats = 20, DietTypeName = Diet.DietType.Maintenance},
                         new Diet { DietName = "Ketogenic", Carbohydrates = 5, Protein = 15,  Fats = 80, DietTypeName = Diet.DietType.FatLoss },
-                        new Diet { DietName = "High Protein", Carbohydrates = 35, Protein = 45,  Fats = 20, DietTypeName = Diet.DietType.MassGain},
+                        new Diet { DietName = "High Protein", Carbohydrates = 35, Protein = 45,  Fats = 20, DietTypeName = Diet.DietType.MassGain}
                     };
                     for (int i = 0; i < diets.Length; i++)
                     {
@@ -105,8 +103,7 @@ namespace OCFX.Data.DataRepo
                     // Campaigns
                     if (!context.Campaigns.Any())
                     {
-                        Campaign[] campaigns = new Campaign[]
-                        {
+                        Campaign[] campaigns = {
                             new Campaign("Tutorial",
                                          "This is just a tutorial level created to show you the ropes.",
                                          "This is how we get started; and everyone has to start from somewhere.",
@@ -128,10 +125,9 @@ namespace OCFX.Data.DataRepo
                         context.SaveChanges();
 
                         // Exercises
-                        if (!context.Exercises.Any())
+                        if (context.Exercises.Any()) return;
                         {
-                            Exercise[] exercises = new Exercise[]
-                            {
+                            Exercise[] exercises = {
                                 new Exercise
                                 {
                                     Name = "Squats",
@@ -180,19 +176,16 @@ namespace OCFX.Data.DataRepo
                                     TargetedMuscles = Workout.WorkoutType.Chest,
                                     ExerType = Exercise.ExerciseType.Strength,
                                     Description = "It's a bench press only slanted upwards, you know, to make it tougher."
-                                },
+                                }
                             };
-                            for (int i = 0; i < exercises.Length; i++)
+                            foreach (var exercise in exercises)
                             {
-                                Exercise exercise = exercises[i];
                                 context.Exercises.Add(exercise);
                             }
 
                             // Workouts
-                            if (!context.Workouts.Any())
-                            {
-                                Workout[] lessons = new Workout[]
-                                {
+                            if (context.Workouts.Any()) return;
+                            Workout[] lessons = {
                                 new Workout(
                                     "The Basics",
                                     "The first of many workouts to get someone started on their fitness journey.",
@@ -203,19 +196,18 @@ namespace OCFX.Data.DataRepo
                                     "Something a little quicker, but harder",
                                     25,
                                     Workout.WorkoutType.TotalBody)
-                                };
-                                foreach (Workout lesson in lessons)
-                                {
-                                    context.Workouts.Add(lesson);
-                                }
-                                context.SaveChanges();
-
-                                // Quests (Campaigns first)
-                                CombineQuests(context);
-
-                                // Workout Programs (Diets, Campaigns, Quests, Exercises, Workouts first)
-                                CombineNerdery(context);
+                            };
+                            foreach (Workout lesson in lessons)
+                            {
+                                context.Workouts.Add(lesson);
                             }
+                            context.SaveChanges();
+
+                            // Quests (Campaigns first)
+                            CombineQuests(context);
+
+                            // Workout Programs (Diets, Campaigns, Quests, Exercises, Workouts first)
+                            CombineNerdery(context);
                         }
                     }
                 }
@@ -226,8 +218,7 @@ namespace OCFX.Data.DataRepo
         {
             if (!context.Quests.Any())
             {
-                Quest[] quests = new Quest[]
-                {
+                Quest[] quests = {
                 new Quest{ QuestName = "Run the Grid", QuestStyle = QuestType.Speed, QuestStory = "There's someone in this area creating a ruckus. Run them down.", Campaign = context.Campaigns.Find(1)},
                 new Quest{ QuestName = "Stomp the Grid", QuestStyle = QuestType.Power, QuestStory = "Oh great, you caught them! Now let's show them what you've got.", Campaign = context.Campaigns.Find(1)}
                 };
@@ -243,8 +234,7 @@ namespace OCFX.Data.DataRepo
         {
             if (!context.WorkoutPrograms.Any())
             {
-                WorkoutProgram[] programs = new WorkoutProgram[]
-                {
+                WorkoutProgram[] programs = {
                     new WorkoutProgram{ WorkoutId = 1, ExerciseId = 1, Sets = 3, Repetitions=10 },
                     new WorkoutProgram{ WorkoutId = 1, ExerciseId = 2, Sets = 3, Repetitions=10 },
                     new WorkoutProgram{ WorkoutId = 1, ExerciseId = 3, Sets = 3, Repetitions=10 },
@@ -253,7 +243,7 @@ namespace OCFX.Data.DataRepo
                     new WorkoutProgram{ WorkoutId = 2, ExerciseId = 1, Sets = 3, Repetitions=10 },
                     new WorkoutProgram{ WorkoutId = 2, ExerciseId = 2, Sets = 3, Repetitions=10 },
                     new WorkoutProgram{ WorkoutId = 2, ExerciseId = 3, Sets = 3, Repetitions=10 },
-                    new WorkoutProgram{ WorkoutId = 2, ExerciseId = 4, Sets = 3, Repetitions=10 },
+                    new WorkoutProgram{ WorkoutId = 2, ExerciseId = 4, Sets = 3, Repetitions=10 }
                 };
                 for (int i = 0; i < programs.Length; i++)
                 {
@@ -267,70 +257,65 @@ namespace OCFX.Data.DataRepo
         private static void AddFitness(OCFXContext context)
         {
             // Gyms
-            if (!context.Gyms.Any())
+            if (context.Gyms.Any()) return;
+            Gym[] clubs = {
+                new Gym
+                {
+                    Title = "Bar-Barian Lounge",
+                    Description = "The Bar-Barian race has been long seen as the strongest \n and will never meet an equal.",
+                    Status = ApprovalStatus.Approved,
+                    MeetingDate = DayOfWeek.Saturday,
+                    MeetingTime = DateTime.Now,
+                    MeetingFrequency = Session.MeetingInterval.Weekly
+                },
+                new Gym
+                {
+                    Title = "Pilate House",
+                    Description = "It's a house where people do Pilates. What were you expecting?",
+                    Status = ApprovalStatus.Approved,
+                    MeetingDate = DayOfWeek.Saturday,
+                    MeetingTime = DateTime.Now,
+                    MeetingFrequency = Session.MeetingInterval.Weekly
+                }
+            };
+            foreach (Gym character in clubs)
             {
-                Gym[] clubs = new Gym[]
-                {
-                    new Gym
-                    {
-                        Title = "Bar-Barian Lounge",
-                        Description = "The Bar-Barian race has been long seen as the strongest \n and will never meet an equal.",
-                        Status = ApprovalStatus.Approved,
-                        MeetingDate = DayOfWeek.Saturday,
-                        MeetingTime = DateTime.Now,
-                        MeetingFrequency = Session.MeetingInterval.Weekly
-                    },
-                    new Gym
-                    {
-                        Title = "Pilate House",
-                        Description = "It's a house where people do Pilates. What were you expecting?",
-                        Status = ApprovalStatus.Approved,
-                        MeetingDate = DayOfWeek.Saturday,
-                        MeetingTime = DateTime.Now,
-                        MeetingFrequency = Session.MeetingInterval.Weekly
-                    }
-                };
-                foreach (Gym character in clubs)
-                {
-                    context.Gyms.Add(character);
-                }
-                context.SaveChanges();
+                context.Gyms.Add(character);
+            }
+            context.SaveChanges();
 
-                // Amenities
-                if (context.GymAmenities.Any())
-                {
-                    return;
-                }
-                Equipment[] equipment = new Equipment[]
-                {
+            // Amenities
+            if (context.GymAmenities.Any())
+            {
+                return;
+            }
+            Equipment[] equipment = {
                 new Equipment { EquipName = "Pool", EquipDescription = "One of those things you swim in." },
                 new Equipment { EquipName = "Sauna", EquipDescription = "To heat up and cool off at the same damn time." },
-                new Equipment { EquipName = "Crossfit", EquipDescription = "I mean, someone's gotta talk about it." },
+                new Equipment { EquipName = "Crossfit", EquipDescription = "I mean, someone's gotta talk about it." }
+            };
+            foreach (Equipment item in equipment)
+            {
+                context.GymAmenities.Add(item);
+            }
+            context.SaveChanges();
+
+            // Equipment Setup (Gym + Amenities first)
+            if (!context.RelativeGyms.Any())
+            {
+                GymRelation[] equipmentRelation = {
+                    new GymRelation { EquipmentId = 1, GymId = 1 },
+                    new GymRelation { EquipmentId = 2, GymId = 1 },
+                    new GymRelation { EquipmentId = 3, GymId = 1 },
+                    new GymRelation { EquipmentId = 1, GymId = 2 },
+                    new GymRelation { EquipmentId = 2, GymId = 2 },
+                    new GymRelation { EquipmentId = 3, GymId = 2 }
                 };
-                foreach (Equipment item in equipment)
+                foreach (GymRelation item in equipmentRelation)
                 {
-                    context.GymAmenities.Add(item);
+                    context.RelativeGyms.Add(item);
                 }
                 context.SaveChanges();
-
-                // Equipment Setup (Gym + Amenities first)
-                if (!context.RelativeGyms.Any())
-                {
-                    GymRelation[] EquipmentRelation = new GymRelation[]
-                    {
-                        new GymRelation { EquipmentId = 1, GymId = 1 },
-                        new GymRelation { EquipmentId = 2, GymId = 1 },
-                        new GymRelation { EquipmentId = 3, GymId = 1 },
-                        new GymRelation { EquipmentId = 1, GymId = 2 },
-                        new GymRelation { EquipmentId = 2, GymId = 2 },
-                        new GymRelation { EquipmentId = 3, GymId = 2 },
-                    };
-                    foreach (GymRelation item in EquipmentRelation)
-                    {
-                        context.RelativeGyms.Add(item);
-                    }
-                    context.SaveChanges();
-                }
             }
         }
 
@@ -339,8 +324,7 @@ namespace OCFX.Data.DataRepo
             // FAQs
             if (!context.FAQs.Any())
             {
-                Facts[] faqs = new Facts[]
-                {
+                Facts[] faqs = {
                     new Facts
                     {
                         Question = "What exactly is this place?",

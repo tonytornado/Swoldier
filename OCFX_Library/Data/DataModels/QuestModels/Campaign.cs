@@ -54,17 +54,17 @@ namespace OCFX.DataModels
         /// <summary>
         /// The list of associated Campaign Programs
         /// </summary>
-        public List<WorkoutProgram> CampaignPrograms { get; set; }
+        public List<WorkoutProgram> CampaignPrograms { get; set; } = new List<WorkoutProgram>();
 
         // Get the list of appropriate quests for each campaign
         /// <summary>
         /// A list of quests in the Campaign
         /// </summary>
-        public List<Quest> Quests { get; set; }
+        public List<Quest> Quests { get; set; } = new List<Quest>();
 
         // Wait, we're adding bosses now!?
         // That Boss is gonna need some MINIONS
         public BossEncounter Antagonist { get; set; }
-        public List<PersonalEncounter> Minions { get; set; }
+        public List<PersonalEncounter> Minions { get; set; } = new List<PersonalEncounter>();
     }
 }

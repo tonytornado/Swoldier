@@ -14,19 +14,19 @@ namespace OCFX.Data.Methods
         /// <summary>
         /// Gets a list of friends for a specified user
         /// </summary>
-        /// <param name="_context">DBContext used</param>
-        /// <param name="UserId">User's Profile Id</param>
+        /// <param name="context">DBContext used</param>
+        /// <param name="userId">User's Profile Id</param>
         /// <returns>List</returns>
-        public static List<FriendSheet> GetFriendList(OCFXContext _context,
-                                         int UserId )
+        public static List<FriendSheet> GetFriendList(OCFXContext context,
+                                         int userId )
         {
-            if (_context is null)
+            if (context is null)
             {
-                throw new ArgumentNullException(nameof(_context));
+                throw new ArgumentNullException(nameof(context));
             }
             // Get ALL the friends!
-            List<FriendSheet> friend = _context.Friends
-                            .Where(b => b.Follower.FitUser.ProfileId == UserId && b.FriendshipConfirmer == FriendSheet.Confirmer.Confirmed)
+            var friend = context.Friends
+                            .Where(b => b.Follower.FitUser.ProfileId == userId && b.FriendshipConfirmer == FriendSheet.Confirmer.Confirmed)
                             .Include(f => f.Follower)
                                 .ThenInclude(p => p.Photos)
                             .Include(f => f.Following)
@@ -43,18 +43,18 @@ namespace OCFX.Data.Methods
         /// <summary>
         /// Gets a list of friend requests for a specified user
         /// </summary>
-        /// <param name="_context">DBContext used</param>
-        /// <param name="UserId">User's Profile Id</param>
+        /// <param name="context">DBContext used</param>
+        /// <param name="userId">User's Profile Id</param>
         /// <returns>List</returns>
-        public static async Task<List<FriendSheet>> GetFriendRequestsAsync(OCFXContext _context, int UserId)
+        public static async Task<List<FriendSheet>> GetFriendRequestsAsync(OCFXContext context, int userId)
         {
-            if (_context is null)
+            if (context is null)
             {
-                throw new ArgumentNullException(nameof(_context));
+                throw new ArgumentNullException(nameof(context));
             }
 
-            List<FriendSheet> friendRequests = await _context.Friends
-                            .Where(c => c.ActionUserId != UserId && c.Follower.FitUser.ProfileId == UserId)
+            List<FriendSheet> friendRequests = await context.Friends
+                            .Where(c => c.ActionUserId != userId && c.Follower.FitUser.ProfileId == userId)
                             .Include(f => f.Following)
                                 .ThenInclude(p => p.Photos)
                             .ToListAsync();
@@ -64,20 +64,20 @@ namespace OCFX.Data.Methods
         /// <summary>
         /// Generates a new friend connection
         /// </summary>
-        /// <param name="_context">DB Context Association</param>
+        /// <param name="context">DB Context Association</param>
         /// <param name="pitcher">User id for the sender</param>
         /// <param name="catcher">User id for the receiver</param>
-        public static void AddFriend(OCFXContext _context, int pitcher, int catcher)
+        public static void AddFriend(OCFXContext context, int pitcher, int catcher)
         {
-            if (_context is null)
+            if (context is null)
             {
-                throw new ArgumentNullException(nameof(_context));
+                throw new ArgumentNullException(nameof(context));
             }
             // Make sure the friend request isn't already happening
-            CheckFriend(_context, pitcher, catcher);
+            CheckFriend(context, pitcher, catcher);
 
             // Process the friend request
-            FriendSheet friendRequest = new FriendSheet()
+            var friendRequest = new FriendSheet()
             {
                 ActionUserId = pitcher,
                 ProfileId = pitcher,
@@ -85,25 +85,25 @@ namespace OCFX.Data.Methods
                 FriendshipStart = DateTime.Now,
                 FriendshipConfirmer = FriendSheet.Confirmer.Pending
             };
-            _context.Friends.Add(friendRequest);
-            _context.SaveChanges();
+            context.Friends.Add(friendRequest);
+            context.SaveChanges();
         }
 
         /// <summary>
         /// Checks to see if there's already a request in the system.
         /// </summary>
-        /// <param name="_context">DB Context</param>
+        /// <param name="context">DB Context</param>
         /// <param name="pitcher"></param>
         /// <param name="catcher"></param>
-        private static void CheckFriend(OCFXContext _context, int pitcher, int catcher)
+        private static void CheckFriend(OCFXContext context, int pitcher, int catcher)
         {
-            if (_context is null)
+            if (context is null)
             {
-                throw new ArgumentNullException(nameof(_context));
+                throw new ArgumentNullException(nameof(context));
             }
 
-            var check = _context.Friends.FirstOrDefault(c => c.ProfileId == pitcher && c.FriendId == catcher);
-            if (check == (default) || check == null)
+            var check = context.Friends.FirstOrDefault(c => c.ProfileId == pitcher && c.FriendId == catcher);
+            if (check == default)
             {
                 return;
             }
@@ -113,17 +113,17 @@ namespace OCFX.Data.Methods
         /// <summary>
         /// Confirms a friend acceptance row
         /// </summary>
-        /// <param name="_context">DB Context Association</param>
+        /// <param name="context">DB Context Association</param>
         /// <param name="pitcher">User id for the sender</param>
         /// <param name="catcher">User id for the receiver</param>
-        public static void AcceptFriend(OCFXContext _context, int pitcher, int catcher)
+        public static void AcceptFriend(OCFXContext context, int pitcher, int catcher)
         {
-            if (_context is null)
+            if (context is null)
             {
-                throw new ArgumentNullException(nameof(_context));
+                throw new ArgumentNullException(nameof(context));
             }
 
-            FriendSheet requestCheck = _context.Friends.SingleOrDefault(f => f.Following.Id == catcher && f.Follower.Id == pitcher && f.ActionUserId == catcher);
+            FriendSheet requestCheck = context.Friends.SingleOrDefault(f => f.Following.Id == catcher && f.Follower.Id == pitcher && f.ActionUserId == catcher);
 
             // See if there's another user already trying to request a connection
             if (requestCheck != null)
@@ -137,59 +137,63 @@ namespace OCFX.Data.Methods
                     FriendshipConfirmer = FriendSheet.Confirmer.Confirmed
                 };
 
-                _context.Friends.Add(personalAcceptance);
-                _context.SaveChanges();
+                context.Friends.Add(personalAcceptance);
+                context.SaveChanges();
             }
 
             // Update the old request
-            requestCheck.FriendshipConfirmer = FriendSheet.Confirmer.Confirmed;
-            requestCheck.FriendshipStart = DateTime.Now;
-            _context.SaveChanges();
+            if (requestCheck != null)
+            {
+                requestCheck.FriendshipConfirmer = FriendSheet.Confirmer.Confirmed;
+                requestCheck.FriendshipStart = DateTime.Now;
+            }
+
+            context.SaveChanges();
 
         }
 
         /// <summary>
         /// Removes a friend connection from the DB
         /// </summary>
-        /// <param name="_context">DB Context Association</param>
+        /// <param name="context">DB Context Association</param>
         /// <param name="pitcher">The sender</param>
         /// <param name="catcher">The receiver</param>
-        public static void RemoveFriend(OCFXContext _context, int pitcher, int catcher)
+        public static void RemoveFriend(OCFXContext context, int pitcher, int catcher)
         {
-            if (_context is null)
+            if (context is null)
             {
-                throw new ArgumentNullException(nameof(_context));
+                throw new ArgumentNullException(nameof(context));
             }
 
-            FriendSheet query = _context.Friends.SingleOrDefault(f => f.Following.Id == pitcher && f.Follower.Id == catcher && f.ActionUserId == pitcher);
-            FriendSheet associateQuery = _context.Friends.SingleOrDefault(f => f.Following.Id == catcher && f.Follower.Id == pitcher && f.ActionUserId == catcher);
+            FriendSheet query = context.Friends.SingleOrDefault(f => f.Following.Id == pitcher && f.Follower.Id == catcher && f.ActionUserId == pitcher);
+            FriendSheet associateQuery = context.Friends.SingleOrDefault(f => f.Following.Id == catcher && f.Follower.Id == pitcher && f.ActionUserId == catcher);
 
-            _context.Friends.Remove(query);
-            _context.Friends.Remove(associateQuery);
-            _context.SaveChanges();
+            context.Friends.Remove(query ?? throw new Exception("What friend?"));
+            context.Friends.Remove(associateQuery ?? throw new Exception("Again, what friend?"));
+            context.SaveChanges();
         }
 
         /// <summary>
         /// Blocks a friend connection and banishes them to the shadow realm, unable to be friended again.
         /// </summary>
-        /// <param name="_context">DB Context Association</param>
+        /// <param name="context">DB Context Association</param>
         /// <param name="pitcher">User id for the sender</param>
         /// <param name="catcher">User id for the receiver</param>
-        public static void BlockFriend(OCFXContext _context, int pitcher, int catcher)
+        public static void BlockFriend(OCFXContext context, int pitcher, int catcher)
         {
-            if (_context is null)
+            if (context is null)
             {
-                throw new ArgumentNullException(nameof(_context));
+                throw new ArgumentNullException(nameof(context));
             }
 
-            FriendSheet query = _context.Friends.SingleOrDefault(f => f.Following.Id == pitcher && f.Follower.Id == catcher);
+            FriendSheet query = context.Friends.SingleOrDefault(f => f.Following.Id == pitcher && f.Follower.Id == catcher);
 
             if (query != null)
             {
                 query.FriendshipConfirmer = FriendSheet.Confirmer.Blocked;
                 query.FriendshipStart = DateTime.Now;
             }
-            _context.SaveChanges();
+            context.SaveChanges();
         }
     }
 }

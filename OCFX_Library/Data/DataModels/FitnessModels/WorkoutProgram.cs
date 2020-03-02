@@ -47,7 +47,6 @@ namespace OCFX.DataModels
         [Display(Name = "Order")]
         public int Order { get; set; }
 
-        [Display(Name = "Description")]
-        public string Description { get; set; }
+        [Display(Name = "Description")] private string Description { get; set; }
     }
 }

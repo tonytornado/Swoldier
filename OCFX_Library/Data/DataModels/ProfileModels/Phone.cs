@@ -21,7 +21,6 @@ namespace OCFX.DataModels
                      int phoneNumber,
                      ProfileSheet profile)
         {
-            PhoneTypeName = phoneTypeName;
             AreaCode = areaCode;
             PhoneNumber = phoneNumber;
             Profile = profile ?? throw new ArgumentNullException(nameof(profile), "An associated profile could not be found");
@@ -30,18 +29,13 @@ namespace OCFX.DataModels
         [Display(Name = "Phone")]
         public int Id { get; set; }
 
-        /// <summary>
-        /// Type of Phone Number
-        /// </summary>
-        [Display(Name = "Phone Type")]
-        public PhoneType PhoneTypeName { get; set; }
-        [Display(Name = "Area Code")]
-        public int AreaCode { get; set; }
+        [Display(Name = "Area Code")] 
+        private int AreaCode { get; set; }
         [Display(Name = "Phone Number")]
         [DataType(DataType.PhoneNumber)]
-        public int PhoneNumber { get; set; }
+        private int PhoneNumber { get; set; }
 
-        public ProfileSheet Profile { get; set; }
+        private ProfileSheet Profile { get; set; }
 
         public string FullNumber => $"({AreaCode}) {PhoneNumber}";
     }

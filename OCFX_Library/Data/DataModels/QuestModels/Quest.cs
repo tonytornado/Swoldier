@@ -37,10 +37,10 @@ namespace OCFX.DataModels
         public string QuestStory { get; set; }
 
         // Folks that are on this quest
-        public List<ProfileSheet> CurrentPlayers { get; set; }
+        public List<ProfileSheet> CurrentPlayers { get; set; } = new List<ProfileSheet>();
 
         // Encounters on this quest
-        public List<Encounter> Encounters { get; set; }
+        public List<Encounter> Encounters { get; set; } = new List<Encounter>();
 
         // It's part of the campaign, yeah?
         [ForeignKey("CampaignId")]

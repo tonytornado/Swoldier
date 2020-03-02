@@ -51,20 +51,23 @@ namespace OCFX.Pages.MadminAccess.Programs
             {
                 // Begin adding all selected exercises in order of choice
                 var programs = new List<WorkoutProgram>();
-                int Counter = 0;
+                int counter = 0;
                 foreach (var exercise in selectedExercises)
                 {
-                    Counter++;
-                    var clod = new WorkoutProgram
+                    counter++;
+                    if (exercise != null)
                     {
-                        ExerciseId = int.Parse(exercise, System.Globalization.NumberStyles.Any),
-                        WorkoutId = WorkoutProgram.WorkoutId,
-                        //CampaignId = int.Parse(CampaignList.DataValueField),
-                        Sets = WorkoutProgram.Sets,
-                        Repetitions = WorkoutProgram.Repetitions,
-                        Order = Counter
-                    };
-                    programs.Add(clod);
+                        var clod = new WorkoutProgram
+                        {
+                            ExerciseId = int.Parse(exercise, System.Globalization.NumberStyles.Any),
+                            WorkoutId = WorkoutProgram.WorkoutId,
+                            //CampaignId = int.Parse(CampaignList.DataValueField),
+                            Sets = WorkoutProgram.Sets,
+                            Repetitions = WorkoutProgram.Repetitions,
+                            Order = counter
+                        };
+                        programs.Add(clod);
+                    }
                 }
 
                 foreach (var item in programs)

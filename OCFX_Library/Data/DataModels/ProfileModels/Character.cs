@@ -81,14 +81,14 @@ namespace OCFX.DataModels
         public Archetype FitStyle { get; set; }
 
         // Link three skills
-        public ICollection<Skill> SkillList { get; set; }
+        public ICollection<Skill> SkillList { get; set; } = new List<Skill>();
 
         // Tie quests to that character
-        public ICollection<Quest> Quests { get; set; }
-        public ICollection<Campaign> Campaign { get; set; }
+        public ICollection<Quest> Quests { get; set; } = new List<Quest>();
+        public ICollection<Campaign> Campaign { get; set; } = new List<Campaign>();
 
         // Tie photos to the character
-        public ICollection<Photo> Avatars { get; set; }
+        public ICollection<Photo> Avatars { get; set; } = new List<Photo>();
 
         // Tie to profile
         [ForeignKey("ProfileId")]
@@ -113,11 +113,8 @@ namespace OCFX.DataModels
             }
             Photo p = Avatars
                 .OrderByDescending(d => d.DateAdded)
-                .FirstOrDefault(c =>
-                {
-                    return c.Type == Photo.PhotoType.Avatar
-                           && c.ProfileId == Id;
-                });
+                .FirstOrDefault(c => c.Type == Photo.PhotoType.Avatar
+                                     && c.ProfileId == Id);
             //string j = p.URL;
             return p;
         }

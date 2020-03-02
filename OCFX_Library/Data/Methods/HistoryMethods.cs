@@ -41,7 +41,7 @@ namespace OCFX.Data.Methods
                 throw new ArgumentNullException(nameof(context));
             }
 
-            var HistoryItem = new History
+            var historyItem = new History
             {
                 Date = DateTime.Now,
                 OldValue = oldValue,
@@ -49,7 +49,7 @@ namespace OCFX.Data.Methods
                 ThingType = nameof(ProfileSheet),
                 Deleted = 'Y'
             };
-            context.Histories.Add(HistoryItem);
+            context.Histories.Add(historyItem);
             context.SaveChanges();
         }
         // Method for posting on other accounts
