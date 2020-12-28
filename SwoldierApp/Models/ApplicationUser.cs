@@ -1,15 +1,15 @@
-﻿using ArcLibrary;
-using ProfileLibrary;
-using Microsoft.AspNetCore.Identity;
-using System;
+﻿using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using ArcLibrary.DataModels.SheetModels;
+using ProfileLibrary.DataModels.Profile;
+using SwoldierApp.Data;
 
 namespace SwoldierApp.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        public Profile ProfileLink { get; set; }
+        public ProfileBase ProfileLink { get; set; }
+        public OptionData OptionData { get; set; }
+        public List<Sheet> Sheets { get; set; }
     }
 }
