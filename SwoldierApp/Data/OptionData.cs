@@ -2,7 +2,7 @@
 
 namespace SwoldierApp.Data
 {
-    public abstract class OptionData
+    public class OptionData
     {
         public int Id { get; set; }
         public int ScreenSize { get; set; }

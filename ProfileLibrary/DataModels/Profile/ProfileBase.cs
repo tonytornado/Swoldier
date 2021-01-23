@@ -1,4 +1,5 @@
 ﻿using System;
+using ProfileLibrary.DataModels.Profile;
 
 namespace ProfileLibrary.DataModels.Profile
 {
@@ -8,8 +9,5 @@ namespace ProfileLibrary.DataModels.Profile
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime Dob { get; set; }
-
-        public Guid UserId { get; set; }
-        // public ApplicationUser User { get; set; }
     }
 }
