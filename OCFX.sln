@@ -13,6 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwoldierAPI", "SwoldierAPI\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FitLibrary", "FitLibrary\FitLibrary.csproj", "{BF6CDA57-174F-4960-B5BE-870485718D27}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwoldierCore", "SwoldierCore\SwoldierCore.csproj", "{A9561626-24DD-4E03-8EF4-EFA08F17A86B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{55550B6B-6170-4DF6-9895-D586E22AB6A7} = {55550B6B-6170-4DF6-9895-D586E22AB6A7}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +44,10 @@ Global
 		{BF6CDA57-174F-4960-B5BE-870485718D27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF6CDA57-174F-4960-B5BE-870485718D27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF6CDA57-174F-4960-B5BE-870485718D27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9561626-24DD-4E03-8EF4-EFA08F17A86B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9561626-24DD-4E03-8EF4-EFA08F17A86B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9561626-24DD-4E03-8EF4-EFA08F17A86B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9561626-24DD-4E03-8EF4-EFA08F17A86B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,7 +1,6 @@
 ﻿using System;
-using ProfileLibrary.DataModels.Profile;
 
-namespace ProfileLibrary.DataModels.Profile
+namespace SwoldierCore.Data.Profile
 {
     public class ProfileBase
     {

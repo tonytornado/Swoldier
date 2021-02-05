@@ -1,6 +1,6 @@
-﻿using SwoldierApp.Models;
+﻿using SwoldierCore.Models;
 
-namespace SwoldierApp.Data
+namespace SwoldierCore.Data.Profile
 {
     public class OptionData
     {
@@ -9,7 +9,7 @@ namespace SwoldierApp.Data
         public bool DarkMode { get; set; }
         public int Reminder { get; set; }
 
-        public int UserId { get; set; }
-        public ApplicationUser User { get; set; }
+        //public int UserId { get; set; }
+        //public ApplicationUser User { get; set; }
     }
 }
