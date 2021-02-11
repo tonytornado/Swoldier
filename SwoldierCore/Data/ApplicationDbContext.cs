@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SwoldierCore.Data.Profile;
 
 namespace SwoldierCore.Data
 {
@@ -17,5 +18,7 @@ namespace SwoldierCore.Data
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
         }
+        
+        public DbSet<ProfileBase> ProfileBase { get; set; }
     }
 }

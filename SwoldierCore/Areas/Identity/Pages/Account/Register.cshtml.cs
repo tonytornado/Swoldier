@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using SwoldierCore.Models;
+using SwoldierCore.Data;
 
 namespace SwoldierCore.Areas.Identity.Pages.Account
 {
@@ -24,21 +25,26 @@ namespace SwoldierCore.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly ApplicationDbContext _context;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
         }
 
         [BindProperty]
         public InputModel Input { get; set; }
+        [BindProperty]
+        public ProfileModel P { get; set; }
 
         public string ReturnUrl { get; set; }
 
@@ -63,6 +69,19 @@ namespace SwoldierCore.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
         }
 
+        public class ProfileModel
+        {
+            [Required]
+            public string First { get; set; }
+            [Required]
+            public string Last { get; set; }
+            [Required]
+            [DataType(DataType.Date)]
+            public DateTime DOB { get; set; }
+            public string City { get; set; }
+            public string State { get; set; }
+        }
+
         public async Task OnGetAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
@@ -75,8 +94,20 @@ namespace SwoldierCore.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+                ApplicationUser user = new ApplicationUser
+                {
+                    UserName = Input.Email,
+                    Email = Input.Email,
+                    Profile = new Data.Profile.ProfileBase(P.First,
+                                                           P.Last,
+                                                           P.DOB,
+                                                           P.City,
+                                                           P.State)
+                };
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
+                await _context.ProfileBase.AddAsync(user.Profile);
+                
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
