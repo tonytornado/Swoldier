@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FitLibrary.Exercise
+namespace FitLibrary.Models.Fit
 {
     /// <summary>
     /// The main workout class

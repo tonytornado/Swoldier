@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -13,32 +6,44 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-using SwoldierCore.Models;
+using SocialLibrary.Data;
+using SocialLibrary.DataModels;
+using SocialLibrary.Profile;
 using SwoldierCore.Data;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
 
 namespace SwoldierCore.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
+        private readonly UserManager<AppUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-        private readonly ApplicationDbContext _context;
+        private readonly AppDB _context;
+        private readonly SocialDB _socialContext;
 
         public RegisterModel(
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
+            UserManager<AppUser> userManager,
+            SignInManager<AppUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            ApplicationDbContext context)
+            AppDB context,
+            SocialDB socialContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
             _context = context;
+            _socialContext = socialContext;
         }
 
         [BindProperty]
@@ -94,20 +99,23 @@ namespace SwoldierCore.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                ApplicationUser user = new ApplicationUser
+                AppUser user = new AppUser
                 {
                     UserName = Input.Email,
                     Email = Input.Email,
-                    Profile = new Data.Profile.ProfileBase(P.First,
+                    Profile = new ProfileData(P.First,
                                                            P.Last,
                                                            P.DOB,
                                                            P.City,
-                                                           P.State)
+                                                           P.State),
+                    OptionSettings = new OptionData()
+
                 };
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
-                await _context.ProfileBase.AddAsync(user.Profile);
-                
+                await _socialContext.ProfileData.AddAsync(user.Profile);
+                await _socialContext.OptionsData.AddAsync(user.OptionSettings);
+
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");

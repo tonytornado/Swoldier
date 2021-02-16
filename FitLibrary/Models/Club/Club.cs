@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FitLibrary.Club
+namespace FitLibrary.Models.Community
 {
     public class Club
     {

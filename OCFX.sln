@@ -5,18 +5,13 @@ VisualStudioVersion = 16.0.28803.156
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArcLibrary", "ArcLibrary\ArcLibrary.csproj", "{8AEE6410-334D-44CB-A0DF-C46695739089}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProfileLibrary", "ProfileLibrary\ProfileLibrary.csproj", "{55550B6B-6170-4DF6-9895-D586E22AB6A7}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreLibrary", "CoreLibrary\CoreLibrary.csproj", "{5D5651BE-E991-4B48-B4F8-C07E5EF1A113}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwoldierAPI", "SwoldierAPI\SwoldierAPI.csproj", "{C61EE65D-6B12-4DB5-A32F-1B0DF1701637}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialLibrary", "ProfileLibrary\SocialLibrary.csproj", "{55550B6B-6170-4DF6-9895-D586E22AB6A7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FitLibrary", "FitLibrary\FitLibrary.csproj", "{BF6CDA57-174F-4960-B5BE-870485718D27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwoldierCore", "SwoldierCore\SwoldierCore.csproj", "{A9561626-24DD-4E03-8EF4-EFA08F17A86B}"
-	ProjectSection(ProjectDependencies) = postProject
-		{55550B6B-6170-4DF6-9895-D586E22AB6A7} = {55550B6B-6170-4DF6-9895-D586E22AB6A7}
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwoldierCore", "SwoldierCore\SwoldierCore.csproj", "{A9561626-24DD-4E03-8EF4-EFA08F17A86B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwoldierTest", "SwoldierTest\SwoldierTest.csproj", "{182DD4E2-26B8-40B8-960A-0EADCE959BF8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,14 +27,6 @@ Global
 		{55550B6B-6170-4DF6-9895-D586E22AB6A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55550B6B-6170-4DF6-9895-D586E22AB6A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55550B6B-6170-4DF6-9895-D586E22AB6A7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5D5651BE-E991-4B48-B4F8-C07E5EF1A113}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5D5651BE-E991-4B48-B4F8-C07E5EF1A113}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5D5651BE-E991-4B48-B4F8-C07E5EF1A113}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5D5651BE-E991-4B48-B4F8-C07E5EF1A113}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C61EE65D-6B12-4DB5-A32F-1B0DF1701637}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C61EE65D-6B12-4DB5-A32F-1B0DF1701637}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C61EE65D-6B12-4DB5-A32F-1B0DF1701637}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C61EE65D-6B12-4DB5-A32F-1B0DF1701637}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BF6CDA57-174F-4960-B5BE-870485718D27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BF6CDA57-174F-4960-B5BE-870485718D27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF6CDA57-174F-4960-B5BE-870485718D27}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -48,6 +35,10 @@ Global
 		{A9561626-24DD-4E03-8EF4-EFA08F17A86B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9561626-24DD-4E03-8EF4-EFA08F17A86B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9561626-24DD-4E03-8EF4-EFA08F17A86B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{182DD4E2-26B8-40B8-960A-0EADCE959BF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{182DD4E2-26B8-40B8-960A-0EADCE959BF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{182DD4E2-26B8-40B8-960A-0EADCE959BF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{182DD4E2-26B8-40B8-960A-0EADCE959BF8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

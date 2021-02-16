@@ -3,7 +3,7 @@ import { Component } from 'react';
 import authService from './AuthorizeService';
 import { AuthenticationResultStatus } from './AuthorizeService';
 import { LoginActions, QueryParameterNames, ApplicationPaths } from './ApiAuthorizationConstants';
-import { LargeLoader } from '../modules/Loader';
+import { LargeLoader, LoginLoader } from '../modules/Loader';
 
 // The main responsibility of this component is to handle the user's login process.
 // This is the starting point for the login process. Any component that needs to authenticate
@@ -52,7 +52,7 @@ export class Login extends Component {
         } else {
             switch (action) {
                 case LoginActions.Login:
-                    return (<div><LargeLoader /><br/> Processing login</div>);
+                    return (<div><LoginLoader /></div>);
                 case LoginActions.LoginCallback:
                     return (<div><LargeLoader /> <br/> Processing login callback</div>);
                 case LoginActions.Profile:

@@ -1,16 +1,16 @@
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SocialLibrary.DataModels;
 using SwoldierCore.Data;
-using SwoldierCore.Models;
+using FitLibrary.Data;
+using ArcLibrary.Data;
+using SocialLibrary.Data;
 
 namespace SwoldierCore
 {
@@ -26,17 +26,17 @@ namespace SwoldierCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<AppDB>(options =>
                 options.UseInMemoryDatabase("Shard"));
                 //.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<AppDB>();
 
             services.AddIdentityServer()
-                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+                .AddApiAuthorization<AppUser, AppDB>();
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
@@ -49,6 +49,15 @@ namespace SwoldierCore
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            services.AddDbContext<FitDB>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("FitnessDB")));
+
+            services.AddDbContext<ArcDB>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("ArcDB")));
+
+            services.AddDbContext<SocialDB>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("SocialDB")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

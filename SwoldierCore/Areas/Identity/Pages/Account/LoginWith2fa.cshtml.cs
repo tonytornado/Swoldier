@@ -1,24 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using SwoldierCore.Models;
+using SocialLibrary.DataModels;
 
 namespace SwoldierCore.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class LoginWith2faModel : PageModel
     {
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly SignInManager<AppUser> _signInManager;
         private readonly ILogger<LoginWith2faModel> _logger;
 
-        public LoginWith2faModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginWith2faModel> logger)
+        public LoginWith2faModel(SignInManager<AppUser> signInManager, ILogger<LoginWith2faModel> logger)
         {
             _signInManager = signInManager;
             _logger = logger;
@@ -66,7 +64,7 @@ namespace SwoldierCore.Areas.Identity.Pages.Account
                 return Page();
             }
 
-            returnUrl = returnUrl ?? Url.Content("~/");
+            returnUrl ??= Url.Content("~/");
 
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)

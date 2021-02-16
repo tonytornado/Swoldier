@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FitLibrary.Exercise
+namespace FitLibrary.Models.Fit
 {
     /// <summary>
     /// The main muscle group class.

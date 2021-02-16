@@ -1,7 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Linq;
@@ -10,20 +7,20 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using SwoldierCore.Models;
+using SocialLibrary.DataModels;
 
 namespace SwoldierCore.Areas.Identity.Pages.Account.Manage
 {
     public class EnableAuthenticatorModel : PageModel
     {
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly UserManager<AppUser> _userManager;
         private readonly ILogger<EnableAuthenticatorModel> _logger;
         private readonly UrlEncoder _urlEncoder;
 
         private const string AuthenticatorUriFormat = "otpauth://totp/{0}:{1}?secret={2}&issuer={0}&digits=6";
 
         public EnableAuthenticatorModel(
-            UserManager<ApplicationUser> userManager,
+            UserManager<AppUser> userManager,
             ILogger<EnableAuthenticatorModel> logger,
             UrlEncoder urlEncoder)
         {
@@ -112,7 +109,7 @@ namespace SwoldierCore.Areas.Identity.Pages.Account.Manage
             }
         }
 
-        private async Task LoadSharedKeyAndQrCodeUriAsync(ApplicationUser user)
+        private async Task LoadSharedKeyAndQrCodeUriAsync(AppUser user)
         {
             // Load the authenticator key & QR code URI to display on the form
             var unformattedKey = await _userManager.GetAuthenticatorKeyAsync(user);
@@ -128,13 +125,13 @@ namespace SwoldierCore.Areas.Identity.Pages.Account.Manage
             AuthenticatorUri = GenerateQrCodeUri(email, unformattedKey);
         }
 
-        private string FormatKey(string unformattedKey)
+        private static string FormatKey(string unformattedKey)
         {
             var result = new StringBuilder();
             int currentPosition = 0;
             while (currentPosition + 4 < unformattedKey.Length)
             {
-                result.Append(unformattedKey.Substring(currentPosition, 4)).Append(" ");
+                result.Append(unformattedKey.Substring(currentPosition, 4)).Append(' ');
                 currentPosition += 4;
             }
             if (currentPosition < unformattedKey.Length)

@@ -1,4 +1,4 @@
-﻿namespace FitLibrary.Exercise
+﻿namespace FitLibrary.Models.Fit
 {
 
     /// <summary>

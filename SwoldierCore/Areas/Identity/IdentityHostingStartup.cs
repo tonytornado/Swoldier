@@ -1,12 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using SwoldierCore.Data;
-using SwoldierCore.Models;
+﻿using Microsoft.AspNetCore.Hosting;
 
 [assembly: HostingStartup(typeof(SwoldierCore.Areas.Identity.IdentityHostingStartup))]
 namespace SwoldierCore.Areas.Identity
