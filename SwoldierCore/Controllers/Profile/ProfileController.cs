@@ -1,14 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SocialLibrary;
 using SocialLibrary.Data;
 using SocialLibrary.DataModels;
+using SocialLibrary.Models.Profile;
 using SocialLibrary.Profile;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SwoldierCore.Controllers
 {
@@ -83,6 +84,28 @@ namespace SwoldierCore.Controllers
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetProfileBase", new { id = profileBase.Id }, profileBase);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult PostPhoto([FromForm] Photo file)
+        {
+            try
+            {
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/profiles/images/", file.FileName);
+                using (Stream stream = new FileStream(path, FileMode.Create))
+                {
+                    file.FormFile.CopyTo(stream);
+                }
+
+                _context.Photos.Add(file);
+
+                return StatusCode(200);
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(500);
+            }
         }
 
         // DELETE: api/Profile/5

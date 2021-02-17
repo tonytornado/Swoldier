@@ -10,7 +10,6 @@ namespace FitLibrary.Models
     {
         public int JournalId { get; set; }
         public List<WorkoutLog> Workouts { get; set; }
-
     }
 
     public class WorkoutLog

@@ -1,13 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
+
 using SocialLibrary.DataModels.Mail;
 using SocialLibrary.Feed;
+using SocialLibrary.Models.Profile;
 using SocialLibrary.Profile;
 
 namespace SocialLibrary.Data
 {
     public class SocialDB : DbContext
     {
-        public SocialDB (DbContextOptions<SocialDB> options)
+        public SocialDB(DbContextOptions<SocialDB> options)
             : base(options)
         {
         }
@@ -17,6 +19,6 @@ namespace SocialLibrary.Data
 
         public DbSet<ProfileData> ProfileData { get; set; }
         public DbSet<OptionData> OptionsData { get; set; }
-        
+        public DbSet<Photo> Photos { get; set; }
     }
 }
