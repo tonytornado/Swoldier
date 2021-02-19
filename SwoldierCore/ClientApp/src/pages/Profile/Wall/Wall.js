@@ -1,4 +1,5 @@
 import React from 'react';
+import { Post } from './Post';
 
 export function Wall(props) {
   var posts = props.posts;
@@ -11,9 +12,7 @@ export function Wall(props) {
     </div>;
   } else {
     marx = posts.map(c => (
-      <div key={c.postId} className="rounded border p-3 m-3">
-        <p>{c.postText}</p>
-      </div>
+      <Post post={c} />
     ));
   }
 

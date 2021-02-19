@@ -1,4 +1,5 @@
 ﻿using SocialLibrary.Profile;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -19,6 +20,7 @@ namespace ArcLibrary.DataModels.CharacterModels
         public int MaxO2 { get; set; }
         public int Level { get; set; }
         public int Exp { get; set; }
+        public int HP { get; set; }
 
         // Aspects
         public int Str { get; set; }
@@ -40,5 +42,77 @@ namespace ArcLibrary.DataModels.CharacterModels
         public int AssociatedProfileId { get; set; }
         [ForeignKey("AssociatedProfileId")]
         public ProfileData AssociatedProfile { get; set; }
+
+        // ATK and DEF values
+        private int DefenseValue => SetDefenseValue(Con);
+        private int AttackValue => SetAttackValue(Str, Dex);
+        private int ArmorValue => SetArmorValue(Equipment);
+
+        private static int SetArmorValue(List<Accessory> equipment)
+        {
+            int armor = 0;
+            foreach (Accessory item in equipment)
+            {
+                armor += item.ConMod;
+            }
+            return armor;
+        }
+
+        private static int SetDefenseValue(int con)
+        {
+            var BaseDefense = con / 2;
+            return BaseDefense;
+        }
+
+        private static int SetAttackValue(int str, int dex)
+        {
+            var BaseAttack = str / 2 + (dex / 3);
+            return BaseAttack;
+        }
+
+        public string Attack(int RollValue, Sheet target)
+        {
+            var rand = new Random();
+            var hit = rand.Next((AttackValue/3), AttackValue);
+
+            if(RollValue != 0)
+            {
+                hit *= RollValue / 18;
+            } else if(RollValue == 20)
+            {
+                hit *= 2;
+            } else if(RollValue == 0)
+            {
+                hit = 1;
+            }
+
+            // Calculate attack vs target defense
+            hit -= (target.DefenseValue + target.ArmorValue);
+            target.HP -= hit;
+            return $"{Name} attacked {target.Name} and dealt {hit} damage!";
+        }
+
+        public string Deflect(int RollValue, Sheet target)
+        {
+            var rand = new Random();
+            var block = rand.Next((DefenseValue / 3), DefenseValue);
+
+            if (RollValue != 0)
+            {
+                block *= RollValue / 18;
+            }
+            else if (RollValue == 20)
+            {
+                block *= 2;
+            }
+            else if (RollValue == 0)
+            {
+                block = 1;
+            }
+
+            block -= (target.AttackValue - ArmorValue);
+            target.HP += block;
+            return $"{Name} blocked {target.Name} and mitigated {block} damage!";
+        }
     }
 }

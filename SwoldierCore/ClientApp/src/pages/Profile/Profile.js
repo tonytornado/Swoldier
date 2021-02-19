@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import authService from '../../components/api-authorization/AuthorizeService';
-import { Wall } from './Wall';
+import { Wall } from './Wall/Wall';
 import { Loader } from '../../components/modules/Loader';
 import '../../css/squares.css';
 
@@ -12,7 +12,8 @@ export default class Profile extends Component {
 
     this.state = {
       loaded: false,
-      profile: []
+      profile: [],
+      wall: []
     };
   }
 
@@ -33,6 +34,21 @@ export default class Profile extends Component {
       this.setState({
         loaded: true,
         profile: data
+      })
+    }
+  }
+
+  async getWall(wallId) {
+    const token = await authService.getAccessToken();
+    if (user !== null || user !== undefined) {
+      const response = await fetch(`api/Profile/userway?username=${user.name}`, {
+        headers: !token ? {} : {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      const data = await response.json();
+      this.setState({
+        wall: data
       })
     }
   }
@@ -78,10 +94,18 @@ export default class Profile extends Component {
         <section id="Social" className="row">
           {/* <Social /> */}
           {/* <Photoset photos={photoset} /> */}
-          <Wall posts={wall} />
+          {renderWall(this.state.wall)}
         </section>
       </main>
     );
+  }
+
+  renderWall(wall){
+    if(wall.Length > 0){
+      return <div>No Wall Data Available</div>
+    }
+
+    return <Wall posts={wall} />
   }
 
   GetProfilePhoto(pa) {
