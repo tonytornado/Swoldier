@@ -46,6 +46,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ArcLibrary\ArcLibrary.csproj" />
+    <ProjectReference Include="..\CoreLibrary\CoreLibrary.csproj" />
     <ProjectReference Include="..\FitLibrary\FitLibrary.csproj" />
     <ProjectReference Include="..\ProfileLibrary\SocialLibrary.csproj" />
   </ItemGroup>

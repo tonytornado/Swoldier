@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using ArcLibrary.Data;
+using FitLibrary.Data;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
@@ -6,11 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SocialLibrary.Data;
 using SocialLibrary.DataModels;
 using SwoldierCore.Data;
-using FitLibrary.Data;
-using ArcLibrary.Data;
-using SocialLibrary.Data;
 
 namespace SwoldierCore
 {
@@ -27,8 +27,26 @@ namespace SwoldierCore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDB>(options =>
-                options.UseInMemoryDatabase("Shard"));
-                //.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                    //options.UseInMemoryDatabase("Shard"));
+                    options.UseSqlServer(Configuration.GetConnectionString("CoreDB")));
+
+            services.AddDbContext<FitDB>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("FitnessDB")));
+
+            services.AddDbContext<ArcDB>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("ArcDB")));
+
+            services.AddDbContext<SocialDB>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("SocialDB")));
+
+            //services.AddDbContext<FitDB>(options =>
+            //    options.UseInMemoryDatabase("Shard"));
+            //services.AddDbContext<ArcDB>(options =>
+            //    options.UseInMemoryDatabase("Shard"));
+            //services.AddDbContext<SocialDB>(options =>
+            //    options.UseInMemoryDatabase("Shard"));
+            //services.AddDbContext<CoreDB>(options =>
+            //    options.UseInMemoryDatabase("Shard"));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -49,15 +67,6 @@ namespace SwoldierCore
             {
                 configuration.RootPath = "ClientApp/build";
             });
-
-            services.AddDbContext<FitDB>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("FitnessDB")));
-
-            services.AddDbContext<ArcDB>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("ArcDB")));
-
-            services.AddDbContext<SocialDB>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("SocialDB")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CoreLibrary\CoreLibrary.csproj" />
     <ProjectReference Include="..\ProfileLibrary\SocialLibrary.csproj" />
   </ItemGroup>
 
