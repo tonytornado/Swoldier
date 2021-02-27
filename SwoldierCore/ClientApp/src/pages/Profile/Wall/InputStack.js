@@ -9,18 +9,18 @@ export function InputStack(props) {
 
     const processEntry = (type) => {
         var token = authService.getAccessToken;
-        await fetch(`api/Wall/${type}/`, {
+        fetch(`api/Wall/${type}/`, {
             headers: !token ? {} : {
                 'Authorization': `Bearer ${token}`
             },
             method: "POST",
-            body: $(`#inputStack${modifier}`).serialize()
+            body: $(`#inputStack_${modifier}`).serialize()
         });
     };
 
     return (
         <>
-            <form id={`inputStack${modifier}`}>
+            <form id={`inputStack_${modifier}`}>
                 <textarea
                     id="markdown-content"
                     name="entryText"

@@ -28,23 +28,24 @@ namespace SwoldierCore
         {
             services.AddDbContext<AppDB>(options =>
                     //options.UseInMemoryDatabase("Shard"));
-                    options.UseSqlServer(Configuration.GetConnectionString("CoreDB")));
-
-            services.AddDbContext<FitDB>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("FitnessDB")));
-
-            services.AddDbContext<ArcDB>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("ArcDB")));
-
-            services.AddDbContext<SocialDB>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("SocialDB")));
+                    //options.UseSqlServer(Configuration.GetConnectionString("CoreDB")));
+                    options.UseSqlite(Configuration.GetConnectionString("TempDB")));
 
             //services.AddDbContext<FitDB>(options =>
-            //    options.UseInMemoryDatabase("Shard"));
+            //        options.UseSqlServer(Configuration.GetConnectionString("FitnessDB")));
+
             //services.AddDbContext<ArcDB>(options =>
-            //    options.UseInMemoryDatabase("Shard"));
+            //        options.UseSqlServer(Configuration.GetConnectionString("ArcDB")));
+
             //services.AddDbContext<SocialDB>(options =>
-            //    options.UseInMemoryDatabase("Shard"));
+            //        options.UseSqlServer(Configuration.GetConnectionString("SocialDB")));
+
+            services.AddDbContext<FitDB>(options =>
+                options.UseInMemoryDatabase("Shard"));
+            services.AddDbContext<ArcDB>(options =>
+                options.UseInMemoryDatabase("Shard"));
+            services.AddDbContext<SocialDB>(options =>
+                options.UseInMemoryDatabase("Shard"));
             //services.AddDbContext<CoreDB>(options =>
             //    options.UseInMemoryDatabase("Shard"));
 
