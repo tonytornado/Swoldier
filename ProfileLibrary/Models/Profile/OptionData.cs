@@ -33,6 +33,7 @@ namespace SocialLibrary.Profile
         public bool DarkMode { get; set; }
         public int Reminder { get; set; }
 
+        [JsonIgnore]
         public string UserId { get; set; }
         [JsonIgnore]
         [ForeignKey("UserId")]

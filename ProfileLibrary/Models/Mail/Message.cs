@@ -41,6 +41,8 @@ namespace SocialLibrary.DataModels.Mail
         public ProfileData Receiver { get; set; }
         public DateTime MessageDate { get; set; }
         public string MessageExcerpt => GetMessageExcerpt(MessageText);
+        public int Archived { get; set; }
+        public int Deleted { get; set; }
         // public IFormFile Attachment { get; set; }
 
         /// <summary>

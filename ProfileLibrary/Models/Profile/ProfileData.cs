@@ -1,4 +1,5 @@
 ﻿using SocialLibrary.DataModels;
+using SocialLibrary.DataModels.Mail;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -48,6 +49,11 @@ namespace SocialLibrary.Profile
         public string UserId { get; set; }
         [JsonIgnore]
         public AppUser User { get; set; }
+
+        public Guid MailboxId { get; set; }
+        [JsonIgnore]
+        [ForeignKey("MailboxId")]
+        public Mailbox Mail { get; set; }
 
         /// <summary>
         /// Deletes the profile while keeping data up.

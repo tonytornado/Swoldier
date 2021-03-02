@@ -48,6 +48,11 @@ namespace ArcLibrary.DataModels.CharacterModels
         private int AttackValue => SetAttackValue(Str, Dex);
         private int ArmorValue => SetArmorValue(Equipment);
 
+        /// <summary>
+        /// Set armor for a character
+        /// </summary>
+        /// <param name="equipment"></param>
+        /// <returns></returns>
         private static int SetArmorValue(List<Accessory> equipment)
         {
             int armor = 0;
@@ -57,19 +62,33 @@ namespace ArcLibrary.DataModels.CharacterModels
             }
             return armor;
         }
-
+        /// <summary>
+        /// Determines Defense Values
+        /// </summary>
+        /// <param name="con"></param>
+        /// <returns></returns>
         private static int SetDefenseValue(int con)
         {
             var BaseDefense = con / 2;
             return BaseDefense;
         }
-
+        /// <summary>
+        /// Determines Attack Values
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="dex"></param>
+        /// <returns></returns>
         private static int SetAttackValue(int str, int dex)
         {
             var BaseAttack = str / 2 + (dex / 3);
             return BaseAttack;
         }
-
+        /// <summary>
+        /// Determines total attack from a roll
+        /// </summary>
+        /// <param name="RollValue"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
         public string Attack(int RollValue, Sheet target)
         {
             var rand = new Random();
@@ -91,7 +110,12 @@ namespace ArcLibrary.DataModels.CharacterModels
             target.HP -= hit;
             return $"{Name} attacked {target.Name} and dealt {hit} damage!";
         }
-
+        /// <summary>
+        /// Determines total deflected damage from a roll
+        /// </summary>
+        /// <param name="RollValue"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
         public string Deflect(int RollValue, Sheet target)
         {
             var rand = new Random();
