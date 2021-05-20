@@ -1,4 +1,5 @@
 import React from 'react';
+import {Remarkable} from 'remarkable';
 
 export default function MarkdownContainer(props) {
     const md = new Remarkable();

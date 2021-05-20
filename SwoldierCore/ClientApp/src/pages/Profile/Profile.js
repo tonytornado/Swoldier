@@ -55,16 +55,16 @@ export default class Profile extends Component {
 
   render() {
     const pa = this.state.profile;
-    const wall = [
-      { "postId": 1, "postText": "Where are we?" },
-      { "postId": 2, "postText": "Where are we?" }
-    ];
-    const photoset = [
-      { "src": "https://via.placeholder.com/300" },
-      { "src": "https://via.placeholder.com/300" }
-    ];
+    // let wall = [
+    //   { "postId": 1, "postText": "Where are we?" },
+    //   { "postId": 2, "postText": "Where are we?" }
+    // ];
+    // let photoset = [
+    //   { "src": "https://via.placeholder.com/300" },
+    //   { "src": "https://via.placeholder.com/300" }
+    // ];
 
-    if (this.state.loaded !== true && user) {
+    if (this.state.loaded !== true) {
       return <Loader />
     }
 
@@ -74,7 +74,7 @@ export default class Profile extends Component {
           {/* {this.GetProfilePhoto(pa)} */}
 
           <div id="NameLoc" className="col-md">
-            <img src="https://via.placeholder.com/300" width="300px" height="300px" className="rounded mx-auto d-block" />
+            <img src="https://via.placeholder.com/300" width="300px" height="300px" className="rounded mx-auto d-block" alt="Dope" />
             <div className="text-center">
               <h2>{pa.fullName}</h2>
               <h4>{pa.location}</h4>
