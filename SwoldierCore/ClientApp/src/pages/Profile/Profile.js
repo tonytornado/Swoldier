@@ -38,20 +38,20 @@ export default class Profile extends Component {
     }
   }
 
-  async getWall(wallId) {
-    const token = await authService.getAccessToken();
-    if (user !== null || user !== undefined) {
-      const response = await fetch(`api/Profile/userway?username=${user.name}`, {
-        headers: !token ? {} : {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      const data = await response.json();
-      this.setState({
-        wall: data
-      })
-    }
-  }
+  // async getWall(wallId) {
+  //   const token = await authService.getAccessToken();
+  //   if (user) {
+  //     const response = await fetch(`api/Profile/userway?username=${user.name}`, {
+  //       headers: !token ? {} : {
+  //         'Authorization': `Bearer ${token}`
+  //       }
+  //     });
+  //     const data = await response.json();
+  //     this.setState({
+  //       wall: data
+  //     })
+  //   }
+  // }
 
   render() {
     const pa = this.state.profile;
@@ -64,7 +64,7 @@ export default class Profile extends Component {
       { "src": "https://via.placeholder.com/300" }
     ];
 
-    if (this.state.loaded !== true) {
+    if (this.state.loaded !== true && user) {
       return <Loader />
     }
 
@@ -94,7 +94,7 @@ export default class Profile extends Component {
         <section id="Social" className="row">
           {/* <Social /> */}
           {/* <Photoset photos={photoset} /> */}
-          {renderWall(this.state.wall)}
+          {/* {renderWall(this.state.wall)} */}
         </section>
       </main>
     );

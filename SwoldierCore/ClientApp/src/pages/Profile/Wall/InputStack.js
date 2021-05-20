@@ -7,20 +7,20 @@ export function InputStack(props) {
 
     const modifier = Math.random();
 
-    const processEntry = (type) => {
+    function processEntry(type){
         var token = authService.getAccessToken;
         fetch(`api/Wall/${type}/`, {
             headers: !token ? {} : {
                 'Authorization': `Bearer ${token}`
             },
             method: "POST",
-            body: $(`#inputStack_${modifier}`).serialize()
+            // body: $('#inputStack_'+modifier).serialize()
         });
     };
 
     return (
         <>
-            <form id={`inputStack_${modifier}`}>
+            <form id={'inputStack_'+modifier}>
                 <textarea
                     id="markdown-content"
                     name="entryText"

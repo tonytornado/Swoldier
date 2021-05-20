@@ -13,7 +13,7 @@ export function Post(props) {
     const [post, setPost] = useState(props.post);
     const [comment, setComment] = useState(post.comments);
 
-    if (entry) {
+    if (post !== undefined) {
         return (
             <article key={post.postId}>
                 <section>
