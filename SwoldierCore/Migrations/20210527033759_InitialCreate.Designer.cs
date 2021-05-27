@@ -9,8 +9,8 @@ using SwoldierCore.Data;
 namespace SwoldierCore.Migrations
 {
     [DbContext(typeof(AppDB))]
-    [Migration("20210227080715_Initial")]
-    partial class Initial
+    [Migration("20210527033759_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

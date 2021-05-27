@@ -50,10 +50,11 @@ namespace SocialLibrary.Profile
         [JsonIgnore]
         public AppUser User { get; set; }
 
-        public Guid MailboxId { get; set; }
-        [JsonIgnore]
-        [ForeignKey("MailboxId")]
-        public Mailbox Mail { get; set; }
+        // TODO: Create Mailbox
+        // public Guid MailboxId { get; set; }
+        // [JsonIgnore]
+        // [ForeignKey("MailboxId")]
+        // public Mailbox Mail { get; set; }
 
         /// <summary>
         /// Deletes the profile while keeping data up.

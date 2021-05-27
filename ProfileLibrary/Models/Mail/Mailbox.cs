@@ -8,8 +8,13 @@ namespace SocialLibrary.DataModels.Mail
     {
         public Mailbox()
         {
+        }
+
+        public Mailbox(List<Message> messages, List<Message> unreadMessages)
+        {
             MailboxId = new Guid();
-            Messages = new List<Message>();
+            Messages = messages ?? new List<Message>();
+            UnreadMessages = unreadMessages ?? new List<Message>();
             Deleted = 0;
         }
 

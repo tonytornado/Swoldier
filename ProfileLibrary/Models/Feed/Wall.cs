@@ -15,7 +15,7 @@ namespace SocialLibrary.Feed
 
         public int ProfileId { get; set; }
         [JsonIgnore]
-        [ForeignKey("ProfileId")]
+        // [ForeignKey("ProfileId")]
         public ProfileData Profile { get; set; }
     }
 }

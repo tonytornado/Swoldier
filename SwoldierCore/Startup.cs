@@ -27,9 +27,9 @@ namespace SwoldierCore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDB>(options =>
-                    //options.UseInMemoryDatabase("Shard"));
-                    //options.UseSqlServer(Configuration.GetConnectionString("CoreDB")));
-                    options.UseSqlite(Configuration.GetConnectionString("TempDB")));
+                    options.UseInMemoryDatabase("Shard"));
+            // options.UseSqlServer(Configuration.GetConnectionString("CoreDB")));
+            // options.UseSqlite(Configuration.GetConnectionString("TempDB")));
 
             //services.AddDbContext<FitDB>(options =>
             //        options.UseSqlServer(Configuration.GetConnectionString("FitnessDB")));
@@ -38,8 +38,9 @@ namespace SwoldierCore
             //        options.UseSqlServer(Configuration.GetConnectionString("ArcDB")));
 
             services.AddDbContext<SocialDB>(options =>
+                    options.UseInMemoryDatabase("Shard"));
             //        options.UseSqlServer(Configuration.GetConnectionString("SocialDB")));
-            options.UseSqlite(Configuration.GetConnectionString("TempDB")));
+            //        options.UseSqlite(Configuration.GetConnectionString("TempDB")));
 
             services.AddDbContext<FitDB>(options =>
                 options.UseInMemoryDatabase("Shard"));
