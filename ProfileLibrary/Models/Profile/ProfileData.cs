@@ -16,22 +16,21 @@ namespace SocialLibrary.Profile
         {
 
         }
-        /// <summary>
-        /// Creation class
-        /// </summary>
-        /// <param name="firstName">First Name</param>
-        /// <param name="lastName">Last Name</param>
-        /// <param name="dob">Date of Birth</param>
-        /// <param name="city">The City</param>
-        /// <param name="state">The State</param>
-        public ProfileData(string firstName, string lastName, DateTime dob, string city = null, string state = null)
+
+        public ProfileData(string firstName,
+                           string lastName,
+                           DateTime dob,
+                           string bio,
+                           string city,
+                           string state)
         {
-            FirstName = firstName ?? throw new ArgumentNullException(nameof(firstName));
-            LastName = lastName ?? throw new ArgumentNullException(nameof(lastName));
+            FirstName = firstName;
+            LastName = lastName;
             Dob = dob;
-            Deleted = false;
+            Bio = bio;
             City = city;
             State = state;
+            Deleted = false;
         }
 
         [Key]
@@ -45,9 +44,9 @@ namespace SocialLibrary.Profile
         public bool Deleted { get; private set; }
 
         [JsonIgnore]
-        [ForeignKey("UserId")]
         public string UserId { get; set; }
         [JsonIgnore]
+        [ForeignKey("UserId")]
         public AppUser User { get; set; }
 
         // TODO: Create Mailbox

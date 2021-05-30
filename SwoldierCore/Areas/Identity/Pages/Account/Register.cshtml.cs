@@ -103,14 +103,13 @@ namespace SwoldierCore.Areas.Identity.Pages.Account
                 {
                     UserName = Input.Email,
                     Email = Input.Email,
-                    Profile = new ProfileData(P.First,
-                                              P.Last,
-                                              P.DOB,
-                                              P.City,
-                                              P.State),
+                    Profile = new ProfileData(
+                        P.First,P.Last,P.DOB,"",P.City,P.State
+                    ),
                     OptionSettings = new OptionData()
                 };
                 user.Profile.User = user;
+                user.OptionSettings.User = user;
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 await _socialContext.ProfileData.AddAsync(user.Profile);

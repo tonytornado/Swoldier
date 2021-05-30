@@ -2,6 +2,7 @@
 
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SocialLibrary.Models.Profile
 {
@@ -10,7 +11,8 @@ namespace SocialLibrary.Models.Profile
         [Key]
         public int PhotoId { get; set; }
         public Guid PhotoIdentificationString { get; set; }
-        // public IFormFile FormFile { get; set; }
+        [NotMapped]
+        public IFormFile FormFile { get; set; }
         public DateTime CreatedDate { get; set; }
         public string FileName { get; set; }
         public string Description { get; set; }

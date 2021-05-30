@@ -8,23 +8,16 @@ namespace SocialLibrary.Profile
 {
     public class OptionData
     {
-        public OptionData()
-        {
-
-        }
-
         /// <summary>
         /// Creates base data for a new user.
         /// </summary>
         /// <param name="userId">User Id</param>
         /// <param name="user">User Data</param>
-        public OptionData(string userId, AppUser user)
+        public OptionData()
         {
             ScreenSize = 1;
             DarkMode = false;
             Reminder = 0;
-            UserId = userId;
-            User = user ?? throw new ArgumentNullException(nameof(user));
         }
 
         [Key]
